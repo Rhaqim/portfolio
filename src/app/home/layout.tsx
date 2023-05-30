@@ -1,14 +1,8 @@
-import './globals.css';
+import React from 'react';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata = {
-  title: 'Rhaqim',
-  description: 'Rhaqim\'s Portfolio Website',
-};
-
-export default function RootLayout({
+export default function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
