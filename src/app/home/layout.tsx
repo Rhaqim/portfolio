@@ -1,15 +1,18 @@
 import React from 'react';
-import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
 export default function HomeLayout({
-  children,
+  children, // will be a page or nested layout
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <section>
+      {/* Include shared UI here e.g. a header or sidebar */}
+      <h1>The Header</h1>
+      <nav></nav>
+
+      {children}
+      <h1>The Footer</h1>
+    </section>
   );
 }

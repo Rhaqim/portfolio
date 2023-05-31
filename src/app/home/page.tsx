@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import SlidingSections from '../../../components/SlidingSections';
+import SlidingSections from '../../components/SlidingSections';
 
 const page = () => {
   return (
