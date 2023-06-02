@@ -8,11 +8,9 @@ export default function HomeLayout({
   return (
     <section>
       {/* Include shared UI here e.g. a header or sidebar */}
-      <h1>The Header</h1>
       <nav></nav>
 
       {children}
-      <h1>The Footer</h1>
     </section>
   );
 }
