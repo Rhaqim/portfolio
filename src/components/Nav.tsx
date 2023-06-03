@@ -8,7 +8,12 @@ type NavProps = {
 
 const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
   return (
-    <motion.nav className="flex justify-between items-center p-8">
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="flex justify-between items-center p-8"
+    >
       {navLinks.map((link) => (
         <a
           key={link.href}
