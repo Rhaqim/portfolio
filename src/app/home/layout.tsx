@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { AnimatePresence } from 'framer-motion';
 
 export default function HomeLayout({
   children, // will be a page or nested layout
@@ -10,7 +13,7 @@ export default function HomeLayout({
       {/* Include shared UI here e.g. a header or sidebar */}
       <nav></nav>
 
-      {children}
+      <AnimatePresence>{children}</AnimatePresence>
     </section>
   );
 }

@@ -3,13 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { AnimatePresence } from 'framer-motion';
+
 
 // ...
 
 const sectionsData = [
   {
-    id: 1,
+    id: 'hhgffrew123',
     bgColor: 'bg-green-500',
     image:
       'https://images.unsplash.com/photo-1680035116082-c7cd5e96fdb9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
@@ -18,7 +18,7 @@ const sectionsData = [
     content: '1st',
   },
   {
-    id: 2,
+    id: 'lkkjnh5443',
     bgColor: 'bg-red-500',
     image:
       'https://images.unsplash.com/photo-1680028136470-5a957bc07a5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
@@ -27,7 +27,7 @@ const sectionsData = [
     content: '2nd',
   },
   {
-    id: 3,
+    id: 'lmddfghyt8897',
     bgColor: 'bg-yellow-500',
     image:
       'https://images.unsplash.com/photo-1679772692631-08eb486c5a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80',
@@ -63,7 +63,7 @@ const Page = () => {
   };
 
   return (
-    <AnimatePresence>
+    <>
       {isTransitioning && (
         <motion.div
           className="transitioning-overlay"
@@ -77,7 +77,6 @@ const Page = () => {
           isTransitioning ? 'transitioning' : ''
         } h-screen w-full flex flex-row items-center justify-between p-2 relative`}
       >
-        {/* <div className="h-screen w-full flex flex-row items-center justify-between p-2 relative"> */}
         {/* Background Image */}
         <div
           className="absolute top-0 left-0 w-full h-full bg-transparent"
@@ -121,7 +120,7 @@ const Page = () => {
           </motion.a>
         ))}
       </div>
-    </AnimatePresence>
+    </>
   );
 };
 

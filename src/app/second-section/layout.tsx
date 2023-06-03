@@ -1,6 +1,9 @@
-import React from 'react';
+'use client';
 
-export default function SectionLayout({
+import React from 'react';
+import { AnimatePresence } from 'framer-motion';
+
+export default function SecondSectionLayout({
   children, // will be a page or nested layout
 }: {
   children: React.ReactNode;
@@ -10,7 +13,7 @@ export default function SectionLayout({
       {/* Include shared UI here e.g. a header or sidebar */}
       <nav></nav>
 
-      {children}
+      <AnimatePresence>{children}</AnimatePresence>
     </section>
   );
 }
