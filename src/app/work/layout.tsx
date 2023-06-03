@@ -2,12 +2,7 @@
 
 import React from 'react';
 import LayoutBase from '@/components/LayoutBase';
-
-const navLinks = [
-  { href: '/home', label: 'Home' },
-  { href: '/life', label: 'Life' },
-  { href: '/balance', label: 'Balance' },
-];
+import { navLinksList } from '@/utils';
 
 export default function WorkLayout({
   children, // will be a page or nested layout
@@ -17,7 +12,7 @@ export default function WorkLayout({
   return (
     <section>
       {/* Include shared UI here e.g. a header or sidebar */}
-      <LayoutBase navLinks={navLinks}>{children}</LayoutBase>
+      <LayoutBase navLinks={navLinksList('work')}>{children}</LayoutBase>
     </section>
   );
 }
