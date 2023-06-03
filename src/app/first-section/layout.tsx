@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Nav from '@/components/Nav';
 
 const navLinks = [
   { href: '/home', label: 'Home' },
@@ -18,17 +19,7 @@ export default function SectionLayout({
     <section>
       {/* Include shared UI here e.g. a header or sidebar */}
       <AnimatePresence>
-        <motion.nav className="flex justify-between items-center p-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="border border-black p-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800"
-            >
-              {link.label}
-            </a>
-          ))}
-        </motion.nav>
+        <Nav navLinks={navLinks} />
 
         {children}
       </AnimatePresence>
