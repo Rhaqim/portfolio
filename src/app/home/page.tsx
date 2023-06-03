@@ -1,8 +1,11 @@
 'use client';
 
-import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { AnimatePresence } from 'framer-motion';
+
+// ...
 
 const sectionsData = [
   {
@@ -13,7 +16,6 @@ const sectionsData = [
     altText: 'First Section',
     href: '/first-section',
     content: '1st',
-    video: 'https://www.example.com/first-video.mp4',
   },
   {
     id: 2,
@@ -23,7 +25,6 @@ const sectionsData = [
     altText: 'Second Section',
     href: '/second-section',
     content: '2nd',
-    video: 'https://www.example.com/second-video.mp4',
   },
   {
     id: 3,
@@ -33,11 +34,14 @@ const sectionsData = [
     altText: 'Third Section',
     href: '/third-section',
     content: '3rd',
-    video: 'https://www.example.com/third-video.mp4',
   },
 ];
 
 const Page = () => {
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const router = useRouter();
+
   useEffect(() => {
     const sequence = async () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -60,7 +64,20 @@ const Page = () => {
 
   return (
     <AnimatePresence>
-      <div className="h-screen w-full flex flex-row items-center justify-between p-2 relative">
+      {isTransitioning && (
+        <motion.div
+          className="transitioning-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        />
+      )}
+      <div
+        className={`${
+          isTransitioning ? 'transitioning' : ''
+        } h-screen w-full flex flex-row items-center justify-between p-2 relative`}
+      >
+        {/* <div className="h-screen w-full flex flex-row items-center justify-between p-2 relative"> */}
         {/* Background Image */}
         <div
           className="absolute top-0 left-0 w-full h-full bg-transparent"
@@ -74,7 +91,7 @@ const Page = () => {
 
         {/* Sections */}
         {sectionsData.map((section) => (
-          <Link
+          <motion.a
             key={section.id}
             href={section.href}
             className={`relative z-10 h-[94%] w-full m-1 hover:-translate-y-2 hover:scale-105 transition-all duration-300 rounded-md hover:z-20 ${section.bgColor}`}
@@ -90,11 +107,18 @@ const Page = () => {
             onMouseLeave={(e) => {
               handleMouseLeave(e);
             }}
+            onClick={(e) => {
+              e.preventDefault();
+              setIsTransitioning(true);
+              setTimeout(() => {
+                router.push(section.href);
+              }, 800); // Adjust the delay as needed
+            }}
           >
             <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-black p-4 font-bold text-2xl opacity-0 hover:opacity-100 transition-opacity duration-300">
               {section.content}
             </div>
-          </Link>
+          </motion.a>
         ))}
       </div>
     </AnimatePresence>
