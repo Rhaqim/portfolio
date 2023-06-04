@@ -9,7 +9,13 @@ type WorkSectionsProps = {
   duration?: number;
 };
 
-const WorkSections = ({ name, description, image, uri, duration = 1.5 }: WorkSectionsProps) => {
+const WorkSections = ({
+  name,
+  description,
+  image,
+  uri,
+  duration = 1.5,
+}: WorkSectionsProps) => {
   return (
     <motion.div
       initial={{ y: 1000, opacity: 0 }}
@@ -20,10 +26,12 @@ const WorkSections = ({ name, description, image, uri, duration = 1.5 }: WorkSec
       <a
         href={`/${uri}`}
         style={{ backgroundImage: `url(${image})` }}
-        className="flex-1 h-50 bg-cover bg-center rounded-lg shadow-lg items-center"
+        className="flex-1 h-50 bg-cover bg-center rounded-lg shadow-lg items-center  hover:scale-105 transition-all duration-300"
       >
         <div className="flex-1 bg-gray-900 bg-opacity-50 rounded-lg p-8 h-full items-center">
-          <h3 className="text-3xl text-center text-white font-bold mb-2">{name}</h3>
+          <h3 className="text-3xl text-center text-white font-bold mb-2">
+            {name}
+          </h3>
           <p className="text-xl text-center text-white">{description}</p>
         </div>
       </a>
