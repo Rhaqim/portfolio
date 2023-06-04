@@ -118,7 +118,7 @@ const Page = () => {
               }, 800); // Adjust the delay as needed
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-black p-4 font-bold text-2xl opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-black p-4 font-bold text-5xl opacity-0 hover:opacity-100 transition-opacity duration-300">
               {section.content}
             </div>
           </motion.a>

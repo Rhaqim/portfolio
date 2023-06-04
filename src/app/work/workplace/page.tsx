@@ -2,11 +2,12 @@ import EssayWithIcons from '@/components/WordMappings';
 import React from 'react';
 
 const page = () => {
-  const essayText =
-    'This is an essay about Go, Rust, Python, Docker, React, and Kubernetes.';
+  const technologies = 'Go Python Rust React Docker Kubernetes.';
   return (
-    <div>
-      <EssayWithIcons essayText={essayText} />
+    <div className="h-screen">
+      <div className="justify-center items-center">
+        <EssayWithIcons essayText={technologies} />
+      </div>
     </div>
   );
 };
