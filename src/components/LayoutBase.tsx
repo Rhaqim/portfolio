@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import Nav from './Nav';
+import BackLink from './BackLink';
 
 type NavProps = {
   href: string;
@@ -21,7 +22,9 @@ const LayoutBase = ({ children, navLinks }: LayoutBaseProps) => {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Nav navLinks={navLinks} />
+        <div>
+          <Nav navLinks={navLinks} />
+        </div>
 
         {children}
       </motion.div>

@@ -18,7 +18,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
         <a
           key={link.href}
           href={link.href}
-          className="border border-black p-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800"
+          className="border border-black p-2 bg-transparent rounded-lg transition duration-300 ease-in-out"
         >
           {link.label}
         </a>
