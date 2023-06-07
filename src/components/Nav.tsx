@@ -47,7 +47,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.7 }}
-          className="fixed inset-0 flex flex-col items-center justify-center bg-white"
+          className="fixed inset-0 flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-0"
         >
           <button
             onClick={handleDropdown}
@@ -55,12 +55,12 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
           >
             X
           </button>
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-4 p-4">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="relative bg-transparent hover:border-b-4 border-black transition duration-500 ease-in-out text-center"
+                className="relative text-5xl font-bold bg-transparent hover:border-b-4 border-black transition duration-500 ease-in-out text-center"
               >
                 {link.label}
               </a>
