@@ -79,7 +79,7 @@ const Page = () => {
       <div
         className={`${
           isTransitioning ? 'transitioning' : ''
-        } h-screen w-full flex flex-row items-center justify-between p-2 relative`}
+        } h-screen w-full flex lg:flex-row lg:items-center lg:justify-between lg:p-2 relative sm:flex-col sm:justify-center sm:items-center sm:p-0`}
       >
         {/* Background Image */}
         <div
