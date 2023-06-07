@@ -42,17 +42,31 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
 
       {/* Drop Down */}
       {dropdownOpen && (
-        <div className="flex flex-col items-center m-4 border border-black p-2 rounded-lg ">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="bg-transparent border-b-4 w-full border-black transition duration-300 ease-in-out"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
+        <motion.div
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ duration: 0.7 }}
+          className="fixed inset-0 flex flex-col items-center justify-center bg-white"
+        >
+          <button
+            onClick={handleDropdown}
+            className="absolute top-0 right-0 m-2 text-gray-500"
+          >
+            X
+          </button>
+          <div className="flex flex-col space-y-2">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="relative bg-transparent hover:border-b-4 border-black transition duration-500 ease-in-out text-center"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </motion.div>
       )}
     </motion.nav>
   );
