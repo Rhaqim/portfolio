@@ -62,7 +62,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
             dropdownOpen ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }
           }
           transition={{ duration: 0.7 }}
-          className="fixed inset-0 flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-0"
+          className="fixed inset-0 flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-10"
         >
           <button
             onClick={handleDropdown}
