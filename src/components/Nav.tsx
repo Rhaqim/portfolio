@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 type NavProps = {
   href: string;
@@ -15,6 +16,8 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  const name = 'Rhaqim'.split('');
+
   return (
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
@@ -22,16 +25,27 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       transition={{ duration: 0.5 }}
       className="flex justify-between items-center p-8"
     >
-      <div>
-        <p>Rhaqim</p>
-      </div>
+      <Link href={'/home'}
+      className=' hover:scale-75 transition duration-500 ease-in-out'>
+        {name.map((letter, index) => (
+          <motion.span
+            key={index}
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="font-bold text-3xl"
+          >
+            {letter}
+          </motion.span>
+        ))}
+      </Link>
 
       {/* Hamburger */}
       {!dropdownOpen && (
         <div className="flex flex-col items-center justify-center">
           <button
             onClick={handleDropdown}
-            className="flex flex-col items-center justify-center space-y-2"
+            className="flex flex-col items-center justify-center space-y-2 hover:scale-75 transition duration-500 ease-in-out"
           >
             <div className="w-8 h-1 bg-black"></div>
             <div className="w-8 h-1 bg-black"></div>
@@ -44,14 +58,15 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       {dropdownOpen && (
         <motion.div
           initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
+          animate={
+            dropdownOpen ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }
+          }
           transition={{ duration: 0.7 }}
           className="fixed inset-0 flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-0"
         >
           <button
             onClick={handleDropdown}
-            className="absolute top-0 right-0 m-2 text-gray-500"
+            className="absolute top-0 right-0 m-8 text-gray-500"
           >
             X
           </button>
