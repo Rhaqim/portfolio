@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const images = [
@@ -11,12 +11,15 @@ const images = [
 
 const randomPosition = () => {
   const maxDistance = 200; // Adjust the maximum distance from the center
-  const x = Math.random() * maxDistance - maxDistance / 10;
+  const x = - Math.random() * maxDistance - maxDistance / 10;
   const y = Math.random() * maxDistance - maxDistance / 10;
   return { x, y };
 };
 
 const BurstAnimation = () => {
+  const [height, setHeight] = useState(0);
+  const [width, setWidth] = useState(0);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -33,11 +36,11 @@ const BurstAnimation = () => {
     visible: { scale: 1, opacity: 1 },
   };
 
-  // get screen height and width
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  useEffect(() => {
+    setHeight(window.innerHeight);
+    setWidth(window.innerWidth);
+  }, []);
 
-  // get middle of screen
   const middleX = width / 2;
   const middleY = height / 2;
 
@@ -65,8 +68,8 @@ const BurstAnimation = () => {
             initial={{
               opacity: 1,
               scale: 0.2,
-              x: 0,
-              y: middleY - 100,
+              x: middleX,
+              y: middleY,
             }}
             animate={{
               opacity: 1,
