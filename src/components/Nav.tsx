@@ -47,9 +47,9 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
             onClick={handleDropdown}
             className="flex flex-col items-center justify-center space-y-2 hover:scale-75 transition duration-500 ease-in-out"
           >
-            <div className="w-8 h-1 bg-black"></div>
-            <div className="w-8 h-1 bg-black"></div>
-            <div className="w-8 h-1 bg-black"></div>
+            <div className="w-8 h-1 bg-black dark:bg-white" />
+            <div className="w-8 h-1 bg-black dark:bg-white" />
+            <div className="w-8 h-1 bg-black dark:bg-white" />
           </button>
         </div>
       )}
