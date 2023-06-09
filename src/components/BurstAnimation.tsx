@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 
@@ -9,8 +11,8 @@ const images = [
 
 const randomPosition = () => {
   const maxDistance = 200; // Adjust the maximum distance from the center
-  const x = Math.random() * maxDistance - maxDistance / 2;
-  const y = Math.random() * maxDistance - maxDistance / 2;
+  const x = Math.random() * maxDistance - maxDistance / 10;
+  const y = Math.random() * maxDistance - maxDistance / 10;
   return { x, y };
 };
 
@@ -31,10 +33,26 @@ const BurstAnimation = () => {
     visible: { scale: 1, opacity: 1 },
   };
 
-  const height = 200;
-  const width = 200;
+  // get screen height and width
+  const height = window.innerHeight;
+  const width = window.innerWidth;
+
+  // get middle of screen
+  const middleX = width / 2;
+  const middleY = height / 2;
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div
+      className="absolute top-0 left-0 w-full h-full bg-transparent z-0"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1519972064555-542444e71b54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -48,7 +66,7 @@ const BurstAnimation = () => {
               opacity: 1,
               scale: 0.2,
               x: 0,
-              y: 0,
+              y: middleY - 100,
             }}
             animate={{
               opacity: 1,

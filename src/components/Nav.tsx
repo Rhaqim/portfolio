@@ -26,7 +26,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       className="flex justify-between items-center p-8"
     >
       <Link href={'/home'}
-      className=' hover:scale-75 transition duration-500 ease-in-out'>
+      className=' hover:scale-75 transition duration-500 ease-in-out z-50'>
         {name.map((letter, index) => (
           <motion.span
             key={index}
@@ -42,7 +42,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
 
       {/* Hamburger */}
       {!dropdownOpen && (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center z-50">
           <button
             onClick={handleDropdown}
             className="flex flex-col items-center justify-center space-y-2 hover:scale-75 transition duration-500 ease-in-out"
