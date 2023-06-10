@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { type } from 'os';
@@ -40,3 +42,5 @@ function Anim() {
     </Canvas>
   );
 }
+
+export default Anim;
