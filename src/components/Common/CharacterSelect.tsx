@@ -38,8 +38,8 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ characters, onSelecte
                 exit={{ x: 1000 }}
                 transition={{ duration: 0.5 }}
             >
-                <Image src={currentCharacter.icon} alt={currentCharacter.name} />
-                <h2>{currentCharacter.name}</h2>
+                {/* <Image src={currentCharacter.icon} alt={currentCharacter.name} /> */}
+                <h2>{currentCharacter.name ?? 'Rhaqim'}</h2>
             </motion.div>
 
             <button onClick={handleSlideLeft}>Slide Left</button>
