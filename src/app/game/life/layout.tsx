@@ -2,7 +2,7 @@
 
 import React from 'react';
 import LayoutBase from '@/components/LayoutBase';
-import { navLinksList } from '@/utils';
+import { navLinksList } from '@/constants';
 
 export default function LifeLayout({
   children, // will be a page or nested layout
