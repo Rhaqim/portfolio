@@ -1,5 +1,6 @@
 'use client';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface DropdownProps {
@@ -39,14 +40,6 @@ const Dropdown: React.FC<DropdownProps> = ({ buttonContent, children }) => {
     };
   }, [open]);
 
-  useEffect(() => {
-    if (open) {
-      setTransformValue('translateY(0px)');
-    } else {
-      setTransformValue('translateY(-10px)');
-    }
-  }, [open]);
-
   return (
     <div className="relative w-[85%]" ref={dropdownRef}>
       <button
@@ -59,20 +52,25 @@ const Dropdown: React.FC<DropdownProps> = ({ buttonContent, children }) => {
         {buttonContent}
       </button>
 
-      {open && (
-        <div
-          className="origin-center mt-2 w-full rounded-md shadow-lg bg-black ring-1 ring-black ring-opacity-5 z-50"
-          role="menu"
-          id="options-menu"
-          aria-orientation="vertical"
-          aria-labelledby="options-menu"
-          style={{ transform: transformValue, transitionDuration: '300ms' }}
-        >
-          <div className="py-1 w-full" role="none">
-            {children}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, scaleY: 0.8 }}
+            animate={{ opacity: 1, scaleY: 1 }}
+            exit={{ opacity: 0, scaleY: 0.8 }}
+            transition={{ duration: 0.5 }}
+            className="origin-center mt-2 w-full rounded-md shadow-lg bg-black ring-1 ring-black ring-opacity-5 z-50"
+            role="menu"
+            id="options-menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <div className="py-1 w-full" role="none">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
