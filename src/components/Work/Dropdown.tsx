@@ -10,7 +10,6 @@ interface DropdownProps {
 
 const Dropdown: React.FC<DropdownProps> = ({ buttonContent, children }) => {
   const [open, setOpen] = useState(false);
-  const [transformValue, setTransformValue] = useState('translateY(-10px)');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownClick = () => {
