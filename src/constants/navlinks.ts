@@ -36,5 +36,5 @@ export const gameNavLinks = [
   { href: '/game/start', label: 'Start' },
   { href: '/', label: 'Home' },
   { href: '/game/credit', label: 'Credit' },
-  { href: '/game/contact', label: 'Contact' },
+  { href: '/work/contact', label: 'Contact' },
 ];

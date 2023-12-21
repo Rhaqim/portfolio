@@ -27,7 +27,7 @@ const AnimatedLink = ({ href, children }: { href: string; children: any }) => {
       variants={buttonVariants}
       whileHover="hover"
       whileTap="tap"
-      className="bg-blue-500 text-white p-2 rounded mt-2 cursor-pointer"
+      className="bg-blue-500 text-white p-2 rounded mt-2 cursor-pointer w-[200px] items-center text-center"
     >
       <Link href={href}>{children}</Link>
     </motion.div>
