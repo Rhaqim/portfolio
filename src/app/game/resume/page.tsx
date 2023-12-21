@@ -6,8 +6,6 @@
 // Resume.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 
 const InteractiveResume: React.FC = () => {
   return (
@@ -30,13 +28,6 @@ const InteractiveResume: React.FC = () => {
           <li>Three.js</li>
         </ul>
       </motion.div>
-
-      <div className="mt-8">
-        <Canvas>
-          {/* Your 3D models or graphics go here */}
-          <OrbitControls />
-        </Canvas>
-      </div>
     </div>
   );
 };

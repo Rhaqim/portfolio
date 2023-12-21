@@ -3,8 +3,6 @@
 // InteractiveBlog.tsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import GameThemedAnimations from '@/components/Anim/GameThemed';
 
 const InteractiveBlog: React.FC = () => {
@@ -70,13 +68,6 @@ const InteractiveBlog: React.FC = () => {
       </motion.div>
 
       <GameThemedAnimations />
-
-      <div className="mt-8">
-        <Canvas>
-          {/* Your 3D models or graphics go here */}
-          <OrbitControls />
-        </Canvas>
-      </div>
     </div>
   );
 };
