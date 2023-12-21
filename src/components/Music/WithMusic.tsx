@@ -24,15 +24,13 @@ const WithMusic: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-4xl font-bold mb-4">With Music</h1>
 
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -50 }}
-        className="bg-gray-200 p-8 rounded-md shadow-md"
+        className="p-8 rounded-md shadow-md"
       >
-        <h2 className="text-2xl font-bold mb-4">Background Music</h2>
 
         {/* Music Toggle Button */}
         <button
