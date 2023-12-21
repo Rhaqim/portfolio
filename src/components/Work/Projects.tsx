@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Toolkits from './Toolkit'
-// import { ArrowLineUpRight } from '@phosphor-icons/react'
+import { ArrowLineUpRight } from '@phosphor-icons/react'
 import PortfolioImage from './PortfolioImageProps'
 
 type ProjectProps = {
@@ -72,7 +72,7 @@ const Projects: React.FC<ProjectProps> = ({
             className="mt-4 text-sm font-semibold w-[150px] h-10 hover:bg-purple-600 hover:scale-105 transition-all duration-100 ease-linear border border-neutral-500 p-2 flex justify-between items-center rounded-md"
           >
             <p>View Project</p>
-            {/* <ArrowLineUpRight className="w-4 h-4" /> */}
+            <ArrowLineUpRight className="w-4 h-4" />
           </a>
         )}
         <a

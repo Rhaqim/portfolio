@@ -10,11 +10,15 @@ const page = () => {
       {/* Introduction */}
       <div className="w-full flex flex-col justify-center items-center space-y-4 px-4">
         <p className="text-left font-mono font-bold text-xl">
-          Hello there! I&apos;m Rhaqim, a software engineer based in Nigeria. I
-          specialize in building exceptional websites, applications, and
-          everything in between.
+          Hello there! I&apos;m Rhaqim, a passionate full-stack developer with a
+          knack for crafting robust APIs, streamlining DevOps processes and all
+          round development. I&apos;ve honed my skills in leading teams,
+          deciphering complex business requirements, and consistently delivering
+          projects on time.
         </p>
       </div>
+
+      {/* Work Categories */}
       {workCategories.map((work, index) => (
         <WorkSections
           key={index}

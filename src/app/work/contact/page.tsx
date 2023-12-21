@@ -1,5 +1,6 @@
 'use client';
 
+import { GithubLogo, TwitterLogo, InstagramLogo } from '@phosphor-icons/react';
 import React, { useState } from 'react';
 
 const ContactPage: React.FC = () => {
@@ -35,7 +36,7 @@ const ContactPage: React.FC = () => {
           <input
             type="text"
             id="name"
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 bg-gray-800 rounded focus:outline-none focus:border-blue-500"
             value={name}
             onChange={handleNameChange}
           />
@@ -47,7 +48,7 @@ const ContactPage: React.FC = () => {
           <input
             type="email"
             id="email"
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 bg-gray-800 rounded focus:outline-none focus:border-blue-500"
             value={email}
             onChange={handleEmailChange}
           />
@@ -58,7 +59,7 @@ const ContactPage: React.FC = () => {
           </label>
           <textarea
             id="message"
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 bg-gray-800 rounded focus:outline-none focus:border-blue-500"
             value={message}
             onChange={handleMessageChange}
           ></textarea>
@@ -66,24 +67,27 @@ const ContactPage: React.FC = () => {
         <div className="mb-4">
           <p className="font-bold">Contact via:</p>
           <div>
+            <InstagramLogo className="inline-block w-6 h-6 mr-2" />
             <a
-              href="https://www.linkedin.com/"
+              href="https://www.linkedin.com/in/john-franklin-anusiem-104692166/"
               target="_blank"
               rel="noopener noreferrer"
               className="mr-2"
             >
               LinkedIn
             </a>
+            <GithubLogo className="inline-block w-6 h-6 mr-2" />
             <a
-              href="https://github.com/"
+              href="https://github.com/rhaqim"
               target="_blank"
               rel="noopener noreferrer"
               className="mr-2"
             >
               GitHub
             </a>
+            <TwitterLogo className="inline-block w-6 h-6 mr-2" />
             <a
-              href="https://twitter.com/"
+              href="https://twitter.com/alaswadkhan"
               target="_blank"
               rel="noopener noreferrer"
             >

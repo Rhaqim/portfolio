@@ -50,7 +50,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       >
         <Link
           href={'/'}
-          className=" hover:scale-75 transition duration-500 ease-in-out z-50"
+          className=" hover:scale-105 transition duration-500 ease-in-out z-50"
           id="logo"
         >
           {name.map((letter, index) => (
