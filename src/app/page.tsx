@@ -88,7 +88,7 @@ const Page = () => {
         >
           {/* Background Image */}
           <div
-            className="absolute top-0 left-0 w-full h-full bg-transparent"
+            className="hidden md:block absolute top-0 left-0 w-full h-full bg-transparent"
             style={{
               backgroundColor: 'black',
               backgroundSize: 'cover',
@@ -104,13 +104,12 @@ const Page = () => {
               key={section.id}
               href={section.href}
               id={section.id}
-              className={`relative z-10 h-[94%] w-full m-1 hover:-translate-y-2 transition-all duration-300 rounded-md hover:z-20 ${section.bgColor}`}
+              className={`relative z-10 h-[94%] w-full md:w-[600px] m-1 hover:-translate-y-2 transition-all duration-300 rounded-md hover:z-20 ${section.bgColor}`}
               style={{
                 backgroundImage: `url('${section.image}')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 filter: 'brightness(70%)',
-                width: '620px',
               }}
               onMouseEnter={(e) => {
                 handleMouseEnter(e);

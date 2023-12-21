@@ -3,9 +3,10 @@
 import React from 'react';
 
 const Resume = () => {
+  const file = '/docs/profile.pdf';
+
   const handleDownloadResume = () => {
     // Logic to download the resume file
-    const file = '/resume/profile.pdf';
     window.open(file);
     const link = document.createElement('a');
     link.href = file;
@@ -17,7 +18,6 @@ const Resume = () => {
 
   const handleViewResume = () => {
     // Logic to view the resume file
-    const file = '/resume/profile.pdf';
     window.open(file);
   };
 
@@ -25,7 +25,7 @@ const Resume = () => {
     <div>
       <h1>Resume</h1>
       <button onClick={handleDownloadResume}>Download Resume</button>
-        <button onClick={handleViewResume}>View Resume</button>
+      <button onClick={handleViewResume}>View Resume</button>
     </div>
   );
 };
