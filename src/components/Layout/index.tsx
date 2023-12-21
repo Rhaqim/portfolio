@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import Nav from './Nav';
-import BackLink from '../BackLink';
+import BackLink from '../Common/BackLink';
 
 type NavProps = {
   href: string;

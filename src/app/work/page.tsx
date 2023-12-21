@@ -1,6 +1,6 @@
 'use client';
 
-import WorkSections from '@/components/WorkSections';
+import WorkSections from '@/components/Work/WorkSections';
 import { motion } from 'framer-motion';
 import React from 'react';
 

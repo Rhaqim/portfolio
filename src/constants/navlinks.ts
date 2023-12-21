@@ -10,10 +10,6 @@ export const getFilteredNavLinks = (
         return link.href !== '/work/blog';
       case 'resume':
         return link.href !== '/work/resume';
-      case 'projects':
-        return link.href !== '/work/projects';
-      case 'experience':
-        return link.href !== '/work/experience';
       default:
         return true;
     }
@@ -27,8 +23,6 @@ export const workNavLinks = [
   { href: '/work', label: 'Work' },
   { href: '/work/blog', label: 'Blog' },
   { href: '/work/resume', label: 'Resume' },
-  { href: '/work/projects', label: 'Projects' },
-  { href: '/work/experience', label: 'Experience' },
   { href: '/work/contact', label: 'Contact' },
 ];
 

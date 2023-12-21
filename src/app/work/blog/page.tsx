@@ -17,7 +17,7 @@ const InteractiveBlog: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center">
       <h1 className="text-4xl font-bold mb-4">Interactive Blog</h1>
 
       <motion.div
@@ -66,8 +66,6 @@ const InteractiveBlog: React.FC = () => {
           </div>
         </div>
       </motion.div>
-
-      <GameThemedAnimations />
     </div>
   );
 };

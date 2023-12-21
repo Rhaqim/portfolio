@@ -1,4 +1,4 @@
-import Wiki from '@/components/Wiki';
+import Wiki from '@/components/Work/Wiki';
 import React from 'react';
 
 const Timeline = () => {

@@ -29,7 +29,7 @@ const GameThemedAnimations: React.FC = () => {
         animate={controls}
         exit="exit"
         variants={animationVariants}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 1.5 }}
         className="bg-gray-200 p-8 rounded-md shadow-md"
       >
         <h2 className="text-2xl font-bold mb-4">Game Element Animation</h2>

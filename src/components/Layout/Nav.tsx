@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -18,6 +18,28 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
 
   const name = 'Rhaqim'.split('');
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        dropdownOpen &&
+        !document.getElementById('logo')?.contains(event.target as Node) &&
+        !document
+          .getElementById('dropdown-content')
+          ?.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    // Add event listener when the component mounts
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    // Remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [dropdownOpen]);
+
   return (
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
@@ -25,8 +47,11 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       transition={{ duration: 0.5 }}
       className="flex justify-between items-center p-8"
     >
-      <Link href={'/'}
-      className=' hover:scale-75 transition duration-500 ease-in-out z-50'>
+      <Link
+        href={'/'}
+        className=" hover:scale-75 transition duration-500 ease-in-out z-50"
+        id="logo"
+      >
         {name.map((letter, index) => (
           <motion.span
             key={index}
@@ -42,7 +67,10 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
 
       {/* Hamburger */}
       {!dropdownOpen && (
-        <div className="flex flex-col items-center justify-center z-50">
+        <div
+          className="flex flex-col items-center justify-center z-50"
+          id="hamburger"
+        >
           <button
             onClick={handleDropdown}
             className="flex flex-col items-center justify-center space-y-2 hover:scale-75 transition duration-500 ease-in-out"
@@ -70,7 +98,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
           >
             X
           </button>
-          <div className="flex flex-col space-y-4 p-4">
+          <div id="dropdown-content" className="flex flex-col space-y-4 p-4">
             {navLinks.map((link) => (
               <a
                 key={link.href}
