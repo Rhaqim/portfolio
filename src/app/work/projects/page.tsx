@@ -6,7 +6,6 @@ const page = () => {
   return (
     <div className="h-screen">
       <div className="justify-center items-center">
-        <EssayWithIcons essayText={technologies} />
       </div>
     </div>
   );

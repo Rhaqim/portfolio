@@ -1,3 +1,4 @@
-import { getFilteredNavLinks, navLinks } from './navlinks';
+import { gameNavLinks, workNavLinks } from './navlinks';
+import characters from './characters';
 
-export { getFilteredNavLinks, navLinks };
+export { characters, gameNavLinks, workNavLinks };

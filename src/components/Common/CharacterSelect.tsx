@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { characters } from '@/constants';
 
 interface Character {
   name: string;
@@ -10,12 +10,10 @@ interface Character {
 }
 
 interface CharacterSelectProps {
-  characters: Character[];
   onSelectedCharacter: (character: Character) => void;
 }
 
 const CharacterSelect: React.FC<CharacterSelectProps> = ({
-  characters,
   onSelectedCharacter,
 }) => {
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
@@ -40,27 +38,27 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({
 
   return (
     <div id="character-select" className="max-w-full mx-auto px-4 py-8">
-    <div className="relative flex items-center justify-between">
-      <button className="mr-4" onClick={handleSlideLeft}>
-        Slide Left
-      </button>
+      <div className="relative flex items-center justify-between">
+        <button className="mr-4" onClick={handleSlideLeft}>
+          Slide Left
+        </button>
 
-      <motion.div
-        key={currentCharacter.name}
-        initial={{ x: -1000 }}
-        animate={{ x: 0 }}
-        exit={{ x: 1000 }}
-        transition={{ duration: 0.5 }}
-        className="flex items-center"
-      >
-        {/* <Image src={currentCharacter.icon} alt={currentCharacter.name} /> */}
-        <h2>{currentCharacter.name ?? 'Rhaqim'}</h2>
-      </motion.div>
+        <motion.div
+          key={currentCharacter.name}
+          initial={{ x: -1000 }}
+          animate={{ x: 0 }}
+          exit={{ x: 1000 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center"
+        >
+          {/* <Image src={currentCharacter.icon} alt={currentCharacter.name} /> */}
+          <h2>{currentCharacter.name ?? 'Rhaqim'}</h2>
+        </motion.div>
 
-      <button className="ml-4" onClick={handleSlideRight}>
-        Slide Right
-      </button>
-    </div>
+        <button className="ml-4" onClick={handleSlideRight}>
+          Slide Right
+        </button>
+      </div>
     </div>
   );
 };

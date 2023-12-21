@@ -19,10 +19,10 @@ export const getFilteredNavLinks = (
     }
   };
 
-  return navLinks.filter(shouldIncludeLink);
+  return workNavLinks.filter(shouldIncludeLink);
 };
 
-export const navLinks = [
+export const workNavLinks = [
   { href: '/', label: 'Home' },
   { href: '/work', label: 'Work' },
   { href: '/work/blog', label: 'Blog' },
@@ -30,4 +30,11 @@ export const navLinks = [
   { href: '/work/projects', label: 'Projects' },
   { href: '/work/experience', label: 'Experience' },
   { href: '/work/contact', label: 'Contact' },
+];
+
+export const gameNavLinks = [
+  { href: '/game/start', label: 'Start' },
+  { href: '/', label: 'Home' },
+  { href: '/game/credit', label: 'Credit' },
+  { href: '/game/contact', label: 'Contact' },
 ];

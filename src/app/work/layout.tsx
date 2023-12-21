@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import LayoutBase from '@/components/LayoutBase';
-import { navLinks } from '@/constants';
+import LayoutBase from '@/components/Layout';
+import { workNavLinks } from '@/constants';
 
 export default function WorkLayout({
   children, // will be a page or nested layout
@@ -12,7 +12,7 @@ export default function WorkLayout({
   return (
     <section>
       {/* Include shared UI here e.g. a header or sidebar */}
-      <LayoutBase navLinks={navLinks}>{children}</LayoutBase>
+      <LayoutBase navLinks={workNavLinks}>{children}</LayoutBase>
     </section>
   );
 }

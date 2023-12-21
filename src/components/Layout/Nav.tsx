@@ -25,7 +25,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       transition={{ duration: 0.5 }}
       className="flex justify-between items-center p-8"
     >
-      <Link href={'/home'}
+      <Link href={'/'}
       className=' hover:scale-75 transition duration-500 ease-in-out z-50'>
         {name.map((letter, index) => (
           <motion.span

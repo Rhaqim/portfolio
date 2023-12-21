@@ -1,50 +1,44 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+
 import CharacterSelect from '@/components/Common/CharacterSelect';
 import WithMusic from '@/components/Music/WithMusic';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { gameNavLinks } from '@/constants';
+
+const buttonVariants = {
+  hover: {
+    scale: 1.05,
+    backgroundColor: '#4299e1',
+    transition: { duration: 0.3 },
+  },
+  tap: {
+    scale: 0.95,
+    backgroundColor: '#3182ce',
+    transition: { duration: 0.3 },
+  },
+};
+
+const AnimatedLink = ({ href, children }: { href: string; children: any }) => {
+  return (
+    <motion.div
+      variants={buttonVariants}
+      whileHover="hover"
+      whileTap="tap"
+      className="bg-blue-500 text-white p-2 rounded mt-2 cursor-pointer"
+    >
+      <Link href={href}>{children}</Link>
+    </motion.div>
+  );
+};
 
 const StartScreen = () => {
-  const router = useRouter();
   const [selectedCharacter, setSelectedCharacter] = useState<{
     icon: string;
     name: string;
   } | null>(null);
-
-  const buttonVariants = {
-    hover: {
-      scale: 1.05,
-      backgroundColor: '#4299e1',
-      transition: { duration: 0.3 },
-    },
-    tap: {
-      scale: 0.95,
-      backgroundColor: '#3182ce',
-      transition: { duration: 0.3 },
-    },
-  };
-
-  const characters = [
-    {
-      icon: '/images/characters/rhaqim.png',
-      name: 'Castor',
-    },
-    {
-      icon: '/images/characters/raiqim.png',
-      name: 'Rhaqim',
-    },
-    {
-      icon: '/images/characters/raiqim.png',
-      name: 'John',
-    },
-    {
-      icon: '/images/characters/raiqim.png',
-      name: 'Ivan',
-    },
-  ];
 
   return (
     <div className="max-w-full min-h-screen flex flex-col items-center justify-center p-8">
@@ -57,41 +51,17 @@ const StartScreen = () => {
       </motion.h1>
 
       {/* Character Select */}
-      <CharacterSelect
-        characters={characters}
-        onSelectedCharacter={setSelectedCharacter}
-      />
+      <CharacterSelect onSelectedCharacter={setSelectedCharacter} />
       <p className="mt-4">
         Selected Character: {selectedCharacter?.name || 'None selected'}
       </p>
 
       {/* Buttons */}
-      <motion.div
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
-        className="bg-blue-500 text-white p-2 rounded mt-4 cursor-pointer"
-      >
-        <Link href="/home">Start</Link>
-      </motion.div>
-
-      <motion.div
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
-        className="bg-blue-500 text-white p-2 rounded mt-2 cursor-pointer"
-      >
-        <Link href="/about">About</Link>
-      </motion.div>
-
-      <motion.div
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
-        className="bg-blue-500 text-white p-2 rounded mt-2 cursor-pointer"
-      >
-        <Link href="/credits">Credits</Link>
-      </motion.div>
+      {gameNavLinks.map((link) => (
+        <AnimatedLink href={link.href} key={link.href}>
+          {link.label}
+        </AnimatedLink>
+      ))}
 
       {/* Hidden Audio Element for Background Music */}
       <WithMusic />

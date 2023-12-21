@@ -23,7 +23,7 @@ const WithMusic: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center">
 
       <motion.div
         initial={{ opacity: 0, y: -50 }}
