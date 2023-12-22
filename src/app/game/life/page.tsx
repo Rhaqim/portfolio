@@ -6,8 +6,7 @@ import Timeline from './Timeline';
 
 const page = () => {
   return (
-    <div
-    >
+    <div>
       <Timeline />
     </div>
   );

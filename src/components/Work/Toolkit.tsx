@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import React from 'react'
+import Image from 'next/image';
+import React from 'react';
 
 const ToolkitBadge = ({ name, logo }: { name: string; logo: string }) => (
   <div className="flex flex-col space-y-2 items-center justify-center hover:rotate-2 transition-all duration-100 ease-linear">
@@ -14,14 +14,14 @@ const ToolkitBadge = ({ name, logo }: { name: string; logo: string }) => (
     </div>
     <p className="text-sm text-neutral-400 text-center">{name}</p>
   </div>
-)
+);
 
 const Toolkits = ({
   toolkits,
-  className = 'grid grid-cols-3 gap-2'
+  className = 'grid grid-cols-3 gap-2',
 }: {
-  toolkits: { name: string; logo: string }[]
-  className?: string
+  toolkits: { name: string; logo: string }[];
+  className?: string;
 }) => {
   return (
     <div className={className}>
@@ -29,7 +29,7 @@ const Toolkits = ({
         <ToolkitBadge key={index} name={toolkit.name} logo={toolkit.logo} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Toolkits
+export default Toolkits;

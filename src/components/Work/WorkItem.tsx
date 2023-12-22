@@ -1,21 +1,21 @@
-import React from 'react'
-import Image from 'next/image'
-import Toolkits from './Toolkit'
+import React from 'react';
+import Image from 'next/image';
+import Toolkits from './Toolkit';
 
 type WorkItemProps = {
-  company: string
-  logo: string
-  website: string
-  responsibilities: string[]
-  toolkits: { name: string; logo: string }[]
-}
+  company: string;
+  logo: string;
+  website: string;
+  responsibilities: string[];
+  toolkits: { name: string; logo: string }[];
+};
 
 const WorkItem: React.FC<WorkItemProps> = ({
   company,
   logo,
   website,
   responsibilities,
-  toolkits
+  toolkits,
 }) => {
   return (
     <div className="flex flex-col md:flex-row items-start justify-between my-4">
@@ -48,7 +48,7 @@ const WorkItem: React.FC<WorkItemProps> = ({
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default WorkItem
+export default WorkItem;

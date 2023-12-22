@@ -17,67 +17,67 @@ export const workExperiences = [
       'Collaborated with the Frontend team in developing the cloud platform.',
       'Provided technical expertise for seamless frontend-backend integration.',
       'Led frontend development for an intuitive user interface.',
-      'Successfully integrated APIs for smooth communication between frontend and backend systems.'
+      'Successfully integrated APIs for smooth communication between frontend and backend systems.',
     ],
     toolkits: [
       {
         name: 'Rust',
-        logo: 'rust'
+        logo: 'rust',
       },
       {
         name: 'TypeScript',
-        logo: 'typescript'
+        logo: 'typescript',
       },
       {
         name: 'Node.js',
-        logo: 'nodejs'
+        logo: 'nodejs',
       },
       {
         name: 'Go',
-        logo: 'go'
+        logo: 'go',
       },
       {
         name: 'React',
-        logo: 'react'
+        logo: 'react',
       },
       {
         name: 'Next.js',
-        logo: 'nextjs'
+        logo: 'nextjs',
       },
       {
         name: 'PostgreSQL',
-        logo: 'postgresql'
+        logo: 'postgresql',
       },
       {
         name: 'Oracle',
-        logo: 'oracle'
+        logo: 'oracle',
       },
 
       {
         name: 'Kubernetes',
-        logo: 'kubernetes'
+        logo: 'kubernetes',
       },
       {
         name: 'Jira',
-        logo: 'jira'
+        logo: 'jira',
       },
       {
         name: 'Elastic Search',
-        logo: 'elasticsearch'
+        logo: 'elasticsearch',
       },
       {
         name: 'Git',
-        logo: 'git'
+        logo: 'git',
       },
       {
         name: 'Github',
-        logo: 'github'
+        logo: 'github',
       },
       {
         name: 'VC Code',
-        logo: 'vscode'
-      }
-    ]
+        logo: 'vscode',
+      },
+    ],
   },
   {
     company: 'Equity Group Holdings Limited',
@@ -94,54 +94,54 @@ export const workExperiences = [
       'Collaborated on database design and migration for scalability.',
       'Identified and resolved bugs, ensuring seamless user journeys and expected application behaviour.',
       'Managed Azure pipeline deployment and Dockerized a service layer for streamlined development.',
-      'Leveraged Redis Database and Kubernetes for performance enhancement and operational efficiency.'
+      'Leveraged Redis Database and Kubernetes for performance enhancement and operational efficiency.',
     ],
     toolkits: [
       {
         name: 'Python',
-        logo: 'python'
+        logo: 'python',
       },
       {
         name: 'Django',
-        logo: 'django'
+        logo: 'django',
       },
       {
         name: 'FastAPI',
-        logo: 'fastapi'
+        logo: 'fastapi',
       },
       {
         name: 'MySQL',
-        logo: 'mysql'
+        logo: 'mysql',
       },
       {
         name: 'Redis',
-        logo: 'redis'
+        logo: 'redis',
       },
       {
         name: 'Docker',
-        logo: 'docker'
+        logo: 'docker',
       },
       {
         name: 'Kubernetes',
-        logo: 'kubernetes'
+        logo: 'kubernetes',
       },
       {
         name: 'Azure',
-        logo: 'azure'
+        logo: 'azure',
       },
       {
         name: 'Git',
-        logo: 'git'
+        logo: 'git',
       },
       {
         name: 'Github',
-        logo: 'github'
+        logo: 'github',
       },
       {
         name: 'VC Code',
-        logo: 'vscode'
-      }
-    ]
+        logo: 'vscode',
+      },
+    ],
   },
   {
     company: 'Azenia Limited',
@@ -150,30 +150,30 @@ export const workExperiences = [
     responsibilities: [
       'Developed and maintained backend systems.',
       'Collaborated with cross-functional teams.',
-      'Implemented new features and improvements.'
+      'Implemented new features and improvements.',
     ],
     toolkits: [
       {
         name: 'Python',
-        logo: 'python'
+        logo: 'python',
       },
       {
         name: 'Django',
-        logo: 'django'
+        logo: 'django',
       },
       {
         name: 'Git',
-        logo: 'git'
+        logo: 'git',
       },
       {
         name: 'Github',
-        logo: 'github'
+        logo: 'github',
       },
       {
         name: 'VC Code',
-        logo: 'vscode'
-      }
-    ]
+        logo: 'vscode',
+      },
+    ],
   },
   {
     company: 'Upwork',
@@ -189,58 +189,58 @@ export const workExperiences = [
       ' Executed a smooth transition by migrating data from Sqlite3 to PostgreSQL, optimising datamanagement and accessibility',
 
       ' Compiled comprehensive documentation for APIs, enhancing clarity and usability for bothdevelopment and integration',
-      ' Applied expertise in data visualisation to work on visual representations using Dash, providingmeaningful insights'
+      ' Applied expertise in data visualisation to work on visual representations using Dash, providingmeaningful insights',
     ],
     toolkits: [
       {
         name: 'Python',
-        logo: 'python'
+        logo: 'python',
       },
       {
         name: 'HTML',
-        logo: 'html'
+        logo: 'html',
       },
       {
         name: 'CSS',
-        logo: 'css'
+        logo: 'css',
       },
       {
         name: 'Javascript',
-        logo: 'javascript'
+        logo: 'javascript',
       },
       {
         name: 'Heroku',
-        logo: 'heroku'
+        logo: 'heroku',
       },
       {
         name: 'JQuery',
-        logo: 'jquery'
+        logo: 'jquery',
       },
       {
         name: 'Django',
-        logo: 'django'
+        logo: 'django',
       },
       {
         name: 'PostgreSQL',
-        logo: 'postgresql'
+        logo: 'postgresql',
       },
       {
         name: 'Sqlite3',
-        logo: 'sqlite'
+        logo: 'sqlite',
       },
       {
         name: 'Git',
-        logo: 'git'
+        logo: 'git',
       },
       {
         name: 'Github',
-        logo: 'github'
+        logo: 'github',
       },
       {
         name: 'VC Code',
-        logo: 'vscode'
-      }
-    ]
+        logo: 'vscode',
+      },
+    ],
   },
   {
     company: 'Univelcity',
@@ -254,65 +254,65 @@ export const workExperiences = [
       'Gained hands-on experience with Tensorflow, practicing both object detection and time seriesanalysis',
       'Participated in the AWS DeepRacer competition, securing a commendable 32nd position, highlightingcompetitive spirit and skills',
       'Implemented volume adjustment using Mediapipe and hand gestures, showcasing innovativeapplication of technology',
-      'Deployed a machine learning model using Flask, demonstrating practical deployment skills in a real-world scenario'
+      'Deployed a machine learning model using Flask, demonstrating practical deployment skills in a real-world scenario',
     ],
     toolkits: [
       {
         name: 'Python',
-        logo: 'python'
+        logo: 'python',
       },
       {
         name: 'Anaconda',
-        logo: 'anaconda'
+        logo: 'anaconda',
       },
       {
         name: 'Numpy',
-        logo: 'numpy'
+        logo: 'numpy',
       },
       {
         name: 'Pandas',
-        logo: 'pandas'
+        logo: 'pandas',
       },
       {
         name: 'OpenCV',
-        logo: 'opencv'
+        logo: 'opencv',
       },
       {
         name: 'Python',
-        logo: 'python'
+        logo: 'python',
       },
       {
         name: 'Flask',
-        logo: 'flask'
+        logo: 'flask',
       },
       {
         name: 'Sqlite3',
-        logo: 'sqlite'
+        logo: 'sqlite',
       },
       {
         name: 'Tensorflow',
-        logo: 'tensorflow'
+        logo: 'tensorflow',
       },
       {
         name: 'Pytorch',
-        logo: 'pytorch'
+        logo: 'pytorch',
       },
       {
         name: 'AWS',
-        logo: 'aws'
+        logo: 'aws',
       },
       {
         name: 'Git',
-        logo: 'git'
+        logo: 'git',
       },
       {
         name: 'Github',
-        logo: 'github'
+        logo: 'github',
       },
       {
         name: 'VC Code',
-        logo: 'vscode'
-      }
-    ]
-  }
-]
+        logo: 'vscode',
+      },
+    ],
+  },
+];

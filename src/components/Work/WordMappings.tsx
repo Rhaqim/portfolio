@@ -57,7 +57,11 @@ const EssayWithIcons = ({ essayText }: { essayText: string }) => {
     return replacedWords;
   };
 
-  return <div className="grid grid-cols-3 justify-between items-center space-y-4">{renderEssay(essayText)}</div>;
+  return (
+    <div className="grid grid-cols-3 justify-between items-center space-y-4">
+      {renderEssay(essayText)}
+    </div>
+  );
 };
 
 export default EssayWithIcons;

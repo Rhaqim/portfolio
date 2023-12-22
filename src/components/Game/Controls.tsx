@@ -42,17 +42,17 @@ const useGameControls = () => {
           break;
         // handle WASD
         case 'w':
-            handleMove('up')
-            break
+          handleMove('up');
+          break;
         case 'a':
-            handleMove('left')
-            break
+          handleMove('left');
+          break;
         case 's':
-            handleMove('down')
-            break
+          handleMove('down');
+          break;
         case 'd':
-            handleMove('right')
-            break
+          handleMove('right');
+          break;
         default:
           break;
       }

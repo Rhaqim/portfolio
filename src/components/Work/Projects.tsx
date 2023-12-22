@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import React from 'react'
-import Image from 'next/image'
-import Toolkits from './Toolkit'
-import { ArrowLineUpRight } from '@phosphor-icons/react'
-import PortfolioImage from './PortfolioImageProps'
+import React from 'react';
+import Image from 'next/image';
+import Toolkits from './Toolkit';
+import { ArrowLineUpRight } from '@phosphor-icons/react';
+import PortfolioImage from './PortfolioImageProps';
 
 type ProjectProps = {
-  title: string
-  description: string
-  link: string | null
-  github: string
-  tags: string[]
-  toolkits: { name: string; logo: string }[]
-  images: { src: string; alt: string }[] | []
-}
+  title: string;
+  description: string;
+  link: string | null;
+  github: string;
+  tags: string[];
+  toolkits: { name: string; logo: string }[];
+  images: { src: string; alt: string }[] | [];
+};
 
 const Projects: React.FC<ProjectProps> = ({
   title,
@@ -23,7 +23,7 @@ const Projects: React.FC<ProjectProps> = ({
   github,
   tags,
   toolkits,
-  images
+  images,
 }) => {
   return (
     <div className="flex flex-col items-start justify-center w-full my-4">
@@ -91,7 +91,7 @@ const Projects: React.FC<ProjectProps> = ({
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Projects
+export default Projects;

@@ -9,7 +9,10 @@ const BackLink = () => {
 
   return (
     <button onClick={() => router.back()}>
-      <ArrowArcLeft size={30} className="hover:scale-110 ease-in-out duration-300" />
+      <ArrowArcLeft
+        size={30}
+        className="hover:scale-110 ease-in-out duration-300"
+      />
     </button>
   );
 };
