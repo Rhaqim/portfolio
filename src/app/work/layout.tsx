@@ -9,10 +9,5 @@ export default function WorkLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
-      <LayoutBase navLinks={workNavLinks}>{children}</LayoutBase>
-    </section>
-  );
+  return <LayoutBase navLinks={workNavLinks}>{children}</LayoutBase>;
 }

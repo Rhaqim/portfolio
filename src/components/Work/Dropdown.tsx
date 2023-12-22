@@ -58,7 +58,7 @@ const Dropdown: React.FC<DropdownProps> = ({ buttonContent, children }) => {
             animate={{ opacity: 1, scaleY: 1 }}
             exit={{ opacity: 0, scaleY: 0.8 }}
             transition={{ duration: 0.5 }}
-            className="origin-center mt-2 w-full rounded-md shadow-lg bg-black ring-1 ring-black ring-opacity-5 z-50"
+            className="origin-center mt-2 w-full px-2 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50"
             role="menu"
             id="options-menu"
             aria-orientation="vertical"

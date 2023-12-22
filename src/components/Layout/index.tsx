@@ -22,11 +22,9 @@ const LayoutBase = ({ children, navLinks }: LayoutBaseProps) => {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div>
-          <Nav navLinks={navLinks} />
-        </div>
+        <Nav navLinks={navLinks} />
 
-        <div className="m-4">{children}</div>
+        <div className="p-4">{children}</div>
       </motion.div>
     </AnimatePresence>
   );
