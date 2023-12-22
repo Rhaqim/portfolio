@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 type NavProps = {
   href: string;
@@ -85,9 +85,9 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
           onClick={handleDropdown}
           className="absolute top-0 right-0 m-8 text-gray-500 hover:scale-75 transition duration-500 ease-in-out z-50 pt-2"
         >
-          <div className="w-8 h-1 bg-black dark:bg-white transform rotate-45"></div>
-          <div className="w-8 h-1 bg-black dark:bg-white transform scale-x-0"></div>
-          <div className="w-8 h-1 bg-black dark:bg-white transform -rotate-45"></div>
+          <div className="w-8 h-1 bg-white transform rotate-45"></div>
+          <div className="w-8 h-1 bg-white transform scale-x-0"></div>
+          <div className="w-8 h-1 bg-white transform -rotate-45"></div>
         </button>
       )}
 
@@ -99,15 +99,19 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
             : 'fixed left-0 right-0 bottom-[100%] flex flex-col items-center justify-center bg-black bg-opacity-50 backdrop-filter backdrop-blur-md z-10 ease-in-out duration-500 h-screen'
         }
       >
-        <div id="dropdown-content" className=" w-full h-full justify-center flex flex-col space-y-4 p-4 bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md">
+        <div
+          id="dropdown-content"
+          className=" w-full h-full justify-center flex flex-col space-y-4 p-4 bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md"
+        >
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="relative text-5xl font-bold bg-transparent hover:scale-105 transition duration-300 ease-in-out text-center"
+              onClick={handleDropdown}
+              className="relative text-5xl font-bold bg-transparent hover:scale-105 transition duration-300 ease-in-out text-center text-white"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>

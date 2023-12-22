@@ -21,19 +21,6 @@ const buttonVariants = {
   },
 };
 
-const AnimatedLink = ({ href, children }: { href: string; children: any }) => {
-  return (
-    <motion.div
-      variants={buttonVariants}
-      whileHover="hover"
-      whileTap="tap"
-      className="bg-blue-500 text-white p-2 rounded mt-2 cursor-pointer w-[200px] items-center text-center"
-    >
-      <Link href={href}>{children}</Link>
-    </motion.div>
-  );
-};
-
 const StartScreen = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<{
     icon: string;
@@ -58,9 +45,13 @@ const StartScreen = () => {
 
       {/* Buttons */}
       {gameNavLinks.map((link) => (
-        <AnimatedLink href={link.href} key={link.href}>
+        <Link
+          className="bg-blue-500 text-white p-2 rounded mt-2 cursor-pointer w-[200px] hover:bg-blue-700 items-center text-center"
+          href={link.href}
+          key={link.href}
+        >
           {link.label}
-        </AnimatedLink>
+        </Link>
       ))}
 
       {/* Hidden Audio Element for Background Music */}

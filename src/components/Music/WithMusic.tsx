@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Pause, Play } from '@phosphor-icons/react';
 
 const WithMusic: React.FC<{ music_src: string }> = ({ music_src }) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const toggleMusic = () => {
+  const toggleMusic = useCallback(() => {
     const audio = document.getElementById('bgMusic') as HTMLAudioElement;
 
     if (audio) {
@@ -19,7 +19,24 @@ const WithMusic: React.FC<{ music_src: string }> = ({ music_src }) => {
 
       setIsPlaying(!isPlaying);
     }
-  };
+  }, [isPlaying]);
+
+  useEffect(() => {
+    const audio = document.getElementById('bgMusic') as HTMLAudioElement;
+
+    // Start playing the music when the component mounts
+    if (audio) {
+      audio.play();
+      setIsPlaying(true);
+    }
+
+    // Cleanup: Pause the music when the component is unmounted
+    return () => {
+      if (audio) {
+        audio.pause();
+      }
+    };
+  }, []);
 
   return (
     <motion.div
