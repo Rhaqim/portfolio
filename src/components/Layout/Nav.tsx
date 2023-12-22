@@ -92,27 +92,25 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       )}
 
       {/* Drop Down */}
-      {dropdownOpen && (
-        <motion.div
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ opacity: 0, y: -100 }}
-          transition={{ duration: 0.7 }}
-          className="fixed inset-0 flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-10 ease-linear"
-        >
-          <div id="dropdown-content" className="flex flex-col space-y-4 p-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="relative text-5xl font-bold bg-transparent hover:border-b-4 border-black transition duration-500 ease-in-out text-center"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </motion.div>
-      )}
+      <div
+        className={
+          dropdownOpen
+            ? 'absolute top-0 left-0 right-0 bottom-0 inset-0 flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-10 ease-in-out duration-500'
+            : 'absolute left-0 right-0 bottom-[100%] flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-10 ease-in-out duration-500 h-screen'
+        }
+      >
+        <div id="dropdown-content" className="flex flex-col space-y-4 p-4">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="relative text-5xl font-bold bg-transparent hover:scale-105 transition duration-300 ease-in-out text-center"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
     </motion.nav>
   );
 };
