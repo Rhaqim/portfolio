@@ -31,8 +31,13 @@ const Game = () => {
   }, [playerPosition]);
 
   return (
-    <div className='h-screen flex flex-col items-center justify-center'>
-      <canvas id="gameCanvas" width="800" height="600" className='bg-white'></canvas>
+    <div className="h-screen flex flex-col items-center justify-center">
+      <canvas
+        id="gameCanvas"
+        width="800"
+        height="600"
+        className="bg-white"
+      ></canvas>
       <div>{controls}</div>
     </div>
   );

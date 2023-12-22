@@ -66,7 +66,7 @@ const useGameControls = () => {
   }, []);
 
   const controls = (
-    <div className="w-[200px] h-[150px]">
+    <div className="block md:hidden w-[200px] h-[150px]">
       <div className="flex flex-col items-center h-full w-full justify-between">
         <button onClick={() => handleMove('up')}>Up</button>
         <div className="flex flex-row justify-between w-full">
