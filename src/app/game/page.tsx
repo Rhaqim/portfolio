@@ -64,7 +64,7 @@ const StartScreen = () => {
       ))}
 
       {/* Hidden Audio Element for Background Music */}
-      <WithMusic />
+      <WithMusic music_src="Stanislav_Barantsov_-_GiantDune.mp3" />
     </div>
   );
 };
