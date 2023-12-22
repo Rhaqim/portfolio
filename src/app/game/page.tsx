@@ -45,7 +45,7 @@ const StartScreen = () => {
       <motion.h1
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-bold mb-6"
+        className="text-4xl text-center font-bold mb-6"
       >
         The Life and Works of Rhaqim!
       </motion.h1>
