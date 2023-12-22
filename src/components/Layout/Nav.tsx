@@ -95,11 +95,11 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       <div
         className={
           dropdownOpen
-            ? 'absolute top-0 left-0 right-0 bottom-0 inset-0 flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-10 ease-in-out duration-500'
-            : 'absolute left-0 right-0 bottom-[100%] flex flex-col items-center justify-center bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md z-10 ease-in-out duration-500 h-screen'
+            ? 'absolute top-0 left-0 right-0 bottom-0 inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 backdrop-filter backdrop-blur-md z-10 ease-in-out duration-500'
+            : 'absolute left-0 right-0 bottom-[100%] flex flex-col items-center justify-center bg-black bg-opacity-50 backdrop-filter backdrop-blur-md z-10 ease-in-out duration-500 h-screen'
         }
       >
-        <div id="dropdown-content" className=" w-full h-full flex flex-col space-y-4 p-4 bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md">
+        <div id="dropdown-content" className=" w-full h-full justify-center flex flex-col space-y-4 p-4 bg-transparent bg-opacity-50 backdrop-filter backdrop-blur-md">
           {navLinks.map((link) => (
             <a
               key={link.href}
