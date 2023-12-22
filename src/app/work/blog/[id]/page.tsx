@@ -1,11 +1,12 @@
 'use client';
 
 // InteractiveBlog.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import GameThemedAnimations from '@/components/Anim/GameThemed';
+import BlogType from '../blog.type';
 
-const InteractiveBlog: React.FC = () => {
+const InteractiveBlog: React.FC<{ params: { id: string } }> = ({ params }) => {
+  const [blogPost, setBlogPost] = useState<BlogType>();
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState('');
 
@@ -15,6 +16,24 @@ const InteractiveBlog: React.FC = () => {
       setNewComment('');
     }
   };
+
+  useEffect(() => {
+    // const fetchComments = async () => {
+    //   const response = await fetch(`/api/blog/${params.id}/comments`);
+    //   const comments = await response.json();
+
+    //   setComments(comments);
+    // };
+    // fetchComments();
+
+    const fetchPost = async () => {
+      const response = await fetch(`/api/blog/${params.id}`);
+      const post = await response.json();
+
+      setBlogPost(post);
+    };
+    fetchPost();
+  }, [params.id]);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -26,10 +45,15 @@ const InteractiveBlog: React.FC = () => {
         transition={{ duration: 1 }}
         className="bg-gray-200 p-8 rounded-md shadow-md text-black"
       >
-        <h2 className="text-2xl font-bold mb-4">Latest Post</h2>
+        <h2 className="text-2xl font-bold mb-4">{blogPost?.title}</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac libero
-          vel erat volutpat malesuada.
+          {blogPost?.sections.map((paragraph, index) => (
+            <p key={index} className="mb-4">
+              {paragraph.header && (
+                <span className="font-bold">{paragraph.header}</span>
+              )}
+            </p>
+          ))}
         </p>
 
         {/* Gamified Element */}

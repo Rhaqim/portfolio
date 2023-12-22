@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "title": "Hello World",
+    "excerpt": "This is my first Blog post ever! I hope you enjoy reading it as much as I enjoyed writing it.",
+    "date": "2021-01-01",
+    "sections": [
+      {
+        "header": "Section 1",
+        "content": "I'm not a great writer but I believe in documentation (its helped me a lot in the past so I hope this helps someone else too). I'm going to be writing about my journey as a developer and the things I learn along the way. I hope you enjoy reading it as much as I enjoy writing it."
+      },
+      {
+        "header": "Buiding my Portfolio website",
+        "content": "Believe it or not this is actually version 3.0 of my website, the first version was built with HTML, CSS and JavaScript. The second version was built with React and TypeScript. This version is built with Next.js and TypeScript. I'm really enjoying Next.js so far, it's a great framework and I'm excited to learn more about it."
+      },
+      {
+        "header": "Section 3",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac libero vel erat volutpat malesuada."
+      }
+    ]
+  }
+]

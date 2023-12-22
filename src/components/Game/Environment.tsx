@@ -1,5 +1,7 @@
 import React from 'react';
 
+import GameThemedAnimations from '../Anim/GameThemed';
+
 interface EnvironmentProps {
   width: number;
   height: number;
