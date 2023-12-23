@@ -10,11 +10,11 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AnimatePresence>
+    <>
       <div className="absolute top-1 left-2">
         <BackLink />
       </div>
       {children}
-    </AnimatePresence>
+    </>
   );
 }
