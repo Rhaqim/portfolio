@@ -1,14 +1,35 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import Background from './Environment';
 import useGameControls from './Controls';
+import { get } from 'http';
 
 const Game = () => {
   const { playerPosition, controls } = useGameControls();
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
+
+    const backgroundSize = 1000;
+    const halfCanvasWidth = canvas.width / 2;
+    const halfCanvasHeight = canvas.height / 2;
+
+    const getBackgroundPosition = () => {
+      const x = Math.min(
+        Math.max(playerPosition.x - halfCanvasWidth, 0),
+        backgroundSize - 20,
+      );
+      const y = Math.min(
+        Math.max(playerPosition.y - halfCanvasHeight, 0),
+        backgroundSize - 20,
+      );
+
+      return { x, y };
+    };
 
     const drawPlayer = () => {
       if (!ctx) return;
@@ -22,6 +43,7 @@ const Game = () => {
 
     const gameLoop = () => {
       update();
+      getBackgroundPosition();
       drawPlayer();
       requestAnimationFrame(gameLoop);
     };
@@ -33,6 +55,7 @@ const Game = () => {
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <canvas
+        ref={canvasRef}
         id="gameCanvas"
         width="800"
         height="600"

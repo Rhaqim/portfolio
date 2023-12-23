@@ -22,6 +22,7 @@ const page = () => {
       {workCategories.map((work, index) => (
         <WorkSections
           key={index}
+          id={work.id}
           name={work.name}
           description={work.description}
           image={work.image}

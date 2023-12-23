@@ -6,6 +6,7 @@ import { opensourceProjects } from './opensource';
 
 const workCategories = [
   {
+    id: "work-experience",
     name: 'Work Experience',
     description: 'I owe a lot of my professional growth to these companies',
     image:
@@ -20,6 +21,7 @@ const workCategories = [
     ),
   },
   {
+    id: "personal-projects",
     name: 'Personal Projects',
     description:
       "When I'm not working on client projects, I'm working on these",
@@ -35,6 +37,7 @@ const workCategories = [
     ),
   },
   {
+    id: "open-source-projects",
     name: 'Open Source Projects',
     description: "I'm a big believer in open source software",
     image:

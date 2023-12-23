@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Dropdown from './Dropdown';
 
 type WorkSectionsProps = {
+  id: string;
   name: string;
   description: string;
   image: string;
@@ -11,6 +12,7 @@ type WorkSectionsProps = {
 };
 
 const WorkSections = ({
+  id,
   name,
   description,
   image,
@@ -21,6 +23,7 @@ const WorkSections = ({
     <Dropdown
       buttonContent={
         <motion.div
+          id={id}
           initial={{ y: 1000, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration }}
