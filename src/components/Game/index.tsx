@@ -12,19 +12,18 @@ const Game = () => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    const drawBackground = () => {
-      if (!ctx) return;
-      const img = new Image();
-      img.src = '/game/backgrounds/Summer1.png';
-      img.onload = () => {
-        console.log('drawing background');
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      };
-    };
+    // const drawBackground = () => {
+    //   if (!ctx) return;
+    //   const img = new Image();
+    //   img.src = '/game/backgrounds/Summer1.png';
+    //   img.onload = () => {
+    //     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    //   };
+    // };
 
     const drawPlayer = () => {
       if (!ctx) return;
-      // ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillRect(playerPosition.x, playerPosition.y, 50, 50);
     };
 
@@ -34,7 +33,7 @@ const Game = () => {
 
     const gameLoop = () => {
       update();
-      drawBackground();
+      // drawBackground();
       drawPlayer();
       requestAnimationFrame(gameLoop);
     };

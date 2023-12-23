@@ -82,3 +82,87 @@ const useGameControls = () => {
 };
 
 export default useGameControls;
+
+class Player {
+  constructor(
+    public x: number,
+    public y: number,
+    public width: number,
+    public height: number,
+    public color: string,
+    public speed: number,
+    public ctx: CanvasRenderingContext2D,
+  ) {}
+
+  draw() {
+    this.ctx.beginPath();
+    this.ctx.fillStyle = this.color;
+    this.ctx.fill(
+      new Path2D(
+        `M${this.x} ${this.y} h ${this.width} v ${this.height} h ${-this
+          .width} Z`,
+      ),
+    );
+
+    // this.ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+
+  constrols() {
+    window.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          this.x -= this.speed;
+          break;
+        case 'ArrowRight':
+          this.x += this.speed;
+          break;
+        case 'ArrowUp':
+          this.y -= this.speed;
+          break;
+        case 'ArrowDown':
+          this.y += this.speed;
+          break;
+      }
+    });
+  }
+
+  update() {
+    this.draw();
+    this.constrols();
+  }
+}
+
+enum Weapons {
+  Sword,
+  Bow,
+  Staff,
+}
+
+class Weapon {
+  constructor(
+    public type: Weapons,
+    public damage: number,
+    public range: number,
+    public speed: number,
+    public player: Player,
+  ) {}
+
+  draw() {
+    this.player.ctx.beginPath();
+    this.player.ctx.fillStyle = 'red';
+    this.player.ctx.fill(
+      new Path2D(
+        `M${this.player.x + 25} ${this.player.y + 25} h ${this.range} v ${this
+          .range} h ${-this.range} Z`,
+      ),
+    );
+  }
+
+  attack() {
+    this.draw();
+  }
+
+  update() {
+    this.attack();
+  }
+}
