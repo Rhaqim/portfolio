@@ -25,6 +25,21 @@ class Player {
     );
   }
 
+  checkBounds() {
+    if (this.positiion.x < 0) {
+      this.positiion.x = 0;
+    }
+    if (this.positiion.x > this.cavasBounds.width - 10) {
+      this.positiion.x = this.cavasBounds.width - 10;
+    }
+    if (this.positiion.y < 0) {
+      this.positiion.y = 0;
+    }
+    if (this.positiion.y > this.cavasBounds.height - 10) {
+      this.positiion.y = this.cavasBounds.height - 10;
+    }
+  }
+
   move(direction: string) {
     switch (direction) {
       case 'left':
@@ -45,20 +60,24 @@ class Player {
     this.checkBounds();
   }
 
-  checkBounds() {
-    if (this.positiion.x < 0) {
-      this.positiion.x = 0;
+  handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case 'ArrowLeft':
+        this.move('left');
+        break;
+      case 'ArrowRight':
+        this.move('right');
+        break;
+      case 'ArrowUp':
+        this.move('up');
+        break;
+      case 'ArrowDown':
+        this.move('down');
+        break;
+      default:
+        break;
     }
-    if (this.positiion.x > this.cavasBounds.width - 10) {
-      this.positiion.x = this.cavasBounds.width - 10;
-    }
-    if (this.positiion.y < 0) {
-      this.positiion.y = 0;
-    }
-    if (this.positiion.y > this.cavasBounds.height - 10) {
-      this.positiion.y = this.cavasBounds.height - 10;
-    }
-  }
+  };
 
   playerPosition() {
     return this.positiion;
@@ -81,3 +100,5 @@ class Player {
     return playerControls;
   }
 }
+
+export default Player;

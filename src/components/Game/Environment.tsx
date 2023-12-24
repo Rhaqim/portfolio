@@ -1,38 +1,35 @@
-import React from 'react';
+import exp from 'constants';
 
-const Background = ({
-  playerPosition,
-}: {
-  playerPosition: { x: number; y: number };
-}) => {
-  const backgroundSize = 100;
-  const halfCanvasWidth = 800 / 2;
-  const halfCanvasHeight = 600 / 2;
+class Environment {
+  constructor(
+    public ctx: CanvasRenderingContext2D,
+    public cavasBounds: { width: number; height: number },
+    public image: string,
+  ) {
+    this.ctx = ctx;
+    this.cavasBounds = cavasBounds;
+    this.image = image;
+  }
 
-  const getBackgroundPosition = () => {
-    const x = Math.min(
-      Math.max(playerPosition.x - halfCanvasWidth, 0),
-      backgroundSize - 20,
-    );
-    const y = Math.min(
-      Math.max(playerPosition.y - halfCanvasHeight, 0),
-      backgroundSize - 20,
-    );
-
-    return { x, y };
+  loadImage = (): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = (err) => reject(err);
+      img.src = this.image;
+    });
   };
 
-  return (
-    <div
-      className="bg-blue-500 w-full h-full"
-      style={{
-        backgroundPosition: `-${getBackgroundPosition().x}px -${
-          getBackgroundPosition().y
-        }px`,
-        backgroundSize: `${backgroundSize}px ${backgroundSize}px`,
-      }}
-    ></div>
-  );
-};
+  draw = async () => {
+    const img = await this.loadImage();
+    this.ctx.drawImage(
+      img,
+      0,
+      0,
+      this.cavasBounds.width,
+      this.cavasBounds.height,
+    );
+  };
+}
 
-export default Background;
+export default Environment;
