@@ -1,19 +1,63 @@
+import { PlayerableCharacters } from './players';
+
+/**
+ * Represents a player in the game.
+ */
 class Player {
+  /**
+   * Creates a new instance of the Player class.
+   * @param ctx The canvas rendering context.
+   * @param character The player's character.
+   * @param position The player's position.
+   * @param dimension The player's dimension.
+   * @param color The player's color.
+   * @param speed The player's speed.
+   * @param canvasBounds The bounds of the canvas.
+   */
   constructor(
     public ctx: CanvasRenderingContext2D,
-    public positiion: { x: number; y: number },
+    public character: PlayerableCharacters,
+    public position: { x: number; y: number },
     public dimension: { width: number; height: number },
     public color: string,
-    public spead: number,
-    public cavasBounds: { width: number; height: number },
+    public speed: number,
+    public canvasBounds: { width: number; height: number },
   ) {
     this.ctx = ctx;
-    this.positiion = positiion;
+    this.character = character;
+    this.position = position;
     this.dimension = dimension;
     this.color = color;
-    this.spead = spead;
-    this.cavasBounds = cavasBounds;
+    this.speed = speed;
+    this.canvasBounds = canvasBounds;
   }
+
+  /**
+   * Loads the image asynchronously for the character selected.
+   * @returns A promise that resolves to the loaded image.
+   */
+  loadImage = (): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = (err) => reject(err);
+      img.src = `/game/characters/${this.character}.png`;
+    });
+  };
+
+  /**
+   * Draws an image on the canvas at the specified position and dimension.
+   */
+  drawImage = async () => {
+    const img = await this.loadImage();
+    this.ctx.drawImage(
+      img,
+      this.position.x,
+      this.position.y,
+      this.dimension.width,
+      this.dimension.height,
+    );
+  };
 
   /**
    * Draws the player on the canvas.
@@ -21,8 +65,8 @@ class Player {
   draw() {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(
-      this.positiion.x,
-      this.positiion.y,
+      this.position.x,
+      this.position.y,
       this.dimension.width,
       this.dimension.height,
     );
@@ -32,17 +76,17 @@ class Player {
    * Checks if the player's position is within the canvas bounds and adjusts it if necessary.
    */
   checkBounds() {
-    if (this.positiion.x < 0) {
-      this.positiion.x = 0;
+    if (this.position.x < 0) {
+      this.position.x = 0;
     }
-    if (this.positiion.x > this.cavasBounds.width - this.dimension.width) {
-      this.positiion.x = this.cavasBounds.width - this.dimension.width;
+    if (this.position.x > this.canvasBounds.width - this.dimension.width) {
+      this.position.x = this.canvasBounds.width - this.dimension.width;
     }
-    if (this.positiion.y < 0) {
-      this.positiion.y = 0;
+    if (this.position.y < 0) {
+      this.position.y = 0;
     }
-    if (this.positiion.y > this.cavasBounds.height - this.dimension.height) {
-      this.positiion.y = this.cavasBounds.height - this.dimension.height;
+    if (this.position.y > this.canvasBounds.height - this.dimension.height) {
+      this.position.y = this.canvasBounds.height - this.dimension.height;
     }
   }
 
@@ -53,16 +97,16 @@ class Player {
   move(direction: string) {
     switch (direction) {
       case 'left':
-        this.positiion.x -= this.spead;
+        this.position.x -= this.speed;
         break;
       case 'right':
-        this.positiion.x += this.spead;
+        this.position.x += this.speed;
         break;
       case 'up':
-        this.positiion.y -= this.spead;
+        this.position.y -= this.speed;
         break;
       case 'down':
-        this.positiion.y += this.spead;
+        this.position.y += this.speed;
         break;
       default:
         break;
@@ -94,7 +138,7 @@ class Player {
   };
 
   playerPosition() {
-    return this.positiion;
+    return this.position;
   }
 
   /**

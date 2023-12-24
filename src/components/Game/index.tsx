@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Environment from './Environment';
 import Player from './Player';
 import Game from './State';
+import { PlayerableCharacters } from './players';
 
 const MainGame = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -29,6 +30,7 @@ const MainGame = () => {
     // Player
     const player = new Player(
       ctx,
+      PlayerableCharacters.Ivan,
       { x: 400, y: 300 },
       { width: 50, height: 50 },
       'red',
