@@ -10,18 +10,20 @@ const MainGame = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [controller, setController] = useState<JSX.Element>();
 
+  const summerBG = '/game/backgrounds/Summer1.png';
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
 
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     // Environment
     const environment = new Environment(
       ctx,
       { width: canvas.width, height: canvas.height },
-      '/game/backgrounds/Summer1.png',
+      summerBG,
     );
 
     // Player

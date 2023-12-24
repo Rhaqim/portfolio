@@ -1,6 +1,13 @@
-import exp from 'constants';
-
+/**
+ * Represents the game environment.
+ */
 class Environment {
+  /**
+   * Creates an instance of the Environment class.
+   * @param ctx - The canvas rendering context.
+   * @param cavasBounds - The bounds of the canvas.
+   * @param image - The image URL to be loaded.
+   */
   constructor(
     public ctx: CanvasRenderingContext2D,
     public cavasBounds: { width: number; height: number },
@@ -11,6 +18,10 @@ class Environment {
     this.image = image;
   }
 
+  /**
+   * Loads the image asynchronously.
+   * @returns A promise that resolves to the loaded image.
+   */
   loadImage = (): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -20,6 +31,9 @@ class Environment {
     });
   };
 
+  /**
+   * Draws the image on the canvas.
+   */
   draw = async () => {
     const img = await this.loadImage();
     this.ctx.drawImage(

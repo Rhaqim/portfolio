@@ -15,6 +15,9 @@ class Player {
     this.cavasBounds = cavasBounds;
   }
 
+  /**
+   * Draws the player on the canvas.
+   */
   draw() {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(
@@ -25,21 +28,28 @@ class Player {
     );
   }
 
+  /**
+   * Checks if the player's position is within the canvas bounds and adjusts it if necessary.
+   */
   checkBounds() {
     if (this.positiion.x < 0) {
       this.positiion.x = 0;
     }
-    if (this.positiion.x > this.cavasBounds.width - 10) {
-      this.positiion.x = this.cavasBounds.width - 10;
+    if (this.positiion.x > this.cavasBounds.width - this.dimension.width) {
+      this.positiion.x = this.cavasBounds.width - this.dimension.width;
     }
     if (this.positiion.y < 0) {
       this.positiion.y = 0;
     }
-    if (this.positiion.y > this.cavasBounds.height - 10) {
-      this.positiion.y = this.cavasBounds.height - 10;
+    if (this.positiion.y > this.cavasBounds.height - this.dimension.height) {
+      this.positiion.y = this.cavasBounds.height - this.dimension.height;
     }
   }
 
+  /**
+   * Moves the player in the specified direction.
+   * @param direction - The direction to move the player ('left', 'right', 'up', 'down').
+   */
   move(direction: string) {
     switch (direction) {
       case 'left':
@@ -60,6 +70,10 @@ class Player {
     this.checkBounds();
   }
 
+  /**
+   * Handles the keydown event and performs the corresponding action based on the pressed key.
+   * @param e - The KeyboardEvent object representing the keydown event.
+   */
   handleKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
       case 'ArrowLeft':
@@ -83,6 +97,10 @@ class Player {
     return this.positiion;
   }
 
+  /**
+   * Renders the player controls.
+   * @returns {JSX.Element} The player controls JSX element.
+   */
   controls(): JSX.Element {
     const playerControls = (
       <div className="block md:hidden w-[200px] h-[150px]">
