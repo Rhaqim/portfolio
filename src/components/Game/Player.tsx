@@ -26,13 +26,41 @@ class Player {
     this.ctx = ctx;
     this.character = character;
     this.position = position;
-    this.dimension = dimension;
+    this.dimension = dimension || { width: 10, height: 10 };
     this.color = color;
     this.speed = speed;
     this.canvasBounds = canvasBounds;
   }
 
+  private actionFrames: Record<string, number> = {
+    Idle: 6,
+    Walk: 8,
+    Attack: 6,
+    Hurt: 2,
+    Dead: 3,
+  };
+
   private action = 'Idle';
+
+  public isMoving = false;
+
+  /**
+   * Checks if the player's position is within the canvas bounds and adjusts it if necessary.
+   */
+  checkBounds() {
+    if (this.position.x < 0) {
+      this.position.x = 0;
+    }
+    if (this.position.x > this.canvasBounds.width - this.dimension.width) {
+      this.position.x = this.canvasBounds.width - this.dimension.width;
+    }
+    if (this.position.y < 0) {
+      this.position.y = 0;
+    }
+    if (this.position.y > this.canvasBounds.height - this.dimension.height) {
+      this.position.y = this.canvasBounds.height - this.dimension.height;
+    }
+  }
 
   /**
    * Loads the image asynchronously for the character selected.
@@ -52,7 +80,7 @@ class Player {
     const frameWidth = 128;
     const frameHeight = 128;
 
-    const cols = 8;
+    const numFrames = this.actionFrames[this.action];
 
     let currentFrame = 0;
 
@@ -74,56 +102,19 @@ class Player {
         frameHeight,
       );
 
-      currentFrame = ++currentFrame % cols;
-    };
+      currentFrame = ++currentFrame % numFrames;
 
-    // setInterval(drawPlayer, 100);
-    drawPlayer();
-  };
+      if (this.isMoving) {
+        requestAnimationFrame(drawPlayer);
+      }
+    }
 
-  /**
-   * Draws an image on the canvas at the specified position and dimension.
-   */
-  drawImage = async () => {
-    const img = await this.loadImage();
-    this.ctx.drawImage(
-      img,
-      this.position.x,
-      this.position.y,
-      this.dimension.width,
-      this.dimension.height,
-    );
-  };
-
-  /**
-   * Draws the player on the canvas.
-   */
-  draw() {
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(
-      this.position.x,
-      this.position.y,
-      this.dimension.width,
-      this.dimension.height,
-    );
+    this.isMoving = true;
+    requestAnimationFrame(drawPlayer);
   }
 
-  /**
-   * Checks if the player's position is within the canvas bounds and adjusts it if necessary.
-   */
-  checkBounds() {
-    if (this.position.x < 0) {
-      this.position.x = 0;
-    }
-    if (this.position.x > this.canvasBounds.width - this.dimension.width) {
-      this.position.x = this.canvasBounds.width - this.dimension.width;
-    }
-    if (this.position.y < 0) {
-      this.position.y = 0;
-    }
-    if (this.position.y > this.canvasBounds.height - this.dimension.height) {
-      this.position.y = this.canvasBounds.height - this.dimension.height;
-    }
+  stopAnimation() {
+    this.isMoving = false;
   }
 
   /**
@@ -131,33 +122,33 @@ class Player {
    * @param direction - The direction to move the player ('left', 'right', 'up', 'down').
    */
   move(direction: string) {
+    let deltaX = 0;
+    let deltaY = 0;
+
     switch (direction) {
       case 'left':
-        this.position.x -= this.speed;
-        this.action = 'Walk';
-        this.sprite;
+        deltaX = -this.speed;
         break;
       case 'right':
-        this.position.x += this.speed;
-        this.action = 'Walk';
-        this.action = 'Walk';
-        this.sprite;
+        deltaX = this.speed;
         break;
       case 'up':
-        this.position.y -= this.speed;
-        this.action = 'Walk';
-        this.sprite;
+        deltaY = -this.speed;
         break;
       case 'down':
-        this.position.y += this.speed;
-        this.action = 'Walk';
-        this.sprite;
+        deltaY = this.speed;
         break;
       default:
         this.action = 'Idle';
         this.sprite;
+        this.stopAnimation();
         break;
     }
+
+    this.position.x += deltaX;
+    this.position.y += deltaY;
+    this.action = 'Walk';
+    this.sprite;
     this.checkBounds();
   }
 
