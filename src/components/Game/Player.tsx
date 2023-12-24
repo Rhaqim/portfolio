@@ -1,4 +1,4 @@
-import { PlayerableCharacters } from './players';
+import { PlayerableCharacters } from './players.type';
 
 /**
  * Represents a player in the game.
@@ -164,3 +164,54 @@ class Player {
 }
 
 export default Player;
+
+class AnimateSprite {
+  constructor(
+    public ctx: CanvasRenderingContext2D,
+    public image: HTMLImageElement,
+    public position: { x: number; y: number },
+    public dimension: { width: number; height: number },
+    public frames: { x: number; y: number },
+    public speed: number,
+    public canvasBounds: { width: number; height: number },
+  ) {
+    this.ctx = ctx;
+    this.image = image;
+    this.position = position;
+    this.dimension = dimension;
+    this.frames = frames;
+    this.speed = speed;
+    this.canvasBounds = canvasBounds;
+  }
+
+  drawFrame(frameX: number, frameY: number, canvasX: number, canvasY: number) {
+    this.ctx.drawImage(
+      this.image,
+      frameX * this.dimension.width,
+      frameY * this.dimension.height,
+      this.dimension.width,
+      this.dimension.height,
+      canvasX,
+      canvasY,
+      this.dimension.width,
+      this.dimension.height,
+    );
+  }
+
+  updateFrame() {
+    this.position.x = this.position.x + this.speed;
+    if (this.position.x > this.canvasBounds.width) {
+      this.position.x = 0 - this.dimension.width;
+    }
+  }
+
+  render() {
+    this.updateFrame();
+    this.drawFrame(
+      this.frames.x,
+      this.frames.y,
+      this.position.x,
+      this.position.y,
+    );
+  }
+}

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Environment from './Environment';
 import Player from './Player';
 import Game from './State';
-import { PlayerableCharacters } from './players';
+import { PlayerableCharacters } from './players.type';
 
 const MainGame = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
