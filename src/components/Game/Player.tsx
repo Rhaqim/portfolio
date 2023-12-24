@@ -2,12 +2,14 @@ class Player {
   constructor(
     public ctx: CanvasRenderingContext2D,
     public positiion: { x: number; y: number },
+    public dimension: { width: number; height: number },
     public color: string,
     public spead: number,
     public cavasBounds: { width: number; height: number },
   ) {
     this.ctx = ctx;
     this.positiion = positiion;
+    this.dimension = dimension;
     this.color = color;
     this.spead = spead;
     this.cavasBounds = cavasBounds;
@@ -15,7 +17,12 @@ class Player {
 
   draw() {
     this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.positiion.x, this.positiion.y, 10, 10);
+    this.ctx.fillRect(
+      this.positiion.x,
+      this.positiion.y,
+      this.dimension.width,
+      this.dimension.height,
+    );
   }
 
   move(direction: string) {
@@ -51,5 +58,26 @@ class Player {
     if (this.positiion.y > this.cavasBounds.height - 10) {
       this.positiion.y = this.cavasBounds.height - 10;
     }
+  }
+
+  playerPosition() {
+    return this.positiion;
+  }
+
+  controls(): JSX.Element {
+    const playerControls = (
+      <div className="block md:hidden w-[200px] h-[150px]">
+        <div className="flex flex-col items-center h-full w-full justify-between">
+          <button onClick={() => this.move('up')}>Up</button>
+          <div className="flex flex-row justify-between w-full">
+            <button onClick={() => this.move('left')}>Left</button>
+            <button onClick={() => this.move('right')}>Right</button>
+          </div>
+          <button onClick={() => this.move('down')}>Down</button>
+        </div>
+      </div>
+    );
+
+    return playerControls;
   }
 }

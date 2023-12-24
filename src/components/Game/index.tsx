@@ -12,18 +12,23 @@ const Game = () => {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    // const drawBackground = () => {
-    //   if (!ctx) return;
-    //   const img = new Image();
-    //   img.src = '/game/backgrounds/Summer1.png';
-    //   img.onload = () => {
-    //     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    //   };
-    // };
+    const loadImage = (src: string): Promise<HTMLImageElement> => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = (err) => reject(err);
+        img.src = src;
+      });
+    };
+
+    const drawBackground = async () => {
+      if (!ctx) return;
+      const img = await loadImage('/game/backgrounds/Summer1.png');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
 
     const drawPlayer = () => {
       if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillRect(playerPosition.x, playerPosition.y, 50, 50);
     };
 
@@ -31,15 +36,16 @@ const Game = () => {
       // Update game state based on user input or other game logic
     };
 
-    const gameLoop = () => {
+    const gameLoop = async () => {
+      if (!ctx) return;
+      await drawBackground(); // Wait for the background to be drawn
       update();
-      // drawBackground();
       drawPlayer();
       requestAnimationFrame(gameLoop);
     };
 
-    // Start the game loop
-    gameLoop();
+    // Start the game loop after the background image is loaded
+    drawBackground().then(() => gameLoop());
   }, [playerPosition]);
 
   return (
