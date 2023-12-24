@@ -32,6 +32,8 @@ class Player {
     this.canvasBounds = canvasBounds;
   }
 
+  private action = 'Idle';
+
   /**
    * Loads the image asynchronously for the character selected.
    * @returns A promise that resolves to the loaded image.
@@ -41,8 +43,42 @@ class Player {
       const img = new Image();
       img.onload = () => resolve(img);
       img.onerror = (err) => reject(err);
-      img.src = `/game/characters/${this.character}.png`;
+      img.src = `/game/sprites/${this.character}/${this.action}.png`;
     });
+  };
+
+  sprite = async () => {
+    const img = await this.loadImage();
+    const frameWidth = 128;
+    const frameHeight = 128;
+
+    const cols = 8;
+
+    let currentFrame = 0;
+
+    const framesPerRow = img.width / frameWidth;
+
+    const drawPlayer = () => {
+      const row = Math.floor(currentFrame / framesPerRow);
+      const col = Math.floor(currentFrame % framesPerRow);
+
+      this.ctx.drawImage(
+        img,
+        col * frameWidth,
+        row * frameHeight,
+        frameWidth,
+        frameHeight,
+        this.position.x,
+        this.position.y,
+        frameWidth,
+        frameHeight,
+      );
+
+      currentFrame = ++currentFrame % cols;
+    };
+
+    // setInterval(drawPlayer, 100);
+    drawPlayer();
   };
 
   /**
@@ -98,17 +134,28 @@ class Player {
     switch (direction) {
       case 'left':
         this.position.x -= this.speed;
+        this.action = 'Walk';
+        this.sprite;
         break;
       case 'right':
         this.position.x += this.speed;
+        this.action = 'Walk';
+        this.action = 'Walk';
+        this.sprite;
         break;
       case 'up':
         this.position.y -= this.speed;
+        this.action = 'Walk';
+        this.sprite;
         break;
       case 'down':
         this.position.y += this.speed;
+        this.action = 'Walk';
+        this.sprite;
         break;
       default:
+        this.action = 'Idle';
+        this.sprite;
         break;
     }
     this.checkBounds();

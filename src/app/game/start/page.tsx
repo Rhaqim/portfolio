@@ -1,8 +1,8 @@
 import React from 'react';
-import Sprite from '@/components/Game/Sprite';
+import Game from '@/components/Game';
 
 const GameStart = () => {
-  return <Sprite />;
+  return <Game />;
 };
 
 export default GameStart;

@@ -30,7 +30,7 @@ const MainGame = () => {
     // Player
     const player = new Player(
       ctx,
-      PlayerableCharacters.Ivan,
+      PlayerableCharacters.Samurai,
       { x: 400, y: 300 },
       { width: 50, height: 50 },
       'red',
