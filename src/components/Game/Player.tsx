@@ -103,6 +103,7 @@ class Player {
       );
 
       currentFrame = ++currentFrame % numFrames;
+      
     };
 
     drawPlayer();

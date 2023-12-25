@@ -4,18 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import BlogType from './blog.type';
 import Link from 'next/link';
-import {
-  ArrowCircleRight,
-  ArrowElbowLeft,
-  ArrowElbowRight,
-} from '@phosphor-icons/react';
+import { ArrowElbowRight } from '@phosphor-icons/react';
 
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState<BlogType[]>([]);
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
-      const response = await fetch('/api/blog');
+      const response = await fetch('/api/blog/get');
       const posts = await response.json();
 
       setBlogPosts(posts);

@@ -26,8 +26,10 @@ const InteractiveBlog: React.FC<{ params: { id: string } }> = ({ params }) => {
     // };
     // fetchComments();
 
+    const id = encodeURIComponent(params.id);
+
     const fetchPost = async () => {
-      const response = await fetch(`/api/blog/${params.id}`);
+      const response = await fetch(`/api/blog/${id}`);
       const post = await response.json();
 
       setBlogPost(post);
