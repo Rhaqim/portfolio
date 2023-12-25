@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
 const Sprite = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const spriteImg = '/game/sprites/Samurai/Walk.png';
+  const spriteImg = '/game/sprites/Samurai/Idle.png';
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -20,7 +20,7 @@ const Sprite = () => {
     const frameWidth = 128;
     const frameHeight = 128;
 
-    const cols = 8;
+    const cols = 6;
 
     let currentFrame = 0;
 

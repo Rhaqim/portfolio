@@ -103,15 +103,10 @@ class Player {
       );
 
       currentFrame = ++currentFrame % numFrames;
+    };
 
-      if (this.isMoving) {
-        requestAnimationFrame(drawPlayer);
-      }
-    }
-
-    this.isMoving = true;
-    requestAnimationFrame(drawPlayer);
-  }
+    drawPlayer();
+  };
 
   stopAnimation() {
     this.isMoving = false;
@@ -139,8 +134,6 @@ class Player {
         deltaY = this.speed;
         break;
       default:
-        this.action = 'Idle';
-        this.sprite;
         this.stopAnimation();
         break;
     }
