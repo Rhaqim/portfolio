@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-import CharacterSelect from '@/components/Common/CharacterSelect';
+import CharacterSelect from '@/components/Game/CharacterSelect';
 import WithMusic from '@/components/Music/WithMusic';
 import { gameNavLinks } from '@/constants';
+import { PlayerableCharacters } from '@/components/Game/players.type';
 
 const buttonVariants = {
   hover: {
@@ -22,10 +23,8 @@ const buttonVariants = {
 };
 
 const StartScreen = () => {
-  const [selectedCharacter, setSelectedCharacter] = useState<{
-    icon: string;
-    name: string;
-  } | null>(null);
+  const [selectedCharacter, setSelectedCharacter] =
+    useState<PlayerableCharacters | null>(null);
 
   return (
     <div className="max-w-full min-h-screen flex flex-col items-center justify-center p-8">
@@ -34,13 +33,13 @@ const StartScreen = () => {
         animate={{ opacity: 1, y: 0 }}
         className="text-4xl text-center font-bold mb-6"
       >
-        The Life and Works of Rhaqim!
+        The Life and Works!
       </motion.h1>
 
       {/* Character Select */}
       <CharacterSelect onSelectedCharacter={setSelectedCharacter} />
       <p className="mt-4">
-        Selected Character: {selectedCharacter?.name || 'None selected'}
+        Selected Character: {selectedCharacter || 'None selected'}
       </p>
 
       {/* Buttons */}

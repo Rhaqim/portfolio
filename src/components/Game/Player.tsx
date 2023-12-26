@@ -42,6 +42,8 @@ class Player {
 
   private action = 'Idle';
 
+  private characters = Object.values(PlayerableCharacters)
+  
   public isMoving = false;
 
   /**
