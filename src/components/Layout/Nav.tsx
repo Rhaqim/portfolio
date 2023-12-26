@@ -42,6 +42,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
 
   return (
     <motion.nav
+      id="nav"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -58,7 +59,9 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="font-bold text-3xl"
+            className={`font-bold text-3xl
+            ${dropdownOpen ? 'text-white' : 'text-black dark:text-white'}
+            `}
           >
             {letter}
           </motion.span>

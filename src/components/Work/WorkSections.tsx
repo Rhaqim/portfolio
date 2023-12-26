@@ -21,6 +21,7 @@ const WorkSections = ({
 }: WorkSectionsProps) => {
   return (
     <Dropdown
+      id={id}
       buttonContent={
         <motion.div
           id={id}

@@ -4,11 +4,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface DropdownProps {
+  id?: string;
   buttonContent?: React.JSX.Element;
   children: React.ReactNode;
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ buttonContent, children }) => {
+const Dropdown: React.FC<DropdownProps> = ({ id, buttonContent, children }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -38,6 +39,16 @@ const Dropdown: React.FC<DropdownProps> = ({ buttonContent, children }) => {
       document.removeEventListener('mousedown', handleDocumentClick);
     };
   }, [open]);
+
+  useEffect(() => {
+    if (id && open) {
+      const element = document.getElementById(id);
+      element?.scrollIntoView({ behavior: 'smooth' });
+    } else if (id && !open) {
+      const element = document.getElementById('nav');
+      element?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [id, open]);
 
   return (
     <div className="relative w-[85%]" ref={dropdownRef}>
