@@ -12,10 +12,6 @@
       {
         "header": "Buiding my Portfolio website",
         "content": "Believe it or not this is actually version 3.0 of my website, the first version was built with HTML, CSS and JavaScript. The second version was built with React and TypeScript. This version is built with Next.js and TypeScript. I'm really enjoying Next.js so far, it's a great framework and I'm excited to learn more about it."
-      },
-      {
-        "header": "Section 3",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac libero vel erat volutpat malesuada."
       }
     ]
   }

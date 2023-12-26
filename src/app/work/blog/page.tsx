@@ -11,7 +11,7 @@ const Blog = () => {
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
-      const response = await fetch('/api/blog/get');
+      const response = await fetch('/api/blog');
       const posts = await response.json();
 
       setBlogPosts(posts);

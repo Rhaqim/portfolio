@@ -4,6 +4,13 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import BlogType from '../blog.type';
+import Image from 'next/image';
+
+interface CommentType {
+  id: string;
+  user?: string;
+  content: string;
+}
 
 const InteractiveBlog: React.FC<{ params: { id: string } }> = ({ params }) => {
   const [blogPost, setBlogPost] = useState<BlogType>();
@@ -39,31 +46,39 @@ const InteractiveBlog: React.FC<{ params: { id: string } }> = ({ params }) => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4">Interactive Blog</h1>
+      <h1 className="text-4xl font-bold mb-4">{blogPost?.title}</h1>
 
       <motion.div
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="bg-gray-200 p-8 rounded-md shadow-md text-black"
+        className="bg-gray-200 p-8 w-full rounded-md shadow-md text-black"
       >
-        <h2 className="text-2xl font-bold mb-4">{blogPost?.title}</h2>
         <p>
           {blogPost?.sections.map((paragraph, index) => (
-            <p key={index} className="mb-4">
-              {paragraph.header && (
-                <span className="font-bold">{paragraph.header}</span>
+            <div key={index} className="mb-4">
+              {paragraph.images && (
+                <div className="flex justify-center items-center">
+                  <Image
+                    className="mb-4"
+                    src={paragraph.images[0].url}
+                    alt={paragraph.images[0].alt}
+                  />
+                </div>
               )}
-            </p>
+
+              <h1 className="font-bold text-center">{paragraph.header}</h1>
+              <p>{paragraph.content}</p>
+            </div>
           ))}
         </p>
 
         {/* Gamified Element */}
         <motion.div
           whileHover={{ scale: 1.1 }}
-          className="mt-4 p-4 bg-blue-500 text-white cursor-pointer"
+          className="mt-4 p-4 bg-blue-500 w-[190px] text-white cursor-pointer items-center"
         >
-          Clap for this post! 👏
+          <p>Clap for this post! 👏</p>
         </motion.div>
 
         {/* Comment Section */}
