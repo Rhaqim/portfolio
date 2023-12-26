@@ -2,9 +2,11 @@
 
 // InteractiveBlog.tsx
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import BlogType from '../blog.type';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { ThumbsUp } from '@phosphor-icons/react';
+
+import BlogType from '../blog.type';
 
 interface CommentType {
   id: string;
@@ -16,6 +18,7 @@ const InteractiveBlog: React.FC<{ params: { id: string } }> = ({ params }) => {
   const [blogPost, setBlogPost] = useState<BlogType>();
   const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState('');
+  const [likes, setLikes] = useState<number>(0);
 
   const handleCommentSubmit = () => {
     if (newComment.trim() !== '') {
@@ -73,13 +76,21 @@ const InteractiveBlog: React.FC<{ params: { id: string } }> = ({ params }) => {
           ))}
         </p>
 
-        {/* Gamified Element */}
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          className="mt-4 p-4 bg-blue-500 w-[190px] text-white cursor-pointer items-center"
-        >
-          <p>Clap for this post! 👏</p>
-        </motion.div>
+        {/* Like Blog */}
+        <div className="flex justify-between items-center">
+          <motion.button
+            onClick={() => setLikes(likes + 1)}
+            whileHover={{ scale: 1.1 }}
+            className="mt-4 p-4 bg-blue-500 w-[190px] text-white cursor-pointer items-center"
+          >
+            <p>Clap for this post! 👏</p>
+          </motion.button>
+
+          <div className="flex items-center">
+            <ThumbsUp className="w-6 h-6 cursor-pointer" />
+            <p className="ml-2">{likes}</p>
+          </div>
+        </div>
 
         {/* Comment Section */}
         <div className="mt-8">
