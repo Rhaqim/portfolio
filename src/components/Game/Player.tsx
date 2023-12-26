@@ -1,4 +1,32 @@
-import { PlayerableCharacters } from './players.type';
+import {
+  Actions,
+  CharacterActions,
+  PlayerableCharacters,
+} from './players.type';
+
+const characterActions: CharacterActions = {
+  [PlayerableCharacters.Shinobi]: [
+    Actions.Idle,
+    Actions.Walk,
+    Actions.Attack,
+    Actions.Hurt,
+    Actions.Dead,
+  ],
+  [PlayerableCharacters.Samurai]: [
+    Actions.Idle,
+    Actions.Walk,
+    Actions.Attack,
+    Actions.Hurt,
+    Actions.Dead,
+  ],
+  [PlayerableCharacters.Fighter]: [
+    Actions.Idle,
+    Actions.Walk,
+    Actions.Attack,
+    Actions.Hurt,
+    Actions.Dead,
+  ],
+};
 
 /**
  * Represents a player in the game.
@@ -40,10 +68,8 @@ class Player {
     Dead: 3,
   };
 
-  private action = 'Idle';
+  private action = characterActions[this.character][0];
 
-  private characters = Object.values(PlayerableCharacters)
-  
   public isMoving = false;
 
   /**
@@ -105,7 +131,6 @@ class Player {
       );
 
       currentFrame = ++currentFrame % numFrames;
-      
     };
 
     drawPlayer();
@@ -143,7 +168,7 @@ class Player {
 
     this.position.x += deltaX;
     this.position.y += deltaY;
-    this.action = 'Walk';
+    this.action = Actions.Walk;
     this.sprite;
     this.checkBounds();
   }
