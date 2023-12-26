@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
-import { PlayerableCharacters } from './players.type';
+import { Actions, PlayerableCharacters } from './players.type';
 
 const characters = Object.values(PlayerableCharacters);
 
@@ -41,7 +41,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({
         const img = new Image();
         img.onload = () => resolve(img);
         img.onerror = (err) => reject(err);
-        img.src = `/game/sprites/${character}/idle.png`;
+        img.src = `/game/sprites/${character}/${Actions.Idle}.png`;
       });
     };
 

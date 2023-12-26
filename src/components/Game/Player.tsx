@@ -68,7 +68,7 @@ class Player {
     Dead: 3,
   };
 
-  private action = characterActions[this.character][0];
+  private action = Actions.Idle;
 
   public isMoving = false;
 
@@ -95,11 +95,14 @@ class Player {
    * @returns A promise that resolves to the loaded image.
    */
   loadImage = (): Promise<HTMLImageElement> => {
+    const source = `/game/sprites/${this.character}/${this.action}.png`;
+    console.log(source);
+    
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(img);
       img.onerror = (err) => reject(err);
-      img.src = `/game/sprites/${this.character}/${this.action}.png`;
+      img.src = source;
     });
   };
 
