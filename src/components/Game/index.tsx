@@ -9,13 +9,13 @@ import { useGameContext } from '@/context/Game.context';
 
 const MainGame = () => {
   const { selectedCharacter } = useGameContext();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const envCanvas = useRef<HTMLCanvasElement>(null);
   const [controller, setController] = useState<JSX.Element>();
 
   const summerBG = '/game/backgrounds/Summer1.png';
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = envCanvas.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
@@ -47,20 +47,16 @@ const MainGame = () => {
     game.start();
 
     window.addEventListener('keydown', player.handleKeyDown);
-    window.addEventListener('click', player.attack);
-
-    console.log('Player position', player.position);
 
     return () => {
       window.removeEventListener('keydown', player.handleKeyDown);
-      window.removeEventListener('click', player.attack);
     };
   }, [selectedCharacter]);
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <canvas
-        ref={canvasRef}
+        ref={envCanvas}
         id="gameCanvas"
         width="800"
         height="600"

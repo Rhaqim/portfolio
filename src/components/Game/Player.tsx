@@ -1,32 +1,4 @@
-import {
-  Actions,
-  CharacterActions,
-  PlayerableCharacters,
-} from '../../types/players.type';
-
-const characterActions: CharacterActions = {
-  [PlayerableCharacters.Shinobi]: [
-    Actions.Idle,
-    Actions.Walk,
-    Actions.Attack,
-    Actions.Hurt,
-    Actions.Dead,
-  ],
-  [PlayerableCharacters.Samurai]: [
-    Actions.Idle,
-    Actions.Walk,
-    Actions.Attack,
-    Actions.Hurt,
-    Actions.Dead,
-  ],
-  [PlayerableCharacters.Fighter]: [
-    Actions.Idle,
-    Actions.Walk,
-    Actions.Attack,
-    Actions.Hurt,
-    Actions.Dead,
-  ],
-};
+import { Actions, PlayerableCharacters } from '../../types/players.type';
 
 /**
  * Represents a player in the game.
@@ -63,12 +35,12 @@ class Player {
   private actionFrames: Record<string, number> = {
     Idle: 6,
     Walk: 8,
-    Attack: 6,
+    Attack_1: 6,
     Hurt: 2,
     Dead: 3,
   };
 
-  private action = Actions.Idle;
+  private action = Actions.Attack1;
 
   public isMoving = false;
 
@@ -104,6 +76,35 @@ class Player {
     });
   };
 
+  draw = async () => {
+    const img = await this.loadImage();
+    const frameWidth = 128;
+    const frameHeight = 128;
+
+    const numFrames = this.actionFrames[this.action];
+
+    let currentFrame = 0;
+
+    const framesPerRow = img.width / frameWidth;
+
+    const row = Math.floor(currentFrame / framesPerRow);
+    const col = Math.floor(currentFrame % framesPerRow);
+
+    this.ctx.drawImage(
+      img,
+      col * frameWidth,
+      row * frameHeight,
+      frameWidth,
+      frameHeight,
+      this.position.x,
+      this.position.y,
+      frameWidth,
+      frameHeight,
+    );
+
+    currentFrame = ++currentFrame % numFrames;
+  };
+
   sprite = async () => {
     const img = await this.loadImage();
     const frameWidth = 128;
@@ -132,9 +133,14 @@ class Player {
       );
 
       currentFrame = ++currentFrame % numFrames;
+
+      if (this.isMoving) {
+        window.requestAnimationFrame(drawPlayer);
+      }
     };
 
-    drawPlayer();
+    this.isMoving = true;
+    requestAnimationFrame(drawPlayer);
   };
 
   stopAnimation() {
@@ -216,7 +222,7 @@ class Player {
     const updateAnimation = () => {
       move();
       this.sprite(); // Assuming this triggers the sprite animation
-      this.action = Actions.Attack;
+      this.action = Actions.Attack1;
     };
 
     const distance = Math.sqrt(
@@ -271,6 +277,19 @@ class Player {
         break;
       case 'ArrowDown':
         this.move('down');
+        break;
+      default:
+        break;
+    }
+  };
+
+  handleKeyUp = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case 'ArrowLeft':
+      case 'ArrowRight':
+      case 'ArrowUp':
+      case 'ArrowDown':
+        this.stopAnimation();
         break;
       default:
         break;

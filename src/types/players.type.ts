@@ -7,7 +7,7 @@ export enum PlayerableCharacters {
 export enum Actions {
   Idle = 'Idle',
   Walk = 'Walk',
-  Attack = 'Attack',
+  Attack1 = 'Attack_1',
   Dead = 'Dead',
   Jump = 'Jump',
   Run = 'Run',

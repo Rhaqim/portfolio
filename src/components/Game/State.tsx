@@ -1,5 +1,5 @@
-import Environment from "./Environment";
-import Player from "./Player";
+import Environment from './Environment';
+import Player from './Player';
 
 /**
  * Represents the game state.
@@ -24,17 +24,17 @@ class Game {
   /**
    * Updates the game state.
    */
-  update = () => {
-    // this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-    this.environment.draw();
-    this.player.sprite();
+  update = async () => {
+    await this.environment.draw();
+    await this.player.draw();
   };
-
+  
   /**
    * The game loop that continuously updates the game state.
-   */
-  gameLoop = () => {
-    this.update();
+  */
+ gameLoop = async () => {
+    // this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    await this.update();
     requestAnimationFrame(this.gameLoop);
   };
 
@@ -43,6 +43,7 @@ class Game {
    */
   start = async () => {
     await this.environment.draw();
+    await this.player.draw();
     this.gameLoop();
   };
 }
