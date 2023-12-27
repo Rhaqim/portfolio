@@ -1,4 +1,4 @@
-import BlogType from '@/app/work/blog/blog.type';
+import BlogType from '@/types/blog.type';
 
 export async function GET(req: Request) {
   const postsData = await import('../../../blog/posts.json');

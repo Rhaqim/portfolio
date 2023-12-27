@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import BlogType from './blog.type';
+import BlogType from '../../../types/blog.type';
 import Link from 'next/link';
 import { ArrowElbowRight } from '@phosphor-icons/react';
 

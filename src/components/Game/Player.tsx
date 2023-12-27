@@ -2,7 +2,7 @@ import {
   Actions,
   CharacterActions,
   PlayerableCharacters,
-} from './players.type';
+} from '../../types/players.type';
 
 const characterActions: CharacterActions = {
   [PlayerableCharacters.Shinobi]: [

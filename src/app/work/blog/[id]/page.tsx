@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ThumbsUp } from '@phosphor-icons/react';
 
-import BlogType from '../blog.type';
+import BlogType from '../../../../types/blog.type';
 
 interface CommentType {
   id: string;

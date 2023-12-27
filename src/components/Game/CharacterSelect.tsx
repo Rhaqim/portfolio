@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
-import { Actions, PlayerableCharacters } from './players.type';
+import { Actions, PlayerableCharacters } from '../../types/players.type';
 
 const characters = Object.values(PlayerableCharacters);
 

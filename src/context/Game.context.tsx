@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
-import { PlayerableCharacters } from '@/components/Game/players.type';
+import { PlayerableCharacters } from '@/types/players.type';
 
 type GameContextType = {
   selectedCharacter: PlayerableCharacters;
