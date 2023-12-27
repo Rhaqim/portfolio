@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import Environment from './Environment';
 import Player from './Player';
 import Game from './State';
-import { PlayerableCharacters } from './players.type';
+import { useGameContext } from '@/context/Game.context';
 
 const MainGame = () => {
+  const { selectedCharacter } = useGameContext();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [controller, setController] = useState<JSX.Element>();
 
@@ -30,7 +31,7 @@ const MainGame = () => {
     // Player
     const player = new Player(
       ctx,
-      PlayerableCharacters.Samurai,
+      selectedCharacter,
       { x: 400, y: 300 },
       { width: 50, height: 50 },
       'red',
@@ -46,11 +47,15 @@ const MainGame = () => {
     game.start();
 
     window.addEventListener('keydown', player.handleKeyDown);
+    window.addEventListener('click', player.attack);
+
+    console.log('Player position', player.position);
 
     return () => {
       window.removeEventListener('keydown', player.handleKeyDown);
+      window.removeEventListener('click', player.attack);
     };
-  }, []);
+  }, [selectedCharacter]);
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">

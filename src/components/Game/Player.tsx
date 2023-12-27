@@ -96,8 +96,6 @@ class Player {
    */
   loadImage = (): Promise<HTMLImageElement> => {
     const source = `/game/sprites/${this.character}/${this.action}.png`;
-    console.log(source);
-    
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(img);
@@ -174,6 +172,86 @@ class Player {
     this.action = Actions.Walk;
     this.sprite;
     this.checkBounds();
+  }
+
+  attack(e: MouseEvent) {
+    console.log('attack', e.clientX, e.clientY);
+    if (this.isMoving) {
+      // If the player is already moving, stop the animation and return
+      this.stopAnimation();
+      return;
+    }
+
+    this.isMoving = true;
+
+    const target = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+
+    const deltaX = target.x - this.position.x;
+    const deltaY = target.y - this.position.y;
+
+    const angle = Math.atan2(deltaY, deltaX);
+
+    const velocity = {
+      x: Math.cos(angle),
+      y: Math.sin(angle),
+    };
+
+    const magnitude = Math.sqrt(
+      Math.pow(velocity.x, 2) + Math.pow(velocity.y, 2),
+    );
+
+    const normalized = {
+      x: velocity.x / magnitude,
+      y: velocity.y / magnitude,
+    };
+
+    const move = () => {
+      this.position.x += normalized.x * this.speed;
+      this.position.y += normalized.y * this.speed;
+    };
+
+    const updateAnimation = () => {
+      move();
+      this.sprite(); // Assuming this triggers the sprite animation
+      this.action = Actions.Attack;
+    };
+
+    const distance = Math.sqrt(
+      Math.pow(target.x - this.position.x, 2) +
+        Math.pow(target.y - this.position.y, 2),
+    );
+
+    if (distance < 5) {
+      // If the player is very close to the target, stop the animation and return
+      this.stopAnimation();
+      return;
+    }
+
+    // Use requestAnimationFrame for smoother animations
+    const animate = () => {
+      updateAnimation();
+
+      const distanceAfterMove = Math.sqrt(
+        Math.pow(target.x - this.position.x, 2) +
+          Math.pow(target.y - this.position.y, 2),
+      );
+
+      if (distanceAfterMove < 5) {
+        // If the player is very close to the target after move, stop the animation and return
+        this.stopAnimation();
+        this.action = Actions.Idle;
+        this.sprite();
+      } else {
+        // Continue the animation
+        window.requestAnimationFrame(animate);
+      }
+    };
+
+    // Start the animation
+    animate();
   }
 
   /**

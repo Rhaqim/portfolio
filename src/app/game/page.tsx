@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 import CharacterSelect from '@/components/Game/CharacterSelect';
 import WithMusic from '@/components/Music/WithMusic';
 import { gameNavLinks } from '@/constants';
-import { PlayerableCharacters } from '@/components/Game/players.type';
+import { useGameContext } from '@/context/Game.context';
 
 const buttonVariants = {
   hover: {
@@ -23,8 +23,7 @@ const buttonVariants = {
 };
 
 const StartScreen = () => {
-  const [selectedCharacter, setSelectedCharacter] =
-    useState<PlayerableCharacters | null>(null);
+  const { selectedCharacter, setSelectedCharacter } = useGameContext();
 
   return (
     <div className="max-w-full min-h-screen flex flex-col items-center justify-center p-8">
