@@ -1,20 +1,24 @@
 'use client';
 
+import Intro from '@/components/Work/Intro';
 import WorkSections from '@/components/Work/WorkSections';
 import { workCategories } from '@/constants';
 import React from 'react';
 
 const page = () => {
   return (
-    <div className="flex flex-col justify-start items-center w-full min-h-screen space-y-4" id='work'>
+    <div
+      className="flex flex-col justify-start items-center w-full min-h-screen space-y-4"
+      id="work"
+    >
       {/* Introduction */}
+      <Intro />
       <div className="w-full flex flex-col justify-center items-center space-y-4 px-4">
         <p className="text-left font-mono font-bold text-xl">
-          Hello there! I&apos;m Rhaqim, a passionate full-stack developer with a
-          knack for crafting robust APIs, streamlining DevOps processes and all
-          round development. I&apos;ve honed my skills in leading teams,
-          deciphering complex business requirements, and consistently delivering
-          projects on time.
+          I am passionate full-stack developer with a knack for crafting robust
+          APIs, streamlining DevOps processes and all round development.
+          I&apos;ve honed my skills in leading teams, deciphering complex
+          business requirements, and consistently delivering projects on time.
         </p>
       </div>
 
