@@ -75,11 +75,9 @@ const Intro = () => {
 
   return (
     <div className="relative w-full items-start">
-      <div>
-        <div className={`font-bold text-2xl`}>
-          {greetingInLanguage(language)}
+      <div className={`font-bold text-2xl animate-bounce`}>
+        {greetingInLanguage(language)}
         </div>
-      </div>
       <div className="mb-4">
         <div>
           <InstagramLogo className="inline-block w-6 h-6 mr-2" />

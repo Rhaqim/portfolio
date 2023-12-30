@@ -12,8 +12,8 @@ const page = () => {
       id="work"
     >
       {/* Introduction */}
-      <Intro />
       <div className="w-full flex flex-col justify-center items-center space-y-4 px-4">
+      <Intro />
         <p className="text-left font-mono font-bold text-xl">
           I am passionate full-stack developer with a knack for crafting robust
           APIs, streamlining DevOps processes and all round development.
