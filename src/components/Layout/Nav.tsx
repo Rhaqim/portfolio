@@ -46,7 +46,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex justify-between items-center p-8"
+      className="fixed left-0 top-0 w-full flex flex-row justify-between items-center p-4 z-20"
     >
       <Link
         href={'/'}
