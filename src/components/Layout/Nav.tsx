@@ -11,6 +11,7 @@ type NavProps = {
 
 const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [scrolling, setScrolling] = useState<boolean>(false);
 
   const handleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -40,13 +41,30 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
     };
   }, [dropdownOpen]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <motion.nav
       id="nav"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed left-0 top-0 w-full flex flex-row justify-between items-center p-4 z-20"
+      className={`fixed left-0 top-0 w-full flex flex-row justify-between items-center p-4 z-20
+      ${scrolling ? 'backdrop-blur-lg ' : 'bg-transparent'}`}
     >
       <Link
         href={'/'}

@@ -45,8 +45,8 @@ const Dropdown: React.FC<DropdownProps> = ({ id, buttonContent, children }) => {
       const element = document.getElementById(id);
       element?.scrollIntoView({ behavior: 'smooth' });
     } else if (id && !open) {
-      const element = document.getElementById('nav');
-      element?.scrollIntoView({ behavior: 'smooth' });
+      // scroll to the top of the page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [id, open]);
 
