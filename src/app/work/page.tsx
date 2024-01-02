@@ -12,15 +12,7 @@ const page = () => {
       id="work"
     >
       {/* Introduction */}
-      <div className="w-full flex flex-col justify-center items-center space-y-4 px-4">
       <Intro />
-        <p className="text-left font-mono font-bold text-xl">
-          I am passionate full-stack developer with a knack for crafting robust
-          APIs, streamlining DevOps processes and all round development.
-          I&apos;ve honed my skills in leading teams, deciphering complex
-          business requirements, and consistently delivering projects on time.
-        </p>
-      </div>
 
       {/* Work Categories */}
       {workCategories.map((work, index) => (
