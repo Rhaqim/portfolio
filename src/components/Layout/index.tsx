@@ -24,7 +24,7 @@ const LayoutBase = ({ children, navLinks }: LayoutBaseProps) => {
       >
         <Nav navLinks={navLinks} />
 
-        <div className="p-4 mt-[4.5rem]">{children}</div>
+        <div className="p-4">{children}</div>
       </motion.div>
     </AnimatePresence>
   );

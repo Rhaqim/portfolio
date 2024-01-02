@@ -1,112 +1,86 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { GithubLogo, TwitterLogo, InstagramLogo } from '@phosphor-icons/react';
-import { motion } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { GithubLogo, TwitterLogo, LinkedinLogo } from '@phosphor-icons/react';
+import Link from 'next/link';
 
 const Intro = () => {
-  const [language, setLanguage] = useState('English');
-
-  const greetingInLanguage = (language: string): string => {
-    switch (language) {
-      case 'English':
-        return 'Hello World! Rhaqim here.';
-      case 'Spanish':
-        return '¡Hola Mundo! Rhaqim aquí.';
-      case 'Yoruba':
-        return 'Mo ki O Ile Aiye! Rhaqim ni.';
-      case 'Igbo':
-        return 'Ndewo Ụwa! Rhaqim nọ.';
-      case 'Japanese':
-        return "Kon'nichiwa sekai! Rhaqim wa koko ni imasu.";
-      case 'French':
-        return 'Bonjour le monde! Rhaqim ici.';
-      case 'German':
-        return 'Hallo Welt! Rhaqim hier.';
-      case 'Italian':
-        return 'Ciao mondo! Rhaqim qui.';
-      case 'Korean':
-        return 'Annyeong sesang! Rhaqim yeogi issseubnida.';
-      case 'Mandarin':
-        return 'Ni hao shijie! Rhaqim zai zhe.';
-      case 'Portuguese':
-        return 'Olá Mundo! Rhaqim aqui.';
-      case 'Russian':
-        return 'Privet mir! Rhaqim zdes.';
-      case 'Arabic':
-        return 'Marhabaan bialealam! Rhaqim hunaa.';
-      case 'Hindi':
-        return 'Namaste duniya! Rhaqim yahaan hai.';
-      case 'Swahili':
-        return 'Habari dunia! Rhaqim hapa.';
-      default:
-        return 'Hello World! Rhaqim here.';
-    }
-  };
-
   useEffect(() => {
-    // cycle through languages every 5 seconds
-    const languages = [
-      'English',
-      'French',
-      'Japanese',
-      'Yoruba',
-      'Igbo',
-      'Spanish',
-      'German',
-      'Italian',
-      'Korean',
-      'Mandarin',
-      'Portuguese',
-      'Russian',
-      'Arabic',
-      'Hindi',
-      'Swahili',
-    ];
-    let i = 0;
-    setInterval(() => {
-      setLanguage(languages[i]);
-      i++;
-      if (i === languages.length) {
-        i = 0;
-      }
-    }, 6000);
+    const introText = document
+      .getElementById('intro-text')!
+      .textContent?.trim();
+
+    const splitText = introText?.split(' ');
+
+    // for each word, wrap each letter in a span tag add hover effect
+    const wrappedText = splitText?.map((word, index) => {
+      return `<span key="${index}" class="tooltipTrigger hover:text-indigo-500 hover:scale-75 transition duration-100 ease-in-out">${word}</span>`;
+    });
+
+    // join the words back together
+    const joinedText = wrappedText?.join(' ');
+
+    // replace the text content with the wrapped text
+    introText &&
+      (document.getElementById('intro-text')!.innerHTML = joinedText!);
   }, []);
 
   return (
-    <div className="relative w-full items-start">
-      <div className={`font-bold text-2xl animate-bounce`}>
-        {greetingInLanguage(language)}
+    <div className="w-full flex flex-col justify-center items-center space-y-4 px-4">
+      <div className="relative w-full items-center md:items-start flex flex-col space-y-4 font-bold text-lg">
+        <div className={`flex flex-col md:text-left text-center text-2xl`}>
+          <p>Anusiem John-Franklin.</p>
         </div>
-      <div className="mb-4">
         <div>
-          <InstagramLogo className="inline-block w-6 h-6 mr-2" />
-          <a
-            href="https://www.linkedin.com/in/john-franklin-anusiem-104692166/"
+          Full Stack Developer at &nbsp;
+          <Link
+            href="https://www.nirvanalabs.io/"
             target="_blank"
             rel="noopener noreferrer"
-            className="mr-2"
+            className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
           >
-            LinkedIn
-          </a>
-          <GithubLogo className="inline-block w-6 h-6 mr-2" />
-          <a
-            href="https://github.com/rhaqim"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mr-2"
-          >
-            GitHub
-          </a>
-          <TwitterLogo className="inline-block w-6 h-6 mr-2" />
-          <a
-            href="https://twitter.com/alaswadkhan"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Twitter
-          </a>
+            Nirvana Labs
+          </Link>
         </div>
+        <div className="flex mb-4 items-center justify-center md:justify-start">
+          <div>
+            <LinkedinLogo className="inline-block w-6 h-6 mr-2" />
+            <a
+              href="https://www.linkedin.com/in/john-franklin-anusiem-104692166/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mr-2"
+            >
+              LinkedIn
+            </a>
+            <GithubLogo className="inline-block w-6 h-6 mr-2" />
+            <a
+              href="https://github.com/rhaqim"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mr-2"
+            >
+              GitHub
+            </a>
+            <TwitterLogo className="inline-block w-6 h-6 mr-2" />
+            <a
+              href="https://twitter.com/alaswadkhan"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Twitter
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        id="intro-text"
+        className="text-center md:text-left font-mono font-bold text-xl"
+      >
+        I am a passionate full-stack developer with a knack for crafting robust
+        APIs, streamlining DevOps processes and all round development. I&apos;ve
+        honed my skills in leading teams, deciphering complex business
+        requirements, and consistently delivering projects on time.
       </div>
     </div>
   );
