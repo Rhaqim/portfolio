@@ -35,11 +35,11 @@ export const opensourceProjects = [
     images: [],
   },
   {
-    title: 'Ethereum Node Tester CLI',
+    title: 'Cascade - Node Tester CLI',
     description:
-      'A CLI tool to test the functions on Ethereum nodes. It can be used to test the connection to Ethereum nodes and check the status of the nodes.',
+      'Cascade is a simple, super CLI tool for testing arbitrium chains and functions on the nodes.',
     link: null,
-    github: 'https://github.com/Rhaqim/node_tester_cli',
+    github: 'https://github.com/Rhaqim/cascade',
     tags: ['Web3', 'CLI', 'Ethereum'],
     toolkits: [
       {
