@@ -77,7 +77,7 @@ const Intro = () => {
         <iframe
           style={{ borderRadius: '12px' }}
           src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
-          width="100%"
+          width="40%"
           height="152"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
