@@ -26,52 +26,62 @@ const Intro = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col justify-center items-center space-y-4 px-4">
-      <div className="relative w-full items-center md:items-start flex flex-col space-y-4 font-bold text-lg">
-        <div className={`flex flex-col md:text-left text-center text-2xl`}>
-          <p>Anusiem John-Franklin.</p>
-        </div>
-        <div>
-          Full Stack Developer at &nbsp;
-          <Link
-            href="https://www.nirvanalabs.io/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
-          >
-            Nirvana Labs
-          </Link>
-        </div>
-        <div className="flex mb-4 items-center justify-center md:justify-start">
+    <div className="w-full flex flex-col space-y-4 px-4">
+      <div className='flex flex-col md:flex-row justify-between items-center'>
+        <div className="relative w-full items-center md:items-start flex flex-col space-y-4 font-bold text-lg">
+          <div className={`flex flex-col md:text-left text-center text-2xl`}>
+            <p>Anusiem John-Franklin.</p>
+          </div>
           <div>
-            <LinkedinLogo className="inline-block w-6 h-6 mr-2" />
-            <a
-              href="https://www.linkedin.com/in/john-franklin-anusiem-104692166/"
+            Full Stack Developer at &nbsp;
+            <Link
+              href="https://www.nirvanalabs.io/"
               target="_blank"
               rel="noopener noreferrer"
-              className="mr-2"
+              className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
             >
-              LinkedIn
-            </a>
-            <GithubLogo className="inline-block w-6 h-6 mr-2" />
-            <a
-              href="https://github.com/rhaqim"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mr-2"
-            >
-              GitHub
-            </a>
-            <TwitterLogo className="inline-block w-6 h-6 mr-2" />
-            <a
-              href="https://twitter.com/alaswadkhan"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Twitter
-            </a>
+              Nirvana Labs
+            </Link>
+          </div>
+          <div className="flex mb-4 items-center justify-center md:justify-start">
+            <div>
+              <LinkedinLogo className="inline-block w-6 h-6 mr-2" />
+              <a
+                href="https://www.linkedin.com/in/john-franklin-anusiem-104692166/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mr-2"
+              >
+                LinkedIn
+              </a>
+              <GithubLogo className="inline-block w-6 h-6 mr-2" />
+              <a
+                href="https://github.com/rhaqim"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mr-2"
+              >
+                GitHub
+              </a>
+              <TwitterLogo className="inline-block w-6 h-6 mr-2" />
+              <a
+                href="https://twitter.com/alaswadkhan"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Twitter
+              </a>
+            </div>
           </div>
         </div>
+        <iframe
+          style={{ borderRadius: '12px' }}
+          src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
+          width="100%"
+          height="152"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
       </div>
       <div
         id="intro-text"
