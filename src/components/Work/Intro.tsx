@@ -27,7 +27,7 @@ const Intro = () => {
 
   return (
     <div className="w-full flex flex-col space-y-4 px-4">
-      <div className='flex flex-col md:flex-row justify-between items-center'>
+      <div className="flex flex-col md:flex-row justify-between items-center space-y-4">
         <div className="relative w-full items-center md:items-start flex flex-col space-y-4 font-bold text-lg">
           <div className={`flex flex-col md:text-left text-center text-2xl`}>
             <p>Anusiem John-Franklin.</p>
@@ -44,41 +44,40 @@ const Intro = () => {
             </Link>
           </div>
           <div className="flex mb-4 items-center justify-center md:justify-start">
-            <div>
+            <a
+              href="https://www.linkedin.com/in/john-franklin-anusiem-104692166/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-400 hover:scale-105 flex items-center cursor-pointer mr-2"
+            >
               <LinkedinLogo className="inline-block w-6 h-6 mr-2" />
-              <a
-                href="https://www.linkedin.com/in/john-franklin-anusiem-104692166/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mr-2"
-              >
-                LinkedIn
-              </a>
+              <p>LinkedIn</p>
+            </a>
+            <a
+              href="https://github.com/rhaqim"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-400 hover:scale-105 flex items-center cursor-pointer mr-2"
+            >
               <GithubLogo className="inline-block w-6 h-6 mr-2" />
-              <a
-                href="https://github.com/rhaqim"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mr-2"
-              >
-                GitHub
-              </a>
+              <p>GitHub</p>
+            </a>
+            <a
+              href="https://twitter.com/alaswadkhan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-indigo-400 hover:scale-105 flex items-center cursor-pointer"
+            >
               <TwitterLogo className="inline-block w-6 h-6 mr-2" />
-              <a
-                href="https://twitter.com/alaswadkhan"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Twitter
-              </a>
-            </div>
+              <p>Twitter</p>
+            </a>
           </div>
         </div>
         <iframe
           style={{ borderRadius: '12px' }}
           src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
-          width="40%"
           height="152"
+          className="w-full md:w-1/2"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
         ></iframe>
