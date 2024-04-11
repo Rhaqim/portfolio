@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react';
 import { GithubLogo, TwitterLogo, LinkedinLogo } from '@phosphor-icons/react';
 import Link from 'next/link';
+import Calendar from '../Calendar';
 
 const Intro = () => {
   useEffect(() => {
@@ -40,7 +41,7 @@ const Intro = () => {
               rel="noopener noreferrer"
               className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
             >
-              Nirvana Labs
+              UniDiff
             </Link>
           </div>
           <div className="flex mb-4 items-center justify-center md:justify-start">
@@ -82,6 +83,7 @@ const Intro = () => {
           loading="lazy"
         ></iframe>
       </div>
+      <Calendar />
       <div
         id="intro-text"
         className="text-center md:text-left font-mono font-bold text-xl"

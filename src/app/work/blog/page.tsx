@@ -2,19 +2,21 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import BlogType from '../../../types/blog.type';
+import Articles from '@/types/article.type';
 import Link from 'next/link';
-import { ArrowElbowRight } from '@phosphor-icons/react';
+import { getArticles } from '@/service/devto/routes';
 
 const Blog = () => {
-  const [blogPosts, setBlogPosts] = useState<BlogType[]>([]);
+  const [blogPosts, setBlogPosts] = useState<Articles[]>([]);
 
   useEffect(() => {
     const fetchBlogPosts = async () => {
-      const response = await fetch('/api/blog');
-      const posts = await response.json();
-
-      setBlogPosts(posts);
+      try {
+        const posts = await getArticles();
+        setBlogPosts(posts.data as Articles[]);
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchBlogPosts();
   }, []);
@@ -41,9 +43,9 @@ const Blog = () => {
               <Link href={`/work/blog/${post.id}`} passHref>
                 <div>
                   <h3 className="text-xl font-bold mb-2">{post.title}</h3>
-                  <p>{post.excerpt}</p>
+                  <p>{post.title}</p>
                   <p className="text-gray-500 mt-2">
-                    {new Date(post.date).toLocaleDateString()}
+                    {new Date(post.published_timestamp).toLocaleDateString()}
                   </p>
                 </div>
               </Link>
