@@ -1,6 +1,5 @@
 import { gameNavLinks, workNavLinks } from './navlinks';
 import { workExperiences } from './WorkExperience';
-import workCategories from './workCategories';
 import {
   frontendStack,
   versionControlStack,
@@ -11,6 +10,8 @@ import {
   devOpsStack,
   developerStack,
 } from './stack';
+import workCategories from './workCategories';
+import {projects} from './project';
 
 export {
   gameNavLinks,
@@ -25,4 +26,5 @@ export {
   databaseStack,
   devOpsStack,
   developerStack,
+  projects
 };

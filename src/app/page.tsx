@@ -20,6 +20,8 @@ import {
 import WorkItem from '@/components/Work/WorkItem';
 import Blog from '@/components/Blog';
 import Resume from '@/components/Resume';
+import { projects } from '@/constants/project';
+import Projects from '@/components/Work/Projects';
 
 const page = () => {
   const categories = [
@@ -71,8 +73,8 @@ const page = () => {
       >
         <Intro />
         <Toolkits categories={categories} />
-        <div className='flex flex-col space-y-4 min-h-screen items-center justify-center'>
-            <h1 className="text-4xl font-bold mb-4">Work Experience</h1>
+        <div className="flex flex-col space-y-4 min-h-screen items-center justify-center">
+          <h1 className="text-4xl font-bold mb-4">Work Experience</h1>
           <div className="grid grid-cols-3 gap-4">
             {workExperiences.map((experience, index) => (
               <WorkItem key={index} {...experience} />
@@ -80,6 +82,14 @@ const page = () => {
           </div>
         </div>
         <Resume />
+        <div className="flex flex-col space-y-4 min-h-screen items-center justify-center">
+          <h1 className="text-4xl font-bold mb-4">Projects</h1>
+          <div>
+            {projects.map((project, index) => (
+              <Projects key={index} {...project} />
+            ))}
+          </div>
+        </div>
         <Blog />
         <Outtro />
       </div>

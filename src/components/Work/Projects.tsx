@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Toolkits from './Toolkit';
 import { ArrowLineUpRight } from '@phosphor-icons/react';
 import PortfolioImage from './PortfolioImageProps';
 
@@ -27,20 +26,10 @@ const Projects: React.FC<ProjectProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-start justify-center w-full my-4">
-      <h3 className="mb-2 text-xl font-[500px] text-[25px] leading-4 md:font-[700px] md:text-[40px] md:leading-6 my-2 underline underline-offset-2">
+      <h3 className="mb-2 text-xl font-semibold md:leading-6 my-2 underline underline-offset-2">
         {title}
       </h3>
       <p className="my-4">{description}</p>
-      {/* <div className="flex flex-wrap">
-        {images.map((image, index) => (
-          <span
-            key={index}
-            className="px-2 py-1 mr-2 mb-2 text-sm font-semibold text-white bg-gray-800 rounded"
-          >
-            {image}
-          </span>
-        ))}
-      </div> */}
       <div className="grid grid-cols-2 gap-4">
         {images.map((item, index) => (
           <PortfolioImage key={index} {...item} />
@@ -55,12 +44,6 @@ const Projects: React.FC<ProjectProps> = ({
             {tag}
           </span>
         ))}
-      </div>
-      <div className="flex flex-wrap my-2">
-        <Toolkits
-          className="grid grid-cols-4 md:grid-cols-6 gap-2"
-          toolkits={toolkits}
-        />
       </div>
 
       <div className="flex flex-wrap space-x-4 items-center w-full">
