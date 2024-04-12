@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { GithubLogo, TwitterLogo, LinkedinLogo } from '@phosphor-icons/react';
 import Link from 'next/link';
-import Calendar from '../Calendar';
+import Image from 'next/image';
 
 const Intro = () => {
   useEffect(() => {
@@ -27,72 +26,63 @@ const Intro = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col space-y-4 px-4">
-      <div className="flex flex-col md:flex-row justify-between items-center space-y-4">
-        <div className="relative w-full items-center md:items-start flex flex-col space-y-4 font-bold text-lg">
-          <div className={`flex flex-col md:text-left text-center text-2xl`}>
-            <p>Anusiem John-Franklin.</p>
-          </div>
-          <div>
-            Full Stack Developer at &nbsp;
-            <Link
-              href="https://www.nirvanalabs.io/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
-            >
-              UniDiff
-            </Link>
-          </div>
-          <div className="flex mb-4 items-center justify-center md:justify-start">
-            <a
-              href="https://www.linkedin.com/in/john-franklin-anusiem-104692166/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-indigo-400 hover:scale-105 flex items-center cursor-pointer mr-2"
-            >
-              <LinkedinLogo className="inline-block w-6 h-6 mr-2" />
-              <p>LinkedIn</p>
-            </a>
-            <a
-              href="https://github.com/rhaqim"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-indigo-400 hover:scale-105 flex items-center cursor-pointer mr-2"
-            >
-              <GithubLogo className="inline-block w-6 h-6 mr-2" />
-              <p>GitHub</p>
-            </a>
-            <a
-              href="https://twitter.com/alaswadkhan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-indigo-400 hover:scale-105 flex items-center cursor-pointer"
-            >
-              <TwitterLogo className="inline-block w-6 h-6 mr-2" />
-              <p>Twitter</p>
-            </a>
+    <div className="w-full flex flex-col space-y-4">
+      {/* Personal Introduction Section */}
+      <section>
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-4">
+          {/* Personal Introduction */}
+          <div className="relative w-full items-center md:items-start flex flex-col space-y-4 font-bold text-lg">
+            <div className="flex md:text-left items-center space-x-4">
+              <Image
+                src="/images/business.png"
+                alt="Profile Picture"
+                width={100}
+                height={100}
+                className="rounded-md"
+              />
+              <p className="hover:text-indigo-600 text-center text-3xl transition duration-300 ease-in-out">
+                Hi, I&apos;m&nbsp; Anusiem John-Franklin.
+              </p>
+            </div>
+            <div>
+              Full Stack Developer at &nbsp;
+              <Link
+                href="https://www.nirvanalabs.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
+              >
+                UniDiff
+              </Link>
+            </div>
           </div>
         </div>
-        <iframe
-          style={{ borderRadius: '12px' }}
-          src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
-          height="152"
-          className="w-full md:w-1/2"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-        ></iframe>
-      </div>
-      <Calendar />
-      <div
-        id="intro-text"
-        className="text-center md:text-left font-mono font-bold text-xl"
-      >
-        I am a passionate full-stack developer with a knack for crafting robust
-        APIs, streamlining DevOps processes and all round development. I&apos;ve
-        honed my skills in leading teams, deciphering complex business
-        requirements, and consistently delivering projects on time.
-      </div>
+        {/* Introduction Text */}
+        <div
+          id="intro-text"
+          className="text-center md:text-left font-mono font-bold text-xl mt-2"
+        >
+          I am a passionate full-stack developer with a knack for crafting
+          robust APIs, streamlining DevOps processes and all-round development.
+          I&apos;ve honed my skills in leading teams, deciphering complex
+          business requirements, and consistently delivering projects on time.
+        </div>
+      </section>
+
+      {/* Music Playlist Section */}
+      <section>
+        <div className="flex flex-col md:flex-row justify-between w-full items-center space-y-4">
+          {/* Spotify Music Playlist */}
+          <iframe
+            style={{ borderRadius: '12px' }}
+            src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
+            height="152"
+            className="w-full md:w-1/2"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </section>
     </div>
   );
 };
