@@ -21,7 +21,8 @@ const Outtro = () => {
     },
   ];
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col items-center">
+      <h1 className="text-4xl font-bold mb-4">Contact</h1>
       <Calendar />
       <div className="flex mb-4 items-center justify-center space-x-4">
         {socialLinks.map((link, index) => (

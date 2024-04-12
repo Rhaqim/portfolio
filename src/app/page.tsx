@@ -15,7 +15,11 @@ import {
   databaseStack,
   devOpsStack,
   developerStack,
+  workExperiences,
 } from '@/constants';
+import WorkItem from '@/components/Work/WorkItem';
+import Blog from '@/components/Blog';
+import Resume from '@/components/Resume';
 
 const page = () => {
   const categories = [
@@ -54,7 +58,7 @@ const page = () => {
   ];
 
   return (
-    <div className='relative w-full min-h-screen'>
+    <div className="relative w-full min-h-screen">
       <Image
         className="absolute top-0 left-0 z-[-10] object-cover w-full h-full opacity-10"
         src="/images/personal.png"
@@ -67,6 +71,16 @@ const page = () => {
       >
         <Intro />
         <Toolkits categories={categories} />
+        <div className='flex flex-col space-y-4 min-h-screen items-center justify-center'>
+            <h1 className="text-4xl font-bold mb-4">Work Experience</h1>
+          <div className="grid grid-cols-3 gap-4">
+            {workExperiences.map((experience, index) => (
+              <WorkItem key={index} {...experience} />
+            ))}
+          </div>
+        </div>
+        <Resume />
+        <Blog />
         <Outtro />
       </div>
     </div>

@@ -22,7 +22,8 @@ const Toolkits = ({
   categories: { name: string; toolkits: { name: string; logo: string }[] }[];
 }) => {
   return (
-    <div>
+    <div className='flex flex-col space-y-4 min-h-screen items-center justify-center'>
+      <h1 className="text-4xl font-bold mb-4">Tech Stack</h1>
       {categories.map((category, index) => (
         <div key={index} className="flex flex-col space-y-4 mb-2">
           <h2 className="text-xl text-center font-semibold">{category.name}</h2>
