@@ -15,7 +15,7 @@ const WorkItem: React.FC<WorkItemProps> = ({
   website,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-between my-4">
+    <div className="flex flex-col items-center justify-between my-4 hover:scale-105 transition-transform duration-300 ease-in-out">
       {/* Logo and Company Info */}
       <div className="w-full flex flex-col items-center space-y-4">
         <a href={website} target="_blank" rel="noopener noreferrer">

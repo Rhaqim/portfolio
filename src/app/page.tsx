@@ -60,13 +60,15 @@ const page = () => {
   ];
 
   return (
-    <div className="relative w-full min-h-screen">
-      <Image
-        className="absolute top-0 left-0 z-[-10] object-cover w-full h-full opacity-10"
-        src="/images/personal.png"
-        alt="background"
-        fill
-      />
+    <div className="w-full min-h-screen">
+      <div className="w-full h-full fixed z-[-20]">
+        <Image
+          className="object-cover opacity-30"
+          src="/images/personal.png"
+          alt="background"
+          fill
+        />
+      </div>
       <div
         className="container mx-auto flex flex-col items-center w-full space-y-4 p-4"
         id="home"
