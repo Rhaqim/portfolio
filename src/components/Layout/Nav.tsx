@@ -11,6 +11,7 @@ type NavProps = {
 
 const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [bgColor, setBgColor] = useState<string>('bg-transparent');
 
   const handleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -46,7 +47,7 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className={`flex flex-row justify-between items-center p-8 z-20`}
+      className={`fixed flex items-center justify-between w-full p-4 z-20`}
     >
       <Link
         href={'/'}
@@ -60,8 +61,8 @@ const Nav = ({ navLinks }: { navLinks: NavProps[] }) => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className={`font-bold text-3xl
-            ${dropdownOpen ? 'text-white' : 'text-black dark:text-white'}
-            `}
+          ${dropdownOpen ? 'text-white' : 'text-black dark:text-white'}
+          `}
           >
             {letter}
           </motion.span>

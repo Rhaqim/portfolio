@@ -20,9 +20,11 @@ export const getFilteredNavLinks = (
 
 export const workNavLinks = [
   { href: '/', label: 'Home' },
+  { href: '#toolkits', label: 'Tech Stack' },
   { href: '#work-experience', label: 'Work' },
-  { href: '#blog', label: 'Blog' },
   { href: '#resume', label: 'Resume' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#blog', label: 'Blog' },
   { href: '#contact', label: 'Contact' },
 ];
 

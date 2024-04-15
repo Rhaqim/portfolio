@@ -26,6 +26,7 @@ import { projects } from '@/constants/project';
 import Projects from '@/components/Work/Projects';
 import { motion } from 'framer-motion';
 import LayoutBase from '@/components/Layout';
+import LogoModel from '@/components/Models';
 
 const Page = () => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -80,6 +81,9 @@ const Page = () => {
           alt="background"
           fill
         />
+        <div className="w-full h-full bg-black opacity-50 z-[-10]">
+          <LogoModel />
+        </div>
       </div>
       <LayoutBase navLinks={workNavLinks}>
         <div
