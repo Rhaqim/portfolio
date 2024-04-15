@@ -2,7 +2,7 @@ import React from 'react';
 import { GithubLogo, TwitterLogo, LinkedinLogo } from '@phosphor-icons/react';
 import Calendar from '../Calendar';
 
-const Outtro = () => {
+const Contact = () => {
   const socialLinks = [
     {
       href: 'https://www.linkedin.com/in/john-franklin-anusiem/',
@@ -21,7 +21,7 @@ const Outtro = () => {
     },
   ];
   return (
-    <div className="w-full flex flex-col items-center space-y-4">
+    <div id="contact" className="w-full flex flex-col items-center space-y-4">
       <h1 className="text-4xl font-bold mb-4">Contact</h1>
       <Calendar />
       <div className="flex mb-4 items-center justify-center space-x-4">
@@ -42,4 +42,4 @@ const Outtro = () => {
   );
 };
 
-export default Outtro;
+export default Contact;

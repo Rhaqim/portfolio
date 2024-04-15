@@ -21,7 +21,10 @@ const Blog = () => {
     fetchBlogPosts();
   }, []);
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen">
+    <div
+      id="blog"
+      className="flex flex-col items-center justify-start min-h-screen"
+    >
       <h1 className="text-4xl font-bold mb-4">Blog Posts</h1>
       {/* Posts */}
       <ul>

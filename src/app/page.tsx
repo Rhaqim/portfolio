@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Intro from '@/components/Work/Intro';
-import Outtro from '@/components/Work/Outtro';
+import Outtro from '@/components/Work/Contact';
 import Toolkits from '@/components/Work/Toolkit';
 import {
   frontendStack,
@@ -16,14 +17,25 @@ import {
   devOpsStack,
   developerStack,
   workExperiences,
+  workNavLinks,
 } from '@/constants';
 import WorkItem from '@/components/Work/WorkItem';
 import Blog from '@/components/Blog';
 import Resume from '@/components/Resume';
 import { projects } from '@/constants/project';
 import Projects from '@/components/Work/Projects';
+import { motion } from 'framer-motion';
+import LayoutBase from '@/components/Layout';
 
-const page = () => {
+const Page = () => {
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+
+  const handleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const name = 'Rhaqim'.split('');
+
   const categories = [
     {
       name: 'Frontend',
@@ -69,34 +81,42 @@ const page = () => {
           fill
         />
       </div>
-      <div
-        className="container mx-auto flex flex-col items-center w-full space-y-4 p-4"
-        id="home"
-      >
-        <Intro />
-        <Toolkits categories={categories} />
-        <div className="flex flex-col space-y-4 min-h-screen items-center justify-center">
-          <h1 className="text-4xl font-bold mb-4">Work Experience</h1>
-          <div className="grid grid-cols-3 gap-4">
-            {workExperiences.map((experience, index) => (
-              <WorkItem key={index} {...experience} />
-            ))}
+      <LayoutBase navLinks={workNavLinks}>
+        <div
+          className="container mx-auto flex flex-col items-center w-full space-y-4 p-4"
+          id="home"
+        >
+          <Intro />
+          <Toolkits categories={categories} />
+          <div
+            id="work-experience"
+            className="flex flex-col space-y-4 min-h-screen items-center justify-center"
+          >
+            <h1 className="text-4xl font-bold mb-4">Work Experience</h1>
+            <div className="grid grid-cols-3 gap-4">
+              {workExperiences.map((experience, index) => (
+                <WorkItem key={index} {...experience} />
+              ))}
+            </div>
           </div>
-        </div>
-        <Resume />
-        <div className="flex flex-col space-y-4 min-h-screen items-center justify-center">
-          <h1 className="text-4xl font-bold mb-4">Projects</h1>
-          <div>
-            {projects.map((project, index) => (
-              <Projects key={index} {...project} />
-            ))}
+          <Resume />
+          <div
+            id="projects"
+            className="flex flex-col space-y-4 min-h-screen items-center justify-center"
+          >
+            <h1 className="text-4xl font-bold mb-4">Projects</h1>
+            <div>
+              {projects.map((project, index) => (
+                <Projects key={index} {...project} />
+              ))}
+            </div>
           </div>
+          <Blog />
+          <Outtro />
         </div>
-        <Blog />
-        <Outtro />
-      </div>
+      </LayoutBase>
     </div>
   );
 };
 
-export default page;
+export default Page;

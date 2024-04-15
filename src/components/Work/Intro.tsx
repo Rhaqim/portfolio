@@ -26,7 +26,10 @@ const Intro = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col space-y-8 min-h-screen items-center justify-center">
+    <div
+      id="intro"
+      className="w-full flex flex-col space-y-8 min-h-screen items-center justify-center"
+    >
       {/* Personal Introduction Section */}
       <section>
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 mb-4">
@@ -44,7 +47,7 @@ const Intro = () => {
                 Hi, I&apos;m&nbsp; Anusiem John-Franklin.
               </p>
             </div>
-            <div className='text-xl'>
+            <div className="text-xl">
               Full Stack Developer at &nbsp;
               <Link
                 href="https://github.com/UnidiffKenya"
@@ -70,9 +73,7 @@ const Intro = () => {
       </section>
 
       {/* Music Playlist Section */}
-      <section
-      className='w-full'
-      >
+      <section className="w-full">
         <div className="flex flex-col md:flex-row justify-between w-full items-center space-y-4">
           {/* Spotify Music Playlist */}
           <iframe

@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   description: "Rhaqim's personal website",
   robots: {
     follow: true,
-    index: true
+    index: true,
   },
   twitter: {
     card: 'summary',
-    title: 'Rhaqim'
-  }
-}
+    title: 'Rhaqim',
+  },
+};
 
 export default function RootLayout({
   children,

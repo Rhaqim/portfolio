@@ -5,11 +5,11 @@ export const getFilteredNavLinks = (
   const shouldIncludeLink = (link: { href: string; label: string }) => {
     switch (layout) {
       case 'work':
-        return link.href !== '/work';
+        return link.href !== '#work-experience';
       case 'blog':
-        return link.href !== '/work/blog';
+        return link.href !== '#blog';
       case 'resume':
-        return link.href !== '/work/resume';
+        return link.href !== '#resume';
       default:
         return true;
     }
@@ -20,10 +20,10 @@ export const getFilteredNavLinks = (
 
 export const workNavLinks = [
   { href: '/', label: 'Home' },
-  { href: '/work', label: 'Work' },
-  { href: '/work/blog', label: 'Blog' },
-  { href: '/work/resume', label: 'Resume' },
-  { href: '/work/contact', label: 'Contact' },
+  { href: '#work-experience', label: 'Work' },
+  { href: '#blog', label: 'Blog' },
+  { href: '#resume', label: 'Resume' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 export const gameNavLinks = [
