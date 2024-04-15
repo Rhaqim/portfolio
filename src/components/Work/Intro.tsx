@@ -47,7 +47,7 @@ const Intro = () => {
             <div className='text-xl'>
               Full Stack Developer at &nbsp;
               <Link
-                href="https://www.nirvanalabs.io/"
+                href="https://github.com/UnidiffKenya"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"

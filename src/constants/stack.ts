@@ -50,10 +50,6 @@ const versionControlStack = [
     name: 'Github',
     logo: 'github',
   },
-  {
-    name: 'VC Code',
-    logo: 'vscode',
-  },
 ];
 
 const backendStack = [
