@@ -28,7 +28,7 @@ const Intro = () => {
   return (
     <div
       id="intro"
-      className="w-full flex flex-col space-y-8 min-h-screen items-center justify-center"
+      className="w-full flex flex-col space-y-8 min-h-screen items-center justify-center py-4"
     >
       {/* Personal Introduction Section */}
       <section>

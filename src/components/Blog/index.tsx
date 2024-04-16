@@ -23,7 +23,7 @@ const Blog = () => {
   return (
     <div
       id="blog"
-      className="flex flex-col items-center justify-start min-h-screen"
+      className="flex flex-col items-center justify-start min-h-screen py-4"
     >
       <h1 className="text-4xl font-bold mb-4">Blog Posts</h1>
       {/* Posts */}

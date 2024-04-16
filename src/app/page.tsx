@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import Intro from '@/components/Work/Intro';
-import Outtro from '@/components/Work/Contact';
+import Contact from '@/components/Work/Contact';
 import Toolkits from '@/components/Work/Toolkit';
 import {
   frontendStack,
@@ -24,7 +23,6 @@ import Blog from '@/components/Blog';
 import Resume from '@/components/Resume';
 import { projects } from '@/constants/project';
 import Projects from '@/components/Work/Projects';
-import { motion } from 'framer-motion';
 import LayoutBase from '@/components/Layout';
 import LogoModel from '@/components/Models';
 
@@ -94,7 +92,7 @@ const Page = () => {
           <Toolkits categories={categories} />
           <div
             id="work-experience"
-            className="flex flex-col space-y-4 min-h-screen items-center justify-center"
+            className="flex flex-col space-y-4 min-h-screen items-center justify-center py-4"
           >
             <h1 className="text-4xl font-bold mb-4">Work Experience</h1>
             <div className="grid grid-cols-3 gap-4">
@@ -106,7 +104,7 @@ const Page = () => {
           <Resume />
           <div
             id="projects"
-            className="flex flex-col space-y-4 min-h-screen items-center justify-center"
+            className="flex flex-col space-y-4 min-h-screen items-center justify-center py-4"
           >
             <h1 className="text-4xl font-bold mb-4">Projects</h1>
             <div>
@@ -116,7 +114,7 @@ const Page = () => {
             </div>
           </div>
           <Blog />
-          <Outtro />
+          <Contact />
         </div>
       </LayoutBase>
     </div>

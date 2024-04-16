@@ -24,7 +24,7 @@ const Toolkits = ({
   return (
     <div
       id="toolkits"
-      className="flex flex-col space-y-4 min-h-screen items-center justify-center"
+      className="flex flex-col space-y-4 min-h-screen items-center justify-center py-4"
     >
       <h1 className="text-4xl font-bold mb-4">Tech Stack</h1>
       {categories.map((category, index) => (

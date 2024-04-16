@@ -24,7 +24,7 @@ const Resume = () => {
   return (
     <div
       id="resume"
-      className="flex items-center justify-start flex-col min-h-screen m-1 p-1 space-y-4"
+      className="flex items-center justify-start flex-col min-h-screen m-1 p-1 space-y-4 py-4"
     >
       <h1 className="text-4xl font-bold my-4">Resume</h1>
       <p className="text-lg text-center p-2 rounded-md shadow-lg border">
