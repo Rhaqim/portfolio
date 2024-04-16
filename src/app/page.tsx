@@ -27,14 +27,6 @@ import LayoutBase from '@/components/Layout';
 import LogoModel from '@/components/Models';
 
 const Page = () => {
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-
-  const handleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const name = 'Rhaqim'.split('');
-
   const categories = [
     {
       name: 'Frontend',

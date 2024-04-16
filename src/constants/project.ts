@@ -1,35 +1,60 @@
 const projects = [
   {
-    title: 'Jobs We Want',
+    title: 'Garch',
     description:
-      'A helpful extension for tracking jobs you want to or have applied to.',
+      'A boilerplate generator for creating and managing Golang projects.',
     link: null,
-    github: 'https://github.com/Rhaqim/jobs_we_want',
-    tags: ['Jobs', 'Metrics', 'Tracker', 'Extension'],
+    github: 'https://github.com/Rhaqim/garch-go',
+    tags: ['Golang', 'Boilerplate', 'Architecture', 'CLI'],
     toolkits: [
       {
-        name: 'JavaScript',
-        logo: 'javascript',
+        name: 'Golang',
+        logo: 'golang',
       },
       {
-        name: 'HTML',
-        logo: 'html',
+        name: 'Bash',
+        logo: 'bash',
+      },
+    ],
+    images: [],
+  },
+  {
+    title: 'USSD Framework',
+    description: 'A simple framework for building USSD applications in Rust.',
+    link: null,
+    github: 'https://github.com/Rhaqim/garch-go',
+    tags: ['Rust', 'USSD', 'Framework', 'Development'],
+    toolkits: [
+      {
+        name: 'Rust',
+        logo: 'rust',
       },
       {
-        name: 'CSS',
-        logo: 'css',
+        name: 'Postgres',
+        logo: 'postgres',
+      },
+    ],
+    images: [],
+  },
+  {
+    title: 'Portfolio',
+    description:
+      'My personal portfolio website, built with Next.js, TypeScript Tailwind and Three.js. Deployed on Vercel.',
+    link: 'https://rhaqim.com/',
+    github: 'https://github.com/Rhaqim/rhaqim.github.io',
+    tags: ['Portfolio', 'Web App', '3D'],
+    toolkits: [
+      {
+        name: 'Next.js',
+        logo: 'nextjs',
       },
       {
-        name: 'Git',
-        logo: 'git',
+        name: 'TypeScript',
+        logo: 'typescript',
       },
       {
-        name: 'Github',
-        logo: 'github',
-      },
-      {
-        name: 'VC Code',
-        logo: 'vscode',
+        name: 'Three.js',
+        logo: 'threejs',
       },
     ],
     images: [],
@@ -58,41 +83,17 @@ const projects = [
         name: 'Solidity',
         logo: 'solidity',
       },
-      {
-        name: 'Git',
-        logo: 'git',
-      },
-      {
-        name: 'Github',
-        logo: 'github',
-      },
-      {
-        name: 'VC Code',
-        logo: 'vscode',
-      },
     ],
     images: [],
   },
   {
-    title: 'Portfolio',
+    title: 'Jobs We Want',
     description:
-      'My personal portfolio website, built with Next.js, TypeScript Tailwind and Three.js. Deployed on Vercel.',
-    link: 'https://rhaqim.com/',
-    github: 'https://github.com/Rhaqim/rhaqim.github.io',
-    tags: ['Portfolio', 'Web App', '3D'],
+      'A helpful extension for tracking jobs you want to or have applied to.',
+    link: null,
+    github: 'https://github.com/Rhaqim/jobs_we_want',
+    tags: ['Jobs', 'Metrics', 'Tracker', 'Extension'],
     toolkits: [
-      {
-        name: 'React',
-        logo: 'react',
-      },
-      {
-        name: 'Next.js',
-        logo: 'nextjs',
-      },
-      {
-        name: 'TypeScript',
-        logo: 'typescript',
-      },
       {
         name: 'JavaScript',
         logo: 'javascript',
@@ -104,22 +105,6 @@ const projects = [
       {
         name: 'CSS',
         logo: 'css',
-      },
-      {
-        name: 'Three.js',
-        logo: 'threejs',
-      },
-      {
-        name: 'Git',
-        logo: 'git',
-      },
-      {
-        name: 'Github',
-        logo: 'github',
-      },
-      {
-        name: 'VC Code',
-        logo: 'vscode',
       },
     ],
     images: [],
@@ -138,10 +123,6 @@ const projects = [
         logo: 'react',
       },
       {
-        name: 'Next.js',
-        logo: 'nextjs',
-      },
-      {
         name: 'JavaScript',
         logo: 'javascript',
       },
@@ -156,18 +137,6 @@ const projects = [
       {
         name: 'Three.js',
         logo: 'threejs',
-      },
-      {
-        name: 'Git',
-        logo: 'git',
-      },
-      {
-        name: 'Github',
-        logo: 'github',
-      },
-      {
-        name: 'VC Code',
-        logo: 'vscode',
       },
     ],
     images: [],
@@ -188,18 +157,6 @@ const projects = [
         name: 'Docker',
         logo: 'docker',
       },
-      {
-        name: 'Git',
-        logo: 'git',
-      },
-      {
-        name: 'Github',
-        logo: 'github',
-      },
-      {
-        name: 'VC Code',
-        logo: 'vscode',
-      },
     ],
     images: [],
   },
@@ -216,14 +173,6 @@ const projects = [
         logo: 'flask',
       },
       {
-        name: 'Python',
-        logo: 'python',
-      },
-      {
-        name: 'Docker',
-        logo: 'docker',
-      },
-      {
         name: 'Pandas',
         logo: 'pandas',
       },
@@ -234,18 +183,6 @@ const projects = [
       {
         name: 'OpenCV',
         logo: 'opencv',
-      },
-      {
-        name: 'Git',
-        logo: 'git',
-      },
-      {
-        name: 'Github',
-        logo: 'github',
-      },
-      {
-        name: 'VC Code',
-        logo: 'vscode',
       },
     ],
     images: [],
