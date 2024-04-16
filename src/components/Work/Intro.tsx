@@ -43,32 +43,32 @@ const Intro = () => {
                 height={100}
                 className="rounded-md"
               />
-              <p className="hover:text-indigo-600 text-center text-3xl transition duration-300 ease-in-out">
-                Hi, I&apos;m&nbsp; Anusiem John-Franklin.
-              </p>
-            </div>
-            <div className="text-xl">
-              Full Stack Developer at &nbsp;
-              <Link
-                href="https://github.com/UnidiffKenya"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
-              >
-                UniDiff
-              </Link>
+              <div className="text-xl transition duration-300 ease-in-out">
+                <p>
+                  Hi there, I&apos;m <span className='font-bold text-2xl'>Rhaqim.</span>
+                </p>
+                <div className="text-xl">
+                  A Full Stack Developer at &nbsp;
+                  <Link
+                    href="https://github.com/UnidiffKenya"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-indigo-400 hover:text-indigo-600 transition duration-300 ease-in-out"
+                  >
+                    UniDiff
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         {/* Introduction Text */}
         <div
           id="intro-text"
-          className="text-center md:text-left font-mono font-bold text-xl mt-2"
+          className="text-center font-mono font-bold text-xl mt-2"
         >
-          I am a passionate full-stack developer with a knack for crafting
-          robust APIs, streamlining DevOps processes and all-round development.
-          I&apos;ve honed my skills in leading teams, deciphering complex
-          business requirements, and consistently delivering projects on time.
+          I am very passionate about building and contributing to exciting new
+          projects, feel free to explore my work and listen to my playlist
         </div>
       </section>
 
