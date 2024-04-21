@@ -13,17 +13,22 @@ const panels = [
 export default function ComicBook() {
   const [currentPage, setCurrentPage] = useState(0);
 
+  console.log('currentPage', currentPage);
+
+  // on scroll, change the current page
   useEffect(() => {
     const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.body.clientHeight;
-      const scrollPosition = window.scrollY;
-
-      const currentPage = Math.floor((scrollPosition / (documentHeight - windowHeight)) * panels.length);
-      setCurrentPage(currentPage);
+      if (window.scrollY < window.innerHeight) {
+        setCurrentPage(0);
+      } else if (window.scrollY < window.innerHeight * 2) {
+        setCurrentPage(1);
+      } else {
+        setCurrentPage(2);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -31,15 +36,15 @@ export default function ComicBook() {
 
   return (
     <div>
-        {panels.map((panel, index) => (
-          <div key={index} className={index === currentPage ? "block" : "hidden"}>
-            <div className="h-screen flex justify-center items-center">
-              <div className="max-w-xl p-8 border border-gray-300 rounded-lg shadow-lg">
-                <p className="text-xl">{panel}</p>
-              </div>
+      {panels.map((panel, index) => (
+        <div key={index} className={index === currentPage ? 'block' : 'hidden'}>
+          <div className="h-screen flex justify-center items-center">
+            <div className="max-w-xl p-8 border border-gray-300 rounded-lg shadow-lg">
+              <p className="text-xl">{panel}</p>
             </div>
           </div>
-        ))}
+        </div>
+      ))}
     </div>
   );
 }
