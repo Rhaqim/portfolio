@@ -13,7 +13,7 @@ const LogoModel = () => {
       {/* <OrbitControls /> */}
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <GLBModel />
+      <GLBModel modelPath='/models/Rhaqim.glb' />
     </Canvas>
   );
 };

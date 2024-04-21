@@ -24,7 +24,7 @@ import Resume from '@/components/Resume';
 import { projects } from '@/constants/project';
 import Projects from '@/components/Work/Projects';
 import LayoutBase from '@/components/Layout';
-import LogoModel from '@/components/Models';
+import LogoModel from '@/components/Models/Logo';
 
 const Page = () => {
   const categories = [

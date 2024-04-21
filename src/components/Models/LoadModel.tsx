@@ -5,10 +5,10 @@ import { Color, Mesh, MeshStandardMaterial } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 
-const GLBModel = () => {
+const GLBModel = ({ modelPath }: { modelPath: string }) => {
   const modelRef = useRef<Mesh>(null);
 
-  const { nodes, materials } = useGLTF('/models/Rhaqim.glb') as any;
+  const { nodes, materials } = useGLTF(modelPath) as any;
 
   const rodCenter = materials.Metal03 as MeshStandardMaterial;
   const rod1 = materials['Metal03.001'] as MeshStandardMaterial;

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence } from 'framer-motion';
-import LogoModel from '@/components/Models';
+import LogoModel from '@/components/Models/Logo';
 
 // ...
 
