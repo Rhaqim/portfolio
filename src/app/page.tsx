@@ -25,6 +25,7 @@ import { projects } from '@/constants/project';
 import Projects from '@/components/Work/Projects';
 import LayoutBase from '@/components/Layout';
 import LogoModel from '@/components/Models/Logo';
+import ParallaxScene from '@/components/Models/Stars';
 
 const Page = () => {
   const categories = [
@@ -64,8 +65,11 @@ const Page = () => {
 
   return (
     <div className="w-full min-h-screen">
-      <div className="w-full h-full fixed z-[-20]">
-        <Image
+      <div className="w-full h-full fixed inset-0 flex items-center justify-center bg-black z-[-20] opacity-50">
+        <div style={{ width: '100vw', height: '100vh' }}>
+          <ParallaxScene />
+        </div>
+        {/* <Image
           className="object-cover opacity-30"
           src="/images/personal.png"
           alt="background"
@@ -73,7 +77,7 @@ const Page = () => {
         />
         <div className="w-full h-full bg-black opacity-50 z-[-10]">
           <LogoModel />
-        </div>
+        </div> */}
       </div>
       <LayoutBase navLinks={workNavLinks}>
         <div
