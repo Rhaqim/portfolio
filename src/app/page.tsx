@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React from 'react';
 
 import Intro from '@/components/Work/Intro';
 import Contact from '@/components/Work/Contact';
@@ -24,7 +23,6 @@ import Resume from '@/components/Resume';
 import { projects } from '@/constants/project';
 import Projects from '@/components/Work/Projects';
 import LayoutBase from '@/components/Layout';
-import LogoModel from '@/components/Models/Logo';
 import ParallaxScene from '@/components/Models/Stars';
 
 const Page = () => {
@@ -69,15 +67,6 @@ const Page = () => {
         <div style={{ width: '100vw', height: '100vh' }}>
           <ParallaxScene />
         </div>
-        {/* <Image
-          className="object-cover opacity-30"
-          src="/images/personal.png"
-          alt="background"
-          fill
-        />
-        <div className="w-full h-full bg-black opacity-50 z-[-10]">
-          <LogoModel />
-        </div> */}
       </div>
       <LayoutBase navLinks={workNavLinks}>
         <div
