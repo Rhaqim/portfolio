@@ -1,5 +1,14 @@
 interface Fruit {
-    position?: number[];
-    title: string;
-    info: string;
-  }
+  position?: number[];
+  title: string;
+  info: string;
+}
+
+interface Branch {
+  position: number[];
+  scale: number;
+  rotation?: number[];
+  color: string;
+  fruits?: Fruit[];
+  branches?: Branch[];
+}
