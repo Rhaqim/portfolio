@@ -16,10 +16,10 @@ const CareerFruit = ({
   const [isOpen, setIsOpen] = useState(false);
   return (
     <group position={new Three.Vector3(position[0], position[1], position[2])}>
-      <Sphere args={[0.2, 12, 12]} onClick={() => setIsOpen(!isOpen)}>
+      <Sphere args={[0.2, 8, 8]} onClick={() => setIsOpen(!isOpen)}>
         <MeshDistortMaterial color="rgba(210,10,46,0.5)" attach="material" />
       </Sphere>
-      <Html center>
+      {/* <Html center>
         <div
           onClick={() => setIsOpen(!isOpen)}
           style={{
@@ -32,7 +32,7 @@ const CareerFruit = ({
         >
           {title}
         </div>
-      </Html>
+      </Html> */}
       {isOpen && (
         <Html style={{ pointerEvents: 'all' }}>
           <div

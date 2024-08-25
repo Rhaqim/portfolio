@@ -5,6 +5,7 @@ interface Fruit {
 }
 
 interface Branch {
+  title: string;
   position: number[];
   scale: number;
   rotation?: number[];
