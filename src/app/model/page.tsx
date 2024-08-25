@@ -1,5 +1,5 @@
 // import Sectins from '@/components/Models/Sectins';
-import CareerTree from '@/components/Models/CareerScene';
+import CareerTree from '@/components/Models/Career/CareerScene';
 import React from 'react';
 
 const ModelTest = () => {

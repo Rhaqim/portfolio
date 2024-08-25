@@ -36,11 +36,11 @@ const CareerBranch = ({
       </Cylinder>
 
       {/* Title label */}
-      {/* <Html center>
+      <Html center>
         <div
           style={{
             backgroundColor: 'rgba(0,0,0,0.5)',
-            padding: '10px',
+            padding: '4px',
             borderRadius: '8px',
             color: 'white',
             textAlign: 'center',
@@ -48,7 +48,7 @@ const CareerBranch = ({
         >
           {title}
         </div>
-      </Html> */}
+      </Html>
 
       {/* Render fruits at the top of branch */}
       {/* {fruits &&

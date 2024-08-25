@@ -17,6 +17,7 @@ const CareerTree = () => {
   return (
     <group ref={treeRef} position={[0, -2, 0]}>
       {/* Root Branch */}
+
       <CareerBranch
         position={[0, 1, 0]}
         scale={4}
@@ -25,7 +26,7 @@ const CareerTree = () => {
         branches={[
           {
             title: 'Software Development',
-            position: [0, 2, 0],
+            position: [0, 2, 0], // Adjusted based on the root scale
             scale: 2,
             rotation: [0, 0, Math.PI / 4],
             color: 'green',
@@ -38,7 +39,7 @@ const CareerTree = () => {
             branches: [
               {
                 title: 'Python',
-                position: [0, 1, 0],
+                position: [0.5, 1.5, 0.5], // Adjusted position to be relative to parent branch
                 scale: 1.5,
                 rotation: [0, 0, Math.PI / 6],
                 color: 'green',
@@ -48,7 +49,7 @@ const CareerTree = () => {
               },
               {
                 title: 'Rust',
-                position: [0, 1, 0],
+                position: [-0.5, 1.5, -0.5], // Adjusted position to be relative to parent branch
                 scale: 1.5,
                 rotation: [0, 0, -Math.PI / 6],
                 color: 'green',
@@ -63,7 +64,7 @@ const CareerTree = () => {
           },
           {
             title: 'Web Development',
-            position: [0, 2, 0],
+            position: [0, 2, 0], // Adjusted based on the root scale
             scale: 2,
             rotation: [0, 0, -Math.PI / 4],
             color: 'green',
@@ -71,6 +72,34 @@ const CareerTree = () => {
               {
                 title: 'Web Development',
                 info: 'Growth in web technologies.',
+              },
+            ],
+            branches: [
+              {
+                title: 'Frontend',
+                position: [0.5, 1.5, 0.5], // Adjusted position to be relative to parent branch
+                scale: 1.5,
+                rotation: [0, 0, Math.PI / 6],
+                color: 'green',
+                fruits: [
+                  {
+                    title: 'React',
+                    info: 'Experience with React framework.',
+                  },
+                ],
+              },
+              {
+                title: 'Backend',
+                position: [-0.5, 1.5, -0.5], // Adjusted position to be relative to parent branch
+                scale: 1.5,
+                rotation: [0, 0, -Math.PI / 6],
+                color: 'green',
+                fruits: [
+                  {
+                    title: 'Node.js',
+                    info: 'Experience with Node.js runtime.',
+                  },
+                ],
               },
             ],
           },
