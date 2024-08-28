@@ -3,17 +3,17 @@
 import React from 'react';
 
 interface BranchProps {
-  length: number;
-  thickness: number;
-  depth: number;
-  maxDepth: number;
+  length?: number;
+  thickness?: number;
+  depth?: number;
+  maxDepth?: number;
 }
 
 const Branch: React.FC<BranchProps> = ({
-  length,
-  thickness,
-  depth,
-  maxDepth,
+  length = 2,
+  thickness = 0.2,
+  depth = 0,
+  maxDepth = 5,
 }) => {
   // Base condition to stop recursion
   if (depth > maxDepth) return null;
