@@ -6,6 +6,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 
 import CareerTree from './Tree';
+import TrunkModel from '../Cherry/Trunk';
 
 const Scene = () => {
   const cameraRef = useRef<Three.PerspectiveCamera>(null);
@@ -28,7 +29,8 @@ const Scene = () => {
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <OrbitControls />
-      <CareerTree />
+      {/* <CareerTree /> */}
+      <TrunkModel position={[0, -2, 0]} scale={[1, 1, 1]} />
     </Canvas>
   );
 };
