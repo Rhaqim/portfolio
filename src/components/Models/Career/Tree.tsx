@@ -2,11 +2,13 @@
 
 import React from 'react';
 import Branch2, { BranchProps } from './Branch2';
-import Branch from './Branch';
+import Branch1 from '.././Cherry/Branches/Branch1';
 
 const Tree = () => {
   //   return <Branch />;
-  return <Branch2 {...CareerBranch} maxDepth={calculateMaxDepth(CareerBranch)} />;
+  return (
+    <Branch1 {...CareerBranch} maxDepth={calculateMaxDepth(CareerBranch)} />
+  );
 };
 
 export default Tree;

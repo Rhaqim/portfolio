@@ -4,15 +4,16 @@ import React, { useRef } from 'react';
 import * as Three from 'three';
 
 import CareerBranch from './CareerBranch';
+import { useFrame } from '@react-three/fiber';
 
 const CareerTree = () => {
   const treeRef = useRef<Three.Group>(null);
 
   // Optionally, you can animate the tree to grow or sway
-  // useFrame(() => {
-  //   if (!treeRef.current) return;
-  //   treeRef.current.rotation.y += 0.007;
-  // });
+  useFrame(() => {
+    if (!treeRef.current) return;
+    treeRef.current.rotation.y += 0.007;
+  });
 
   return (
     <group ref={treeRef} position={[0, -2, 0]}>
