@@ -1,15 +1,20 @@
 import { Metadata } from 'next';
 import { Goldman } from 'next/font/google';
 
-import './globals.css';
 import AppLayout from '@/ui/Layout';
+
+import './globals.css';
 
 const inter = Goldman({ weight: '400', subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rhaqim.com/'),
   title: 'Rhaqim',
-  description: "Rhaqim's personal website",
+  description:
+    'The chronicles and musings of one Rhaqim, a software engineer and tech enthusiast.',
+  authors: { url: 'https://rhaqim.com/', name: 'Rhaqim' },
+  creator: 'Rhaqim',
+  icons: '/favicon.ico',
   robots: {
     follow: true,
     index: true,
@@ -37,6 +42,11 @@ export const metadata: Metadata = {
         alt: 'Rhaqim',
       },
     ],
+  },
+  appleWebApp: {
+    statusBarStyle: 'black-translucent',
+    title: 'Rhaqim',
+    startupImage: '/images/business.png',
   },
 };
 
