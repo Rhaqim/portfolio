@@ -3,17 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 100, 102;
+  --background-end-rgb: 17, 100, 102;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --background-start-rgb: 17, 100, 102;
     --background-end-rgb: 0, 0, 0;
   }
+}
+
+* {
+  cursor: none;
 }
 
 body {
@@ -26,6 +30,27 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+/* Custom cursor styles */
+.cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none; /* Ensures the cursor does not block mouse events */
+  transform: translate(-50%, -50%);
+  transition: width 0.1s, height 0.1s, border 0.1s;
+  z-index: 9999;
+}
+
+/* if its mobile hide the cursor */
+@media (max-width: 768px) {
+  .cursor {
+    display: none;
+  }
+}
+
 .transitioning-overlay {
   position: fixed;
   top: 0;
@@ -34,4 +59,15 @@ body {
   height: 100%;
   background-color: black;
   z-index: 100;
+}
+
+.custom-rotate-y {
+  transform: rotateY(180deg); /* Rotates 180 degrees on the Y-axis */
+}
+.custom-rotate-y-reset {
+  transform: rotateY(0deg); /* Resets the rotation */
+}
+.custom-rotate-y,
+.custom-rotate-y-reset {
+  transition: transform 0.5s ease-in-out; /* Smooth transition */
 }
