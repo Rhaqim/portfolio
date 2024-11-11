@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://rhaqim.com/'),
   title: 'Rhaqim',
   description:
-    'The chronicles and musings of one Rhaqim, a software engineer and tech enthusiast.',
+    'The chronicles and musings of one Rhaqim, a software engineer and aspiring entrepreneur.',
   authors: { url: 'https://rhaqim.com/', name: 'Rhaqim' },
   creator: 'Rhaqim',
   icons: '/favicon.ico',
@@ -24,10 +24,13 @@ export const metadata: Metadata = {
     site: '@site',
     creator: '@ivxnio',
     images: '/images/business.png',
+    description:
+      'The chronicles and musings of one Rhaqim, a software engineer and aspiring entrepreneur.',
   },
   openGraph: {
     title: 'Rhaqim',
-    description: "Rhaqim's personal website",
+    description:
+      'The chronicles and musings of one Rhaqim, a software engineer and aspiring entrepreneur.',
     images: [
       {
         url: '/images/business.png',
