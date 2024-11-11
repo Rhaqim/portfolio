@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Articles from '@/types/article.type';
-import Link from 'next/link';
 import { getArticles } from '@/service/devto/routes';
 
 const Blog = () => {
