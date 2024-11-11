@@ -3,8 +3,16 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import Contact from '@/components/Work/Contact';
+import Contact from '@/components/Contact';
+import {
+  frontendStack,
+  backendStack,
+  databaseStack,
+  devOpsStack,
+  developerStack,
+} from '@/constants';
 import { useCursor } from '@/context/Cursor.context';
+
 import { getArticles } from '@/service/devto/routes';
 import Articles from '@/types/article.type';
 
@@ -66,10 +74,22 @@ const Introduction = () => {
           <p className="text-lg mt-2 max-w-xs md:max-w-sm">
             Feel free to explore my work and listen to my playlist.
           </p>
+          <div className="flex flex-col md:flex-row justify-between w-full items-center space-y-4">
+            {/* Spotify Music Playlist */}
+            <iframe
+              style={{ borderRadius: '12px' }}
+              src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
+              height="152"
+              className="w-full md:w-1/2"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
           <div className="flex space-x-4 items-center w-full">
             <a
               className="border-[#297568] hover:scale-110 transition-all ease-in border-4 rounded-lg p-4 justify-center"
-              href="#resume"
+              href="https://drive.google.com/file/d/1z_Rm4d8kafzNHrZNRJu5Cq1eC82J9iHi/view?usp=sharing"
+              target='_blank'
               onMouseEnter={divEnter}
               onMouseLeave={divLeave}
             >
@@ -120,51 +140,47 @@ const Introduction = () => {
 const Stack = [
   {
     title: 'Backend',
-    stack: ['Node.js', 'Express', 'GraphQL', 'REST'],
+    // stack: ['Node.js', 'Express', 'GraphQL', 'REST'],
+    stack: backendStack,
   },
   {
     title: 'Frontend',
-    stack: ['React', 'Next.js', 'Tailwind CSS', 'Chakra UI'],
+    // stack: ['React', 'Next.js', 'Tailwind CSS', 'Chakra UI'],
+    stack: frontendStack,
   },
   {
     title: 'Mobile',
-    stack: ['React Native', 'Expo'],
+    // stack: ['React Native', 'Expo'],
+    stack: developerStack,
   },
   {
     title: 'Database',
-    stack: ['MongoDB', 'PostgreSQL', 'Firebase'],
+    // stack: ['MongoDB', 'PostgreSQL', 'Firebase'],
+    stack: databaseStack,
   },
   {
     title: 'DevOps',
-    stack: ['Docker', 'Kubernetes', 'GitHub Actions'],
+    // stack: ['Docker', 'Kubernetes', 'GitHub Actions'],
+    stack: devOpsStack,
   },
 ];
 
 const TechStack = () => {
   const { setCursorVariant } = useCursor();
-
-  const [contextMenu, setContextMenu] = React.useState({
-    open: false,
-    menu: '',
-  });
+  const [contextMenu, setContextMenu] = useState({ open: false, menu: '' });
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
 
   const handleRightClick = (event: React.MouseEvent, menu: string) => {
     event.preventDefault(); // Prevent the default context menu from appearing
-
-    setMenuPosition({
-      x: event.pageX,
-      y: event.pageY,
-    });
+    setMenuPosition({ x: event.pageX, y: event.pageY });
     setContextMenu({ open: true, menu });
   };
 
-  const handleClick = () => {
-    setContextMenu({ open: false, menu: '' });
-  };
+  const handleClick = () => setContextMenu({ open: false, menu: '' });
 
   const divEnter = () => setCursorVariant('hoverWithText');
   const divLeave = () => setCursorVariant('default');
+
   return (
     <section
       id="stack"
@@ -186,23 +202,46 @@ const TechStack = () => {
             </div>
           ))}
         </div>
+
         {contextMenu.open && (
           <div
-            className="absolute z-50 border-white p-4 border-2 bg-[#40D5BA] rounded-xl shadow-lg"
-            style={{ top: menuPosition.y, left: menuPosition.x }}
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+            onClick={handleClick}
           >
-            <ul>
-              {Stack.find(
-                (stack) => stack.title === contextMenu.menu,
-              )?.stack.map((item) => (
-                <li
-                  className="px-4 py-2 cursor-pointer hover:bg-black text-black hover:text-white rounded-lg"
-                  key={item}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <div
+              className="relative p-8 bg-[#40D5BA] rounded-full shadow-lg w-96 h-96 flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+            >
+              <ul className="relative w-full h-full flex items-center justify-center">
+                {Stack.find(
+                  (stack) => stack.title === contextMenu.menu,
+                )?.stack.map((item, index, arr) => {
+                  // Calculate angle to evenly distribute items around a circle
+                  const angle = (index / arr.length) * 360;
+                  const radius = 120; // Radius of the circular layout
+                  const x = radius * Math.cos((angle * Math.PI) / 180);
+                  const y = radius * Math.sin((angle * Math.PI) / 180);
+
+                  return (
+                    <li
+                      key={item.name}
+                      className="absolute px-4 py-2 cursor-pointer hover:bg-black text-black hover:text-white rounded-lg transform transition-transform"
+                      style={{
+                        transform: `translate(${x}px, ${y}px)`,
+                      }}
+                    >
+                      <Image
+                        src={`/toolkit/${item.logo}.svg`}
+                        alt={item.name}
+                        width={12}
+                        height={12}
+                        className="w-10 h-10"
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         )}
       </div>
@@ -284,11 +323,11 @@ const WorkExperience = () => {
 
 const projects = [
   {
-    title: 'Garch',
+    title: 'Buckt',
     description:
-      'A boilerplate generator for creating and managing Golang projects.',
-    stack: ['Golang', 'Boilerplate', 'Architecture', 'CLI'],
-    github: 'https://github.com/Rhaqim/garch',
+      'A simple Object storage service for storing and retrieving media files.',
+    stack: ['Golang', 'Object Storage', 'Media Files'],
+    github: 'https://github.com/Rhaqim/buckt',
     live: 'https://garch.rhaqim.com/',
     image: '/wip.png',
     position: 'left',
@@ -303,21 +342,21 @@ const projects = [
     position: 'right',
   },
   {
-    title: 'Jobs We Want',
+    title: 'Garch',
     description:
-      'A helpful extension for tracking jobs you want to or have applied to.',
-    stack: ['Chrome', 'Extention', 'Jobs Tracking', 'Metrics'],
-    github: 'https://github.com/Rhaqim/jobs-we-want',
+      'A boilerplate generator for creating and managing Golang projects.',
+    stack: ['Golang', 'Boilerplate', 'Architecture', 'CLI'],
+    github: 'https://github.com/Rhaqim/garch-go',
     live: 'https://garch.rhaqim.com/',
     image: '/wip.png',
     position: 'left',
   },
   {
-    title: 'Buckt',
+    title: 'Jobs We Want',
     description:
-      'A simple Object storage service for storing and retrieving media files.',
-    stack: ['Golang', 'Object Storage', 'Media Files'],
-    github: 'https://github.com/Rhaqim/buckt',
+      'A helpful extension for tracking jobs you want to or have applied to.',
+    stack: ['Chrome', 'Extention', 'Jobs Tracking', 'Metrics'],
+    github: 'https://github.com/Rhaqim/jobs_we_want',
     live: 'https://garch.rhaqim.com/',
     image: '/wip.png',
     position: 'right',
@@ -436,7 +475,9 @@ const Blog = () => {
               onMouseEnter={divEnter}
               onMouseLeave={divLeave}
             >
-              <h3 className="text-xl font-bold mb-2 text-[#40D5BA]">{post.title}</h3>
+              <h3 className="text-xl font-bold mb-2 text-[#40D5BA]">
+                {post.title}
+              </h3>
               <p>{post.title}</p>
               <p className="text-gray-500 mt-2">
                 {new Date(post.published_timestamp).toLocaleDateString()}
