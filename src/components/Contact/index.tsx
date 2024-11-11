@@ -47,6 +47,7 @@ const Contact = () => {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
+              title={link.text}
               className="hover:text-[#40D5BA] hover:scale-110 flex items-center cursor-pointer mr-2 transition-all duration-300 ease-in-out"
             >
               {link.icon}

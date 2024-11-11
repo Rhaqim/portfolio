@@ -7,9 +7,7 @@ type CursorContextType = {
   setCursorVariant: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const CursorContext = createContext<CursorContextType | undefined>(
-  undefined,
-);
+const CursorContext = createContext<CursorContextType | undefined>(undefined);
 
 export const CursorProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

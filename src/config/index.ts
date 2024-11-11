@@ -1,1 +1,1 @@
-export const DEBTOURL = "https://dev.to/api"
+export const DEBTOURL = 'https://dev.to/api';

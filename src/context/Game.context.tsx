@@ -5,7 +5,9 @@ import { PlayerableCharacters } from '@/types/players.type';
 
 type GameContextType = {
   selectedCharacter: PlayerableCharacters;
-  setSelectedCharacter: React.Dispatch<React.SetStateAction<PlayerableCharacters>>;
+  setSelectedCharacter: React.Dispatch<
+    React.SetStateAction<PlayerableCharacters>
+  >;
 };
 
 const GameContext = createContext<GameContextType>({
@@ -18,9 +20,8 @@ export const useGameContext = () => useContext(GameContext);
 const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [selectedCharacter, setSelectedCharacter] = useState<PlayerableCharacters>(
-    PlayerableCharacters.Samurai,
-  );
+  const [selectedCharacter, setSelectedCharacter] =
+    useState<PlayerableCharacters>(PlayerableCharacters.Samurai);
 
   return (
     <GameContext.Provider value={{ selectedCharacter, setSelectedCharacter }}>

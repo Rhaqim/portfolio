@@ -28,11 +28,11 @@ class Game {
     await this.environment.draw();
     await this.player.draw();
   };
-  
+
   /**
    * The game loop that continuously updates the game state.
-  */
- gameLoop = async () => {
+   */
+  gameLoop = async () => {
     // this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     await this.update();
     requestAnimationFrame(this.gameLoop);

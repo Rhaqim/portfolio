@@ -18,7 +18,11 @@ interface BackendAPIResponse {
 }
 
 // Define a unified request function
-const request = async (method: 'get' | 'post' | 'put' | 'delete', url: string, data?: Data): Promise<Data> => {
+const request = async (
+  method: 'get' | 'post' | 'put' | 'delete',
+  url: string,
+  data?: Data,
+): Promise<Data> => {
   const response: AxiosResponse<Data> = await api[method](url, data);
   return response;
 };

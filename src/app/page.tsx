@@ -80,16 +80,17 @@ const Introduction = () => {
               style={{ borderRadius: '12px' }}
               src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
               height="152"
-              className="w-full md:w-1/2"
+              className="w-full"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
+              title="Rhaqim's Spotify Playlist"
             ></iframe>
           </div>
           <div className="flex space-x-4 items-center w-full">
             <a
               className="border-[#297568] hover:scale-110 transition-all ease-in border-4 rounded-lg p-4 justify-center"
               href="https://drive.google.com/file/d/1z_Rm4d8kafzNHrZNRJu5Cq1eC82J9iHi/view?usp=sharing"
-              target='_blank'
+              target="_blank"
               onMouseEnter={divEnter}
               onMouseLeave={divLeave}
             >
@@ -475,9 +476,9 @@ const Blog = () => {
               onMouseEnter={divEnter}
               onMouseLeave={divLeave}
             >
-              <h3 className="text-xl font-bold mb-2 text-[#40D5BA]">
+              <h2 className="text-xl font-bold mb-2 text-[#40D5BA]">
                 {post.title}
-              </h3>
+              </h2>
               <p>{post.title}</p>
               <p className="text-gray-500 mt-2">
                 {new Date(post.published_timestamp).toLocaleDateString()}

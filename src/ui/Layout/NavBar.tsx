@@ -27,7 +27,10 @@ const NavLinks = [
 const NavBar = () => {
   return (
     <div className="flex justify-between items-center w-full px-2 py-4">
-      <a href="#introduction" className="text-2xl font-bold flex space-x-2 items-center">
+      <a
+        href="#introduction"
+        className="text-2xl font-bold flex space-x-2 items-center"
+      >
         <Image
           className="dark:invert"
           src="/logo.png"

@@ -48,7 +48,6 @@ const Sprite = () => {
     };
 
     setInterval(drawFrame, 100);
-    
   }, []);
 
   return (

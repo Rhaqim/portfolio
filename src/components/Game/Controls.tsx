@@ -14,14 +14,14 @@ const useGameControls = () => {
         direction === 'left'
           ? prev.x - 10
           : direction === 'right'
-          ? prev.x + 10
-          : prev.x,
+            ? prev.x + 10
+            : prev.x,
       y:
         direction === 'up'
           ? prev.y - 10
           : direction === 'down'
-          ? prev.y + 10
-          : prev.y,
+            ? prev.y + 10
+            : prev.y,
     }));
   };
 
@@ -152,8 +152,9 @@ class Weapon {
     this.player.ctx.fillStyle = 'red';
     this.player.ctx.fill(
       new Path2D(
-        `M${this.player.x + 25} ${this.player.y + 25} h ${this.range} v ${this
-          .range} h ${-this.range} Z`,
+        `M${this.player.x + 25} ${this.player.y + 25} h ${this.range} v ${
+          this.range
+        } h ${-this.range} Z`,
       ),
     );
   }
