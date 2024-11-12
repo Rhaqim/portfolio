@@ -74,18 +74,6 @@ const Introduction = () => {
           <p className="text-lg mt-2 max-w-xs md:max-w-sm">
             Feel free to explore my work and listen to my playlist.
           </p>
-          <div className="flex flex-col md:flex-row justify-between w-full items-center space-y-4">
-            {/* Spotify Music Playlist */}
-            <iframe
-              style={{ borderRadius: '12px' }}
-              src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
-              height="152"
-              className="w-full"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-              title="Rhaqim's Spotify Playlist"
-            ></iframe>
-          </div>
           <div className="flex space-x-4 items-center w-full">
             <a
               className="border-[#297568] hover:scale-110 transition-all ease-in border-4 rounded-lg p-4 justify-center"
@@ -117,6 +105,18 @@ const Introduction = () => {
               </svg>
             </a>
           </div>
+          <div className="flex flex-col md:flex-row justify-between w-full items-center space-y-4">
+            {/* Spotify Music Playlist */}
+            <iframe
+              style={{ borderRadius: '12px' }}
+              src="https://open.spotify.com/embed/playlist/352bD1E6IDJZ6ftuluKXXr?utm_source=generator&theme=0"
+              height="152"
+              className="w-full"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              title="Rhaqim's Spotify Playlist"
+            ></iframe>
+          </div>
         </div>
         <div
           className="flex flex-col items-center mt-4 md:mt-0"
@@ -141,28 +141,23 @@ const Introduction = () => {
 const Stack = [
   {
     title: 'Backend',
-    // stack: ['Node.js', 'Express', 'GraphQL', 'REST'],
     stack: backendStack,
   },
   {
     title: 'Frontend',
-    // stack: ['React', 'Next.js', 'Tailwind CSS', 'Chakra UI'],
     stack: frontendStack,
   },
   {
-    title: 'Mobile',
-    // stack: ['React Native', 'Expo'],
-    stack: developerStack,
-  },
-  {
     title: 'Database',
-    // stack: ['MongoDB', 'PostgreSQL', 'Firebase'],
     stack: databaseStack,
   },
   {
     title: 'DevOps',
-    // stack: ['Docker', 'Kubernetes', 'GitHub Actions'],
     stack: devOpsStack,
+  },
+  {
+    title: 'Others',
+    stack: developerStack,
   },
 ];
 
@@ -197,21 +192,21 @@ const TechStack = () => {
               onClick={handleClick}
               onMouseEnter={divEnter}
               onMouseLeave={divLeave}
-              className="text-2xl font-bold text-center border-2 border-[#40D5BA] p-4 rounded-lg hover:scale-110 transition-all ease-in"
+              className="border-2 border-[#40D5BA] p-4 rounded-lg hover:scale-110 transition-all ease-in"
             >
-              {stack.title}
+              <p className="text-2xl font-bold text-center">{stack.title}</p>
             </div>
           ))}
         </div>
 
         {contextMenu.open && (
           <div
-            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50"
             onClick={handleClick}
           >
             <div
-              className="relative p-8 bg-[#40D5BA] rounded-full shadow-lg w-96 h-96 flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+              className="relative p-8 bg-[#309c88] rounded-full shadow-lg w-96 h-96 flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
             >
               <ul className="relative w-full h-full flex items-center justify-center">
                 {Stack.find(
@@ -226,7 +221,7 @@ const TechStack = () => {
                   return (
                     <li
                       key={item.name}
-                      className="absolute px-4 py-2 cursor-pointer hover:bg-black text-black hover:text-white rounded-lg transform transition-transform"
+                      className="absolute px-4 py-2"
                       style={{
                         transform: `translate(${x}px, ${y}px)`,
                       }}
@@ -236,7 +231,7 @@ const TechStack = () => {
                         alt={item.name}
                         width={12}
                         height={12}
-                        className="w-10 h-10"
+                        className="w-10 h-10 hover:scale-110 rounded-lg transform transition-transform ease-in duration-300"
                       />
                     </li>
                   );
@@ -399,9 +394,9 @@ const Projects = () => {
                     {project.stack.map((item) => (
                       <li
                         key={item}
-                        className="text-lg bg-[#003135] rounded-md border border-white p-2"
+                        className="bg-[#003135] rounded-md border border-white p-2"
                       >
-                        {item}
+                        <p className="text-lg  text-center">{item}</p>
                       </li>
                     ))}
                   </ul>
@@ -411,9 +406,15 @@ const Projects = () => {
                     onMouseEnter={divEnter}
                     onMouseLeave={divLeave}
                     href={project.github}
-                    className="border-[#297568] hover:scale-105 transition-all ease-in border rounded-lg p-2 justify-center"
+                    className="justify-center hover:scale-105 transition-all ease-in"
                   >
-                    View on GitHub
+                    <Image
+                      src="/toolkit/github.svg"
+                      alt="Github"
+                      width={20}
+                      height={20}
+                      className="w-14 h-14 bg-white rounded-lg p-2"
+                    />
                   </a>
                   {/* <a
                     href={project.live}

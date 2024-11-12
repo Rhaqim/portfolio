@@ -30,6 +30,10 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+p {
+  font: 1rem/1.5 'DM Sans', sans-serif;
+}
+
 /* Custom cursor styles */
 .cursor {
   position: fixed;

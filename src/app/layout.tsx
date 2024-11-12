@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     index: true,
   },
   twitter: {
+    title: 'Rhaqim',
     card: 'summary_large_image',
     site: '@site',
     creator: '@ivxnio',
@@ -31,6 +32,8 @@ export const metadata: Metadata = {
     title: 'Rhaqim',
     description:
       'The chronicles and musings of one Rhaqim, a software engineer and aspiring entrepreneur.',
+    siteName: 'Rhaqim',
+    url: 'https://rhaqim.com/',
     images: [
       {
         url: '/images/business.png',
