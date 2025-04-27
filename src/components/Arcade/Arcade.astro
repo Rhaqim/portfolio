@@ -1,0 +1,26 @@
+---
+import ArcadeLayout from "@layouts/ArcadeLayout.astro";
+---
+
+<ArcadeLayout>
+	<section style="text-align: center; margin-top: 100px;">
+		<h1 style="font-size: 2rem; color: #00FFFF;">Welcome to My Arcade!</h1>
+
+		<div style="margin-top: 50px;">
+			<img
+				src="/your-pixel-avatar.gif"
+				alt="Pixel Avatar"
+				width="200"
+				style="image-rendering: pixelated;"
+			/>
+		</div>
+
+		<div style="margin-top: 50px;">
+			<button
+				onclick="window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })"
+			>
+				Press Start
+			</button>
+		</div>
+	</section>
+</ArcadeLayout>
