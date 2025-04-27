@@ -2,18 +2,22 @@
 import MangaLayout from "@layouts/MangaLayout.astro";
 
 import Page from "@components/Manga/Page.svelte";
-import Spread from "@components/Manga/Spread2.svelte";
+import Spread from "@components/Manga/Spread.svelte";
 ---
 
 <MangaLayout>
+	<Spread />
+
 	<section class="section" style="text-align: center;">
-		<h1 style="font-size: 4rem;">MANGA MAGAZINE</h1>
-		<p style="font-size: 1.5rem;">Volume 1 — Your Life Adventures</p>
-		<img
-			src="/cover-image.jpg"
-			alt="Cover Image"
-			style="width: 100%; margin-top: 2rem; object-fit: cover; max-height: 500px;"
-		/>
+		<Page>
+			<h1 style="font-size: 4rem;">MANGA MAGAZINE</h1>
+			<p style="font-size: 1.5rem;">Volume 1 — Your Life Adventures</p>
+			<!-- <img
+				src="/cover-image.jpg"
+				alt="Cover Image"
+				style="width: 100%; margin-top: 2rem; object-fit: cover; max-height: 500px;"
+			/> -->
+		</Page>
 	</section>
 
 	<section class="section">

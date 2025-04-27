@@ -1,9 +1,46 @@
-<script>
+<script lang="ts">
 	import { onMount } from "svelte";
+
+	import GridOverlay from "./GridOverlay.svelte";
+	import CharacterImg from "./CharacterIMG.svelte";
+	import Introduction from "./Header/Introduction.svelte";
+
 	let scrollY = 0;
+	let isVisible = false;
+
+	let gridCells: GridLayout[] = [
+		{
+			content: Introduction,
+			rowSpan: 1,
+			colSpan: 1,
+			skewX: -5,
+			backgroundColor: "rgba(255,255,255,0.03)",
+			clipPath: "polygon(0 0, 100% 5%, 95% 100%, 0% 95%)",
+		},
+		{
+			content: CharacterImg,
+			rowSpan: 1,
+			colSpan: 1,
+			skewX: 3,
+		},
+		{
+			content: `<a href="/chapter1" style="color:white; text-decoration:underline; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">Read Chapter 1</a>`,
+			rowSpan: 1,
+			colSpan: 1,
+			skewY: -4,
+		},
+		{
+			content: `<p style="font-size: 0.8rem; color: white;">Fun Fact: Did you know...</p>`,
+			rowSpan: 1,
+			colSpan: 1,
+		},
+	];
 
 	const handleScroll = () => {
 		scrollY = window.scrollY;
+		if (scrollY > 10) {
+			isVisible = true;
+		}
 	};
 
 	onMount(() => {
@@ -13,20 +50,10 @@
 </script>
 
 <section class="spread">
-	<div
-		class="background"
-		style="transform: translateY({scrollY * 0.2}px);"
-	></div>
-	<div
-		class="midground"
-		style="transform: translateY({scrollY * 0.5}px);"
-	></div>
-	<div
-		class="foreground"
-		style="transform: translateY({scrollY * 0.8}px);"
-	></div>
+	<GridOverlay rows={2} columns={2} cells={gridCells} />
 
-	<div class="title" style="transform: translateY({scrollY * 0.4}px);">
+	<!-- Title Area -->
+	<div class="title {isVisible ? 'visible' : ''}">
 		<h1>MANGA MAGAZINE</h1>
 		<p>Volume 1 — Adventures Await</p>
 	</div>
@@ -42,44 +69,26 @@
 		perspective: 1000px;
 	}
 
-	.background,
-	.midground,
-	.foreground {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-size: cover;
-		background-position: center;
-		will-change: transform;
-		z-index: 1;
-	}
+	/* Manga Grid Overlay */
 
-	.background {
-		background-image: url("/images/bg-layer-1.jpg"); /* Replace with your art */
-		z-index: 1;
-	}
-
-	.midground {
-		background-image: url("/images/bg-layer-2.png"); /* Maybe some manga effects / speed lines */
-		z-index: 2;
-	}
-
-	.foreground {
-		background-image: url("/images/bg-layer-3.png"); /* Character art */
-		z-index: 3;
-	}
-
+	/* Title */
 	.title {
 		position: absolute;
 		top: 50%;
 		width: 100%;
 		text-align: center;
 		color: white;
-		transform: translateY(-50%);
-		z-index: 4;
+		transform: translateY(-50%) translateY(100px);
+		opacity: 0;
+		transition: all 0.8s ease-out;
+		z-index: 6;
 		font-family: "Comic Neue", sans-serif;
+		pointer-events: none;
+	}
+
+	.title.visible {
+		transform: translateY(-50%) translateY(0);
+		opacity: 1;
 	}
 
 	.title h1 {
