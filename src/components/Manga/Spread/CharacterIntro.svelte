@@ -6,7 +6,7 @@
 		<div class="speech-bubble intro">
 			<p>
 				Hello! I'm <span class="highlight">Anusiem John-Franklin </span>
-				a Software Enginner and this is <span class="highlight">Rhaqim</span>!
+				and this is <span class="highlight">Rhaqim</span>!
 			</p>
 		</div>
 		<div class="speech-bubble outro">
