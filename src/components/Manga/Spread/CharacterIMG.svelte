@@ -1,23 +1,16 @@
 <script>
-	import { typewriter } from "@/lib/actions/typewriter";
-
-	let speechText = "Hello there! I'm your friendly character.";
-
-	export let messages = [
-		"Hello, world!",
-		"Hola, mundo!",
-		"Bonjour, le monde!",
-		"こんにちは、世界！",
-	];
 </script>
 
 <div class="container">
 	<div class="character">
-		<div
-			class="speech-bubble"
-			use:typewriter={{ messages: messages, typingSpeed: 50, pauseTime: 1000 }}
-		>
-			{speechText}
+		<div class="speech-bubble intro">
+			<p>
+				Hello there! I'm <span class="highlight">Anusiem John-Franklin </span>
+				a Software Enginner and this is <span class="highlight">Rhaqim</span>!
+			</p>
+		</div>
+		<div class="speech-bubble outro">
+			<p>He'll be your guide through this manga! I hope you enjoy it!</p>
 		</div>
 		<img class="character-image" src="/images/character.png" alt="Hero" />
 	</div>
@@ -42,15 +35,14 @@
 
 	.speech-bubble {
 		position: absolute;
-		top: -50px;
 		left: 50%;
 		transform: translateX(-50%);
 		background: white;
 		color: black;
 		border: 2px solid black;
 		border-radius: 10px;
-		padding: 10px;
-		max-width: 300px;
+		padding: 5px;
+		max-width: 600px;
 		text-align: center;
 		font-family: Arial, sans-serif;
 		font-size: 14px;
@@ -58,6 +50,11 @@
 		width: fit-content;
 		white-space: nowrap;
 		overflow: hidden;
+	}
+
+	.speech-bubble p {
+		margin: 0;
+		padding: 10px;
 	}
 
 	.speech-bubble::after {
@@ -70,6 +67,16 @@
 		height: 0;
 		border: 10px solid transparent;
 		border-top-color: white;
+	}
+	.intro {
+		top: -50px;
+	}
+	.outro {
+		bottom: -50px;
+	}
+
+	.highlight {
+		font-weight: bold;
 	}
 
 	.character-image {
