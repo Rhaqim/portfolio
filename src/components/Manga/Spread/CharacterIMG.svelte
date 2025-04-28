@@ -5,7 +5,7 @@
 	<div class="character">
 		<div class="speech-bubble intro">
 			<p>
-				Hello there! I'm <span class="highlight">Anusiem John-Franklin </span>
+				Hello! I'm <span class="highlight">Anusiem John-Franklin </span>
 				a Software Enginner and this is <span class="highlight">Rhaqim</span>!
 			</p>
 		</div>
@@ -42,7 +42,7 @@
 		border: 2px solid black;
 		border-radius: 10px;
 		padding: 5px;
-		max-width: 600px;
+		max-width: 500px;
 		text-align: center;
 		font-family: Arial, sans-serif;
 		font-size: 14px;
@@ -83,5 +83,13 @@
 		width: 100%;
 		height: auto;
 		max-width: 200px;
+	}
+
+	.character-image:hover {
+		content: url("/images/character-hi.png");
+	}
+
+	.character-image:focus {
+		content: url("/images/character-hi.png");
 	}
 </style>

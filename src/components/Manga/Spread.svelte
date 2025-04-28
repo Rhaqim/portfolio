@@ -51,6 +51,10 @@
 	});
 </script>
 
+<div class="intro">
+	<Introduction />
+</div>
+
 <section class="spread">
 	<GridOverlay rows={2} columns={2} cells={gridCells} />
 
@@ -71,7 +75,26 @@
 		perspective: 1000px;
 	}
 
-	/* Manga Grid Overlay */
+	@media (max-width: 768px) {
+		.spread {
+			display: none;
+		}
+
+		.intro {
+			display: block;
+			width: 100%;
+			height: 100vh;
+		}
+	}
+
+	@media (min-width: 769px) {
+		.spread {
+			display: block;
+		}
+		.intro {
+			display: none;
+		}
+	}
 
 	/* Title */
 	.title {
