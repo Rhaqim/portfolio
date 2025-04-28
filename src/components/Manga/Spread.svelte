@@ -2,8 +2,10 @@
 	import { onMount } from "svelte";
 
 	import GridOverlay from "./GridOverlay.svelte";
-	import CharacterImg from "./CharacterIMG.svelte";
-	import Introduction from "./Header/Introduction.svelte";
+	import CharacterImg from "./Spread/CharacterIMG.svelte";
+	import Introduction from "./Spread/Introduction.svelte";
+	import TableOfContents from "./Spread/TableOfContents.svelte";
+	import Socials from "./Spread/Socials.svelte";
 
 	let scrollY = 0;
 	let isVisible = false;
@@ -24,13 +26,13 @@
 			skewX: 3,
 		},
 		{
-			content: `<a href="/chapter1" style="color:white; text-decoration:underline; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">Read Chapter 1</a>`,
+			content: TableOfContents,
 			rowSpan: 1,
 			colSpan: 1,
 			skewY: -4,
 		},
 		{
-			content: `<p style="font-size: 0.8rem; color: white;">Fun Fact: Did you know...</p>`,
+			content: Socials,
 			rowSpan: 1,
 			colSpan: 1,
 		},

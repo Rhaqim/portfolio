@@ -7,7 +7,7 @@
 
 <style>
 	.cell-content {
-		background-image: url("/images/bg-layer-1.jpg");
+		background-image: url("/images/bg-layer-12.jpg");
 		background-size: cover;
 		background-position: center;
 		width: 100%;

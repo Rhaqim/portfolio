@@ -2,7 +2,7 @@
 /// <reference types="astro/client" />
 
 type GridLayout = {
-	content: string | SvelteComponent | SvelteComponentTyped;
+	content: string | SvelteComponent;
 	rowSpan: number;
 	colSpan: number;
 	rowStart?: number;
