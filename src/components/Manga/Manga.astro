@@ -2,30 +2,26 @@
 import MangaLayout from "@layouts/MangaLayout.astro";
 
 import Page from "@components/Manga/Page.svelte";
-import Spread from "@components/Manga/Spread.svelte";
+import Header from "@components/Manga/Header.svelte";
 import AboutMe from "@components/Manga/AboutMe.svelte";
 import Work from "@components/Manga/Work.svelte";
 ---
 
 <MangaLayout>
-	<Spread client:load />
+	<Header client:load />
 
 	<AboutMe client:load />
 
 	<Work client:load />
 
 	<section id="travel" class="section">
-		<Page>
-			<h2>Chapter 3: Travels</h2>
-			<p>Photos and stories from my adventures!</p>
-		</Page>
+		<h2>Chapter 3: Travels</h2>
+		<p>Photos and stories from my adventures!</p>
 	</section>
 
 	<section id="blog" class="section">
-		<Page>
-			<h2>Chapter 4: Thoughts</h2>
-			<p>Little blog entries about life, anime, games, and more.</p>
-		</Page>
+		<h2>Chapter 4: Thoughts</h2>
+		<p>Little blog entries about life, anime, games, and more.</p>
 	</section>
 
 	<footer style="text-align: center; font-size: 0.8rem; margin: 4rem 0;">

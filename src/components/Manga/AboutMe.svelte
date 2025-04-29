@@ -1,9 +1,8 @@
 <script>
-	import Page from "@components/Manga/Page.svelte";
 </script>
 
-<section id="about-me" class="section manga-chapter page-flip">
-	<Page>
+<section id="about-me" class="wrapper">
+	<div class="section manga-chapter">
 		<div class="chapter-header">
 			<h2>Chapter 1: About Me</h2>
 		</div>
@@ -34,7 +33,7 @@
 				next exciting challenge.
 			</p>
 		</div>
-	</Page>
+	</div>
 </section>
 
 <style>

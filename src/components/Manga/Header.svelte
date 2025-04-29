@@ -2,10 +2,10 @@
 	import { onMount } from "svelte";
 
 	import GridOverlay from "./GridOverlay.svelte";
-	import CharacterImg from "./Spread/CharacterIntro.svelte";
-	import Introduction from "./Spread/Introduction.svelte";
-	import TableOfContents from "./Spread/TableOfContents.svelte";
-	import Socials from "./Spread/Socials.svelte";
+	import CharacterImg from "./HeaderComponents/CharacterIntro.svelte";
+	import Introduction from "./HeaderComponents/Introduction.svelte";
+	import TableOfContents from "./HeaderComponents/TableOfContents.svelte";
+	import Socials from "./HeaderComponents/Socials.svelte";
 
 	let gridCells: GridLayout[] = [
 		{
@@ -15,6 +15,7 @@
 			skewX: -5,
 			backgroundColor: "rgba(255,255,255,0.03)",
 			clipPath: "polygon(0 0, 100% 5%, 95% 100%, 0% 95%)",
+			effect: "appear",
 		},
 		{
 			content: CharacterImg,

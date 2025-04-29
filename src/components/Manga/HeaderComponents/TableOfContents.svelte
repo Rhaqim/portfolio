@@ -3,10 +3,10 @@
 		<a href="#about-me">Chapter 1: About Me</a>
 	</div>
 	<div class="panel-toc">
-		<a href="#blog">Chapter 2: Work</a>
+		<a href="#work">Chapter 2: Work</a>
 	</div>
 	<div class="panel-toc">
-		<a href="#art">Chapter 3: Gallery</a>
+		<a href="#gallery">Chapter 3: Gallery</a>
 	</div>
 	<div class="panel-toc">
 		<a href="#travel">Chapter 4: Travels</a>

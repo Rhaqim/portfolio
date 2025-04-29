@@ -1,7 +1,30 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
 	export let rows = 6;
 	export let columns = 6;
 	export let cells: GridLayout[] = []; // An array of cell content (optional)
+
+	let observer: IntersectionObserver;
+
+	onMount(() => {
+		observer = new IntersectionObserver(
+			entries => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+					}
+				});
+			},
+			{ threshold: 0.2 }
+		);
+
+		document.querySelectorAll(".cell.appear").forEach(el => {
+			observer.observe(el);
+		});
+
+		return () => observer.disconnect();
+	});
 </script>
 
 <div
@@ -11,7 +34,7 @@
 	{#each Array(rows * columns) as _, index}
 		{#if cells[index]}
 			<div
-				class="cell"
+				class="cell {cells[index].effect || ''}"
 				style="
 					grid-row: span {cells[index].rowSpan || 1};
 					grid-column: span {cells[index].colSpan || 1};
@@ -63,5 +86,25 @@
 		color: white;
 		text-align: center;
 		font-family: sans-serif;
+	}
+
+	/* Hover Zoom */
+	.cell.hover-zoom:hover {
+		transform: scale(1.05) skew(var(--skew-x, 0deg), var(--skew-y, 0deg));
+		z-index: 10;
+	}
+
+	/* Appear on Intersection */
+	.cell.appear {
+		opacity: 0;
+		transform: translateY(20px) skew(var(--skew-x, 0deg), var(--skew-y, 0deg));
+	}
+
+	.cell.appear.visible {
+		opacity: 1;
+		transform: translateY(0) skew(var(--skew-x, 0deg), var(--skew-y, 0deg));
+		transition:
+			opacity 3.0s ease,
+			transform 3.0s ease;
 	}
 </style>
