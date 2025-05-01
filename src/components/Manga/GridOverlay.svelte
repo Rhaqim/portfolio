@@ -43,7 +43,11 @@
 						{cells[index].skewY || 0}deg
 					);
 					{cells[index].clipPath ? `clip-path: ${cells[index].clipPath};` : ''}
-					background-color: {cells[index].backgroundColor || 'rgba(255,255,255,0.02)'};
+					background-color: {cells[index].backgroundColor || 'rgba(255,255,255,0.02)'}
+					{cells[index].effectDuration
+					? `--effect-duration: ${cells[index].effectDuration}s;`
+					: ''};
+					{cells[index].effectDelay ? `transition-delay: ${cells[index].effectDelay}s;` : ''}
 				"
 			>
 				{#if typeof cells[index].content === "string"}
@@ -104,7 +108,7 @@
 		opacity: 1;
 		transform: translateY(0) skew(var(--skew-x, 0deg), var(--skew-y, 0deg));
 		transition:
-			opacity 3.0s ease,
-			transform 3.0s ease;
+			opacity var(--effect-duration, 2s) ease,
+			transform var(--effect-duration, 2s) ease;
 	}
 </style>

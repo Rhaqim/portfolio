@@ -14,6 +14,8 @@ type GridLayout = {
 	clipPath?: string; // optional manual clip-path for crazy shapes
 	backgroundColor?: string; // in case you want some backgrounds
 	effect?: "hover-zoom" | "appear" | "none"; // Add your effects here
+	effectDuration?: number; // in milliseconds
+	effectDelay?: number; // in milliseconds
 };
 
 type WorkData = {

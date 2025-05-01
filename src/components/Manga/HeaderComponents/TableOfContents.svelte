@@ -42,4 +42,9 @@
 	.panel-toc a {
 		color: white;
 	}
+
+	.panel-toc a:hover {
+		color: red;
+		text-decoration: none;
+	}
 </style>

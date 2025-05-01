@@ -2,15 +2,15 @@
 	export let socials = [
 		{
 			name: "Twitter",
-			url: "https://twitter.com/yourhandle",
+			url: "https://twitter.com/ivxnio",
 			jp: "ツイッター",
 		},
 		{
-			name: "Instagram",
-			url: "https://instagram.com/yourhandle",
-			jp: "インスタ",
+			name: "LinkedIn",
+			url: "https://www.linkedin.com/in/john-franklin-anusiem/",
+			jp: "リンクトイン",
 		},
-		{ name: "GitHub", url: "https://github.com/yourhandle", jp: "ギットハブ" },
+		{ name: "GitHub", url: "https://github.com/Rhaqim", jp: "ギットハブ" },
 	];
 </script>
 
