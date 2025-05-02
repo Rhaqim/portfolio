@@ -1,15 +1,30 @@
+<script>
+	import { currentPage, flipping } from "$lib/stores/pageRouter";
+
+	function goTo(sectionId) {
+		flipping.set(true); // start flip animation
+		setTimeout(() => {
+			currentPage.set(sectionId);
+			document
+				.getElementById(sectionId)
+				?.scrollIntoView({ behavior: "smooth" });
+			flipping.set(false);
+		}, 600); // match your flip animation timing
+	}
+</script>
+
 <section class="section table-of-contents">
 	<div class="panel-toc">
-		<a href="#about-me">Chapter 1: About Me</a>
+		<button on:click={() => goTo("about-me")}>Chapter 1: About Me</button>
 	</div>
 	<div class="panel-toc">
-		<a href="#work">Chapter 2: Work</a>
+		<button on:click={() => goTo("work")}>Chapter 2: Work</button>
 	</div>
 	<div class="panel-toc">
-		<a href="#gallery">Chapter 3: Gallery</a>
+		<button on:click={() => goTo("projects")}>Chapter 3: Projects</button>
 	</div>
 	<div class="panel-toc">
-		<a href="#travel">Chapter 4: Travels</a>
+		<button on:click={() => goTo("contact")}>Chapter 4: Contact</button>
 	</div>
 </section>
 
@@ -39,12 +54,18 @@
 		box-shadow: 5px 5px 0px white;
 	}
 
-	.panel-toc a {
-		color: white;
+	.panel-toc:hover {
+		background-color: rgba(255, 255, 255, 0.2);
+		box-shadow: 5px 5px 0px red;
+		transform: scale(1.1);
+		transition: transform 0.2s ease-in-out;
 	}
 
-	.panel-toc a:hover {
-		color: red;
+	button {
+		background-color: transparent;
+		border: none;
+		color: white;
+		cursor: pointer;
 		text-decoration: none;
 	}
 </style>

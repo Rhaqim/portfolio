@@ -31,6 +31,13 @@ a:hover {
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
+	transform-origin: right center;
+	transform: rotateY(0deg);
+	transition: transform 0.8s ease;
+}
+
+.wrapper.flipping {
+	transform: rotateY(-180deg);
 }
 
 .section {
