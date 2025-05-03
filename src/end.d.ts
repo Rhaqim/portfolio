@@ -39,3 +39,11 @@ type ProjectData = {
 	imageUrl?: string;
 	featured?: boolean;
 };
+
+type NavigationLink = {
+	id: string;
+	name: string;
+	href: string;
+	icon: string;
+	current: boolean;
+};

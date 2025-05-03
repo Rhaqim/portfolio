@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import { currentPage, flipping } from "$lib/stores/pageRouter";
+	import { navigation } from "@/data/navigation";
 
-	function goTo(sectionId) {
+	function goTo(sectionId: string) {
 		flipping.set(true); // start flip animation
 		setTimeout(() => {
 			currentPage.set(sectionId);
@@ -14,18 +15,15 @@
 </script>
 
 <section class="section table-of-contents">
-	<div class="panel-toc">
-		<button on:click={() => goTo("about-me")}>Chapter 1: About Me</button>
-	</div>
-	<div class="panel-toc">
-		<button on:click={() => goTo("work")}>Chapter 2: Work</button>
-	</div>
-	<div class="panel-toc">
-		<button on:click={() => goTo("projects")}>Chapter 3: Projects</button>
-	</div>
-	<div class="panel-toc">
-		<button on:click={() => goTo("contact")}>Chapter 4: Contact</button>
-	</div>
+	{#each navigation as nav}
+		{#if nav.id !== "cover"}
+			<div class="panel-toc">
+				<button on:click={() => goTo(nav.id)}>
+					{nav.name}
+				</button>
+			</div>
+		{/if}
+	{/each}
 </section>
 
 <style>

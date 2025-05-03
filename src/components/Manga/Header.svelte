@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-
 	import GridOverlay from "./GridOverlay.svelte";
 	import CharacterImg from "./HeaderComponents/CharacterIntro.svelte";
 	import Introduction from "./HeaderComponents/Introduction.svelte";
@@ -52,7 +50,7 @@
 	<Introduction />
 </div>
 
-<section class="spread">
+<section id="cover" class="spread">
 	<GridOverlay rows={2} columns={2} cells={gridCells} />
 </section>
 
