@@ -66,7 +66,6 @@
     <nav
         class="floating-nav"
         class:mobile={isMobile}
-        role="navigation"
         aria-label="Main Navigation"
     >
         <!-- Navigation trigger button -->
@@ -123,13 +122,13 @@
         
         <!-- Menu backdrop for mobile -->
         {#if menuOpen && isMobile}
-            <div 
+            <button
+                type="button"
                 class="nav-backdrop"
                 on:click={() => (menuOpen = false)}
-                role="button"
-                tabindex="-1"
                 aria-label="Close menu"
-            ></div>
+                tabindex="0"
+            ></button>
         {/if}
     </nav>
 {/if}
