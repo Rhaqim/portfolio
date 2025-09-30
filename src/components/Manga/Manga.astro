@@ -2,8 +2,11 @@
 import MangaLayout from "@layouts/MangaLayout.astro";
 
 import MangaBook from "@components/Manga/MangaBook.svelte";
+import NavigationHeader from "@components/Manga/NavigationHeader.svelte";
 ---
 
 <MangaLayout>
 	<MangaBook client:load />
 </MangaLayout>
+
+<NavigationHeader client:load />
