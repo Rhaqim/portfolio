@@ -12,7 +12,7 @@
 
 <style>
 	.cell-content {
-		background-image: url("/images/shinratensei.jpg");
+		background-image: url("/images/background/shinratensei.jpg");
 		background-size: cover;
 		background-position: center;
 		width: 100%;

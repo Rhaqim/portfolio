@@ -12,7 +12,7 @@
 		<div class="speech-bubble outro">
 			<p>He'll be your guide through this manga! I hope you enjoy it!</p>
 		</div>
-		<img class="character-image" src="/images/character.png" alt="Hero" />
+		<img class="character-image" src="/images/character/character.png" alt="Hero" />
 	</div>
 </div>
 
@@ -21,7 +21,7 @@
 		position: relative;
 		width: 100%;
 		height: 100%;
-		background-image: url("/images/bg-layer-2.png");
+		background-image: url("/images/background/bg-layer-2.png");
 		background-size: cover;
 		background-position: center;
 		display: flex;
@@ -86,10 +86,10 @@
 	}
 
 	.character-image:hover {
-		content: url("/images/character-hi.png");
+		content: url("/images/character/character-hi.png");
 	}
 
 	.character-image:focus {
-		content: url("/images/character-hi.png");
+		content: url("/images/character/character-hi.png");
 	}
 </style>
