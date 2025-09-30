@@ -92,8 +92,12 @@
 		font-size: clamp(4.5rem, 6vw, 5rem);
 		pointer-events: none;
 		opacity: 0.8;
-		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-		animation: pulse 2s ease-in-out infinite;
+		filter: brightness(1.5) saturate(1.3);
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 0.8),
+            0 0 15px rgba(220, 38, 38, 0.6),
+            0 0 30px rgba(220, 38, 38, 0.3);
+		animation: pulse 4s ease-in-out infinite;
 	}
 
 	@keyframes glow {
