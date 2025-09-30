@@ -1,9 +1,9 @@
 <script lang="ts">
 	import GridOverlay from "./GridOverlay.svelte";
-	import CharacterImg from "./HeaderComponents/CharacterIntro.svelte";
-	import Introduction from "./HeaderComponents/Introduction.svelte";
-	import TableOfContents from "./HeaderComponents/TableOfContents.svelte";
-	import Socials from "./HeaderComponents/Socials.svelte";
+	import CharacterImg from "./CharacterIntro.svelte";
+	import Introduction from "./Introduction.svelte";
+	import TableOfContents from "./TableOfContents.svelte";
+	import Socials from "./Socials.svelte";
 
 	let gridCells: GridLayout[] = [
 		{

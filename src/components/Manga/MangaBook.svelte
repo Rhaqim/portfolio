@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Header from "@components/Manga/Header.svelte";
-	import AboutMe from "@components/Manga/AboutMe.svelte";
-	import Work from "@components/Manga/Work.svelte";
-	import Projects from "@components/Manga/Projects.svelte";
-	import Gallery from "@components/Manga/Gallery.svelte";
+	import Header from "@/components/Manga/header/Header.svelte";
+	import AboutMe from "@/components/Manga/intro/AboutMe.svelte";
+	import Work from "@/components/Manga/work/Work.svelte";
+	import Projects from "@/components/Manga/projects/Projects.svelte";
+	import Gallery from "@/components/Manga/gallery/Gallery.svelte";
 </script>
 
 <Header />
