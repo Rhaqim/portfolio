@@ -139,10 +139,12 @@
         top: var(--space-4);
         right: var(--space-4);
         z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        /* FIXED: Remove flex and use inline-block to prevent area extension */
+        display: inline-block;
         font-family: "Bebas Neue", sans-serif;
+        /* FIXED: Explicitly set width to match button only */
+        width: auto;
+        height: auto;
     }
 
     .nav-trigger {
@@ -171,6 +173,11 @@
     .nav-icon {
         font-size: var(--text-xl);
         transition: transform 0.3s ease;
+        line-height: 1;
+        /* FIXED: Ensure icon doesn't create extra space */
+        display: block;
+        width: 100%;
+        text-align: center;
     }
 
     .nav-trigger.active .nav-icon {
@@ -190,6 +197,7 @@
         margin-top: var(--space-3);
         overflow: hidden;
         width: 0;
+        height: 0;
         opacity: 0;
         pointer-events: none;
         transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -201,6 +209,7 @@
     .nav-menu.open {
         width: 280px;
         opacity: 1;
+        height: auto;
         pointer-events: auto;
         transform: translateY(0);
     }

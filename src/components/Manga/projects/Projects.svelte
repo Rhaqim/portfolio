@@ -139,7 +139,7 @@
 <style>
     .manga-page {
         width: 100vw;
-        height: 100vh;
+        min-height: 100vh;
         background: var(--manga-paper);
         background-image: 
             radial-gradient(circle at 1px 1px, var(--manga-gray) 1px, transparent 0);
