@@ -1,88 +1,552 @@
-/* src/styles/global.css */
+/* Manga-inspired Portfolio Styles */
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Noto+Sans+JP:wght@300;400;700;900&display=swap");
+
+:root {
+	/* Manga Color Palette */
+	--manga-black: #000000;
+	--manga-white: #ffffff;
+	--manga-paper: #fefefe;
+	--manga-ink: #1a1a1a;
+	--manga-red: #dc2626;
+	--manga-blue: #2563eb;
+	--manga-yellow: #fbbf24;
+	--manga-gray: #6b7280;
+	--manga-light-gray: #f3f4f6;
+
+	/* Typography Scale */
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-base: 1rem;
+	--text-lg: 1.125rem;
+	--text-xl: 1.25rem;
+	--text-2xl: 1.5rem;
+	--text-3xl: 1.875rem;
+	--text-4xl: 2.25rem;
+	--text-5xl: 3rem;
+	--text-6xl: 3.75rem;
+
+	/* Spacing */
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+	--space-20: 5rem;
+
+	/* Panel styling */
+	--panel-border: 3px solid var(--manga-black);
+	--panel-shadow: 5px 5px 0px var(--manga-black);
+	--panel-radius: 8px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #fdfdfd;
-	font-family: "Bebas Neue", sans-serif; /* bold clean font */
-	color: #111;
+	background-color: var(--manga-paper);
+	font-family: "Noto Sans JP", "Hiragino Kaku Gothic Pro", sans-serif;
+	color: var(--manga-ink);
+	line-height: 1.6;
+	overflow-x: hidden;
 }
 
+/* Typography */
 h1,
 h2,
 h3,
 h4,
-h5 {
-	font-family: "Anton", sans-serif; /* manga cover font vibe */
+h5,
+h6 {
+	font-family: "Bangers", "Anton", sans-serif;
 	letter-spacing: 2px;
+	margin: 0;
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: var(--text-6xl);
+	text-transform: uppercase;
+}
+
+h2 {
+	font-size: var(--text-4xl);
+}
+
+h3 {
+	font-size: var(--text-2xl);
+}
+
+p {
+	margin: var(--space-4) 0;
 }
 
 a {
-	color: black;
-	text-decoration: underline;
+	color: var(--manga-blue);
+	text-decoration: none;
+	font-weight: bold;
+	transition: all 0.3s ease;
 }
 
 a:hover {
-	font-size: 1.1rem;
-	text-decoration: none;
-	transition: all 0.3s ease-in-out;
+	color: var(--manga-red);
+	transform: scale(1.05);
+	text-decoration: underline;
 }
 
+/* Manga Panel System */
+.manga-page {
+	min-height: 100vh;
+	padding: var(--space-4);
+	background: var(--manga-paper);
+	position: relative;
+}
+
+.manga-panel {
+	border: var(--panel-border);
+	background: var(--manga-white);
+	box-shadow: var(--panel-shadow);
+	border-radius: var(--panel-radius);
+	padding: var(--space-6);
+	margin-bottom: var(--space-6);
+	position: relative;
+	overflow: hidden;
+}
+
+.manga-panel::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+		45deg,
+		transparent 48%,
+		rgba(255, 255, 255, 0.1) 49%,
+		rgba(255, 255, 255, 0.1) 51%,
+		transparent 52%
+	);
+	background-size: 20px 20px;
+	pointer-events: none;
+	opacity: 0.3;
+}
+
+.speech-bubble {
+	position: relative;
+	background: var(--manga-white);
+	border: 2px solid var(--manga-black);
+	border-radius: 20px;
+	padding: var(--space-4) var(--space-6);
+	margin: var(--space-4) 0;
+	font-family: "Bebas Neue", sans-serif;
+	font-weight: bold;
+	text-align: center;
+}
+
+.speech-bubble::after {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: 30px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid var(--manga-white);
+}
+
+.speech-bubble::before {
+	content: "";
+	position: absolute;
+	bottom: -12px;
+	left: 28px;
+	width: 0;
+	height: 0;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+	border-top: 12px solid var(--manga-black);
+	z-index: -1;
+}
+
+.thought-bubble {
+	position: relative;
+	background: var(--manga-light-gray);
+	border: 2px dashed var(--manga-gray);
+	border-radius: 25px;
+	padding: var(--space-4) var(--space-6);
+	margin: var(--space-4) 0;
+	font-style: italic;
+}
+
+.sound-effect {
+	font-family: "Bangers", sans-serif;
+	font-size: var(--text-3xl);
+	font-weight: bold;
+	color: var(--manga-red);
+	text-shadow: 2px 2px 0 var(--manga-black);
+	transform: rotate(-5deg);
+	display: inline-block;
+	margin: var(--space-2);
+}
+
+/* Chapter System */
 .wrapper {
 	min-height: 100vh;
-	max-width: 100vw;
+	padding: var(--space-4);
 	display: flex;
 	align-items: center;
-	transform-origin: right center;
-	transform: rotateY(0deg);
-	transition: transform 0.8s ease;
-}
-
-.wrapper.flipping {
-	transform: rotateY(-180deg);
+	justify-content: center;
 }
 
 .section {
-	padding: 4rem 2rem;
-	margin: 2rem auto;
-	max-width: 100vw;
-	border: 4px solid black;
-	box-shadow: 10px 10px 0px black;
-	background: white;
-}
-
-.panel {
-	border: 3px solid black;
-	padding: 1rem;
-	margin-bottom: 2rem;
-	background-color: white;
-	box-shadow: 5px 5px 0px black;
+	max-width: 1200px;
+	width: 100%;
+	background: var(--manga-white);
+	border: var(--panel-border);
+	box-shadow: var(--panel-shadow);
+	border-radius: var(--panel-radius);
+	overflow: hidden;
 }
 
 .manga-chapter {
-	background: #fafafa;
-	background-image: radial-gradient(#ccc 1px, transparent 1px);
+	min-height: 80vh;
+	padding: var(--space-8);
+	background: var(--manga-paper);
+	background-image: radial-gradient(
+		circle at 1px 1px,
+		var(--manga-gray) 1px,
+		transparent 0
+	);
 	background-size: 20px 20px;
-	transform-origin: left center;
-	min-height: 60vh;
-	align-items: baseline;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .chapter-header {
-	font-family: "Bangers", cursive; /* Or any big comic/manga font */
-	font-size: 2.5rem;
 	text-align: center;
-	margin-bottom: 2rem;
-	text-shadow: 2px 2px #000;
+	margin-bottom: var(--space-8);
+	position: relative;
+}
+
+.chapter-title {
+	font-family: "Bangers", sans-serif;
+	font-size: var(--text-5xl);
+	color: var(--manga-black);
+	text-shadow: 3px 3px 0 var(--manga-white), 6px 6px 0 var(--manga-red);
+	transform: rotate(-2deg);
+	margin-bottom: var(--space-4);
+	text-transform: uppercase;
+	letter-spacing: 4px;
+}
+
+.chapter-number {
+	font-family: "Anton", sans-serif;
+	font-size: var(--text-2xl);
+	color: var(--manga-white);
+	background: var(--manga-black);
+	padding: var(--space-2) var(--space-4);
+	border-radius: var(--panel-radius);
+	display: inline-block;
+	margin-bottom: var(--space-2);
 }
 
 .chapter-content {
-	/* font-family: "Noto Sans JP", sans-serif; */
-	font-size: 1.2rem;
-	line-height: 1.6;
-	color: #111;
-	height: 100%;
+	max-width: 800px;
+	width: 100%;
+	background: var(--manga-white);
+	border: var(--panel-border);
+	box-shadow: var(--panel-shadow);
+	border-radius: var(--panel-radius);
+	padding: var(--space-8);
+	font-size: var(--text-lg);
+	line-height: 1.8;
+	position: relative;
+	cursor: pointer;
+	transition: transform 0.3s ease;
 }
 
+.chapter-content:hover {
+	transform: translateY(-5px);
+	box-shadow: 8px 8px 0px var(--manga-black);
+}
+
+.chapter-content::before {
+	content: "";
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	right: -5px;
+	bottom: -5px;
+	background: linear-gradient(45deg, var(--manga-red), var(--manga-blue));
+	border-radius: var(--panel-radius);
+	z-index: -1;
+	opacity: 0.1;
+}
+
+/* Cover/Header Styles */
+.spread {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	background: var(--manga-black);
+	perspective: 1000px;
+}
+
+.intro {
+	display: none;
+}
+
+/* Navigation */
+.floating-nav {
+	position: fixed;
+	top: var(--space-4);
+	right: var(--space-4);
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.nav-icon {
+	background: var(--manga-black);
+	color: var(--manga-white);
+	padding: var(--space-3) var(--space-4);
+	border-radius: var(--panel-radius);
+	cursor: pointer;
+	font-size: var(--text-xl);
+	transition: all 0.3s ease;
+	border: 2px solid var(--manga-white);
+	font-family: "Bangers", sans-serif;
+}
+
+.nav-icon:hover {
+	background: var(--manga-red);
+	transform: scale(1.1);
+}
+
+.nav-menu {
+	background: var(--manga-black);
+	color: var(--manga-white);
+	border: 2px solid var(--manga-white);
+	border-radius: var(--panel-radius);
+	margin-top: var(--space-2);
+	overflow: hidden;
+	width: 0;
+	opacity: 0;
+	pointer-events: none;
+	transition: all 0.3s ease;
+}
+
+.nav-menu.open {
+	width: 250px;
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.nav-link {
+	display: block;
+	padding: var(--space-3) var(--space-4);
+	text-decoration: none;
+	color: var(--manga-white);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	transition: background 0.2s;
+	font-family: "Bebas Neue", sans-serif;
+	font-size: var(--text-lg);
+}
+
+.nav-link:hover {
+	background: var(--manga-red);
+	color: var(--manga-white);
+	transform: none;
+}
+
+/* Work/Project Cards */
+.work-card,
+.project-card {
+	background: var(--manga-white);
+	border: var(--panel-border);
+	border-radius: var(--panel-radius);
+	padding: var(--space-6);
+	margin-bottom: var(--space-6);
+	position: relative;
+	transition: all 0.3s ease;
+}
+
+.work-card:hover,
+.project-card:hover {
+	transform: translateY(-5px) rotate(1deg);
+	box-shadow: 10px 10px 0px var(--manga-black);
+}
+
+.work-card::before,
+.project-card::before {
+	content: "";
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	right: -2px;
+	bottom: -2px;
+	background: linear-gradient(
+		45deg,
+		var(--manga-red),
+		var(--manga-blue),
+		var(--manga-yellow)
+	);
+	border-radius: var(--panel-radius);
+	z-index: -1;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.work-card:hover::before,
+.project-card:hover::before {
+	opacity: 0.3;
+}
+
+/* Page hints and interactions */
+.page-hint {
+	position: absolute;
+	bottom: var(--space-4);
+	left: 50%;
+	transform: translateX(-50%);
+	font-family: "Bangers", sans-serif;
+	font-size: var(--text-lg);
+	color: var(--manga-gray);
+	opacity: 0.7;
+	pointer-events: none;
+	animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+	0%,
+	20%,
+	50%,
+	80%,
+	100% {
+		transform: translateX(-50%) translateY(0);
+	}
+	40% {
+		transform: translateX(-50%) translateY(-10px);
+	}
+	60% {
+		transform: translateX(-50%) translateY(-5px);
+	}
+}
+
+.prev-button {
+	position: absolute;
+	top: var(--space-4);
+	left: var(--space-4);
+	background: var(--manga-black);
+	color: var(--manga-white);
+	border: 2px solid var(--manga-white);
+	padding: var(--space-2) var(--space-4);
+	cursor: pointer;
+	font-family: "Bangers", sans-serif;
+	font-size: var(--text-base);
+	z-index: 5;
+	border-radius: var(--panel-radius);
+	transition: all 0.3s ease;
+}
+
+.prev-button:hover {
+	background: var(--manga-red);
+	transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	:root {
+		--text-6xl: 2.5rem;
+		--text-5xl: 2rem;
+		--text-4xl: 1.75rem;
+		--text-3xl: 1.5rem;
+		--space-8: 1.5rem;
+		--space-6: 1rem;
+		--space-4: 0.75rem;
+	}
+
+	.spread {
+		display: none;
+	}
+
+	.intro {
+		display: block;
+		width: 100%;
+		height: 100vh;
+		background: var(--manga-black);
+		color: var(--manga-white);
+		padding: var(--space-4);
+	}
+
+	.wrapper {
+		padding: var(--space-2);
+	}
+
+	.section {
+		margin: var(--space-4) 0;
+	}
+
+	.manga-chapter {
+		padding: var(--space-4);
+		min-height: 90vh;
+	}
+
+	.chapter-content {
+		padding: var(--space-4);
+		font-size: var(--text-base);
+	}
+
+	.nav-menu.open {
+		width: 200px;
+	}
+
+	.nav-icon {
+		padding: var(--space-2) var(--space-3);
+		font-size: var(--text-lg);
+	}
+
+	.nav-link {
+		padding: var(--space-2) var(--space-3);
+		font-size: var(--text-base);
+	}
+
+	.chapter-title {
+		font-size: var(--text-4xl);
+		text-shadow: 2px 2px 0 var(--manga-white), 4px 4px 0 var(--manga-red);
+	}
+}
+
+@media (max-width: 480px) {
+	.chapter-content {
+		margin: var(--space-2);
+		padding: var(--space-3);
+	}
+
+	.floating-nav {
+		top: var(--space-2);
+		right: var(--space-2);
+	}
+
+	.prev-button {
+		top: var(--space-2);
+		left: var(--space-2);
+		padding: var(--space-1) var(--space-2);
+		font-size: var(--text-sm);
+	}
+}
+
+/* Animations */
 .page-flip {
 	animation: pageFlip 1s ease forwards;
 }
@@ -98,6 +562,7 @@ a:hover {
 	}
 }
 
+/* View Transitions */
 ::view-transition-old(page-*) {
 	z-index: 0;
 	animation: slideOut 0.6s ease forwards;
@@ -130,80 +595,42 @@ a:hover {
 	}
 }
 
-.page {
-	transition: transform 0.6s ease, opacity 0.6s ease;
-	transform-origin: left;
-	backface-visibility: hidden;
-	position: absolute;
-	width: 100%;
-	height: 100%;
+/* Highlight styles */
+.highlight {
+	font-weight: bold;
+	color: var(--manga-red);
+	background: var(--manga-yellow);
+	padding: 0 var(--space-1);
+	border-radius: 3px;
 }
 
-.hidden {
-	display: none;
+/* Loading and entrance animations */
+.fade-in {
+	animation: fadeIn 0.8s ease-in-out;
 }
 
-.flipped {
-	transform: rotateY(-180deg);
-}
-
-.floating-nav {
-	position: fixed;
-	top: 1rem;
-	right: 1rem;
-	z-index: 1000;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-}
-
-.nav-icon {
-	background: black;
-	color: white;
-	padding: 0.6rem 0.8rem;
-	border-radius: 0.5rem;
-	cursor: pointer;
-	font-size: 1.2rem;
-	transition: background 0.3s;
-}
-
-.nav-menu {
-	background: rgba(0, 0, 0, 0.9);
-	color: white;
-	border-radius: 0.5rem;
-	margin-top: 0.5rem;
-	overflow: hidden;
-	width: 0;
-	opacity: 0;
-	pointer-events: none;
-	transition: width 0.3s ease, opacity 0.3s ease;
-}
-
-.nav-menu.open {
-	width: 200px;
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.nav-link {
-	display: block;
-	padding: 0.75rem 1rem;
-	text-decoration: none;
-	color: white;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	transition: background 0.2s;
-}
-
-.nav-link:hover {
-	background: rgba(255, 255, 255, 0.1);
-}
-
-@media (max-width: 768px) {
-	.nav-menu.open {
-		width: 160px;
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
 	}
-	.nav-icon {
-		padding: 0.5rem 0.7rem;
-		font-size: 1rem;
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.scale-in {
+	animation: scaleIn 0.6s ease-out;
+}
+
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.8);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
 	}
 }

@@ -8,4 +8,7 @@ export default defineConfig({
 	site: "https://rhaqim.com",
 	integrations: [svelte()],
 	output: "static",
+	devToolbar: {
+		enabled: false,
+	},
 });

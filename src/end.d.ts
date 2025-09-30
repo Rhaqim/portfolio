@@ -26,7 +26,7 @@ type WorkData = {
 	companyLogo?: string;
 	startDate?: string;
 	endDate?: string;
-	technologies?: string[];
+	technologies: string[];
 	highlights?: string[];
 };
 
