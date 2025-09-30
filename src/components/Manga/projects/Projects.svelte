@@ -159,16 +159,18 @@
     .page-container {
         width: 100%;
         height: 100%;
+        min-height: 100vh;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: var(--space-4);
     }
-
+    
     .full-page {
         width: 100%;
         height: 100%;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
