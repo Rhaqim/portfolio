@@ -4,11 +4,11 @@ export const workHistory: WorkData[] = [
 		role: "Lead Developer",
 		companyUrl: "https://www.degenerousdao.com",
 		description: `
-		    I led the development of Buckt, solving file upload challenges, refactoring the project,
-		    and improving performance with smarter caching, CI/CD pipelines, and efficient database access.
+		    I lead the development of Backend and Frontend applications for the Degenerous DAO, a decentralized autonomous organization focused on community-driven projects. 
+			My role involves designing and implementing smart services, developing user interfaces, and ensuring seamless integration with blockchain technologies.
 		`,
 		highlights: [
-			"Led the development of CoNexus, a decentralized application (dApp) for the Degenerous DAO.",
+			"Led the development of CoNexus, a text-based gaming application for the Degenerous DAO.",
 			"Implemented a voting system using smart contracts.",
 			"Integrated with Ethereum blockchain for secure transactions.",
 			"Optimized the front-end for better user experience.",
@@ -26,24 +26,18 @@ export const workHistory: WorkData[] = [
 			"Implemented analytics to track user engagement and application performance.",
 		],
 		technologies: [
-			"React",
-			"Node.js",
-			"Solidity",
+			"Go",
+			"Astro",
+			"Svelte",
+			"TypeScript",
+			"Docker",
+			"PostgreSQL",
+			"MongoDB",
 			"Ethereum",
 			"Web3.js",
-			"IPFS",
-			"MongoDB",
-			"Express",
-			"JavaScript",
-			"TypeScript",
 			"Tailwind CSS",
 			"Next.js",
 			"GitHub Actions",
-			"AWS",
-			"Docker",
-			"Kubernetes",
-			"GraphQL",
-			"PostgreSQL",
 		],
 	},
 	{
@@ -56,12 +50,12 @@ export const workHistory: WorkData[] = [
             implementing back-end services, and ensuring seamless integration between front-end and back-end systems.
         `,
 		highlights: [
-			"Developed and maintained web applications using React, Node.js, and MongoDB.",
+			"Developed and maintained web applications using Next.js, Node.js, and MongoDB.",
 			"Collaborated with designers to create user-friendly interfaces.",
 			"Implemented RESTful APIs for seamless communication between front-end and back-end.",
 			"Optimized application performance and scalability.",
 		],
-		technologies: ["React", "Node.js", "MongoDB", "Express", "JavaScript"],
+		technologies: ["Next.js", "Node.js", "MongoDB", "Express", "JavaScript"],
 	},
 	{
 		company: "Equity Group Holdings Limited",

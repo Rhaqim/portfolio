@@ -2,7 +2,7 @@ export const projects: Project[] = [
 	{
 		title: "CoNexus — Storytelling Game Platform",
 		description:
-			"Go-based storytelling platform with multiple engines (CoNexus, CoNexusAgentGame). Modular text/image/tts pipelines, unified media task engine, multi-tenant design and ongoing vector-search experimentation.",
+			"Go-based storytelling platform with multiple engines. Modular text/image/tts pipelines, unified media task engine, multi-tenant design and ongoing vector-search experimentation.",
 		technologies: [
 			"Golang",
 			"Gin",
