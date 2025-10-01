@@ -3,18 +3,18 @@
 	import AboutMe from "@/components/Manga/intro/AboutMe.svelte";
 	import Work from "@/components/Manga/work/Work.svelte";
 	import Projects from "@/components/Manga/projects/Projects.svelte";
-	import Gallery from "@/components/Manga/gallery/Gallery.svelte";
-	
+	import Thoughts from "@/components/Manga/gallery/Thoughts.svelte";
+
 	import { onMount } from "svelte";
-	
+
 	let isLoaded = false;
-	
+
 	onMount(() => {
 		// Ensure smooth loading
 		const timer = setTimeout(() => {
 			isLoaded = true;
 		}, 100);
-		
+
 		return () => clearTimeout(timer);
 	});
 </script>
@@ -27,7 +27,7 @@
 	<AboutMe />
 	<Work />
 	<Projects />
-	<Gallery />
+	<Thoughts />
 </div>
 
 <!-- Footer -->
@@ -36,9 +36,7 @@
 		<div class="footer-text">
 			© 2025 All Rights Reserved — Manga Magazine Vol.1
 		</div>
-		<div class="footer-subtitle">
-			Built with ❤️ using Astro & Svelte
-		</div>
+		<div class="footer-subtitle">Built with ❤️ using Astro & Svelte</div>
 	</div>
 </footer>
 
@@ -50,11 +48,11 @@
 		opacity: 0;
 		transition: opacity 0.8s ease;
 	}
-	
+
 	.manga-book.loaded {
 		opacity: 1;
 	}
-	
+
 	/* Ensure each section can use full viewport */
 	.manga-book :global(section) {
 		width: 100vw;
@@ -64,7 +62,7 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+
 	/* Remove any default section styling that might interfere */
 	.manga-book :global(.wrapper) {
 		width: 100%;
@@ -72,7 +70,7 @@
 		margin: 0;
 		padding: 0;
 	}
-	
+
 	.manga-book :global(.section) {
 		width: 100%;
 		height: 100%;
@@ -82,7 +80,7 @@
 		box-shadow: none;
 		background: none;
 	}
-	
+
 	.manga-footer {
 		background: var(--manga-black);
 		color: var(--manga-white);
@@ -91,12 +89,12 @@
 		position: relative;
 		border-top: 3px solid var(--manga-red);
 	}
-	
+
 	.footer-content {
 		max-width: 600px;
 		margin: 0 auto;
 	}
-	
+
 	.footer-text {
 		font-family: "Bangers", sans-serif;
 		font-size: var(--text-lg);
@@ -104,24 +102,24 @@
 		text-shadow: 2px 2px 0 var(--manga-red);
 		margin-bottom: var(--space-2);
 	}
-	
+
 	.footer-subtitle {
 		font-family: "Bebas Neue", sans-serif;
 		font-size: var(--text-base);
 		color: var(--manga-gray);
 		opacity: 0.8;
 	}
-	
+
 	/* Mobile responsive footer */
 	@media (max-width: 768px) {
 		.manga-footer {
 			padding: var(--space-6) var(--space-3);
 		}
-		
+
 		.footer-text {
 			font-size: var(--text-base);
 		}
-		
+
 		.footer-subtitle {
 			font-size: var(--text-sm);
 		}

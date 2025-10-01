@@ -47,3 +47,20 @@ type NavigationLink = {
 	icon: string;
 	current: boolean;
 };
+
+type Thought = {
+	title: string;
+	content: string;
+	type: "thought" | "speech";
+	icon: string;
+};
+
+type Project = {
+	title: string;
+	description: string;
+	technologies: string[];
+	status: string;
+	featured: boolean;
+	year: string;
+	url?: string;
+};
