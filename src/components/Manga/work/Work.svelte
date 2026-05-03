@@ -1,571 +1,316 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { workHistory } from "@/data/work";
-
-	let currentPage = 0;
-	let isVisible = false;
-
-	const nextPage = () => {
-		if (currentPage < workHistory.length) {
-			currentPage += 1;
-		}
-	};
-
-	const prevPage = () => {
-		if (currentPage > 0) {
-			currentPage -= 1;
-		}
-	};
-
-	onMount(() => {
-		const timer = setTimeout(() => {
-			isVisible = true;
-		}, 600);
-		return () => clearTimeout(timer);
-	});
+        import { reveal } from "@/lib/actions/scrollReveal";
+        import { workHistory } from "@/data/work";
 </script>
 
-<section id="work" class="manga-page {isVisible ? 'fade-in' : ''}">
-	<div class="page-container">
-		{#if currentPage === 0}
-			<!-- Introduction Page -->
-			<div
-				role="button"
-				tabindex="0"
-				class="full-page intro-page"
-				on:click={nextPage}
-				on:keydown={e => {
-					if (e.key === "Enter" || e.key === " ") nextPage();
-				}}
-			>
-				<div class="chapter-header">
-					<div class="chapter-number">Chapter 2</div>
-					<h1 class="chapter-title">Work Experience</h1>
-					<div class="chapter-subtitle">My Professional Journey</div>
-				</div>
+<section class="chapter work" id="work" aria-label="Chapter 3 — Experience">
 
-				<div class="intro-panels">
-					<div class="speech-bubble large">
-						I thrive on building efficient, scalable platforms; from resilient
-						backends to creative, high-performance frontends.
-					</div>
+        <!-- Chapter bar -->
+        <div class="chapter-bar" aria-hidden="true">
+                <span class="bar-label">Chapter 03 — Experience</span>
+                <div class="bar-line"></div>
+        </div>
 
-					<div class="manga-panel intro-panel">
-						<div class="panel-content">
-							<h3>What I Do</h3>
-							<p>
-								My work spans modern system design: architecting scalable
-								backends, designing efficient database schemas, implementing
-								high-performance caching strategies, structuring modular
-								frontends, and building clean pipelines for media and AI-driven
-								storytelling. I focus on schema design, distributed systems,
-								multi-tenant architectures, and crafting experiences that merge
-								engineering precision with creative innovation.
-							</p>
-						</div>
-					</div>
+        <!-- Halftone -->
+        <div class="dots" aria-hidden="true"></div>
 
-					<div class="thought-bubble large">
-						Every project I take on emphasizes clean architecture, performance,
-						extensibility and user experience. Engineering precision fused with
-						creative experimentation.
-					</div>
-				</div>
+        <!-- Timeline -->
+        <div class="timeline">
+                {#each workHistory as job, i}
+                        <article
+                                class="job-panel"
+                                class:job-panel--right={i % 2 === 1}
+                                use:reveal={{ direction: i % 2 === 0 ? 'left' : 'right', delay: i * 0.14 }}
+                                aria-label="{job.role} at {job.company}"
+                        >
+                                <!-- Period tab -->
+                                <div class="period-tab" aria-hidden="true">{job.period}</div>
 
-				<div class="continue-hint">
-					<span class="sound-effect">TAP!</span>
-					<p>Tap anywhere to explore my experience</p>
-				</div>
-			</div>
-		{:else}
-			<!-- Work Detail Page -->
-			<div
-				role="button"
-				tabindex="0"
-				class="full-page work-detail-page"
-				on:click={nextPage}
-				on:keydown={e => {
-					if (e.key === "Enter" || e.key === " ") nextPage();
-				}}
-			>
-				<div class="work-header">
-					<div class="company-badge">
-						<h2>{workHistory[currentPage - 1].company}</h2>
-					</div>
-					<div class="role-tag">
-						{workHistory[currentPage - 1].role}
-					</div>
-				</div>
+                                <div class="job-inner">
+                                        <div class="job-header">
+                                                <div>
+                                                        <h2 class="company-name">
+                                                                <a href={job.companyUrl} target="_blank" rel="noopener noreferrer">
+                                                                        {job.company}
+                                                                </a>
+                                                        </h2>
+                                                        <p class="job-role">{job.role}</p>
+                                                </div>
+                                                {#if i === 0}
+                                                        <span class="current-badge">Current</span>
+                                                {/if}
+                                        </div>
 
-				<div class="work-content">
-					<div class="description-panel">
-						<div class="speech-bubble work-speech">
-							{workHistory[currentPage - 1].description}
-						</div>
-					</div>
+                                        <!-- Impact: one bold sentence -->
+                                        <blockquote class="job-impact">
+                                                {job.impact}
+                                        </blockquote>
 
-					{#if workHistory[currentPage - 1].technologies}
-						<div class="tech-showcase">
-							<div class="tech-header">
-								<span class="sound-effect">TECH STACK!</span>
-							</div>
-							<div class="tech-grid">
-								{#each workHistory[currentPage - 1].technologies.slice(0, 8) as tech}
-									<div class="tech-badge">{tech}</div>
-								{/each}
-								{#if workHistory[currentPage - 1].technologies.length > 8}
-									<div class="tech-badge more-badge">
-										+{workHistory[currentPage - 1].technologies.length - 8} more
-									</div>
-								{/if}
-							</div>
-						</div>
-					{/if}
-				</div>
+                                        <!-- Tech tags -->
+                                        <div class="tech-list">
+                                                {#each job.technologies as tech}
+                                                        <span class="tech-tag">{tech}</span>
+                                                {/each}
+                                        </div>
+                                </div>
 
-				<div class="page-counter">
-					<span class="current">{currentPage}</span> /
-					<span class="total">{workHistory.length}</span>
-				</div>
-			</div>
-		{/if}
+                                <!-- Decorative number -->
+                                <div class="job-number" aria-hidden="true">0{i + 1}</div>
+                        </article>
+                {/each}
+        </div>
 
-		<!-- Navigation Controls -->
-		{#if currentPage > 0}
-			<button class="nav-button prev-nav" on:click|stopPropagation={prevPage}>
-				<span class="nav-icon">←</span>
-				<span class="nav-text">Previous</span>
-			</button>
-		{/if}
-
-		{#if currentPage < workHistory.length}
-			<button class="nav-button next-nav" on:click|stopPropagation={nextPage}>
-				<span class="nav-text">Next</span>
-				<span class="nav-icon">→</span>
-			</button>
-		{/if}
-	</div>
+        <span class="page-number" aria-hidden="true">04</span>
 </section>
 
 <style>
-	.manga-page {
-		width: 100vw;
-		min-height: 100vh;
-		background: var(--manga-paper);
-		background-image: radial-gradient(
-			circle at 1px 1px,
-			var(--manga-gray) 1px,
-			transparent 0
-		);
-		background-size: 20px 20px;
-		position: relative;
-		overflow: hidden;
-		opacity: 0;
-		transform: translateY(30px);
-		transition: all 0.8s ease;
-	}
+        .work {
+                background: var(--white);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+        }
 
-	.manga-page.fade-in {
-		opacity: 1;
-		transform: translateY(0);
-	}
+        /* Chapter bar */
+        .chapter-bar {
+                height: 36px;
+                background: var(--ink);
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                padding: 0 clamp(16px, 4vw, 48px);
+                flex-shrink: 0;
+                position: relative;
+                z-index: 5;
+        }
 
-	.page-container {
-		width: 100%;
-		height: 100%;
-		position: relative;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: var(--space-4);
-	}
+        .bar-label {
+                font-family: var(--font-display);
+                font-size: 0.72rem;
+                letter-spacing: 5px;
+                text-transform: uppercase;
+                color: var(--red);
+                white-space: nowrap;
+        }
 
-	.full-page {
-		width: 100%;
-		height: 100%;
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-		padding: var(--space-6);
-		background: var(--manga-white);
-		border: 4px solid var(--manga-black);
-		border-radius: var(--panel-radius);
-		box-shadow:
-			0 0 0 8px var(--manga-paper),
-			0 0 0 12px var(--manga-black),
-			20px 20px 0 var(--manga-black);
-		position: relative;
-		overflow: hidden;
-	}
+        .bar-line {
+                flex: 1;
+                height: 1px;
+                background: rgba(255, 255, 255, 0.12);
+        }
 
-	.full-page::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: linear-gradient(
-			45deg,
-			transparent 48%,
-			rgba(0, 0, 0, 0.02) 49%,
-			rgba(0, 0, 0, 0.02) 51%,
-			transparent 52%
-		);
-		background-size: 30px 30px;
-		pointer-events: none;
-		z-index: 1;
-	}
+        .dots {
+                position: absolute;
+                inset: 36px 0 0 0;
+                background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
+                background-size: 18px 18px;
+                pointer-events: none;
+                z-index: 0;
+        }
 
-	.chapter-header {
-		text-align: center;
-		z-index: 2;
-		position: relative;
-	}
+        /* ---- Timeline ---- */
+        .timeline {
+                flex: 1;
+                display: grid;
+                grid-template-rows: repeat(3, 1fr);
+                position: relative;
+                z-index: 1;
+                overflow: hidden;
+        }
 
-	.chapter-number {
-		background: var(--manga-black);
-		color: var(--manga-white);
-		padding: var(--space-2) var(--space-4);
-		border-radius: 50px;
-		font-family: "Anton", sans-serif;
-		font-size: var(--text-lg);
-		display: inline-block;
-		margin-bottom: var(--space-3);
-	}
+        /* Vertical spine line */
+        .timeline::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                width: 4px;
+                background: var(--ink);
+                transform: translateX(-50%);
+                z-index: 0;
+        }
 
-	.chapter-title {
-		font-family: "Bangers", sans-serif;
-		font-size: clamp(2rem, 8vw, 4rem);
-		color: var(--manga-black);
-		text-shadow:
-			3px 3px 0 var(--manga-white),
-			6px 6px 0 var(--manga-red);
-		margin: 0 0 var(--space-2) 0;
-		transform: rotate(-1deg);
-	}
+        /* ---- Job panels ---- */
+        .job-panel {
+                position: relative;
+                border: var(--border);
+                background: var(--paper);
+                margin: clamp(8px, 1.5vh, 14px) clamp(16px, 4vw, 60px) clamp(8px, 1.5vh, 14px) clamp(16px, 4vw, 60px);
+                border-radius: var(--panel-radius);
+                box-shadow: var(--panel-shadow);
+                overflow: hidden;
 
-	.chapter-subtitle {
-		font-family: "Bebas Neue", sans-serif;
-		font-size: var(--text-xl);
-		color: var(--manga-gray);
-		text-transform: uppercase;
-		letter-spacing: 2px;
-	}
+                /* Alternate: left-aligned by default */
+                margin-right: calc(50% + 24px);
+        }
 
-	.intro-panels {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-6);
-		width: 100%;
-		max-width: 800px;
-		z-index: 2;
-		position: relative;
-		flex: 1;
-		justify-content: center;
-	}
+        .job-panel--right {
+                margin-left: calc(50% + 24px);
+                margin-right: clamp(16px, 4vw, 60px);
+                background: var(--white);
+        }
 
-	.speech-bubble.large {
-		background: var(--manga-white);
-		border: 3px solid var(--manga-black);
-		border-radius: 25px;
-		padding: var(--space-6);
-		font-family: "Bebas Neue", sans-serif;
-		font-size: var(--text-xl);
-		text-align: center;
-		position: relative;
-		box-shadow: 5px 5px 0 var(--manga-black);
-	}
+        .job-inner {
+                padding: clamp(14px, 2.5vw, 28px);
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                height: 100%;
+        }
 
-	.speech-bubble.large::after {
-		content: "";
-		position: absolute;
-		bottom: -15px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 0;
-		height: 0;
-		border-left: 15px solid transparent;
-		border-right: 15px solid transparent;
-		border-top: 15px solid var(--manga-white);
-	}
+        /* ---- Period tab ---- */
+        .period-tab {
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: var(--ink);
+                color: var(--white);
+                font-family: var(--font-display);
+                font-size: 0.62rem;
+                letter-spacing: 2px;
+                padding: 3px 10px;
+                border-bottom-left-radius: 4px;
+        }
 
-	.manga-panel.intro-panel {
-		background: var(--manga-light-gray);
-		border: 3px solid var(--manga-black);
-		border-radius: var(--panel-radius);
-		padding: var(--space-6);
-		transform: rotate(1deg);
-		box-shadow: 5px 5px 0 var(--manga-black);
-	}
+        .job-panel--right .period-tab {
+                right: auto;
+                left: 0;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 4px;
+        }
 
-	.panel-content h3 {
-		font-family: "Bangers", sans-serif;
-		font-size: var(--text-2xl);
-		color: var(--manga-black);
-		margin: 0 0 var(--space-3) 0;
-	}
+        /* ---- Job header ---- */
+        .job-header {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 12px;
+        }
 
-	.thought-bubble.large {
-		background: var(--manga-light-gray);
-		border: 3px dashed var(--manga-gray);
-		border-radius: 30px;
-		padding: var(--space-6);
-		font-style: italic;
-		font-size: var(--text-lg);
-		text-align: center;
-		position: relative;
-	}
+        .company-name {
+                font-family: var(--font-title);
+                font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+                line-height: 0.9;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: var(--ink);
+        }
 
-	.continue-hint {
-		text-align: center;
-		z-index: 2;
-		position: relative;
-	}
+        .company-name a {
+                color: inherit;
+                text-decoration: none;
+                transition: color 0.25s ease;
+        }
 
-	.sound-effect {
-		font-family: "Bangers", sans-serif;
-		font-size: var(--text-2xl);
-		color: var(--manga-red);
-		text-shadow: 2px 2px 0 var(--manga-black);
-		transform: rotate(-5deg);
-		display: block;
-		margin-bottom: var(--space-2);
-	}
+        .company-name a:hover {
+                color: var(--red);
+        }
 
-	/* Work Detail Page Styles */
-	.work-header {
-		text-align: center;
-		z-index: 2;
-		position: relative;
-	}
+        .job-role {
+                font-family: var(--font-display);
+                font-size: clamp(0.68rem, 1.2vw, 0.82rem);
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: var(--gray);
+                margin-top: 4px;
+        }
 
-	.company-badge {
-		background: var(--manga-red);
-		color: var(--manga-white);
-		padding: var(--space-4) var(--space-6);
-		border-radius: 15px;
-		border: 3px solid var(--manga-black);
-		margin-bottom: var(--space-3);
-		transform: rotate(-1deg);
-		box-shadow: 5px 5px 0 var(--manga-black);
-	}
+        .current-badge {
+                font-family: var(--font-display);
+                font-size: 0.62rem;
+                letter-spacing: 2px;
+                padding: 2px 8px;
+                background: var(--red);
+                color: var(--white);
+                text-transform: uppercase;
+                border: 2px solid var(--ink);
+                white-space: nowrap;
+                flex-shrink: 0;
+        }
 
-	.company-badge h2 {
-		font-family: "Bangers", sans-serif;
-		font-size: clamp(1.5rem, 6vw, 2.5rem);
-		margin: 0;
-		text-shadow: 2px 2px 0 var(--manga-black);
-	}
+        /* ---- Impact quote ---- */
+        .job-impact {
+                font-family: var(--font-body);
+                font-size: clamp(0.8rem, 1.2vw, 0.92rem);
+                font-weight: 700;
+                line-height: 1.5;
+                color: var(--near-black);
+                border-left: 3px solid var(--red);
+                padding-left: 12px;
+                margin: 0;
+        }
 
-	.role-tag {
-		background: var(--manga-yellow);
-		color: var(--manga-black);
-		padding: var(--space-2) var(--space-4);
-		border-radius: 20px;
-		border: 2px solid var(--manga-black);
-		font-family: "Anton", sans-serif;
-		font-size: var(--text-lg);
-		display: inline-block;
-	}
+        /* ---- Tech tags ---- */
+        .tech-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                margin-top: auto;
+        }
 
-	.work-content {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		gap: var(--space-6);
-		width: 100%;
-		max-width: 900px;
-		z-index: 2;
-		position: relative;
-	}
+        .tech-tag {
+                font-family: var(--font-display);
+                font-size: 0.62rem;
+                letter-spacing: 1px;
+                padding: 2px 8px;
+                border: 2px solid var(--ink);
+                background: transparent;
+                color: var(--near-black);
+                text-transform: uppercase;
+                border-radius: 2px;
+        }
 
-	.description-panel {
-		text-align: center;
-	}
+        /* ---- Job number watermark ---- */
+        .job-number {
+                position: absolute;
+                bottom: 8px;
+                right: 14px;
+                font-family: var(--font-title);
+                font-size: clamp(2rem, 5vw, 4rem);
+                color: rgba(0, 0, 0, 0.04);
+                line-height: 1;
+                pointer-events: none;
+                user-select: none;
+        }
 
-	.speech-bubble.work-speech {
-		background: var(--manga-white);
-		border: 3px solid var(--manga-black);
-		border-radius: 20px;
-		padding: var(--space-6);
-		font-size: var(--text-lg);
-		line-height: 1.6;
-		box-shadow: 5px 5px 0 var(--manga-black);
-	}
+        .job-panel--right .job-number {
+                right: auto;
+                left: 14px;
+        }
 
-	.tech-showcase {
-		text-align: center;
-	}
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+                .timeline::before {
+                        left: 24px;
+                }
 
-	.tech-header {
-		margin-bottom: var(--space-4);
-	}
+                .job-panel {
+                        margin: 8px 16px 8px 48px;
+                }
 
-	.tech-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-		gap: var(--space-3);
-		max-width: 600px;
-		margin: 0 auto;
-	}
+                .job-panel--right {
+                        margin: 8px 16px 8px 48px;
+                        background: var(--paper);
+                }
 
-	.tech-badge {
-		background: var(--manga-blue);
-		color: var(--manga-white);
-		padding: var(--space-2) var(--space-3);
-		border-radius: var(--panel-radius);
-		border: 2px solid var(--manga-black);
-		font-family: "Bebas Neue", sans-serif;
-		font-size: var(--text-base);
-		font-weight: bold;
-		text-align: center;
-		transition: all 0.3s ease;
-	}
+                .period-tab {
+                        right: 0;
+                        left: auto;
+                        border-bottom-left-radius: 4px;
+                        border-bottom-right-radius: 0;
+                }
 
-	.tech-badge:hover {
-		transform: scale(1.05) rotate(2deg);
-		background: var(--manga-red);
-	}
+                .job-panel--right .period-tab {
+                        right: 0;
+                        left: auto;
+                        border-bottom-left-radius: 4px;
+                        border-bottom-right-radius: 0;
+                }
 
-	.more-badge {
-		background: var(--manga-gray);
-		font-style: italic;
-	}
-
-	.page-counter {
-		font-family: "Anton", sans-serif;
-		font-size: var(--text-2xl);
-		color: var(--manga-black);
-		background: var(--manga-yellow);
-		padding: var(--space-3) var(--space-4);
-		border-radius: 50px;
-		border: 3px solid var(--manga-black);
-		z-index: 2;
-		position: relative;
-	}
-
-	.current {
-		color: var(--manga-red);
-		font-size: var(--text-3xl);
-	}
-
-	/* Navigation Buttons */
-	.nav-button {
-		position: fixed;
-		top: 50%;
-		transform: translateY(-50%);
-		background: var(--manga-black);
-		color: var(--manga-white);
-		border: 3px solid var(--manga-white);
-		padding: var(--space-3) var(--space-4);
-		border-radius: 50px;
-		font-family: "Bangers", sans-serif;
-		font-size: var(--text-lg);
-		cursor: pointer;
-		transition: all 0.3s ease;
-		z-index: 1000;
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-	}
-
-	.nav-button:hover {
-		background: var(--manga-red);
-		transform: translateY(-50%) scale(1.1);
-		box-shadow: 5px 5px 0 var(--manga-black);
-	}
-
-	.prev-nav {
-		left: var(--space-4);
-	}
-
-	.next-nav {
-		right: var(--space-4);
-	}
-
-	.nav-icon {
-		font-size: var(--text-2xl);
-	}
-
-	/* Mobile Responsive */
-	@media (max-width: 768px) {
-		.page-container {
-			padding: var(--space-2);
-		}
-
-		.full-page {
-			padding: var(--space-4);
-			border-width: 3px;
-			box-shadow:
-				0 0 0 6px var(--manga-paper),
-				0 0 0 9px var(--manga-black),
-				15px 15px 0 var(--manga-black);
-		}
-
-		.intro-panels {
-			gap: var(--space-4);
-		}
-
-		.speech-bubble.large,
-		.thought-bubble.large {
-			padding: var(--space-4);
-			font-size: var(--text-lg);
-		}
-
-		.manga-panel.intro-panel {
-			padding: var(--space-4);
-			transform: none;
-		}
-
-		.tech-grid {
-			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-			gap: var(--space-2);
-		}
-
-		.nav-button {
-			position: fixed;
-			top: auto;
-			bottom: var(--space-4);
-			transform: none;
-			padding: var(--space-2) var(--space-3);
-			font-size: var(--text-base);
-		}
-
-		.prev-nav {
-			left: var(--space-3);
-		}
-
-		.next-nav {
-			right: var(--space-3);
-		}
-
-		.nav-text {
-			display: none;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.chapter-title {
-			font-size: 2rem;
-			text-shadow:
-				2px 2px 0 var(--manga-white),
-				4px 4px 0 var(--manga-red);
-		}
-
-		.speech-bubble.large,
-		.thought-bubble.large,
-		.speech-bubble.work-speech {
-			font-size: var(--text-base);
-			padding: var(--space-3);
-		}
-
-		.tech-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
+                .job-panel--right .job-number {
+                        right: 14px;
+                        left: auto;
+                }
+        }
 </style>

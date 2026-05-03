@@ -1,57 +1,29 @@
 export const projects: Project[] = [
-	{
-		title: "CoNexus — Storytelling Game Platform",
-		description:
-			"Go-based storytelling platform with multiple engines. Modular text/image/tts pipelines, unified media task engine, multi-tenant design and ongoing vector-search experimentation.",
-		technologies: [
-			"Golang",
-			"Gin",
-			"sqlx",
-			"Redis",
-			"PostgreSQL",
-			"Docker",
-			"Podman",
-			"Nginx",
-			"GitHub Actions",
-			"LLM integrations",
-			"Image / TTS pipelines",
-		],
-		status: "In Progress",
-		featured: true,
-		year: "2025",
-	},
-	{
-		title: "Buckt - File Upload & Storage Management Service",
-		description:
-			"File upload & storage microservice used at Degenerous DAO. Refactored for performance: reduced DB reads, improved caching, containerized deployments and CI/CD.",
-		technologies: [
-			"Golang",
-			"Gin",
-			"PostgreSQL",
-			"Redis",
-			"S3-compatible storage",
-		],
-		status: "Live",
-		featured: true,
-		year: "2025",
-	},
-
-	{
-		title: "USSD Gateway & Services",
-		description:
-			"Unstructured Supplementary Service Data (USSD) gateway and services for telecom applications. Features include session management, menu builder, shortcode handling, and integration with external APIs.",
-		technologies: ["Rust", "Next.js", "TypeScript", "Node.js"],
-		status: "In Progress",
-		featured: false,
-		year: "2024",
-	},
-	{
-		title: "Manga Portfolio Site",
-		description:
-			"Personal manga-inspired portfolio built with Astro + Svelte and TypeScript, optimized for performance and deployed to modern CDN (Cloudflare/Pages).",
-		technologies: ["Astro", "Svelte", "TypeScript", "Vite", "Cloudflare"],
-		status: "Live",
-		featured: false,
-		year: "2025",
-	},
+        {
+                title: "CoNexus",
+                tagline: "AI Storytelling Engine",
+                description: "Go-based platform blending LLMs, media pipelines, and vector search into living, responsive narratives.",
+                technologies: ["Go", "PostgreSQL", "Redis", "Docker", "LLM", "Vector Search"],
+                status: "In Progress",
+                featured: true,
+                year: "2025",
+        },
+        {
+                title: "Buckt",
+                tagline: "Storage Microservice",
+                description: "High-performance file storage service powering Degenerous DAO — built for scale and resilience.",
+                technologies: ["Go", "PostgreSQL", "Redis", "S3", "Docker"],
+                status: "Live",
+                featured: true,
+                year: "2025",
+        },
+        {
+                title: "USSD Gateway",
+                tagline: "Telecom Infrastructure",
+                description: "Session-aware gateway handling USSD interactions across East Africa — where software meets the network layer.",
+                technologies: ["Rust", "TypeScript", "Next.js", "Node.js"],
+                status: "In Progress",
+                featured: false,
+                year: "2024",
+        },
 ];

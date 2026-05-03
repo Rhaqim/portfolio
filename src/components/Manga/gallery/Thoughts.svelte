@@ -1,196 +1,343 @@
-<script>
-	import { onMount } from "svelte";
-
-	import { thoughts } from "@/data/thoughts";
-
-	let currentThought = 0;
-	let isVisible = false;
-
-	const nextThought = () => {
-		if (currentThought < thoughts.length - 1) {
-			currentThought += 1;
-		} else {
-			currentThought = 0;
-		}
-	};
-
-	const prevThought = () => {
-		if (currentThought > 0) {
-			currentThought -= 1;
-		} else {
-			currentThought = thoughts.length - 1;
-		}
-	};
-
-	onMount(() => {
-		const timer = setTimeout(() => {
-			isVisible = true;
-		}, 700);
-		return () => clearTimeout(timer);
-	});
+<script lang="ts">
+        import { reveal } from "@/lib/actions/scrollReveal";
+        import { interests } from "@/data/thoughts";
 </script>
 
-<section id="thoughts" class="wrapper">
-	<div class="section manga-chapter">
-		<div class="chapter-header">
-			<div class="chapter-number">Chapter 4</div>
-			<h2 class="chapter-title">Thoughts & Musings</h2>
-		</div>
+<section class="chapter next-arc" id="next" aria-label="Chapter 4 — Next Arc">
 
-		<div class="chapter-content {isVisible ? 'fade-in' : ''}">
-			<div class="thoughts-showcase">
-				<div class="thought-panel">
-					<div class="thought-header">
-						<span class="thought-icon">{thoughts[currentThought].icon}</span>
-						<h3>{thoughts[currentThought].title}</h3>
-					</div>
+        <!-- Chapter bar -->
+        <div class="chapter-bar" aria-hidden="true">
+                <span class="bar-label">Chapter 04 — Next Arc</span>
+                <div class="bar-line"></div>
+        </div>
 
-					{#if thoughts[currentThought].type === "speech"}
-						<div class="speech-bubble">
-							{thoughts[currentThought].content}
-						</div>
-					{:else}
-						<div class="thought-bubble">
-							{thoughts[currentThought].content}
-						</div>
-					{/if}
-				</div>
+        <!-- Spread layout: interests grid + character -->
+        <div class="spread">
 
-				<div class="thought-navigation">
-					<button class="nav-btn prev-button" on:click={prevThought}>
-						← Previous
-					</button>
+                <!-- Left: dramatic title panel -->
+                <div class="title-panel" use:reveal={{ direction: 'left', delay: 0.05 }}>
+                        <div class="title-panel-inner">
+                                <p class="arc-eyebrow">What I'm building toward</p>
+                                <h2 class="arc-title">The<br/>Hardware<br/>Awaits.</h2>
+                                <div class="arc-divider" aria-hidden="true"></div>
+                                <p class="arc-sub">
+                                        Backend systems are the foundation.<br/>
+                                        The next chapter goes deeper —<br/>
+                                        all the way to the metal.
+                                </p>
+                        </div>
+                        <!-- Character illustration -->
+                        <div class="arc-character" aria-hidden="true">
+                                <img src="/images/character/character-ok.png" alt="" />
+                        </div>
+                </div>
 
-					<div class="thought-dots">
-						{#each thoughts as _, index}
-							<button
-								class="dot {index === currentThought ? 'active' : ''}"
-								on:click={() => (currentThought = index)}
-								aria-label={`Show thought ${index + 1}: ${thoughts[index].title}`}
-							></button>
-						{/each}
-					</div>
+                <!-- Right: 2x2 interest panels -->
+                <div class="interests-grid">
+                        {#each interests as item, i}
+                                <article
+                                        class="interest-panel"
+                                        class:interest-panel--dark={item.type === 'next' && i % 2 === 0}
+                                        class:interest-panel--red={i === 0}
+                                        use:reveal={{ direction: i < 2 ? 'right' : 'up', delay: 0.12 + i * 0.14 }}
+                                        aria-label={item.title}
+                                >
+                                        <div class="interest-inner">
+                                                <div class="interest-icon" aria-hidden="true">{item.icon}</div>
+                                                <h3 class="interest-title">{item.title}</h3>
+                                                <p class="interest-sub">{item.subtitle}</p>
+                                                {#if item.type === 'next'}
+                                                        <span class="next-label">Next Arc</span>
+                                                {:else}
+                                                        <span class="current-label">Current</span>
+                                                {/if}
+                                        </div>
+                                </article>
+                        {/each}
+                </div>
+        </div>
 
-					<button class="nav-btn next-button" on:click={nextThought}>
-						Next →
-					</button>
-				</div>
-			</div>
+        <!-- Contact row / footer inside last section -->
+        <div class="contact-bar" use:reveal={{ direction: 'up', delay: 0.6 }}>
+                <span class="contact-text">Let's build something.</span>
+                <div class="contact-links">
+                        <a href="mailto:rhaqim@example.com" class="contact-link">Email</a>
+                        <a href="https://github.com/Rhaqim" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub</a>
+                        <a href="https://www.linkedin.com/in/john-franklin-anusiem/" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a>
+                </div>
+        </div>
 
-			<div class="blog-preview">
-				<div class="speech-bubble">
-					<span class="sound-effect">COMING SOON!</span>
-					Full blog entries about life, anime, games, tech philosophy, and more adventures
-					in the digital realm!
-				</div>
-			</div>
-		</div>
-
-		<div class="page-hint">⇩ More thoughts brewing... ⇩</div>
-	</div>
+        <span class="page-number" aria-hidden="true">05</span>
 </section>
 
 <style>
-	.thoughts-showcase {
-		width: 100%;
-		max-width: 700px;
-		margin: 0 auto var(--space-8) auto;
-	}
+        .next-arc {
+                background: var(--ink);
+                color: var(--white);
+                display: flex;
+                flex-direction: column;
+        }
 
-	.thought-panel {
-		background: var(--manga-white);
-		border: var(--panel-border);
-		border-radius: var(--panel-radius);
-		padding: var(--space-6);
-		margin-bottom: var(--space-6);
-		position: relative;
-		min-height: 200px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
+        /* Chapter bar */
+        .chapter-bar {
+                height: 36px;
+                background: var(--red);
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                padding: 0 clamp(16px, 4vw, 48px);
+                flex-shrink: 0;
+                position: relative;
+                z-index: 5;
+        }
 
-	.thought-header {
-		display: flex;
-		align-items: center;
-		gap: var(--space-3);
-		margin-bottom: var(--space-4);
-	}
+        .bar-label {
+                font-family: var(--font-display);
+                font-size: 0.72rem;
+                letter-spacing: 5px;
+                text-transform: uppercase;
+                color: var(--white);
+                white-space: nowrap;
+        }
 
-	.thought-icon {
-		font-size: var(--text-3xl);
-		background: var(--manga-yellow);
-		padding: var(--space-2);
-		border-radius: 50%;
-		border: 2px solid var(--manga-black);
-	}
+        .bar-line {
+                flex: 1;
+                height: 1px;
+                background: rgba(255, 255, 255, 0.3);
+        }
 
-	.thought-navigation {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: var(--space-4);
-	}
+        /* ---- Spread ---- */
+        .spread {
+                flex: 1;
+                display: grid;
+                grid-template-columns: 2fr 3fr;
+                overflow: hidden;
+        }
 
-	.thought-dots {
-		display: flex;
-		gap: var(--space-2);
-	}
+        /* ---- Left title panel ---- */
+        .title-panel {
+                border-right: 4px solid rgba(255, 255, 255, 0.15);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                overflow: hidden;
+                position: relative;
+        }
 
-	.dot {
-		width: 12px;
-		height: 12px;
-		border-radius: 50%;
-		border: 2px solid var(--manga-black);
-		background: var(--manga-white);
-		cursor: pointer;
-		transition: all 0.3s ease;
-	}
+        .title-panel-inner {
+                padding: clamp(24px, 4vw, 52px) clamp(20px, 3vw, 40px);
+                position: relative;
+                z-index: 2;
+        }
 
-	.dot.active {
-		background: var(--manga-red);
-		transform: scale(1.2);
-	}
+        .arc-eyebrow {
+                font-family: var(--font-display);
+                font-size: clamp(0.62rem, 1vw, 0.75rem);
+                letter-spacing: 4px;
+                text-transform: uppercase;
+                color: var(--red);
+                margin-bottom: 16px;
+        }
 
-	.dot:hover {
-		background: var(--manga-blue);
-	}
+        .arc-title {
+                font-family: var(--font-title);
+                font-size: clamp(3rem, 7vw, 5.5rem);
+                line-height: 0.88;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--white);
+                margin-bottom: 20px;
+        }
 
-	.nav-btn {
-		background: var(--manga-black);
-		color: var(--manga-white);
-		border: 2px solid var(--manga-white);
-		padding: var(--space-2) var(--space-4);
-		border-radius: var(--panel-radius);
-		font-family: "Bangers", sans-serif;
-		cursor: pointer;
-		transition: all 0.3s ease;
-	}
+        .arc-divider {
+                width: 36px;
+                height: 3px;
+                background: var(--red);
+                margin-bottom: 18px;
+        }
 
-	.nav-btn:hover {
-		background: var(--manga-red);
-		transform: scale(1.05);
-	}
+        .arc-sub {
+                font-family: var(--font-body);
+                font-size: clamp(0.75rem, 1.1vw, 0.88rem);
+                font-weight: 300;
+                line-height: 1.7;
+                color: rgba(255, 255, 255, 0.5);
+        }
 
-	.blog-preview {
-		max-width: 600px;
-		margin: 0 auto;
-		text-align: center;
-	}
+        .arc-character {
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                overflow: hidden;
+                padding: 0 16px;
+                flex: 1;
+                position: relative;
+                z-index: 2;
+        }
 
-	@media (max-width: 768px) {
-		.thought-navigation {
-			flex-direction: column;
-			gap: var(--space-3);
-		}
+        .arc-character img {
+                height: 45%;
+                max-height: 300px;
+                width: auto;
+                object-fit: contain;
+                object-position: bottom;
+                opacity: 0.85;
+                filter: drop-shadow(0 0 24px rgba(204, 20, 20, 0.25));
+        }
 
-		.nav-btn {
-			width: 100%;
-			text-align: center;
-		}
+        /* ---- Interests grid ---- */
+        .interests-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+        }
 
-		.thought-dots {
-			order: -1;
-		}
-	}
+        .interest-panel {
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                position: relative;
+                overflow: hidden;
+                background: rgba(255, 255, 255, 0.03);
+        }
+
+        .interest-panel--dark {
+                background: rgba(0, 0, 0, 0.4);
+        }
+
+        .interest-panel--red {
+                background: var(--red);
+                border-color: var(--red);
+        }
+
+        .interest-inner {
+                padding: clamp(16px, 3vw, 36px) clamp(16px, 2.5vw, 30px);
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                height: 100%;
+        }
+
+        .interest-icon {
+                font-size: clamp(1.4rem, 3vw, 2.2rem);
+                line-height: 1;
+        }
+
+        .interest-title {
+                font-family: var(--font-title);
+                font-size: clamp(1.3rem, 3vw, 2.2rem);
+                line-height: 0.92;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: var(--white);
+        }
+
+        .interest-sub {
+                font-family: var(--font-body);
+                font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+                font-weight: 300;
+                line-height: 1.6;
+                color: rgba(255, 255, 255, 0.55);
+                flex: 1;
+        }
+
+        .interest-panel--red .interest-sub {
+                color: rgba(255, 255, 255, 0.8);
+        }
+
+        .next-label,
+        .current-label {
+                font-family: var(--font-display);
+                font-size: 0.62rem;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.35);
+                margin-top: auto;
+        }
+
+        .next-label {
+                color: rgba(255, 255, 255, 0.35);
+        }
+
+        .interest-panel--red .next-label {
+                color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* ---- Contact bar ---- */
+        .contact-bar {
+                height: 52px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 clamp(20px, 4vw, 60px);
+                flex-shrink: 0;
+                gap: 20px;
+                position: relative;
+                z-index: 5;
+        }
+
+        .contact-text {
+                font-family: var(--font-display);
+                font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.45);
+        }
+
+        .contact-links {
+                display: flex;
+                gap: clamp(16px, 3vw, 32px);
+        }
+
+        .contact-link {
+                font-family: var(--font-display);
+                font-size: clamp(0.65rem, 1.1vw, 0.8rem);
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.45);
+                text-decoration: none;
+                padding-bottom: 2px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+                transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .contact-link:hover {
+                color: var(--red);
+                border-color: var(--red);
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+                .spread {
+                        grid-template-columns: 1fr;
+                        grid-template-rows: auto 1fr;
+                        overflow-y: auto;
+                }
+
+                .title-panel {
+                        border-right: none;
+                        border-bottom: 1px solid rgba(255,255,255,0.1);
+                        flex-direction: row;
+                        align-items: center;
+                }
+
+                .title-panel-inner {
+                        padding: 20px 24px;
+                }
+
+                .arc-character {
+                        flex: 0 0 100px;
+                        padding: 0 12px;
+                }
+
+                .arc-title {
+                        font-size: clamp(2rem, 10vw, 3.5rem);
+                }
+
+                .contact-bar {
+                        flex-direction: column;
+                        height: auto;
+                        padding: 16px 20px;
+                        gap: 12px;
+                }
+        }
 </style>

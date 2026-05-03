@@ -1,221 +1,324 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import GridOverlay from "./GridOverlay.svelte";
-    import CharacterImg from "./CharacterIntro.svelte";
-    import Introduction from "./Introduction.svelte";
-    import TableOfContents from "./TableOfContents.svelte";
-    import Socials from "./Socials.svelte";
+        import { onMount } from "svelte";
 
-	const browser = typeof window !== "undefined";
+        let loaded = false;
 
-    let isMobile = false;
-    let isLoaded = false;
-
-    let gridCells: GridLayout[] = [
-        {
-            content: Introduction,
-            rowSpan: 1,
-            colSpan: 1,
-            skewX: -2,
-            backgroundColor: "rgba(255,255,255,0.08)",
-            clipPath: "polygon(0 0, 100% 5%, 95% 100%, 0% 95%)",
-            effect: "appear",
-            effectDuration: 0.8,
-            effectDelay: 0.2,
-        },
-        {
-            content: CharacterImg,
-            rowSpan: 1,
-            colSpan: 1,
-            skewX: 2,
-            backgroundColor: "rgba(255,255,255,0.06)",
-            effect: "appear",
-            effectDuration: 0.8,
-            effectDelay: 0.5,
-        },
-        {
-            content: TableOfContents,
-            rowSpan: 1,
-            colSpan: 1,
-            skewY: -2,
-            backgroundColor: "rgba(255,255,255,0.08)",
-            effect: "appear",
-            effectDuration: 0.8,
-            effectDelay: 0.8,
-        },
-        {
-            content: Socials,
-            rowSpan: 1,
-            colSpan: 1,
-            backgroundColor: "rgba(255,255,255,0.06)",
-            effect: "appear",
-            effectDuration: 0.8,
-            effectDelay: 1.1,
-        },
-    ];
-
-    onMount(() => {
-        if (!browser) return;
-        
-        isMobile = window.innerWidth <= 768;
-        
-        const handleResize = () => {
-            isMobile = window.innerWidth <= 768;
-        };
-        
-        window.addEventListener('resize', handleResize);
-        
-        // Add entrance animation
-        setTimeout(() => {
-            isLoaded = true;
-        }, 100);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    });
+        onMount(() => {
+                const timer = setTimeout(() => (loaded = true), 80);
+                return () => clearTimeout(timer);
+        });
 </script>
 
-<!-- Mobile Version: Show Introduction only, hide grid -->
-<div class="intro" class:show={isMobile} class:loaded={isLoaded}>
-    <Introduction />
-</div>
+<section class="chapter cover" id="cover" aria-label="Cover">
+        <!-- Speed lines radiating from character -->
+        <div class="speed-lines" aria-hidden="true"></div>
 
-<!-- Desktop Version -->
-<section id="cover" class="spread" class:show={!isMobile} class:loaded={isLoaded}>
-    <div class="background-effects">
-        <div class="effect-particle"></div>
-        <div class="effect-particle"></div>
-        <div class="effect-particle"></div>
-    </div>
-    <GridOverlay rows={2} columns={2} cells={gridCells} />
+        <!-- Halftone dot texture -->
+        <div class="dots" aria-hidden="true"></div>
+
+        <!-- Diagonal ink slash accent -->
+        <div class="ink-slash" aria-hidden="true"></div>
+
+        <!-- Cover layout: text left, character right -->
+        <div class="cover-grid">
+                <!-- LEFT: Text block -->
+                <div class="cover-text" class:loaded>
+                        <p class="vol-label">Vol. 01 &nbsp;·&nbsp; Portfolio</p>
+
+                        <h1 class="cover-name">Rhaqim<span class="dot">.</span></h1>
+
+                        <div class="cover-roles">
+                                <span class="role">Backend Engineer</span>
+                                <span class="role">Systems Architect</span>
+                        </div>
+
+                        <div class="divider" aria-hidden="true"></div>
+
+                        <nav class="cover-links" aria-label="Social links">
+                                <a href="https://github.com/Rhaqim" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                <a href="https://www.linkedin.com/in/john-franklin-anusiem/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                                <a href="https://twitter.com/ivxnio" target="_blank" rel="noopener noreferrer">Twitter / X</a>
+                        </nav>
+                </div>
+
+                <!-- RIGHT: Character illustration -->
+                <div class="cover-character" class:loaded aria-hidden="true">
+                        <img
+                                src="/images/character/character.png"
+                                alt=""
+                                fetchpriority="high"
+                        />
+                </div>
+        </div>
+
+        <!-- Scroll hint -->
+        <div class="scroll-hint" class:loaded aria-hidden="true">
+                <span class="scroll-label">Read</span>
+                <div class="scroll-line"></div>
+        </div>
+
+        <!-- Page number -->
+        <span class="page-number" aria-hidden="true">01</span>
 </section>
 
 <style>
-    .spread {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        background: var(--manga-black);
-        background-image: 
-            radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 40% 60%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
-        perspective: 1000px;
-        display: none;
-        opacity: 0;
-        transform: scale(0.95);
-        transition: all 1s ease-out;
-    }
-
-    .spread.show {
-        display: block;
-    }
-
-    .spread.loaded {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    .intro {
-        display: none;
-        width: 100%;
-        min-height: 100vh;
-        background: var(--manga-black);
-        background-image: 
-            radial-gradient(circle at 30% 30%, rgba(220, 38, 38, 0.15) 0%, transparent 60%),
-            radial-gradient(circle at 70% 70%, rgba(37, 99, 235, 0.15) 0%, transparent 60%);
-        color: var(--manga-white);
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 1s ease-out;
-        padding: var(--space-4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .intro.show {
-        display: flex;
-    }
-
-    .intro.loaded {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .background-effects {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .effect-particle {
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        background: var(--manga-white);
-        border-radius: 50%;
-        opacity: 0.3;
-        animation: float 6s ease-in-out infinite;
-    }
-
-    .effect-particle:nth-child(1) {
-        top: 20%;
-        left: 10%;
-        animation-delay: 0s;
-        animation-duration: 8s;
-    }
-
-    .effect-particle:nth-child(2) {
-        top: 60%;
-        right: 15%;
-        animation-delay: 2s;
-        animation-duration: 10s;
-    }
-
-    .effect-particle:nth-child(3) {
-        bottom: 30%;
-        left: 70%;
-        animation-delay: 4s;
-        animation-duration: 7s;
-    }
-
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-            opacity: 0.3;
-        }
-        50% {
-            transform: translateY(-20px) rotate(180deg);
-            opacity: 0.6;
-        }
-    }
-
-    /* Media Queries */
-    @media (max-width: 768px) {
-        .spread {
-            display: none !important;
+        /* ---- Cover section ---- */
+        .cover {
+                background: var(--ink);
+                color: var(--white);
+                display: flex;
+                align-items: stretch;
         }
 
-        .intro {
-            display: flex !important;
-            padding: var(--space-3);
+        /* ---- Speed lines ---- */
+        .speed-lines {
+                position: absolute;
+                inset: 0;
+                background: conic-gradient(
+                        from 0deg at 68% 52%,
+                        transparent 0deg, rgba(255,255,255,0.024) 0.6deg, transparent 1.2deg,
+                        transparent 4.5deg, rgba(255,255,255,0.018) 5.1deg, transparent 5.7deg,
+                        transparent 9deg, rgba(255,255,255,0.030) 9.6deg, transparent 10.2deg,
+                        transparent 13.5deg, rgba(255,255,255,0.016) 14.1deg, transparent 14.7deg,
+                        transparent 18deg, rgba(255,255,255,0.022) 18.6deg, transparent 19.2deg,
+                        transparent 22.5deg, rgba(255,255,255,0.014) 23.1deg, transparent 23.7deg,
+                        transparent 50deg, rgba(255,255,255,0.012) 50.6deg, transparent 51.2deg,
+                        transparent 310deg, rgba(255,255,255,0.016) 310.6deg, transparent 311.2deg,
+                        transparent 330deg, rgba(255,255,255,0.022) 330.6deg, transparent 331.2deg,
+                        transparent 345deg, rgba(255,255,255,0.018) 345.6deg, transparent 346.2deg,
+                        transparent 355deg, rgba(255,255,255,0.024) 355.6deg, transparent 356.2deg
+                );
+                pointer-events: none;
+                z-index: 1;
         }
-    }
 
-    @media (min-width: 769px) {
-        .intro {
-            display: none !important;
+        /* ---- Halftone dots ---- */
+        .dots {
+                position: absolute;
+                inset: 0;
+                background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+                background-size: 22px 22px;
+                pointer-events: none;
+                z-index: 1;
         }
 
-        .spread {
-            display: block !important;
+        /* ---- Diagonal ink accent ---- */
+        .ink-slash {
+                position: absolute;
+                top: 0;
+                right: 42%;
+                width: 3px;
+                height: 100%;
+                background: var(--red);
+                transform: skewX(-6deg);
+                opacity: 0.7;
+                z-index: 2;
+                pointer-events: none;
         }
-    }
+
+        /* ---- Cover grid ---- */
+        .cover-grid {
+                position: relative;
+                z-index: 3;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                width: 100%;
+                height: 100%;
+        }
+
+        /* ---- Left: text ---- */
+        .cover-text {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 0 clamp(24px, 6vw, 80px);
+                opacity: 0;
+                transform: translateX(-50px);
+                transition:
+                        opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+                        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+        }
+
+        .cover-text.loaded {
+                opacity: 1;
+                transform: translateX(0);
+        }
+
+        .vol-label {
+                font-family: var(--font-display);
+                font-size: clamp(0.65rem, 1vw, 0.8rem);
+                letter-spacing: 5px;
+                text-transform: uppercase;
+                color: var(--red);
+                margin-bottom: clamp(12px, 2vh, 20px);
+        }
+
+        .cover-name {
+                font-family: var(--font-title);
+                font-size: clamp(4.5rem, 13vw, 10rem);
+                line-height: 0.86;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--white);
+                margin-bottom: clamp(16px, 3vh, 28px);
+        }
+
+        .dot {
+                color: var(--red);
+        }
+
+        .cover-roles {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                margin-bottom: clamp(20px, 4vh, 36px);
+        }
+
+        .role {
+                font-family: var(--font-display);
+                font-size: clamp(0.9rem, 2vw, 1.4rem);
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.6);
+                line-height: 1.3;
+        }
+
+        .divider {
+                width: 48px;
+                height: 3px;
+                background: var(--red);
+                margin-bottom: clamp(20px, 4vh, 36px);
+        }
+
+        .cover-links {
+                display: flex;
+                gap: clamp(16px, 3vw, 28px);
+                flex-wrap: wrap;
+        }
+
+        .cover-links a {
+                font-family: var(--font-display);
+                font-size: clamp(0.7rem, 1.1vw, 0.85rem);
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.45);
+                text-decoration: none;
+                padding-bottom: 3px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+                transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .cover-links a:hover {
+                color: var(--red);
+                border-color: var(--red);
+        }
+
+        /* ---- Right: character ---- */
+        .cover-character {
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                overflow: hidden;
+                opacity: 0;
+                transform: translateY(30px);
+                transition:
+                        opacity 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s,
+                        transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s;
+        }
+
+        .cover-character.loaded {
+                opacity: 1;
+                transform: translateY(0);
+        }
+
+        .cover-character img {
+                height: 94vh;
+                max-height: 960px;
+                width: auto;
+                object-fit: contain;
+                object-position: bottom center;
+                filter: drop-shadow(-8px 0 60px rgba(204, 20, 20, 0.18));
+        }
+
+        /* ---- Scroll hint ---- */
+        .scroll-hint {
+                position: absolute;
+                bottom: 28px;
+                left: clamp(24px, 6vw, 80px);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                opacity: 0;
+                transition: opacity 0.8s ease 1.3s;
+                z-index: 4;
+        }
+
+        .scroll-hint.loaded {
+                opacity: 0.38;
+        }
+
+        .scroll-label {
+                font-family: var(--font-display);
+                font-size: 0.65rem;
+                letter-spacing: 4px;
+                text-transform: uppercase;
+                color: var(--white);
+        }
+
+        .scroll-line {
+                width: 40px;
+                height: 1px;
+                background: rgba(255, 255, 255, 0.5);
+                position: relative;
+                overflow: hidden;
+        }
+
+        .scroll-line::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: var(--red);
+                animation: scroll-sweep 2.2s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes scroll-sweep {
+                0% { left: -100%; }
+                50% { left: 0%; }
+                100% { left: 100%; }
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 768px) {
+                .cover-grid {
+                        grid-template-columns: 1fr;
+                        grid-template-rows: auto 1fr;
+                }
+
+                .cover-text {
+                        grid-row: 1;
+                        padding: clamp(60px, 12vh, 100px) 24px 16px;
+                        justify-content: flex-end;
+                }
+
+                .cover-character {
+                        grid-row: 2;
+                        align-items: flex-end;
+                        height: 55vh;
+                }
+
+                .cover-character img {
+                        height: 100%;
+                }
+
+                .ink-slash {
+                        display: none;
+                }
+
+                .cover-name {
+                        font-size: clamp(3.5rem, 18vw, 6rem);
+                }
+        }
 </style>

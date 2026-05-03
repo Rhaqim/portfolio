@@ -3,76 +3,53 @@ import "@styles/manga.css";
 ---
 
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Rhaqim's Manga Portfolio</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Anton:wght@400&family=Bangers&family=Noto+Sans+JP:wght@300;400;700;900&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="icon" type="image/svg+xml" href="/images/character/character.png" />
-        <meta name="generator" content={Astro.generator} />
-        <meta name="description" content="Rhaqim - A manga-inspired portfolio showcasing innovative software engineering projects" />
-        <meta name="theme-color" content="#000000" />
-        
-        <!-- Performance optimizations -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-        <!-- Open Graph meta tags -->
-        <meta property="og:title" content="Rhaqim's Manga Portfolio" />
-        <meta property="og:description" content="A manga-inspired portfolio showcasing innovative software engineering projects" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/images/character/character.png" />
-        
-        <!-- Twitter meta tags -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Rhaqim's Manga Portfolio" />
-        <meta name="twitter:description" content="A manga-inspired portfolio showcasing innovative software engineering projects" />
-    </head>
-    <body>
-        <main>
-            <slot />
-        </main>
-    </body>
+        <head>
+                <meta charset="UTF-8" />
+                <title>Rhaqim — Portfolio</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <link
+                        rel="preconnect"
+                        href="https://fonts.googleapis.com"
+                />
+                <link
+                        rel="preconnect"
+                        href="https://fonts.gstatic.com"
+                        crossorigin
+                />
+                <link
+                        href="https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Anton&family=Noto+Sans+JP:wght@300;400;700;900&display=swap"
+                        rel="stylesheet"
+                />
+                <link rel="icon" type="image/png" href="/images/character/character.png" />
+                <meta name="generator" content={Astro.generator} />
+                <meta
+                        name="description"
+                        content="Rhaqim — Backend Engineer & Systems Architect. Manga-inspired portfolio."
+                />
+                <meta name="theme-color" content="#000000" />
+                <meta property="og:title" content="Rhaqim — Portfolio" />
+                <meta property="og:description" content="Backend Engineer & Systems Architect. Go · Rust · Embedded Systems." />
+                <meta property="og:type" content="website" />
+                <meta property="og:image" content="/images/character/character.png" />
+                <meta name="twitter:card" content="summary_large_image" />
+        </head>
+        <body>
+                <slot />
+        </body>
 </html>
 
 <style>
-    html {
-        scroll-behavior: smooth;
-        overflow-x: hidden;
-    }
-    
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-        background: var(--manga-black);
-    }
-    
-    main {
-        width: 100%;
-        min-height: 100vh;
-        position: relative;
-        /* Remove perspective that might interfere with full viewport layouts */
-    }
-    
-    /* Ensure smooth scrolling on all browsers */
-    @media (prefers-reduced-motion: no-preference) {
+        /* html scroll-snap is handled by MangaBook's inner scroll container */
         html {
-            scroll-behavior: smooth;
+                overflow: hidden;
+                height: 100%;
         }
-    }
-    
-    /* Handle reduced motion preference */
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
+
+        body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                overflow: hidden;
+                background: var(--ink);
         }
-    }
 </style>
