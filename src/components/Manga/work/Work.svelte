@@ -14,21 +14,26 @@
         <!-- Halftone -->
         <div class="dots" aria-hidden="true"></div>
 
-        <!-- Timeline -->
+        <!-- Full-width stacked job panels -->
         <div class="timeline">
                 {#each workHistory as job, i}
                         <article
                                 class="job-panel"
-                                class:job-panel--right={i % 2 === 1}
-                                use:reveal={{ direction: i % 2 === 0 ? 'left' : 'right', delay: i * 0.14 }}
+                                class:job-panel--alt={i % 2 === 1}
+                                class:job-panel--last={i === workHistory.length - 1}
+                                use:reveal={{ direction: 'up', delay: i * 0.12 }}
                                 aria-label="{job.role} at {job.company}"
                         >
-                                <!-- Period tab -->
-                                <div class="period-tab" aria-hidden="true">{job.period}</div>
-
                                 <div class="job-inner">
-                                        <div class="job-header">
-                                                <div>
+                                        <!-- Left: accent stripe + period -->
+                                        <div class="job-accent">
+                                                <div class="accent-stripe" aria-hidden="true"></div>
+                                                <span class="period-label">{job.period}</span>
+                                        </div>
+
+                                        <!-- Center: main content -->
+                                        <div class="job-content">
+                                                <div class="job-header">
                                                         <h2 class="company-name">
                                                                 <a href={job.companyUrl} target="_blank" rel="noopener noreferrer">
                                                                         {job.company}
@@ -36,26 +41,25 @@
                                                         </h2>
                                                         <p class="job-role">{job.role}</p>
                                                 </div>
-                                                {#if i === 0}
-                                                        <span class="current-badge">Current</span>
-                                                {/if}
+
+                                                <blockquote class="job-impact">
+                                                        {job.impact}
+                                                </blockquote>
+
+                                                <div class="tech-list">
+                                                        {#each job.technologies as tech}
+                                                                <span class="tech-tag">{tech}</span>
+                                                        {/each}
+                                                </div>
                                         </div>
 
-                                        <!-- Impact: one bold sentence -->
-                                        <blockquote class="job-impact">
-                                                {job.impact}
-                                        </blockquote>
-
-                                        <!-- Tech tags -->
-                                        <div class="tech-list">
-                                                {#each job.technologies as tech}
-                                                        <span class="tech-tag">{tech}</span>
-                                                {/each}
-                                        </div>
+                                        <!-- Right: decorative number -->
+                                        <div class="job-number" aria-hidden="true">0{i + 1}</div>
                                 </div>
 
-                                <!-- Decorative number -->
-                                <div class="job-number" aria-hidden="true">0{i + 1}</div>
+                                {#if i === 0}
+                                        <span class="current-badge">Current</span>
+                                {/if}
                         </article>
                 {/each}
         </div>
@@ -73,7 +77,7 @@
 
         /* Chapter bar */
         .chapter-bar {
-                height: 36px;
+                height: 44px;
                 background: var(--ink);
                 display: flex;
                 align-items: center;
@@ -86,7 +90,7 @@
 
         .bar-label {
                 font-family: var(--font-display);
-                font-size: 0.72rem;
+                font-size: 0.9rem;
                 letter-spacing: 5px;
                 text-transform: uppercase;
                 color: var(--red);
@@ -101,14 +105,14 @@
 
         .dots {
                 position: absolute;
-                inset: 36px 0 0 0;
+                inset: 44px 0 0 0;
                 background-image: radial-gradient(circle, rgba(0,0,0,0.05) 1px, transparent 1px);
                 background-size: 18px 18px;
                 pointer-events: none;
                 z-index: 0;
         }
 
-        /* ---- Timeline ---- */
+        /* ---- Full-width stacked panels ---- */
         .timeline {
                 flex: 1;
                 display: grid;
@@ -118,79 +122,76 @@
                 overflow: hidden;
         }
 
-        /* Vertical spine line */
-        .timeline::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 50%;
-                width: 4px;
-                background: var(--ink);
-                transform: translateX(-50%);
-                z-index: 0;
-        }
-
         /* ---- Job panels ---- */
         .job-panel {
                 position: relative;
-                border: var(--border);
+                border-bottom: var(--border);
                 background: var(--paper);
-                margin: clamp(8px, 1.5vh, 14px) clamp(16px, 4vw, 60px) clamp(8px, 1.5vh, 14px) clamp(16px, 4vw, 60px);
-                border-radius: var(--panel-radius);
-                box-shadow: var(--panel-shadow);
                 overflow: hidden;
-
-                /* Alternate: left-aligned by default */
-                margin-right: calc(50% + 24px);
         }
 
-        .job-panel--right {
-                margin-left: calc(50% + 24px);
-                margin-right: clamp(16px, 4vw, 60px);
+        .job-panel--alt {
                 background: var(--white);
         }
 
+        .job-panel--last {
+                border-bottom: none;
+        }
+
         .job-inner {
-                padding: clamp(14px, 2.5vw, 28px);
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
+                display: grid;
+                grid-template-columns: 120px 1fr auto;
+                gap: clamp(16px, 3vw, 40px);
+                align-items: center;
+                padding: clamp(18px, 3vh, 36px) clamp(20px, 4vw, 56px);
                 height: 100%;
         }
 
-        /* ---- Period tab ---- */
-        .period-tab {
-                position: absolute;
-                top: 0;
-                right: 0;
-                background: var(--ink);
-                color: var(--white);
+        /* ---- Left accent column ---- */
+        .job-accent {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                height: 100%;
+                justify-content: center;
+        }
+
+        .accent-stripe {
+                width: 4px;
+                flex: 1;
+                max-height: 48px;
+                background: var(--red);
+                border-radius: 2px;
+        }
+
+        .period-label {
                 font-family: var(--font-display);
-                font-size: 0.62rem;
+                font-size: 0.8rem;
                 letter-spacing: 2px;
-                padding: 3px 10px;
-                border-bottom-left-radius: 4px;
+                text-transform: uppercase;
+                color: var(--gray);
+                white-space: nowrap;
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
         }
 
-        .job-panel--right .period-tab {
-                right: auto;
-                left: 0;
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 4px;
+        /* ---- Center content ---- */
+        .job-content {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(10px, 1.5vh, 18px);
         }
 
-        /* ---- Job header ---- */
         .job-header {
                 display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-                gap: 12px;
+                flex-direction: column;
+                gap: 4px;
         }
 
         .company-name {
                 font-family: var(--font-title);
-                font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+                font-size: clamp(2rem, 4.5vw, 3.5rem);
                 line-height: 0.9;
                 letter-spacing: 1px;
                 text-transform: uppercase;
@@ -209,30 +210,16 @@
 
         .job-role {
                 font-family: var(--font-display);
-                font-size: clamp(0.68rem, 1.2vw, 0.82rem);
+                font-size: clamp(0.88rem, 1.3vw, 1rem);
                 letter-spacing: 3px;
                 text-transform: uppercase;
                 color: var(--gray);
-                margin-top: 4px;
-        }
-
-        .current-badge {
-                font-family: var(--font-display);
-                font-size: 0.62rem;
-                letter-spacing: 2px;
-                padding: 2px 8px;
-                background: var(--red);
-                color: var(--white);
-                text-transform: uppercase;
-                border: 2px solid var(--ink);
-                white-space: nowrap;
-                flex-shrink: 0;
         }
 
         /* ---- Impact quote ---- */
         .job-impact {
                 font-family: var(--font-body);
-                font-size: clamp(0.8rem, 1.2vw, 0.92rem);
+                font-size: clamp(0.95rem, 1.4vw, 1.1rem);
                 font-weight: 700;
                 line-height: 1.5;
                 color: var(--near-black);
@@ -245,15 +232,14 @@
         .tech-list {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 4px;
-                margin-top: auto;
+                gap: 5px;
         }
 
         .tech-tag {
                 font-family: var(--font-display);
-                font-size: 0.62rem;
+                font-size: 0.78rem;
                 letter-spacing: 1px;
-                padding: 2px 8px;
+                padding: 3px 10px;
                 border: 2px solid var(--ink);
                 background: transparent;
                 color: var(--near-black);
@@ -261,56 +247,60 @@
                 border-radius: 2px;
         }
 
-        /* ---- Job number watermark ---- */
+        /* ---- Right decorative number ---- */
         .job-number {
-                position: absolute;
-                bottom: 8px;
-                right: 14px;
                 font-family: var(--font-title);
-                font-size: clamp(2rem, 5vw, 4rem);
+                font-size: clamp(3rem, 7vw, 6rem);
                 color: rgba(0, 0, 0, 0.04);
                 line-height: 1;
                 pointer-events: none;
                 user-select: none;
+                flex-shrink: 0;
         }
 
-        .job-panel--right .job-number {
-                right: auto;
-                left: 14px;
+        /* ---- Current badge (absolute on panel) ---- */
+        .current-badge {
+                position: absolute;
+                top: 0;
+                right: 0;
+                font-family: var(--font-display);
+                font-size: 0.72rem;
+                letter-spacing: 2px;
+                padding: 4px 14px;
+                background: var(--red);
+                color: var(--white);
+                text-transform: uppercase;
+                border: 2px solid var(--ink);
+                white-space: nowrap;
         }
 
         /* ---- Responsive ---- */
         @media (max-width: 768px) {
-                .timeline::before {
-                        left: 24px;
+                .job-inner {
+                        grid-template-columns: 1fr;
+                        gap: 12px;
+                        padding: 20px;
                 }
 
-                .job-panel {
-                        margin: 8px 16px 8px 48px;
+                .job-accent {
+                        flex-direction: row;
+                        height: auto;
+                        justify-content: flex-start;
                 }
 
-                .job-panel--right {
-                        margin: 8px 16px 8px 48px;
-                        background: var(--paper);
+                .accent-stripe {
+                        width: 36px;
+                        height: 4px;
+                        flex: none;
+                        max-height: none;
                 }
 
-                .period-tab {
-                        right: 0;
-                        left: auto;
-                        border-bottom-left-radius: 4px;
-                        border-bottom-right-radius: 0;
+                .period-label {
+                        writing-mode: horizontal-tb;
                 }
 
-                .job-panel--right .period-tab {
-                        right: 0;
-                        left: auto;
-                        border-bottom-left-radius: 4px;
-                        border-bottom-right-radius: 0;
-                }
-
-                .job-panel--right .job-number {
-                        right: 14px;
-                        left: auto;
+                .job-number {
+                        display: none;
                 }
         }
 </style>

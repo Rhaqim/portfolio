@@ -2,10 +2,41 @@
         import { onMount } from "svelte";
 
         let loaded = false;
+        let glitching = false;
+        let japanese = false;
 
         onMount(() => {
-                const timer = setTimeout(() => (loaded = true), 80);
-                return () => clearTimeout(timer);
+                const loadTimer = setTimeout(() => (loaded = true), 80);
+
+                let glitchTimeout: ReturnType<typeof setTimeout>;
+
+                function scheduleGlitch() {
+                        // Fire every 3 seconds
+                        const delay = 3000;
+                        glitchTimeout = setTimeout(() => {
+                                // Phase 1: start chromatic aberration glitch
+                                glitching = true;
+
+                                // Phase 2 (180ms in): swap text to Japanese
+                                setTimeout(() => { japanese = true; }, 180);
+
+                                // Phase 3 (700ms in): restore English
+                                setTimeout(() => { japanese = false; }, 700);
+
+                                // Phase 4 (900ms in): end glitch, schedule next
+                                setTimeout(() => {
+                                        glitching = false;
+                                        scheduleGlitch();
+                                }, 900);
+                        }, delay);
+                }
+
+                scheduleGlitch();
+
+                return () => {
+                        clearTimeout(loadTimer);
+                        clearTimeout(glitchTimeout);
+                };
         });
 </script>
 
@@ -25,7 +56,13 @@
                 <div class="cover-text" class:loaded>
                         <p class="vol-label">Vol. 01 &nbsp;·&nbsp; Portfolio</p>
 
-                        <h1 class="cover-name">Rhaqim<span class="dot">.</span></h1>
+                        <h1 class="cover-name">
+                                <span
+                                        class="name-glitch"
+                                        class:glitching
+                                        data-text={japanese ? 'ラキム' : 'Rhaqim'}
+                                >{japanese ? 'ラキム' : 'Rhaqim'}</span><span class="dot">.</span>
+                        </h1>
 
                         <div class="cover-roles">
                                 <span class="role">Backend Engineer</span>
@@ -146,7 +183,7 @@
 
         .vol-label {
                 font-family: var(--font-display);
-                font-size: clamp(0.65rem, 1vw, 0.8rem);
+                font-size: clamp(0.85rem, 1.2vw, 1rem);
                 letter-spacing: 5px;
                 text-transform: uppercase;
                 color: var(--red);
@@ -163,6 +200,97 @@
                 margin-bottom: clamp(16px, 3vh, 28px);
         }
 
+        /* ---- Akira-style name glitch ---- */
+        .name-glitch {
+                position: relative;
+                display: inline-block;
+        }
+
+        /* Red channel — shifts left */
+        .name-glitch::before,
+        /* Cyan channel — shifts right */
+        .name-glitch::after {
+                content: attr(data-text);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                font-family: inherit;
+                font-size: inherit;
+                line-height: inherit;
+                letter-spacing: inherit;
+                text-transform: inherit;
+                opacity: 0;
+                pointer-events: none;
+        }
+
+        .name-glitch::before {
+                color: var(--red);
+        }
+
+        .name-glitch::after {
+                color: #00e5ff;
+        }
+
+        .name-glitch.glitching {
+                animation: glitch-body 0.9s steps(1) forwards;
+        }
+
+        .name-glitch.glitching::before {
+                opacity: 1;
+                animation: glitch-red 0.9s steps(1) forwards;
+        }
+
+        .name-glitch.glitching::after {
+                opacity: 1;
+                animation: glitch-cyan 0.9s steps(1) forwards;
+        }
+
+        @keyframes glitch-body {
+                0%   { transform: translate(0, 0); }
+                8%   { transform: translate(-4px, 1px); }
+                16%  { transform: translate(4px, -2px); }
+                24%  { transform: translate(0, 0); }
+                32%  { transform: translate(-3px, 2px); }
+                40%  { transform: translate(2px, -1px); }
+                48%  { transform: translate(0, 0); }
+                56%  { transform: translate(-2px, 1px); }
+                64%  { transform: translate(3px, 0); }
+                72%  { transform: translate(0, 0); }
+                80%  { transform: translate(-1px, 1px); }
+                90%  { transform: translate(1px, -1px); }
+                100% { transform: translate(0, 0); }
+        }
+
+        @keyframes glitch-red {
+                0%   { transform: translate(-6px, 0);  clip-path: inset(0% 0 88% 0); }
+                10%  { transform: translate(-8px, 0);  clip-path: inset(32% 0 48% 0); }
+                20%  { transform: translate(-5px, 2px); clip-path: inset(68% 0 12% 0); }
+                30%  { transform: translate(-7px, 0);  clip-path: inset(12% 0 78% 0); }
+                40%  { transform: translate(-4px, -1px); clip-path: inset(52% 0 32% 0); }
+                50%  { transform: translate(-6px, 0);  clip-path: inset(78% 0 8% 0); }
+                60%  { transform: translate(-3px, 1px); clip-path: inset(22% 0 62% 0); }
+                70%  { transform: translate(-5px, 0);  clip-path: inset(44% 0 42% 0); }
+                80%  { transform: translate(-2px, -1px); clip-path: inset(62% 0 24% 0); }
+                90%  { transform: translate(-4px, 0);  clip-path: inset(88% 0 2% 0); }
+                100% { transform: translate(0, 0);     clip-path: inset(0 0 100% 0); opacity: 0; }
+        }
+
+        @keyframes glitch-cyan {
+                0%   { transform: translate(6px, 0);  clip-path: inset(78% 0 8% 0); }
+                10%  { transform: translate(8px, -1px); clip-path: inset(18% 0 68% 0); }
+                20%  { transform: translate(5px, 1px); clip-path: inset(48% 0 38% 0); }
+                30%  { transform: translate(7px, 0);  clip-path: inset(72% 0 18% 0); }
+                40%  { transform: translate(4px, -2px); clip-path: inset(8% 0 78% 0); }
+                50%  { transform: translate(6px, 0);  clip-path: inset(38% 0 52% 0); }
+                60%  { transform: translate(3px, 1px); clip-path: inset(82% 0 6% 0); }
+                70%  { transform: translate(5px, 0);  clip-path: inset(28% 0 58% 0); }
+                80%  { transform: translate(2px, -1px); clip-path: inset(58% 0 28% 0); }
+                90%  { transform: translate(4px, 0);  clip-path: inset(92% 0 2% 0); }
+                100% { transform: translate(0, 0);    clip-path: inset(0 0 100% 0); opacity: 0; }
+        }
+
         .dot {
                 color: var(--red);
         }
@@ -176,7 +304,7 @@
 
         .role {
                 font-family: var(--font-display);
-                font-size: clamp(0.9rem, 2vw, 1.4rem);
+                font-size: clamp(1.1rem, 2.3vw, 1.6rem);
                 letter-spacing: 3px;
                 text-transform: uppercase;
                 color: rgba(255, 255, 255, 0.6);
@@ -198,7 +326,7 @@
 
         .cover-links a {
                 font-family: var(--font-display);
-                font-size: clamp(0.7rem, 1.1vw, 0.85rem);
+                font-size: clamp(0.85rem, 1.3vw, 1.05rem);
                 letter-spacing: 2px;
                 text-transform: uppercase;
                 color: rgba(255, 255, 255, 0.45);

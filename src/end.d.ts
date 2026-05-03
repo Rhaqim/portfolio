@@ -38,6 +38,7 @@ type Project = {
         featured: boolean;
         year: string;
         url?: string;
+        githubUrl?: string;
 };
 
 type Interest = {

@@ -61,7 +61,7 @@
         <div class="contact-bar" use:reveal={{ direction: 'up', delay: 0.6 }}>
                 <span class="contact-text">Let's build something.</span>
                 <div class="contact-links">
-                        <a href="mailto:rhaqim@example.com" class="contact-link">Email</a>
+                        <a href="mailto:anusiemj@gmail.com" class="contact-link">Email</a>
                         <a href="https://github.com/Rhaqim" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub</a>
                         <a href="https://www.linkedin.com/in/john-franklin-anusiem/" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a>
                 </div>
@@ -80,7 +80,7 @@
 
         /* Chapter bar */
         .chapter-bar {
-                height: 36px;
+                height: 44px;
                 background: var(--red);
                 display: flex;
                 align-items: center;
@@ -93,7 +93,7 @@
 
         .bar-label {
                 font-family: var(--font-display);
-                font-size: 0.72rem;
+                font-size: 0.9rem;
                 letter-spacing: 5px;
                 text-transform: uppercase;
                 color: var(--white);
@@ -132,7 +132,7 @@
 
         .arc-eyebrow {
                 font-family: var(--font-display);
-                font-size: clamp(0.62rem, 1vw, 0.75rem);
+                font-size: clamp(0.85rem, 1.2vw, 1rem);
                 letter-spacing: 4px;
                 text-transform: uppercase;
                 color: var(--red);
@@ -158,7 +158,7 @@
 
         .arc-sub {
                 font-family: var(--font-body);
-                font-size: clamp(0.75rem, 1.1vw, 0.88rem);
+                font-size: clamp(0.9rem, 1.3vw, 1.05rem);
                 font-weight: 300;
                 line-height: 1.7;
                 color: rgba(255, 255, 255, 0.5);
@@ -176,8 +176,8 @@
         }
 
         .arc-character img {
-                height: 45%;
-                max-height: 300px;
+                height: 65%;
+                max-height: 380px;
                 width: auto;
                 object-fit: contain;
                 object-position: bottom;
@@ -232,7 +232,7 @@
 
         .interest-sub {
                 font-family: var(--font-body);
-                font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+                font-size: clamp(0.88rem, 1.3vw, 1rem);
                 font-weight: 300;
                 line-height: 1.6;
                 color: rgba(255, 255, 255, 0.55);
@@ -246,7 +246,7 @@
         .next-label,
         .current-label {
                 font-family: var(--font-display);
-                font-size: 0.62rem;
+                font-size: 0.78rem;
                 letter-spacing: 3px;
                 text-transform: uppercase;
                 color: rgba(255, 255, 255, 0.35);
@@ -277,7 +277,7 @@
 
         .contact-text {
                 font-family: var(--font-display);
-                font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+                font-size: clamp(0.9rem, 1.6vw, 1.1rem);
                 letter-spacing: 3px;
                 text-transform: uppercase;
                 color: rgba(255, 255, 255, 0.45);
@@ -290,7 +290,7 @@
 
         .contact-link {
                 font-family: var(--font-display);
-                font-size: clamp(0.65rem, 1.1vw, 0.8rem);
+                font-size: clamp(0.85rem, 1.2vw, 1rem);
                 letter-spacing: 2px;
                 text-transform: uppercase;
                 color: rgba(255, 255, 255, 0.45);

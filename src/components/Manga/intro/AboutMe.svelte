@@ -85,7 +85,7 @@
 
         /* Chapter label bar across top */
         .chapter-bar {
-                height: 36px;
+                height: 44px;
                 background: var(--ink);
                 display: flex;
                 align-items: center;
@@ -97,7 +97,7 @@
 
         .bar-label {
                 font-family: var(--font-display);
-                font-size: 0.72rem;
+                font-size: 0.9rem;
                 letter-spacing: 5px;
                 text-transform: uppercase;
                 color: var(--red);
@@ -105,7 +105,7 @@
 
         .dots {
                 position: absolute;
-                inset: 36px 0 0 0;
+                inset: 44px 0 0 0;
                 background-image: radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
                 background-size: 18px 18px;
                 pointer-events: none;
@@ -146,8 +146,8 @@
         }
 
         .character-wrap img {
-                height: 75%;
-                max-height: 500px;
+                height: 90%;
+                max-height: 580px;
                 width: auto;
                 object-fit: contain;
                 object-position: bottom center;
@@ -157,10 +157,10 @@
                 background: var(--white);
                 border: var(--border);
                 border-radius: 14px;
-                padding: 14px 20px;
+                padding: 16px 22px;
                 position: relative;
                 font-family: var(--font-body);
-                font-size: clamp(0.82rem, 1.3vw, 1rem);
+                font-size: clamp(1rem, 1.8vw, 1.25rem);
                 line-height: 1.55;
                 font-weight: 700;
                 margin-bottom: 8px;
@@ -241,7 +241,7 @@
 
         .skill-label {
                 font-family: var(--font-display);
-                font-size: clamp(0.65rem, 1vw, 0.75rem);
+                font-size: clamp(0.85rem, 1.2vw, 1rem);
                 letter-spacing: 4px;
                 text-transform: uppercase;
                 color: var(--gray);
@@ -259,9 +259,9 @@
 
         .tech-tag {
                 font-family: var(--font-display);
-                font-size: 0.7rem;
+                font-size: 0.85rem;
                 letter-spacing: 1px;
-                padding: 3px 10px;
+                padding: 4px 12px;
                 border: 2px solid var(--ink);
                 background: var(--ink);
                 color: var(--white);
