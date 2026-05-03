@@ -1,37 +1,50 @@
 ---
 import "@styles/manga.css";
+
+const siteUrl = "https://rhaqim.pages.dev";
+const title = "RHAQIM. — Backend Engineer & Systems Architect";
+const description =
+        "I build high-performance systems — telecom infrastructure, AI storytelling engines, storage microservices. Go, Rust, TypeScript. Let's ship something real.";
+const ogImage = `${siteUrl}/og.svg`;
 ---
 
 <html lang="en">
         <head>
                 <meta charset="UTF-8" />
-                <title>Rhaqim — Portfolio</title>
+                <title>{title}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link
-                        rel="preconnect"
-                        href="https://fonts.googleapis.com"
-                />
-                <link
-                        rel="preconnect"
-                        href="https://fonts.gstatic.com"
-                        crossorigin
-                />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                 <link
                         href="https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Anton&family=Noto+Sans+JP:wght@300;400;700;900&display=swap"
                         rel="stylesheet"
                 />
                 <link rel="icon" type="image/png" href="/images/character/character.png" />
                 <meta name="generator" content={Astro.generator} />
-                <meta
-                        name="description"
-                        content="Rhaqim — Backend Engineer & Systems Architect. Manga-inspired portfolio."
-                />
-                <meta name="theme-color" content="#000000" />
-                <meta property="og:title" content="Rhaqim — Portfolio" />
-                <meta property="og:description" content="Backend Engineer & Systems Architect. Go · Rust · Embedded Systems." />
+
+                <!-- Primary -->
+                <meta name="description" content={description} />
+                <meta name="author" content="Rhaqim" />
+                <meta name="theme-color" content="#cc1414" />
+
+                <!-- Open Graph -->
                 <meta property="og:type" content="website" />
-                <meta property="og:image" content="/images/character/character.png" />
+                <meta property="og:url" content={siteUrl} />
+                <meta property="og:site_name" content="Rhaqim" />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:image" content={ogImage} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:image:alt" content="RHAQIM. — Backend Engineer & Systems Architect" />
+                <meta property="og:locale" content="en_US" />
+
+                <!-- Twitter / X -->
                 <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={title} />
+                <meta name="twitter:description" content={description} />
+                <meta name="twitter:image" content={ogImage} />
+                <meta name="twitter:image:alt" content="RHAQIM. — Backend Engineer & Systems Architect" />
         </head>
         <body>
                 <slot />

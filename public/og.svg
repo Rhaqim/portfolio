@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.5" fill="#ffffff" opacity="0.07"/>
+    </pattern>
+    <clipPath id="clip">
+      <rect width="1200" height="630"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#080808"/>
+
+  <!-- Halftone texture -->
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <!-- Left red accent bar -->
+  <rect x="0" y="0" width="10" height="630" fill="#cc1414"/>
+
+  <!-- Bottom red bar -->
+  <rect x="0" y="612" width="1200" height="18" fill="#cc1414"/>
+
+  <!-- Chapter label -->
+  <text x="40" y="62" font-family="Impact,'Arial Black',sans-serif" font-size="13" fill="#cc1414" letter-spacing="7">CHAPTER 01 — BACKEND ENGINEER</text>
+
+  <!-- Large faded watermark number -->
+  <text x="900" y="420" font-family="Impact,'Arial Black',sans-serif" font-size="320" fill="#ffffff" opacity="0.03" clip-path="url(#clip)">01</text>
+
+  <!-- Japanese watermark -->
+  <text x="820" y="380" font-family="'Noto Sans JP','Hiragino Sans',sans-serif" font-size="130" fill="#cc1414" opacity="0.06">ラキム</text>
+
+  <!-- Main name -->
+  <text x="40" y="350" font-family="Impact,'Arial Black',sans-serif" font-size="230" fill="#ffffff" font-weight="900" letter-spacing="-4">RHAQIM</text>
+
+  <!-- Red dot -->
+  <circle cx="724" cy="290" r="18" fill="#cc1414"/>
+
+  <!-- Red separator -->
+  <rect x="40" y="375" width="520" height="3" fill="#cc1414"/>
+
+  <!-- Subtitle -->
+  <text x="40" y="430" font-family="Impact,'Arial Black',sans-serif" font-size="26" fill="#f4f0e8" letter-spacing="4">BACKEND ENGINEER · SYSTEMS ARCHITECT</text>
+
+  <!-- Tech stack -->
+  <text x="40" y="475" font-family="'Arial',sans-serif" font-size="18" fill="#888888" letter-spacing="3">Go  ·  Rust  ·  TypeScript  ·  PostgreSQL  ·  Embedded Systems</text>
+
+  <!-- Tagline -->
+  <text x="40" y="560" font-family="'Arial',sans-serif" font-size="17" fill="#f4f0e8" opacity="0.45">Building systems that scale. Shipping code that matters.</text>
+</svg>
