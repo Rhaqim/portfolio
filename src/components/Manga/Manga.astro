@@ -1,12 +1,8 @@
 ---
 import MangaLayout from "@layouts/MangaLayout.astro";
-
 import MangaBook from "@components/Manga/MangaBook.svelte";
-import Header from "@components/Manga/navigation/Header.svelte";
 ---
 
 <MangaLayout>
-	<MangaBook client:load />
+        <MangaBook client:load />
 </MangaLayout>
-
-<Header client:load />

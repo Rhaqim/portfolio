@@ -2,65 +2,56 @@
 /// <reference types="astro/client" />
 
 type GridLayout = {
-	content: string | SvelteComponent;
-	rowSpan: number;
-	colSpan: number;
-	rowStart?: number;
-	colStart?: number;
-	rowEnd?: number;
-	colEnd?: number;
-	skewX?: number; // degrees to skew horizontally
-	skewY?: number; // degrees to skew vertically
-	clipPath?: string; // optional manual clip-path for crazy shapes
-	backgroundColor?: string; // in case you want some backgrounds
-	effect?: "hover-zoom" | "appear" | "none"; // Add your effects here
-	effectDuration?: number; // in milliseconds
-	effectDelay?: number; // in milliseconds
+        content: string | SvelteComponent;
+        rowSpan: number;
+        colSpan: number;
+        rowStart?: number;
+        colStart?: number;
+        rowEnd?: number;
+        colEnd?: number;
+        skewX?: number;
+        skewY?: number;
+        clipPath?: string;
+        backgroundColor?: string;
+        effect?: "hover-zoom" | "appear" | "none";
+        effectDuration?: number;
+        effectDelay?: number;
 };
 
 type WorkData = {
-	company: string;
-	companyUrl: string;
-	role: string;
-	description: string;
-	companyLogo?: string;
-	startDate?: string;
-	endDate?: string;
-	technologies: string[];
-	highlights?: string[];
-};
-
-type ProjectData = {
-	title: string;
-	description: string;
-	technologies: string[];
-	url: string;
-	repoUrl?: string;
-	imageUrl?: string;
-	featured?: boolean;
-};
-
-type NavigationLink = {
-	id: string;
-	name: string;
-	href: string;
-	icon: string;
-	current: boolean;
-};
-
-type Thought = {
-	title: string;
-	content: string;
-	type: "thought" | "speech";
-	icon: string;
+        company: string;
+        companyUrl: string;
+        role: string;
+        period: string;
+        impact: string;
+        technologies: string[];
+        description?: string;
+        highlights?: string[];
 };
 
 type Project = {
-	title: string;
-	description: string;
-	technologies: string[];
-	status: string;
-	featured: boolean;
-	year: string;
-	url?: string;
+        title: string;
+        tagline: string;
+        description: string;
+        technologies: string[];
+        status: string;
+        featured: boolean;
+        year: string;
+        url?: string;
+        githubUrl?: string;
+};
+
+type Interest = {
+        title: string;
+        subtitle: string;
+        icon: string;
+        type: "current" | "next";
+};
+
+type NavigationLink = {
+        id: string;
+        name: string;
+        href: string;
+        icon: string;
+        current: boolean;
 };
