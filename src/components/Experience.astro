@@ -1,0 +1,125 @@
+---
+import { experience } from "@data/work";
+---
+
+<section class="section" id="experience" aria-labelledby="experience-title">
+	<div class="wrap">
+		<div class="section-head">
+			<span class="section-index">03</span>
+			<h2 class="section-title" id="experience-title">Experience</h2>
+		</div>
+
+		<ol class="jobs">
+			{
+				experience.map((job) => (
+					<li class="job" data-reveal>
+						<div class="job-when">
+							<span class="mono job-period">{job.period}</span>
+							{job.current && <span class="pip" data-status="active">Current</span>}
+						</div>
+
+						<div class="job-what">
+							<h3 class="job-company">
+								{job.companyUrl ? (
+									<a
+										class="link"
+										href={job.companyUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{job.company}
+									</a>
+								) : (
+									job.company
+								)}
+							</h3>
+							<p class="job-role mono">{job.role}</p>
+							<p class="job-impact">{job.impact}</p>
+							<div class="tags job-stack">
+								{job.stack.map((s) => (
+									<span class="tag">{s}</span>
+								))}
+							</div>
+						</div>
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>
+
+<style>
+	.jobs {
+		list-style: none;
+	}
+
+	.job {
+		display: grid;
+		grid-template-columns: 190px minmax(0, 1fr);
+		gap: 20px;
+		padding-block: clamp(26px, 3.2vw, 38px);
+		border-top: 1px solid var(--line);
+	}
+
+	.job:last-child {
+		border-bottom: 1px solid var(--line);
+	}
+
+	.job-when {
+		display: flex;
+		flex-direction: column;
+		gap: 9px;
+		padding-top: 4px;
+	}
+
+	.job-period {
+		font-size: 0.75rem;
+		letter-spacing: 0.08em;
+		color: var(--fg-dim);
+	}
+
+	.job-company {
+		font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+		font-weight: 500;
+		letter-spacing: -0.025em;
+		color: var(--fg);
+	}
+
+	.job-role {
+		font-size: 0.75rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--red);
+		margin-top: 6px;
+	}
+
+	.job-impact {
+		font-size: 0.9375rem;
+		line-height: 1.65;
+		color: var(--fg-mid);
+		max-width: 62ch;
+		margin-top: 12px;
+	}
+
+	.job-stack {
+		margin-top: 16px;
+	}
+
+	@media (max-width: 720px) {
+		.job {
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+
+		.job-when {
+			flex-direction: row;
+			align-items: center;
+			gap: 14px;
+			padding-top: 0;
+		}
+
+		.job-impact {
+			font-size: 0.875rem;
+		}
+	}
+</style>

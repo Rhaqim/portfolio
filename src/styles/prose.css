@@ -1,0 +1,193 @@
+/* ==========================================================================
+   Documentation prose: dense, technical, readable at length.
+   ========================================================================== */
+
+.prose {
+	font-size: 0.9375rem;
+	line-height: 1.72;
+	color: var(--fg-mid);
+	max-width: 74ch;
+}
+
+.prose > * + * {
+	margin-top: 1.15em;
+}
+
+/* ---- Headings ---- */
+.prose h2 {
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-weight: 500;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--fg);
+	margin-top: 4rem;
+	padding-top: 1.5rem;
+	padding-bottom: 0.75rem;
+	border-top: 1px solid var(--line);
+	scroll-margin-top: 96px;
+}
+
+.prose h2::before {
+	content: "";
+	display: inline-block;
+	width: 18px;
+	height: 1px;
+	background: var(--red);
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.prose h3 {
+	font-size: 1.0625rem;
+	font-weight: 500;
+	color: var(--fg);
+	margin-top: 2.5rem;
+	scroll-margin-top: 96px;
+}
+
+.prose h4 {
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	font-weight: 500;
+	color: var(--fg);
+	margin-top: 2rem;
+	scroll-margin-top: 96px;
+}
+
+.prose h2 + *,
+.prose h3 + *,
+.prose h4 + * {
+	margin-top: 0.7em;
+}
+
+.prose strong {
+	color: var(--fg);
+	font-weight: 600;
+}
+
+/* ---- Links ---- */
+.prose a {
+	color: var(--fg);
+	border-bottom: 1px solid var(--line-strong);
+	transition:
+		color 0.18s ease,
+		border-color 0.18s ease;
+}
+
+.prose a:hover {
+	color: var(--red-bright);
+	border-color: var(--red);
+}
+
+/* ---- Lists ---- */
+.prose ul,
+.prose ol {
+	padding-left: 1.15rem;
+}
+
+.prose li + li {
+	margin-top: 0.4em;
+}
+
+.prose li::marker {
+	color: var(--fg-faint);
+}
+
+/* ---- Inline code ---- */
+.prose :not(pre) > code {
+	font-family: var(--font-mono);
+	font-size: 0.8125em;
+	color: var(--fg);
+	background: var(--bg-raised);
+	border: 1px solid var(--line);
+	padding: 0.1em 0.38em;
+	white-space: nowrap;
+}
+
+/* ---- Code blocks ---- */
+.prose pre {
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	line-height: 1.65;
+	background: var(--bg-sunken) !important;
+	border: 1px solid var(--line);
+	border-left: 2px solid var(--red);
+	padding: 18px 20px;
+	overflow-x: auto;
+	tab-size: 2;
+}
+
+.prose pre code {
+	background: none;
+	border: 0;
+	padding: 0;
+	font-size: inherit;
+	white-space: pre;
+}
+
+/* ---- Tables ---- */
+.prose .table-scroll {
+	overflow-x: auto;
+	border: 1px solid var(--line);
+}
+
+.prose table {
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 460px;
+	font-size: 0.875rem;
+}
+
+.prose th {
+	font-family: var(--font-mono);
+	font-size: 0.6875rem;
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--fg-dim);
+	text-align: left;
+	padding: 10px 14px;
+	background: var(--bg-raised);
+	border-bottom: 1px solid var(--line-strong);
+	white-space: nowrap;
+}
+
+.prose td {
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--line);
+	vertical-align: top;
+}
+
+.prose tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+.prose td:first-child {
+	color: var(--fg);
+	white-space: nowrap;
+}
+
+/* ---- Blockquote: used for notes/warnings in READMEs ---- */
+.prose blockquote {
+	border-left: 2px solid var(--line-strong);
+	padding: 2px 0 2px 18px;
+	color: var(--fg-dim);
+}
+
+.prose blockquote strong {
+	color: var(--fg-mid);
+}
+
+.prose hr {
+	border: 0;
+	border-top: 1px solid var(--line);
+	margin-block: 2.5rem;
+}
+
+@media (max-width: 640px) {
+	.prose pre {
+		padding: 14px;
+		font-size: 0.75rem;
+	}
+}

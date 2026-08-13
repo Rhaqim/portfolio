@@ -1,0 +1,123 @@
+---
+import { site, nav, links } from "@data/site";
+
+const path = Astro.url.pathname;
+const isHome = path === "/";
+---
+
+<header class="hdr">
+	<div class="wrap hdr-inner">
+		<a class="brand" href="/" aria-label={`${site.name}, home`}>
+			<span class="brand-mark" aria-hidden="true"></span>
+			<span class="brand-name">{site.name}</span>
+		</a>
+
+		<nav class="hdr-nav" aria-label="Sections">
+			{
+				nav.map((item) => (
+					<a href={item.href} class="hdr-link">
+						{item.label}
+					</a>
+				))
+			}
+		</nav>
+
+		<div class="hdr-end">
+			{!isHome && <a class="hdr-link hdr-back" href="/">← Index</a>}
+			<a
+				class="hdr-link"
+				href={links.github}
+				target="_blank"
+				rel="noopener noreferrer">GitHub ↗</a
+			>
+		</div>
+	</div>
+</header>
+
+<style>
+	.hdr {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background: color-mix(in srgb, var(--bg) 88%, transparent);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.hdr-inner {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+		height: 56px;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 9px;
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		font-weight: 500;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--fg);
+		flex-shrink: 0;
+	}
+
+	.brand-mark {
+		width: 7px;
+		height: 7px;
+		background: var(--red);
+		flex-shrink: 0;
+	}
+
+	.brand:hover .brand-mark {
+		background: var(--red-bright);
+	}
+
+	.hdr-nav {
+		display: flex;
+		gap: 22px;
+		margin-left: auto;
+	}
+
+	.hdr-end {
+		display: flex;
+		gap: 22px;
+		align-items: center;
+		padding-left: 22px;
+		border-left: 1px solid var(--line);
+	}
+
+	.hdr-link {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		color: var(--fg-dim);
+		white-space: nowrap;
+		transition: color 0.18s ease;
+	}
+
+	.hdr-link:hover {
+		color: var(--fg);
+	}
+
+	.hdr-back {
+		color: var(--fg-mid);
+	}
+
+	@media (max-width: 860px) {
+		/* The section nav is redundant on a short page. The back link is not. */
+		.hdr-nav {
+			display: none;
+		}
+
+		.hdr-end {
+			margin-left: auto;
+			padding-left: 0;
+			border-left: 0;
+			gap: 18px;
+		}
+	}
+</style>

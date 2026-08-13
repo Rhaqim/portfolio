@@ -1,49 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs>
-    <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-      <circle cx="12" cy="12" r="1.5" fill="#ffffff" opacity="0.07"/>
-    </pattern>
-    <clipPath id="clip">
-      <rect width="1200" height="630"/>
-    </clipPath>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="Menlo, monospace">
+  <rect width="1200" height="630" fill="#08080a"/>
 
-  <!-- Background -->
-  <rect width="1200" height="630" fill="#080808"/>
+  <!-- Hairline grid: instrument panel, not decoration -->
+  <g stroke="#1e1e23" stroke-width="1">
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="470" x2="1200" y2="470"/>
+    <line x1="0" y1="545" x2="1200" y2="545"/>
+    <line x1="80" y1="0" x2="80" y2="630"/>
+  </g>
 
-  <!-- Halftone texture -->
-  <rect width="1200" height="630" fill="url(#dots)"/>
+  <!-- Red signal mark -->
+  <rect x="80" y="72" width="14" height="14" fill="#e01b18"/>
 
-  <!-- Left red accent bar -->
-  <rect x="0" y="0" width="10" height="630" fill="#cc1414"/>
+  <!-- Identity -->
+  <text x="118" y="86" font-size="20" font-weight="500" letter-spacing="6" fill="#e9e7e4">RHAQIM</text>
+  <text x="1120" y="86" font-size="15" letter-spacing="3" fill="#6b6a72" text-anchor="end">SYSTEMS ENGINEER</text>
 
-  <!-- Bottom red bar -->
-  <rect x="0" y="612" width="1200" height="18" fill="#cc1414"/>
+  <!-- Thesis -->
+  <text x="118" y="255" font-family="Helvetica Neue, Helvetica, sans-serif" font-size="70" font-weight="500" letter-spacing="-2.2" fill="#e9e7e4">I build infrastructure</text>
+  <text x="118" y="335" font-family="Helvetica Neue, Helvetica, sans-serif" font-size="70" font-weight="500" letter-spacing="-2.2" fill="#e9e7e4">other software runs on.</text>
 
-  <!-- Chapter label -->
-  <text x="40" y="62" font-family="Impact,'Arial Black',sans-serif" font-size="13" fill="#cc1414" letter-spacing="7">CHAPTER 01 — BACKEND ENGINEER</text>
+  <!-- Underline accent under the second line -->
+  <rect x="118" y="360" width="128" height="3" fill="#e01b18"/>
 
-  <!-- Large faded watermark number -->
-  <text x="900" y="420" font-family="Impact,'Arial Black',sans-serif" font-size="320" fill="#ffffff" opacity="0.03" clip-path="url(#clip)">01</text>
+  <!-- Supporting line -->
+  <text x="118" y="418" font-family="Helvetica Neue, Helvetica, sans-serif" font-size="22" fill="#9b9aa1">Backend and systems engineering, moving toward embedded and hardware.</text>
 
-  <!-- Japanese watermark -->
-  <text x="820" y="380" font-family="'Noto Sans JP','Hiragino Sans',sans-serif" font-size="130" fill="#cc1414" opacity="0.06">ラキム</text>
+  <!-- Datasheet strip -->
+  <g font-size="15" letter-spacing="2.5">
+    <text x="118" y="512" fill="#6b6a72">GO<tspan fill="#46454d"> · </tspan>RUST<tspan fill="#46454d"> · </tspan>PYTHON<tspan fill="#46454d"> · </tspan>TYPESCRIPT</text>
+    <text x="1120" y="512" fill="#e01b18" text-anchor="end">BUCKT / USSDFRAMEWORK / LOOM</text>
+  </g>
 
-  <!-- Main name -->
-  <text x="40" y="350" font-family="Impact,'Arial Black',sans-serif" font-size="230" fill="#ffffff" font-weight="900" letter-spacing="-4">RHAQIM</text>
+  <!-- Footer -->
+  <text x="118" y="592" font-size="14" letter-spacing="3" fill="#46454d">RHAQIM.COM</text>
 
-  <!-- Red dot -->
-  <circle cx="724" cy="290" r="18" fill="#cc1414"/>
-
-  <!-- Red separator -->
-  <rect x="40" y="375" width="520" height="3" fill="#cc1414"/>
-
-  <!-- Subtitle -->
-  <text x="40" y="430" font-family="Impact,'Arial Black',sans-serif" font-size="26" fill="#f4f0e8" letter-spacing="4">BACKEND ENGINEER · SYSTEMS ARCHITECT</text>
-
-  <!-- Tech stack -->
-  <text x="40" y="475" font-family="'Arial',sans-serif" font-size="18" fill="#888888" letter-spacing="3">Go  ·  Rust  ·  TypeScript  ·  PostgreSQL  ·  Embedded Systems</text>
-
-  <!-- Tagline -->
-  <text x="40" y="560" font-family="'Arial',sans-serif" font-size="17" fill="#f4f0e8" opacity="0.45">Building systems that scale. Shipping code that matters.</text>
+  <!-- Bottom signal bar -->
+  <rect x="0" y="626" width="1200" height="4" fill="#e01b18"/>
 </svg>

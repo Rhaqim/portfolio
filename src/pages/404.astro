@@ -1,0 +1,106 @@
+---
+import Base from "@layouts/Base.astro";
+import { systems, products } from "@data/projects";
+
+const suggestions = [...systems, ...products];
+---
+
+<Base
+	title="Not found"
+	description="That page doesn't exist. Here's everything that does."
+>
+	<section class="nf">
+		<div class="wrap">
+			<p class="eyebrow nf-code">Error 404</p>
+			<h1 class="nf-title">No such page.</h1>
+			<p class="nf-body">
+				The address doesn't resolve to anything here. Everything that does exist
+				is listed below.
+			</p>
+
+			<ul class="nf-list">
+				{
+					suggestions.map((p) => (
+						<li class="nf-item">
+							<a class="nf-link" href={`/${p.slug}`}>
+								<span class="nf-name">{p.name}</span>
+								<span class="nf-sum">{p.summary}</span>
+							</a>
+						</li>
+					))
+				}
+				<li class="nf-item">
+					<a class="nf-link" href="/">
+						<span class="nf-name">Index</span>
+						<span class="nf-sum">Everything else</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.nf {
+		padding-block: clamp(64px, 12vw, 148px);
+	}
+
+	.nf-code {
+		color: var(--red);
+		margin-bottom: 20px;
+	}
+
+	.nf-title {
+		font-size: clamp(2.25rem, 6vw, 4rem);
+		font-weight: 500;
+		letter-spacing: -0.035em;
+		color: var(--fg);
+	}
+
+	.nf-body {
+		margin-top: 18px;
+		font-size: 1rem;
+		color: var(--fg-mid);
+		max-width: 52ch;
+	}
+
+	.nf-list {
+		list-style: none;
+		margin-top: clamp(36px, 5vw, 56px);
+		border-top: 1px solid var(--line);
+	}
+
+	.nf-item {
+		border-bottom: 1px solid var(--line);
+	}
+
+	.nf-link {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 6px 16px;
+		padding: 16px 0;
+		transition: padding-left 0.18s ease;
+	}
+
+	.nf-link:hover {
+		padding-left: 10px;
+	}
+
+	.nf-name {
+		font-family: var(--font-mono);
+		font-size: 1rem;
+		color: var(--fg);
+		transition: color 0.18s ease;
+	}
+
+	.nf-link:hover .nf-name {
+		color: var(--red-bright);
+	}
+
+	.nf-sum {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--fg-dim);
+	}
+</style>

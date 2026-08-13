@@ -1,0 +1,442 @@
+---
+import Base from "@layouts/Base.astro";
+import { allProjects, systems, statusLabel } from "@data/projects";
+
+import "@styles/prose.css";
+
+interface Heading {
+	depth: number;
+	slug: string;
+	text: string;
+}
+
+interface Props {
+	frontmatter: { slug: string; title?: string; description?: string };
+	headings: Heading[];
+}
+
+const { frontmatter, headings } = Astro.props;
+
+const project = allProjects.find((p) => p.slug === frontmatter.slug);
+if (!project) {
+	throw new Error(
+		`Doc page "${frontmatter.slug}" has no matching entry in src/data/projects.ts`,
+	);
+}
+
+const description = frontmatter.description ?? project.detail;
+const toc = headings.filter((h) => h.depth === 2);
+
+// Prev/next across the library set only. Products are one-offs, not a series.
+const ring = systems;
+const pos = ring.findIndex((p) => p.slug === project.slug);
+const next = pos >= 0 ? ring[(pos + 1) % ring.length] : undefined;
+
+const isSystem = pos >= 0;
+const kicker = isSystem
+	? { label: "Systems", href: "/#systems" }
+	: { label: "Products", href: "/#products" };
+
+const schema = {
+	"@context": "https://schema.org",
+	"@type": "SoftwareSourceCode",
+	name: project.name,
+	description: project.detail,
+	programmingLanguage: project.language,
+	codeRepository: project.repo,
+	url: new URL(`/${project.slug}`, Astro.site).toString(),
+	author: { "@type": "Person", name: "John Franklin Anusiem" },
+};
+---
+
+<Base title={`${project.name} · ${project.summary}`} {description} {schema}>
+	<article class="doc">
+		<!-- ---- Masthead ---- -->
+		<header class="doc-head">
+			<div class="wrap">
+				<p class="eyebrow doc-kicker">
+					<a class="doc-kicker-link" href={kicker.href}>{kicker.label}</a>
+					<span aria-hidden="true">/</span>
+					{project.language}
+				</p>
+
+				<h1 class="doc-title">{project.name}</h1>
+				<p class="doc-summary">{project.detail}</p>
+
+				<div class="doc-facts">
+					<span class="pip" data-status={project.status}
+						>{statusLabel[project.status]}</span
+					>
+					<span class="mono doc-fact">{project.language}</span>
+					<span class="mono doc-fact">Since {project.year}</span>
+					{
+						project.stars !== undefined && (
+							<span class="mono doc-fact">★ {project.stars}</span>
+						)
+					}
+					<span class="mono doc-fact">MIT</span>
+				</div>
+
+				{
+					project.install && (
+						<div class="doc-install">
+							<code class="doc-install-cmd">
+								<span class="doc-install-sigil" aria-hidden="true">
+									$
+								</span>
+								<span data-copy-text>{project.install}</span>
+							</code>
+							<button class="doc-copy" type="button" data-copy>
+								Copy
+							</button>
+						</div>
+					)
+				}
+
+				<div class="doc-links">
+					{
+						project.repo && (
+							<a
+								class="doc-link"
+								href={project.repo}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Source ↗
+							</a>
+						)
+					}
+					{
+						project.live && (
+							<a
+								class="doc-link"
+								href={project.live}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Live ↗
+							</a>
+						)
+					}
+				</div>
+			</div>
+		</header>
+
+		<!-- ---- Body ---- -->
+		<div class="wrap doc-body">
+			<div class="prose">
+				<slot />
+			</div>
+
+			{
+				toc.length > 2 && (
+					<aside class="toc" aria-label="On this page">
+						<div class="toc-sticky">
+							<p class="eyebrow toc-label">Contents</p>
+							<nav>
+								<ul class="toc-list">
+									{toc.map((h) => (
+										<li>
+											<a class="toc-link" href={`#${h.slug}`}>
+												{h.text}
+											</a>
+										</li>
+									))}
+								</ul>
+							</nav>
+						</div>
+					</aside>
+				)
+			}
+		</div>
+
+		<!-- ---- Onward ---- -->
+		{
+			next && next.slug !== project.slug && (
+				<nav class="doc-next" aria-label="Next project">
+					<a class="doc-next-link" href={`/${next.slug}`}>
+						<span class="eyebrow">Next system</span>
+						<span class="doc-next-name">
+							{next.name} <span aria-hidden="true">→</span>
+						</span>
+						<span class="doc-next-sum">{next.summary}</span>
+					</a>
+				</nav>
+			)
+		}
+	</article>
+</Base>
+
+<style>
+	/* ---- Masthead ---- */
+	.doc-head {
+		padding-top: clamp(48px, 7vw, 88px);
+		padding-bottom: clamp(36px, 5vw, 56px);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.doc-kicker {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 20px;
+	}
+
+	.doc-kicker-link {
+		color: var(--red);
+	}
+
+	.doc-kicker-link:hover {
+		color: var(--red-bright);
+	}
+
+	.doc-title {
+		font-family: var(--font-mono);
+		font-size: clamp(2rem, 5.5vw, 3.5rem);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+		color: var(--fg);
+	}
+
+	.doc-summary {
+		margin-top: 16px;
+		font-size: clamp(0.9375rem, 1.4vw, 1.125rem);
+		line-height: 1.6;
+		color: var(--fg-mid);
+		max-width: 60ch;
+	}
+
+	.doc-facts {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 10px 20px;
+		margin-top: 26px;
+		padding-top: 18px;
+		border-top: 1px solid var(--line);
+	}
+
+	.doc-fact {
+		font-size: 0.6875rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--fg-dim);
+	}
+
+	/* ---- Install ---- */
+	.doc-install {
+		display: flex;
+		align-items: stretch;
+		margin-top: 22px;
+		max-width: max-content;
+		border: 1px solid var(--line-strong);
+		border-left: 2px solid var(--red);
+		background: var(--bg-sunken);
+	}
+
+	.doc-install-cmd {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-family: var(--font-mono);
+		font-size: 0.8125rem;
+		color: var(--fg);
+		padding: 10px 16px;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	.doc-install-sigil {
+		color: var(--fg-faint);
+		user-select: none;
+	}
+
+	.doc-copy {
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--fg-dim);
+		background: transparent;
+		border: 0;
+		border-left: 1px solid var(--line-strong);
+		padding: 0 14px;
+		cursor: pointer;
+		transition:
+			color 0.18s ease,
+			background 0.18s ease;
+	}
+
+	.doc-copy:hover {
+		color: var(--fg);
+		background: var(--bg-raised);
+	}
+
+	.doc-copy[data-copied] {
+		color: var(--red-bright);
+	}
+
+	.doc-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+		margin-top: 20px;
+	}
+
+	.doc-link {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		color: var(--fg-dim);
+		transition: color 0.18s ease;
+	}
+
+	.doc-link:hover {
+		color: var(--red-bright);
+	}
+
+	/* ---- Body + TOC ---- */
+	.doc-body {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 196px;
+		gap: clamp(32px, 5vw, 64px);
+		align-items: start;
+		padding-block: clamp(40px, 6vw, 72px);
+	}
+
+	.toc-sticky {
+		position: sticky;
+		top: 88px;
+		max-height: calc(100vh - 120px);
+		overflow-y: auto;
+		border-left: 1px solid var(--line);
+		padding-left: 18px;
+	}
+
+	.toc-label {
+		margin-bottom: 12px;
+	}
+
+	.toc-list {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 9px;
+	}
+
+	.toc-link {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		line-height: 1.5;
+		letter-spacing: 0.03em;
+		color: var(--fg-dim);
+		transition: color 0.18s ease;
+	}
+
+	.toc-link:hover {
+		color: var(--fg);
+	}
+
+	.toc-link.is-active {
+		color: var(--red-bright);
+	}
+
+	/* ---- Next ---- */
+	.doc-next {
+		border-top: 1px solid var(--line);
+		background: var(--bg-sunken);
+	}
+
+	.doc-next-link {
+		display: block;
+		width: 100%;
+		max-width: var(--measure);
+		margin-inline: auto;
+		padding: clamp(32px, 5vw, 56px) var(--gutter);
+	}
+
+	.doc-next-name {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: clamp(1.375rem, 3.5vw, 2rem);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		color: var(--fg);
+		margin-top: 12px;
+		transition: color 0.18s ease;
+	}
+
+	.doc-next-link:hover .doc-next-name {
+		color: var(--red-bright);
+	}
+
+	.doc-next-sum {
+		display: block;
+		font-size: 0.875rem;
+		color: var(--fg-dim);
+		margin-top: 6px;
+	}
+
+	@media (max-width: 960px) {
+		.doc-body {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.toc {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	// Copy the install command.
+	for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
+		btn.addEventListener("click", async () => {
+			const text =
+				btn.parentElement?.querySelector<HTMLElement>("[data-copy-text]")
+					?.textContent ?? "";
+			try {
+				await navigator.clipboard.writeText(text.trim());
+				btn.textContent = "Copied";
+				btn.dataset.copied = "";
+				setTimeout(() => {
+					btn.textContent = "Copy";
+					delete btn.dataset.copied;
+				}, 1600);
+			} catch {
+				btn.textContent = "Press ⌘C";
+				setTimeout(() => (btn.textContent = "Copy"), 1600);
+			}
+		});
+	}
+
+	// Highlight the section currently under the header.
+	const tocLinks = [
+		...document.querySelectorAll<HTMLAnchorElement>(".toc-link"),
+	];
+
+	if (tocLinks.length) {
+		const byId = new Map(
+			tocLinks.map((a) => [decodeURIComponent(a.hash.slice(1)), a]),
+		);
+		const sections = [...byId.keys()]
+			.map((id) => document.getElementById(id))
+			.filter((el): el is HTMLElement => el !== null);
+
+		const spy = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (!entry.isIntersecting) continue;
+					for (const a of tocLinks) a.classList.remove("is-active");
+					byId.get(entry.target.id)?.classList.add("is-active");
+				}
+			},
+			// Narrow band just below the sticky header: whichever heading passes
+			// through it is the one being read.
+			{ rootMargin: "-88px 0px -75% 0px", threshold: 0 },
+		);
+
+		sections.forEach((el) => spy.observe(el));
+	}
+</script>

@@ -1,48 +1,73 @@
-# Astro Starter Kit: Basics
+# rhaqim.com
 
-```sh
-npm create astro@latest -- --template basics
+Personal site and project documentation. Static Astro build, no client framework.
+
+## Commands
+
+| Command | Action |
+| :--- | :--- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run build` | Build to `./dist/` |
+| `npm run preview` | Serve the production build locally |
+
+## Structure
+
+```
+src/
+├── data/          Single source of truth for everything the site renders
+│   ├── site.ts       Identity, links, nav, capability strip
+│   ├── projects.ts   Systems (libraries) + products, keyed by slug
+│   ├── work.ts       Employment history
+│   └── research.ts   Hardware/research direction
+├── layouts/
+│   ├── Base.astro    Head, SEO, JSON-LD, header, footer, reveal observer
+│   └── Doc.astro     Project page shell: masthead, TOC, prose, next link
+├── components/    Homepage sections + the shared project row
+├── pages/
+│   ├── index.astro   The index
+│   ├── 404.astro
+│   ├── buckt.md      Library docs
+│   ├── ussd.md
+│   ├── loom.md
+│   ├── conexus.md    Product case studies
+│   ├── brisa.md
+│   └── eriife.md
+└── styles/
+    ├── global.css    Tokens, layout primitives, type scale
+    └── prose.css     Markdown documentation styles
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Adding a project page
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+1. Add an entry to `systems` or `products` in `src/data/projects.ts`. The `slug`
+   is the route.
+2. Create `src/pages/<slug>.md` with this frontmatter:
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+   ```yaml
+   ---
+   layout: ../layouts/Doc.astro
+   slug: <slug>
+   description: "Meta description for search and social cards."
+   ---
+   ```
 
-## 🚀 Project Structure
+`Doc.astro` pulls the title, status, language, install command, star count and
+outbound links from the data entry, and builds the table of contents from the
+page's `##` headings. It throws at build time if the `slug` has no matching data
+entry, so the two can't drift apart.
 
-Inside of your Astro project, you'll see the following folders and files:
+Slugs are top-level routes (`/buckt`, `/ussd`) so each one maps cleanly to a
+subdomain later without changing any links on the page.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Notes
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+- Markdown tables are wrapped in a scroll container by a small rehype plugin in
+  `astro.config.mjs` so wide API tables never scroll the page body sideways.
+- Use a bare code fence for ASCII diagrams. Tagging them `sh` makes Shiki
+  syntax-colour the box-drawing characters.
+- `public/og.png` is rendered from `public/og.svg`. Regenerate after editing:
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+  ```sh
+  node -e "require('sharp')('public/og.svg').resize(1200,630).png().toFile('public/og.png')"
+  ```

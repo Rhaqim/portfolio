@@ -1,0 +1,208 @@
+---
+import { site, stack, links } from "@data/site";
+import { systems } from "@data/projects";
+
+const shipped = systems.length;
+---
+
+<section class="hero" aria-label="Introduction">
+	<div class="wrap hero-inner">
+		<p class="eyebrow hero-eyebrow">
+			{site.role} <span class="hero-sep" aria-hidden="true">/</span> Backend & Systems
+		</p>
+
+		<h1 class="hero-thesis">
+			I build infrastructure<br />
+			other software runs on.
+		</h1>
+
+		<p class="hero-body">
+			A USSD engine in Rust that carries banking traffic across five African
+			markets. A media-storage library in Go that runs in production. A runtime
+			for multi-agent systems. Six years on the software side of the
+			hardware boundary. <span class="hero-em">Now working toward the other side of it</span>.
+		</p>
+
+		<div class="hero-actions">
+			<a class="hero-cta" href="#systems">
+				<span>{shipped} systems</span>
+				<span class="hero-cta-arrow" aria-hidden="true">↓</span>
+			</a>
+			<a
+				class="hero-alt"
+				href={links.github}
+				target="_blank"
+				rel="noopener noreferrer">GitHub ↗</a
+			>
+			<a class="hero-alt" href={links.email}>Email ↗</a>
+		</div>
+	</div>
+
+	<div class="wrap">
+		<dl class="spec">
+			{
+				stack.map((group) => (
+					<div class="spec-cell">
+						<dt class="spec-key">{group.label}</dt>
+						<dd class="spec-val">{group.items.join(" · ")}</dd>
+					</div>
+				))
+			}
+		</dl>
+	</div>
+</section>
+
+<style>
+	.hero {
+		padding-top: clamp(64px, 11vw, 148px);
+	}
+
+	.hero-inner {
+		padding-bottom: clamp(48px, 7vw, 88px);
+	}
+
+	.hero-eyebrow {
+		margin-bottom: clamp(24px, 3vw, 36px);
+	}
+
+	.hero-sep {
+		color: var(--red);
+		margin-inline: 4px;
+	}
+
+	.hero-thesis {
+		font-size: clamp(2.25rem, 6.4vw, 4.75rem);
+		font-weight: 500;
+		line-height: 1.04;
+		letter-spacing: -0.038em;
+		color: var(--fg);
+		max-width: 18ch;
+	}
+
+	.hero-body {
+		margin-top: clamp(24px, 3.2vw, 38px);
+		font-size: clamp(0.9375rem, 1.35vw, 1.0625rem);
+		line-height: 1.68;
+		color: var(--fg-mid);
+		max-width: 62ch;
+	}
+
+	.hero-em {
+		color: var(--fg);
+		box-shadow: inset 0 -1px 0 var(--red);
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 12px 26px;
+		margin-top: clamp(30px, 4vw, 44px);
+	}
+
+	.hero-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--fg);
+		background: var(--red);
+		padding: 11px 18px;
+		transition: background 0.18s ease;
+	}
+
+	.hero-cta:hover {
+		background: var(--red-bright);
+	}
+
+	.hero-cta-arrow {
+		transition: transform 0.18s ease;
+	}
+
+	.hero-cta:hover .hero-cta-arrow {
+		transform: translateY(2px);
+	}
+
+	.hero-alt {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		color: var(--fg-dim);
+		transition: color 0.18s ease;
+	}
+
+	.hero-alt:hover {
+		color: var(--fg);
+	}
+
+	/* ---- Spec strip: reads like a datasheet header ---- */
+	.spec {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.spec-cell {
+		padding: 20px 22px 22px;
+		border-left: 1px solid var(--line);
+		min-width: 0;
+	}
+
+	.spec-cell:first-child {
+		border-left: 0;
+		padding-left: 0;
+	}
+
+	.spec-cell:last-child .spec-key {
+		color: var(--red);
+	}
+
+	.spec-key {
+		font-family: var(--font-mono);
+		font-size: 0.625rem;
+		font-weight: 500;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--fg-faint);
+		margin-bottom: 9px;
+	}
+
+	.spec-val {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		line-height: 1.7;
+		color: var(--fg-mid);
+	}
+
+	@media (max-width: 860px) {
+		.spec {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.spec-cell {
+			padding: 16px 18px;
+			border-top: 1px solid var(--line);
+		}
+
+		.spec-cell:nth-child(-n + 2) {
+			border-top: 0;
+		}
+
+		.spec-cell:nth-child(odd) {
+			border-left: 0;
+			padding-left: 0;
+		}
+	}
+
+	@media (max-width: 460px) {
+		.hero-thesis {
+			/* The line break stays: it is the intended phrasing, and the second
+			   line wraps on its own at this width. */
+			max-width: none;
+		}
+	}
+</style>

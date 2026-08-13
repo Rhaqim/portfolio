@@ -1,0 +1,289 @@
+---
+import { statusLabel, type Project } from "@data/projects";
+
+interface Props {
+	project: Project;
+	index: number;
+	/** Libraries get a docs page; products get a case study. */
+	hasPage?: boolean;
+	pageLabel?: string;
+}
+
+const {
+	project: p,
+	index,
+	hasPage = false,
+	pageLabel = "Documentation →",
+} = Astro.props;
+
+const href = hasPage ? `/${p.slug}` : (p.live ?? p.repo);
+const num = String(index + 1).padStart(2, "0");
+---
+
+<article class="row" data-reveal>
+	<span class="row-num mono" aria-hidden="true">{num}</span>
+
+	<div class="row-body">
+		<div class="row-head">
+			<h3 class="row-name">
+				{
+					href ? (
+						<a href={href} class="row-target">
+							{p.name}
+						</a>
+					) : (
+						p.name
+					)
+				}
+			</h3>
+			<span class="row-summary">{p.summary}</span>
+			<span class="pip" data-status={p.status}>{statusLabel[p.status]}</span>
+		</div>
+
+		<p class="row-detail">{p.detail}</p>
+
+		{
+			p.install && (
+				<code class="row-install">
+					<span class="row-install-sigil" aria-hidden="true">
+						$
+					</span>
+					{p.install}
+				</code>
+			)
+		}
+
+		<div class="row-foot">
+			<div class="tags">
+				{p.tags.map((t) => <span class="tag">{t}</span>)}
+			</div>
+
+			<div class="row-links">
+				{
+					hasPage && (
+						<a class="row-link row-link--primary" href={`/${p.slug}`}>
+							{pageLabel}
+						</a>
+					)
+				}
+				{
+					p.live && (
+						<a
+							class="row-link"
+							href={p.live}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Live ↗
+						</a>
+					)
+				}
+				{
+					p.repo && (
+						<a
+							class="row-link"
+							href={p.repo}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Source ↗
+						</a>
+					)
+				}
+			</div>
+		</div>
+	</div>
+
+	<div class="row-side mono" aria-hidden="true">
+		<span class="row-lang">{p.language}</span>
+		<span class="row-year">{p.year}</span>
+		{p.stars !== undefined && <span class="row-stars">★ {p.stars}</span>}
+	</div>
+</article>
+
+<style>
+	.row {
+		position: relative;
+		display: grid;
+		grid-template-columns: 42px minmax(0, 1fr) auto;
+		gap: 0 20px;
+		padding-block: clamp(26px, 3.2vw, 40px);
+		border-top: 1px solid var(--line);
+		transition: background 0.2s ease;
+	}
+
+	.row:last-child {
+		border-bottom: 1px solid var(--line);
+	}
+
+	/* Bleed the hover tint into the gutter so it reads as a full-width band. */
+	.row::before {
+		content: "";
+		position: absolute;
+		inset-block: 0;
+		inset-inline: calc(var(--gutter) * -0.5);
+		background: transparent;
+		transition: background 0.2s ease;
+		pointer-events: none;
+	}
+
+	.row:hover::before {
+		background: var(--bg-raised);
+	}
+
+	.row-num {
+		font-size: 0.6875rem;
+		letter-spacing: 0.1em;
+		color: var(--fg-faint);
+		padding-top: 5px;
+		transition: color 0.2s ease;
+	}
+
+	.row:hover .row-num {
+		color: var(--red);
+	}
+
+	.row-body {
+		min-width: 0;
+	}
+
+	.row-head {
+		display: flex;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: 6px 14px;
+		margin-bottom: 10px;
+	}
+
+	.row-name {
+		font-size: clamp(1.375rem, 2.8vw, 1.875rem);
+		font-weight: 500;
+		letter-spacing: -0.028em;
+		color: var(--fg);
+	}
+
+	/* Stretched link: the whole row is the hit target, but only the title is
+	   in the tab order. Secondary links sit above it via z-index. */
+	.row-target::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.row:hover .row-name {
+		color: var(--red-bright);
+	}
+
+	.row-summary {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		color: var(--fg-dim);
+	}
+
+	.row-detail {
+		font-size: 0.9375rem;
+		line-height: 1.62;
+		color: var(--fg-mid);
+		max-width: 62ch;
+	}
+
+	.row-install {
+		display: inline-flex;
+		align-items: center;
+		gap: 9px;
+		font-family: var(--font-mono);
+		font-size: 0.78125rem;
+		color: var(--fg);
+		background: var(--bg-sunken);
+		border: 1px solid var(--line);
+		border-left: 2px solid var(--red);
+		padding: 6px 12px;
+		margin-top: 16px;
+		max-width: 100%;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	.row-install-sigil {
+		color: var(--fg-faint);
+		user-select: none;
+	}
+
+	.row-foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 14px 24px;
+		margin-top: 18px;
+	}
+
+	.row-links {
+		display: flex;
+		gap: 18px;
+		position: relative;
+		z-index: 1;
+	}
+
+	.row-link {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.05em;
+		color: var(--fg-dim);
+		white-space: nowrap;
+		transition: color 0.18s ease;
+	}
+
+	.row-link:hover {
+		color: var(--red-bright);
+	}
+
+	.row-link--primary {
+		color: var(--fg);
+	}
+
+	.row-side {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 6px;
+		padding-top: 5px;
+		font-size: 0.6875rem;
+		letter-spacing: 0.08em;
+		color: var(--fg-dim);
+		text-align: right;
+	}
+
+	.row-lang {
+		color: var(--fg-mid);
+	}
+
+	.row-year,
+	.row-stars {
+		color: var(--fg-faint);
+	}
+
+	@media (max-width: 720px) {
+		.row {
+			grid-template-columns: 30px minmax(0, 1fr);
+			gap: 0 14px;
+		}
+
+		.row-side {
+			grid-column: 2;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 14px;
+			padding-top: 14px;
+			order: 3;
+			text-align: left;
+		}
+
+		.row-detail {
+			font-size: 0.875rem;
+		}
+	}
+</style>

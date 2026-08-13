@@ -1,8 +1,66 @@
 ---
-import Manga from "@/components/Manga";
+import Base from "@layouts/Base.astro";
+import Hero from "@components/Hero.astro";
+import ProjectRow from "@components/ProjectRow.astro";
+import Experience from "@components/Experience.astro";
+import Research from "@components/Research.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { site } from "@data/site";
+import { systems, products } from "@data/projects";
+
+const title = `${site.name} · ${site.role}`;
 ---
 
-<Manga />
+<Base title={title} description={site.description} bare>
+	<Hero />
+
+	<section class="section" id="systems" aria-labelledby="systems-title">
+		<div class="wrap">
+			<div class="section-head">
+				<span class="section-index">01</span>
+				<h2 class="section-title" id="systems-title">Systems</h2>
+			</div>
+			<p class="section-note">Libraries other engineers install.</p>
+
+			{
+				systems.map((project, i) => (
+					<ProjectRow project={project} index={i} hasPage />
+				))
+			}
+		</div>
+	</section>
+
+	<section class="section" id="products" aria-labelledby="products-title">
+		<div class="wrap">
+			<div class="section-head">
+				<span class="section-index">02</span>
+				<h2 class="section-title" id="products-title">Products</h2>
+			</div>
+			<p class="section-note">Systems shipped as things people use.</p>
+
+			{
+				products.map((project, i) => (
+					<ProjectRow
+						project={project}
+						index={i}
+						hasPage
+						pageLabel="Case study →"
+					/>
+				))
+			}
+		</div>
+	</section>
+
+	<Experience />
+	<Research />
+</Base>
+
+<style>
+	.section-note {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		color: var(--fg-dim);
+		margin-top: -20px;
+		margin-bottom: 28px;
+	}
+</style>

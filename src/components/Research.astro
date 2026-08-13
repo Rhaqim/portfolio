@@ -1,0 +1,115 @@
+---
+import { research, researchThesis } from "@data/research";
+---
+
+<section class="section research" id="research" aria-labelledby="research-title">
+	<div class="wrap">
+		<div class="section-head">
+			<span class="section-index">04</span>
+			<h2 class="section-title" id="research-title">Research direction</h2>
+		</div>
+
+		<p class="research-thesis" data-reveal>{researchThesis}</p>
+
+		<div class="tracks">
+			{
+				research.map((track) => (
+					<article class="track" data-reveal>
+						<span class="track-id mono" aria-hidden="true">
+							{track.id}
+						</span>
+						<h3 class="track-title">{track.title}</h3>
+						<p class="track-body">{track.body}</p>
+						<span
+							class="pip track-state"
+							data-status={track.state === "current" ? "active" : "wip"}
+						>
+							{track.state === "current" ? "In practice" : "Open"}
+						</span>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.research-thesis {
+		font-size: clamp(1.125rem, 2.4vw, 1.625rem);
+		font-weight: 500;
+		line-height: 1.42;
+		letter-spacing: -0.024em;
+		color: var(--fg);
+		max-width: 44ch;
+		padding-left: 20px;
+		border-left: 2px solid var(--red);
+		margin-bottom: clamp(40px, 5vw, 64px);
+	}
+
+	.tracks {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.track {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+		padding: 28px 24px 30px;
+		border-left: 1px solid var(--line);
+		min-width: 0;
+	}
+
+	.track:first-child {
+		border-left: 0;
+		padding-left: 0;
+	}
+
+	.track-id {
+		font-size: 0.625rem;
+		letter-spacing: 0.18em;
+		color: var(--red);
+	}
+
+	.track-title {
+		font-size: 1.0625rem;
+		font-weight: 500;
+		color: var(--fg);
+	}
+
+	.track-body {
+		font-size: 0.875rem;
+		line-height: 1.62;
+		color: var(--fg-mid);
+	}
+
+	.track-state {
+		margin-top: auto;
+		padding-top: 12px;
+	}
+
+	@media (max-width: 860px) {
+		.tracks {
+			grid-template-columns: 1fr;
+		}
+
+		.track {
+			border-left: 0;
+			padding: 24px 0;
+			border-top: 1px solid var(--line);
+		}
+
+		.track:first-child {
+			border-top: 0;
+			padding-top: 0;
+		}
+
+		.track-state {
+			margin-top: 4px;
+			padding-top: 0;
+		}
+	}
+</style>
