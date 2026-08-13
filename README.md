@@ -4,6 +4,12 @@ Personal site and project documentation. Static Astro build, no client framework
 
 ## Commands
 
+Use the Node version in `.nvmrc` (`nvm use`). It matches the Cloudflare build
+image, and it matters: `sharp` pulls in `@napi-rs/wasm-runtime`, whose engine
+range is `^20.19.0 || ^22.13.0 || >=23.5.0`. On a Node version outside that
+range, `npm install` silently omits its peer dependencies from the lockfile and
+`npm ci` then fails on the build machine.
+
 | Command | Action |
 | :--- | :--- |
 | `npm install` | Install dependencies |
