@@ -11,8 +11,8 @@ export type Role = {
 
 export const experience: Role[] = [
 	{
-		company: "Degenerous DAO",
-		companyUrl: "https://www.degenerousdao.com",
+		company: "DGRS Labs",
+		companyUrl: "https://www.dgrslabs.ink",
 		role: "Lead Developer",
 		period: "2024-present",
 		impact:
