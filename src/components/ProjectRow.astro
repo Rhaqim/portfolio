@@ -110,6 +110,8 @@ const num = String(index + 1).padStart(2, "0");
 		padding-block: clamp(26px, 3.2vw, 40px);
 		border-top: 1px solid var(--line);
 		transition: background 0.2s ease;
+		/* Own stacking context so the hover band can sit behind the content. */
+		isolation: isolate;
 	}
 
 	.row:last-child {
@@ -125,6 +127,7 @@ const num = String(index + 1).padStart(2, "0");
 		background: transparent;
 		transition: background 0.2s ease;
 		pointer-events: none;
+		z-index: -1;
 	}
 
 	.row:hover::before {

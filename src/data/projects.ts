@@ -92,6 +92,18 @@ export const products: Project[] = [
 		tags: ["Next.js", "TypeScript"],
 	},
 	{
+		slug: "ludine",
+		name: "Ludine Agency",
+		summary: "Agency website",
+		detail:
+			"Site for a Lagos strategy and creative agency: capabilities, a brand diagnostic offer and a home for its thinking and work.",
+		language: "TypeScript",
+		status: "live",
+		year: "2026",
+		live: "https://ludineagency.com",
+		tags: ["Astro", "TypeScript"],
+	},
+	{
 		slug: "eriife",
 		name: "EriIfe",
 		summary: "Artist release site",

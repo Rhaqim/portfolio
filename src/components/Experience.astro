@@ -1,5 +1,5 @@
 ---
-import { experience } from "@data/work";
+import { experience, education } from "@data/work";
 ---
 
 <section class="section" id="experience" aria-labelledby="experience-title">
@@ -40,6 +40,39 @@ import { experience } from "@data/work";
 									<span class="tag">{s}</span>
 								))}
 							</div>
+						</div>
+					</li>
+				))
+			}
+		</ol>
+
+		<p class="eyebrow edu-label">Education</p>
+
+		<ol class="jobs">
+			{
+				education.map((study) => (
+					<li class="job" data-reveal>
+						<div class="job-when">
+							<span class="mono job-period">{study.period}</span>
+							{study.current && <span class="pip" data-status="active">In progress</span>}
+						</div>
+
+						<div class="job-what">
+							<h3 class="job-company">
+								{study.schoolUrl ? (
+									<a
+										class="link"
+										href={study.schoolUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{study.school}
+									</a>
+								) : (
+									study.school
+								)}
+							</h3>
+							<p class="job-role mono">{study.degree}</p>
 						</div>
 					</li>
 				))
@@ -103,6 +136,11 @@ import { experience } from "@data/work";
 
 	.job-stack {
 		margin-top: 16px;
+	}
+
+	.edu-label {
+		margin-top: clamp(40px, 5vw, 64px);
+		margin-bottom: 14px;
 	}
 
 	@media (max-width: 720px) {

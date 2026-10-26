@@ -39,3 +39,21 @@ export const experience: Role[] = [
 		stack: ["Next.js", "Node.js", "MongoDB", "Express"],
 	},
 ];
+
+export type Study = {
+	school: string;
+	schoolUrl?: string;
+	degree: string;
+	period: string;
+	current?: boolean;
+};
+
+export const education: Study[] = [
+	{
+		school: "University of Sunderland",
+		schoolUrl: "https://www.sunderland.ac.uk",
+		degree: "MSc Computer Science",
+		period: "2026-2027",
+		current: true,
+	},
+];
