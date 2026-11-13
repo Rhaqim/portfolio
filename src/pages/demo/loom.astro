@@ -10,7 +10,7 @@ import "@styles/demo.css";
 >
 	<div class="demo">
 		<DemoNav slug="loom" position="top" />
-		<section class="wrap demo-intro">
+		<section class="wrap demo-intro" data-cloud="network">
 			<p class="eyebrow"><b>loom</b> · Go · live demo</p>
 			<h1>Agents that work together, on a real runtime.</h1>
 			<p class="lede">
@@ -52,7 +52,7 @@ import "@styles/demo.css";
 			</div>
 
 			<!-- ===================== Tabletop: lobby ===================== -->
-			<div data-pane="tabletop" class="pane">
+			<div data-pane="tabletop" class="pane" data-cloud="die" data-cloud-size="0.5">
 				<div id="lobby" class="grid-2">
 					<form class="panel" id="create">
 						<div class="panel-hd"><span class="label">Host a game</span></div>
@@ -183,7 +183,7 @@ import "@styles/demo.css";
 			</div>
 
 			<!-- ===================== Pipeline ===================== -->
-			<div data-pane="pipeline" class="pane" hidden>
+			<div data-pane="pipeline" class="pane" hidden data-cloud="network" data-cloud-size="0.5">
 				<div class="grid-2">
 					<div class="panel">
 						<div class="panel-hd"><span class="label">Agents</span><span class="spacer"></span>

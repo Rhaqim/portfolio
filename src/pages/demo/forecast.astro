@@ -1,0 +1,116 @@
+---
+import Base from "@layouts/Base.astro";
+import DemoNav from "@components/DemoNav.astro";
+import "@styles/demo.css";
+---
+
+<Base
+	title="Forecast Desk"
+	description="A fictional league, play chips only: forecast matches against AI agents with different strategies on loom, a Go multi-agent runtime, and see what each agent's call cost."
+>
+	<div class="demo">
+		<DemoNav slug="forecast" position="top" />
+		<section class="wrap demo-intro" data-cloud="host">
+			<p class="eyebrow"><b>loom</b> · Go · live demo</p>
+			<h1>The Forecast Desk.</h1>
+			<p class="lede">
+				A fictional league with play chips. Each match, the desk's host previews the card and two AI forecasters
+				pick in parallel: a <b>value hunter</b> and a <b>contrarian</b>. A <b>bankroll manager</b> sizes their stakes,
+				and a <b>risk referee</b> (a loom hook) sends back any stake over the limit. Then Go decides the match from a
+				seed. You play the same match with the same chips and the same limits. Rewind any matchday to bet it
+				differently: the match plays out identically, only the choices change.
+			</p>
+			<p class="dim fd-disclaimer">Fictional teams, play chips with no value, no real fixtures, odds or bookmakers.</p>
+			<div id="api-status"></div>
+		</section>
+
+		<section class="wrap demo-body stack">
+			<div class="panel">
+				<div class="panel-hd"><span class="label">Model &amp; key</span><span class="spacer"></span><span class="chip" id="mode-chip">Dry run</span></div>
+				<div class="panel-bd key-grid">
+					<label class="field"><span>Model</span><select class="select" id="model"></select></label>
+					<label class="field"><span>API key</span><input class="input mono" id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Leave empty for a dry run" /></label>
+					<label class="check"><input type="checkbox" id="remember" /> Keep for this tab</label>
+					<span></span>
+					<p class="dim key-note">Your key goes with each request, is used for that match only and is never stored. A match is six model calls (preview, two picks, stakes, a possible retry, commentary). No key runs the same orchestration with canned output.</p>
+				</div>
+			</div>
+
+			<div class="split-wide">
+				<div class="stack">
+					<div class="panel fd-card">
+						<div class="panel-hd"><span class="label" id="fd-md">Matchday</span><span class="spacer"></span><span class="chip" id="fd-limit"></span></div>
+						<div class="panel-bd stack">
+							<div class="fd-teams">
+								<div class="fd-team"><span class="eyebrow">Home</span><b id="fd-home"></b><span class="mono dim" id="fd-home-meta"></span><span class="fd-form" id="fd-home-form"></span></div>
+								<span class="fd-vs mono">vs</span>
+								<div class="fd-team fd-team--away"><span class="eyebrow">Away</span><b id="fd-away"></b><span class="mono dim" id="fd-away-meta"></span><span class="fd-form" id="fd-away-form"></span></div>
+							</div>
+							<div class="fd-odds" id="fd-odds" role="radiogroup" aria-label="Your pick"></div>
+							<div class="fd-stake">
+								<label class="field" style="flex:1 1 240px"><span>Your stake</span>
+									<input type="range" id="fd-stake-range" min="1" max="100" value="25" />
+								</label>
+								<input class="input mono" id="fd-stake" type="number" min="1" max="100" value="25" aria-label="Stake in chips" style="width:90px" />
+								<span class="dim mono" id="fd-return"></span>
+							</div>
+							<div class="row">
+								<button class="btn btn-primary" id="fd-play" type="button">Kick off</button>
+								<button class="btn btn-ghost" id="fd-sit" type="button">Sit this one out</button>
+								<span class="dim" id="fd-status" role="status"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-hd"><span class="label">At the desk</span><span class="spacer"></span><span id="fd-busy" hidden class="row" style="gap:6px"><span class="pulse"></span><span class="dim mono" style="font-size:.7rem">agents working</span></span></div>
+						<div class="panel-bd stack">
+							<div><p class="eyebrow">Host's preview <span class="dim" style="letter-spacing:0">· lead, streams</span></p><p class="entry-text" id="fd-preview"><span class="dim">Kick off to hear the preview.</span></p></div>
+							<div class="fd-agents" id="fd-agents"></div>
+							<div id="fd-risk"></div>
+							<div id="fd-result"></div>
+							<p class="entry-text" id="fd-comment"></p>
+							<div id="fd-error"></div>
+						</div>
+					</div>
+				</div>
+
+				<aside class="stack">
+					<div class="panel">
+						<div class="panel-hd"><span class="label">Standings</span><span class="spacer"></span><button class="btn btn-sm btn-ghost" id="fd-new" type="button">New desk</button></div>
+						<div class="panel-bd"><ol class="list-plain fd-board" id="fd-board"></ol></div>
+					</div>
+					<div class="panel">
+						<div class="panel-hd"><span class="label">This match, step by step</span><span class="spacer"></span><span class="chip" id="fd-cost"></span></div>
+						<div class="panel-bd"><ol class="list-plain steps" id="fd-steps"><li class="dim">Agent steps appear here as they finish.</li></ol></div>
+					</div>
+					<div class="panel">
+						<div class="panel-hd"><span class="label">Results</span></div>
+						<div class="panel-bd"><ol class="list-plain fd-history" id="fd-history"><li class="dim">No matches yet.</li></ol></div>
+					</div>
+				</aside>
+			</div>
+
+			<div class="panel">
+				<div class="panel-hd">
+					<span class="label">Backtest: the strategies over many matches</span><span class="spacer"></span>
+					<label class="check">Matches <select class="select" id="bt-n" style="width:auto;padding:4px 8px"><option>100</option><option selected>200</option><option>500</option></select></label>
+					<button class="btn btn-sm" id="bt-run" type="button">Run</button>
+				</div>
+				<div class="panel-bd stack">
+					<p class="mid">The agents' rules of thumb written as plain code and run over seeded matches with no model calls: what each strategy does with infinite patience. The desk's odds carry a 6% margin, so standing still is the default and most strategies bleed slowly; the Brier score measures how good the forecasts were, separately from the chips.</p>
+					<div id="bt-chart" class="fd-chart"></div>
+					<div id="bt-table"></div>
+				</div>
+			</div>
+		</section>
+
+		<DemoNav slug="forecast" position="bottom" />
+
+		<section id="feedback"></section>
+	</div>
+</Base>
+
+<script>
+	import "../../scripts/demo/forecast.js";
+</script>

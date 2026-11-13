@@ -22,7 +22,7 @@ const num = String(index + 1).padStart(2, "0");
 const demoHref = demo.live && p.demo ? `/demo${p.demo}` : undefined;
 ---
 
-<article class="row" data-reveal>
+<article class="row" data-reveal data-cloud={p.cloud ?? "window"} data-cloud-size="0.9" data-cloud-x="0.62">
 	<span class="row-num mono" aria-hidden="true">{num}</span>
 
 	<div class="row-body">

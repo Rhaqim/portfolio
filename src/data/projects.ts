@@ -18,6 +18,8 @@ export type Project = {
 	live?: string;
 	/** Demo page path under /demo on this site. Linked only while demo.live. */
 	demo?: string;
+	/** Point-cloud silhouette for this project (src/scripts/cloud/shapes.js). Default "window". */
+	cloud?: string;
 	tags: string[];
 };
 
@@ -26,6 +28,7 @@ export const systems: Project[] = [
 	{
 		slug: "buckt",
 		demo: "/buckt",
+		cloud: "bucket",
 		name: "buckt",
 		summary: "Media storage library",
 		detail:
@@ -41,6 +44,7 @@ export const systems: Project[] = [
 	{
 		slug: "ussd",
 		demo: "/ussd",
+		cloud: "phone",
 		name: "ussdframework",
 		summary: "USSD application engine",
 		detail:
@@ -56,6 +60,7 @@ export const systems: Project[] = [
 	{
 		slug: "loom",
 		demo: "/loom",
+		cloud: "network",
 		name: "loom",
 		summary: "Multi-agent runtime",
 		detail:

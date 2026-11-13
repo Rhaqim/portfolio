@@ -22,8 +22,8 @@ const { current, prev, next } = neighbours(slug);
 			</a>
 			<span class="dnav-sep" aria-hidden="true">/</span>
 			<span class="dnav-here">{current.name}</span>
-			<a class="dnav-docs" href={`/${current.slug}`}>
-				Read the {current.name} docs <span aria-hidden="true">→</span>
+			<a class="dnav-docs" href={`/${current.docs ?? current.slug}`}>
+				Read the {current.docsName ?? current.name} docs <span aria-hidden="true">→</span>
 			</a>
 		</nav>
 	)

@@ -83,7 +83,7 @@
 .demo .muted-box { border: 1px dashed var(--line-strong); padding: 18px; text-align: center; color: var(--fg-dim); font-size: 0.85rem; }
 
 /* ---- Hub cards ---- */
-.demo .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.demo .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 920px) { .demo .cards { grid-template-columns: minmax(0, 1fr); } }
 .demo .card { display: flex; flex-direction: column; gap: 12px; padding: 22px; background: var(--bg-raised); border: 1px solid var(--line); text-decoration: none; transition: border-color .15s; }
 .demo .card:hover { border-color: var(--line-strong); }
@@ -241,3 +241,47 @@
 .demo .step-top .r { color: var(--fg-dim); }
 .demo .step-top .c { margin-left: auto; color: var(--fg-mid); }
 .demo .steps details { margin-top: 6px; }
+
+/* =========================== Forecast Desk =========================== */
+.demo .fd-disclaimer { margin-top: 10px; font-size: .8rem; font-family: var(--font-mono); }
+.demo .fd-teams { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; align-items: center; }
+.demo .fd-team { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.demo .fd-team b { font-size: clamp(1.1rem, 2.4vw, 1.5rem); font-weight: 500; letter-spacing: -0.02em; }
+.demo .fd-team--away { text-align: right; align-items: flex-end; }
+.demo .fd-team .mono { font-size: .7rem; }
+.demo .fd-vs { color: var(--fg-faint); font-size: .8rem; }
+.demo .fd-form { display: inline-flex; gap: 3px; }
+.demo .fd-r { width: 18px; height: 18px; display: inline-grid; place-items: center; font-family: var(--font-mono); font-size: .6rem; border: 1px solid var(--line-strong); color: var(--fg-dim); }
+.demo .fd-r-W { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 50%, transparent); }
+.demo .fd-r-L { color: var(--red-bright); border-color: color-mix(in srgb, var(--red) 50%, transparent); }
+.demo .fd-odds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.demo .fd-odd { display: flex; flex-direction: column; gap: 4px; padding: 12px; text-align: left; background: var(--bg-sunken); border: 1px solid var(--line-strong); cursor: pointer; transition: border-color .15s, background .15s; min-width: 0; }
+.demo .fd-odd:hover { border-color: var(--fg-dim); }
+.demo .fd-odd[aria-checked="true"] { border-color: var(--red); background: var(--red-wash); }
+.demo .fd-odd-name { font-size: .85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.demo .fd-odd-price { font-size: 1.5rem; color: var(--fg); }
+.demo .fd-odd-imp { font-size: .68rem; color: var(--fg-dim); }
+.demo .fd-stake { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.demo .fd-stake input[type="range"] { width: 100%; accent-color: var(--red); }
+.demo .fd-agents { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.demo .fd-agents:empty { display: none; }
+@media (max-width: 760px) { .demo .fd-agents, .demo .fd-odds { grid-template-columns: minmax(0, 1fr); } }
+.demo .fd-agent { border: 1px solid var(--line-strong); background: var(--bg-sunken); padding: 10px 12px; font-size: .88rem; min-width: 0; }
+.demo .fd-agent-hd { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.demo .fd-agent-hd b { font-weight: 500; }
+.demo .fd-agent-hd .mono { font-size: .64rem; }
+.demo .fd-result { border-left: 2px solid var(--red); padding-left: 14px; }
+.demo .fd-score { font-size: clamp(1.3rem, 3vw, 1.9rem); color: var(--fg); margin-top: 4px; }
+.demo .fd-deltas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.demo .fd-row { display: grid; grid-template-columns: 16px minmax(0, 1fr) 120px max-content; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.demo .fd-who { font-size: .9rem; }
+.demo .fd-chips { font-size: .95rem; color: var(--fg); }
+.demo .fd-spark { width: 120px; height: 28px; display: block; }
+.demo .fd-hist { display: grid; grid-template-columns: 44px minmax(0, 1fr) 60px max-content; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: .82rem; }
+.demo .fd-hist-score { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.demo .fd-up { color: var(--ok); }
+.demo .fd-down { color: var(--red-bright); }
+.demo .fd-chart svg { width: 100%; height: auto; display: block; }
+.demo .fd-axis { font-family: var(--font-mono); font-size: 10px; fill: var(--fg-dim); }
+.demo .fd-label { font-family: var(--font-mono); font-size: 11px; }
+.demo .fd-bt-table td { vertical-align: top; }

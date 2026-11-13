@@ -205,6 +205,7 @@ export function tabs(root = document, onSwitch) {
 	const show = (name) => {
 		all.forEach((t) => t.setAttribute("aria-selected", String(t.dataset.tab === name)));
 		root.querySelectorAll("[data-pane]").forEach((p) => (p.hidden = p.dataset.pane !== name));
+		dispatchEvent(new Event("cloud:refresh"));
 		onSwitch?.(name);
 	};
 	all.forEach((t) => t.addEventListener("click", () => show(t.dataset.tab)));

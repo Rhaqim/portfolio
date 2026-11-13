@@ -54,7 +54,7 @@ const schema = {
 <Base title={`${project.name} · ${project.summary}`} {description} {schema}>
 	<article class="doc">
 		<!-- ---- Masthead ---- -->
-		<header class="doc-head">
+		<header class="doc-head" data-cloud={project.cloud ?? "window"}>
 			<div class="wrap">
 				<p class="eyebrow doc-kicker">
 					<a class="doc-kicker-link" href={kicker.href}>{kicker.label}</a>

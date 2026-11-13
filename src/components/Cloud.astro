@@ -1,0 +1,28 @@
+---
+/**
+ * The site-wide red point cloud. A fixed canvas behind every page; elements
+ * with data-cloud="<shape>" pull it into that shape beside them. See
+ * src/scripts/cloud/cloud.js for the markup contract and the script API.
+ */
+---
+
+<canvas class="cloud" aria-hidden="true"></canvas>
+
+<script>
+	import "../scripts/cloud/cloud.js";
+</script>
+
+<style is:global>
+	canvas.cloud {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+	}
+
+	/* The canvas sits between the page colour and the content, so the colour
+	   lives on <html> and the body is see-through. */
+	html body {
+		background: transparent;
+	}
+</style>
