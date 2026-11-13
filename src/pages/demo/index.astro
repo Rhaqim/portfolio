@@ -1,0 +1,63 @@
+---
+import Base from "@layouts/Base.astro";
+import "@styles/demo.css";
+---
+
+<Base
+	title="Live demos"
+	description="Live demos of systems by John-Franklin Anusiem: a Rust USSD framework, a Go media-storage library and a multi-agent runtime with a multiplayer tabletop game."
+>
+	<div class="demo">
+		<section class="wrap demo-intro" data-cloud="orb">
+			<p class="eyebrow"><b>Live</b> · try the real thing</p>
+			<h1>Three systems, four demos. Poke at them.</h1>
+			<p class="lede">
+				These aren't recordings or mock-ups. Each page talks to the actual library running on a small
+				server, behind the same setup I'd use in production. Break something, then tell me what happened.
+				There's a feedback form at the bottom of every page.
+			</p>
+			<div id="api-status"></div>
+		</section>
+
+		<section class="wrap demo-body">
+			<div class="cards">
+				<a class="card" href="/demo/ussd">
+					<div class="card-top"><span class="chip">Rust</span><span class="chip">ussdframework</span></div>
+					<h2>Dial a loan</h2>
+					<p>A phone you can dial <code>*384#</code> on, backed by my Rust USSD framework. Borrow, repay,
+						fail a PIN, then rewrite the menu JSON and dial again to watch your changes run.</p>
+					<span class="go">Open the phone →</span>
+				</a>
+				<a class="card" href="/demo/buckt">
+					<div class="card-top"><span class="chip">Go</span><span class="chip">buckt</span></div>
+					<h2>A media sandbox</h2>
+					<p>Your own private bucket for an hour. Upload images and see thumbnails generated, send the
+						same file twice and see it stored once, trash and restore, and watch lifecycle events fire.</p>
+					<span class="go">Open the sandbox →</span>
+				</a>
+				<a class="card" href="/demo/loom">
+					<div class="card-top"><span class="chip">Go</span><span class="chip">loom</span></div>
+					<h2>Run a table with agents</h2>
+					<p>Host a multiplayer tabletop game: write the world, share a code, and let an AI run it or run
+						it yourself with AI-voiced NPCs. Every round shows what each agent cost. Or rewire an agent pipeline.</p>
+					<span class="go">Open the runtime →</span>
+				</a>
+				<a class="card" href="/demo/forecast">
+					<div class="card-top"><span class="chip">Go</span><span class="chip">loom</span></div>
+					<h2>The Forecast Desk</h2>
+					<p>A fictional league with play chips. Forecast matches against a value hunter and a contrarian whose
+						stakes a bankroll agent sizes and a hook polices, rewind any matchday, and backtest the strategies.</p>
+					<span class="go">Open the desk →</span>
+				</a>
+			</div>
+		</section>
+
+		<section id="feedback"></section>
+	</div>
+</Base>
+
+<script>
+	import { mountFeedback, checkApi, $ } from "../../scripts/demo/common.js";
+	mountFeedback("general");
+	checkApi($("#api-status"));
+</script>

@@ -1,6 +1,7 @@
 ---
 import SiteHeader from "@components/SiteHeader.astro";
 import SiteFooter from "@components/SiteFooter.astro";
+import Cloud from "@components/Cloud.astro";
 import { site, links } from "@data/site";
 
 import "@styles/global.css";
@@ -93,6 +94,7 @@ const personSchema = {
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>
+		<Cloud />
 		<SiteHeader />
 		<main id="main">
 			<slot />

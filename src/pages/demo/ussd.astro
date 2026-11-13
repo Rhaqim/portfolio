@@ -1,0 +1,89 @@
+---
+import Base from "@layouts/Base.astro";
+import DemoNav from "@components/DemoNav.astro";
+import "@styles/demo.css";
+---
+
+<Base
+	title="USSD demo"
+	description="Dial *384# on a simulated phone running a mobile-loan menu on ussdframework, a Rust USSD framework. Edit the menu JSON and run it live."
+>
+	<div class="demo">
+		<DemoNav slug="ussd" position="top" />
+		<section class="wrap demo-intro" data-cloud="phone">
+			<p class="eyebrow"><b>ussdframework</b> · Rust · live demo</p>
+			<h1>Dial <span class="mono">*384#</span> for a loan.</h1>
+			<p class="lede">
+				USSD is how much of Africa banks: no app, no data, just a feature phone and a
+				two-second budget per screen. This phone talks to a real <code>ussdframework</code> server
+				running QuickLoan, a fictional mobile-loan product built the way I built one for 16 million
+				customers. Any 4-digit PIN works except <code>0000</code>. <code>0</code> goes back, <code>00</code> goes home.
+			</p>
+			<div id="api-status"></div>
+		</section>
+
+		<section class="wrap demo-body split">
+			<div>
+				<div class="phone" id="phone" aria-label="Simulated phone">
+					<div class="phone-top"><span class="phone-speaker"></span></div>
+					<div class="screen" id="screen" aria-live="polite"></div>
+					<div class="keypad" id="keypad"></div>
+				</div>
+				<p class="dim mono phone-num" id="msisdn"></p>
+			</div>
+
+			<div class="panel">
+				<div class="tabs" role="tablist">
+					<button class="tab" role="tab" aria-selected="true" data-tab="session">Session</button>
+					<button class="tab" role="tab" aria-selected="false" data-tab="menu">Menu JSON</button>
+					<button class="tab" role="tab" aria-selected="false" data-tab="functions">Functions</button>
+					<button class="tab" role="tab" aria-selected="false" data-tab="gateway">Real gateway</button>
+				</div>
+
+				<div class="panel-bd stack" data-pane="session">
+					<p class="mid" id="session-empty">Dial <span class="mono">*384#</span> and the framework's view of your session shows up here: which screen you're on, the path you took, and the data your inputs and function calls left behind.</p>
+					<div id="session-view" hidden class="stack">
+						<div class="row"><span class="chip chip-red" id="cur-screen"></span><span class="chip" id="timing"></span><span class="chip" id="menu-mode"></span></div>
+						<div><h3 class="eyebrow">Path</h3><p class="path" id="path"></p></div>
+						<div><h3 class="eyebrow">Session data</h3><pre class="code" id="data"></pre></div>
+						<div><h3 class="eyebrow">Gateway response</h3><pre class="code" id="gateway-str"></pre></div>
+						<div><h3 class="eyebrow">Requests</h3><ol class="list-plain log" id="log"></ol></div>
+					</div>
+				</div>
+
+				<div class="panel-bd stack" data-pane="menu" hidden>
+					<p class="mid">This is the whole QuickLoan app: screens, menus, input validation, routing and function calls, declared in JSON. Edit it, switch on <b>Run my menu</b>, then dial again. Try changing the main menu's text, adding a menu item, or loosening a <code>validation_regex</code>.</p>
+					<div class="row">
+						<label class="check"><input type="checkbox" id="use-custom" /> Run my menu</label>
+						<span class="spacer"></span>
+						<button class="btn btn-sm" id="validate">Validate</button>
+						<button class="btn btn-sm btn-ghost" id="reset-menu">Reset</button>
+					</div>
+					<div id="menu-report"></div>
+					<label class="sr-only" for="menu-json">Menu JSON</label>
+					<textarea class="textarea" id="menu-json" rows="26" spellcheck="false"></textarea>
+				</div>
+
+				<div class="panel-bd stack" data-pane="functions" hidden>
+					<p class="mid">Function screens call Rust functions registered with the app. Each one reads session data and returns a value stored under its service's <code>data_key</code>. Screens show it with <code>{"{{key.field}}"}</code>, and routers test it with <code>{"{{key.status == 'ok'}}"}</code>.</p>
+					<ul class="list-plain stack" id="functions"></ul>
+					<p class="dim" style="font-size:.85rem">The framework can also call functions over HTTP (webhooks) so any language can implement them. That's switched off here, since a public demo would otherwise be an open proxy.</p>
+				</div>
+
+				<div class="panel-bd stack" data-pane="gateway" hidden>
+					<p class="mid">The phone above uses a JSON endpoint so this page can show the session. The same app also speaks Africa's Talking's gateway format: form fields in, <code>CON …</code> or <code>END …</code> out. Paste this in a terminal:</p>
+					<pre class="code" id="curl"></pre>
+					<p class="dim" style="font-size:.85rem">Repeat with <code>text=1</code>, then <code>text=1*1</code>: the gateway sends the whole input chain and the framework takes the last part.</p>
+				</div>
+			</div>
+		</section>
+
+		<DemoNav slug="ussd" position="bottom" />
+
+		<section id="feedback"></section>
+	</div>
+</Base>
+
+<script>
+	import "../../scripts/demo/ussd.js";
+</script>

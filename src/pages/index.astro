@@ -4,6 +4,7 @@ import Hero from "@components/Hero.astro";
 import ProjectRow from "@components/ProjectRow.astro";
 import Experience from "@components/Experience.astro";
 import Research from "@components/Research.astro";
+import Notes from "@components/Notes.astro";
 
 import { site } from "@data/site";
 import { systems, products } from "@data/projects";
@@ -53,6 +54,7 @@ const title = `${site.name} · ${site.role}`;
 
 	<Experience />
 	<Research />
+	<Notes />
 </Base>
 
 <style>

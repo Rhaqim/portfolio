@@ -1,6 +1,7 @@
 ---
 import Base from "@layouts/Base.astro";
 import { allProjects, systems, statusLabel } from "@data/projects";
+import { demo } from "@data/site";
 
 import "@styles/prose.css";
 
@@ -25,6 +26,7 @@ if (!project) {
 }
 
 const description = frontmatter.description ?? project.detail;
+const demoHref = demo.live && project.demo ? `/demo${project.demo}` : undefined;
 const toc = headings.filter((h) => h.depth === 2);
 
 // Prev/next across the library set only. Products are one-offs, not a series.
@@ -52,7 +54,7 @@ const schema = {
 <Base title={`${project.name} · ${project.summary}`} {description} {schema}>
 	<article class="doc">
 		<!-- ---- Masthead ---- -->
-		<header class="doc-head">
+		<header class="doc-head" data-cloud={project.cloud ?? "window"}>
 			<div class="wrap">
 				<p class="eyebrow doc-kicker">
 					<a class="doc-kicker-link" href={kicker.href}>{kicker.label}</a>
@@ -94,6 +96,13 @@ const schema = {
 				}
 
 				<div class="doc-links">
+					{
+						demoHref && (
+							<a class="doc-link doc-link--demo" href={demoHref}>
+								Try the live demo <span aria-hidden="true">→</span>
+							</a>
+						)
+					}
 					{
 						project.repo && (
 							<a
@@ -279,7 +288,8 @@ const schema = {
 	.doc-links {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 20px;
+		align-items: center;
+		gap: 12px 20px;
 		margin-top: 20px;
 	}
 
@@ -293,6 +303,21 @@ const schema = {
 
 	.doc-link:hover {
 		color: var(--red-bright);
+	}
+
+	/* The demo is the strongest call to action on a docs page. */
+	.doc-link--demo {
+		color: var(--fg);
+		background: var(--red);
+		padding: 7px 14px;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		transition: background 0.18s ease;
+	}
+
+	.doc-link--demo:hover {
+		color: var(--fg);
+		background: var(--red-bright);
 	}
 
 	/* ---- Body + TOC ---- */

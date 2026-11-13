@@ -15,6 +15,20 @@ export const links = {
 	linkedin: "https://www.linkedin.com/in/john-franklin-anusiem/",
 	twitter: "https://twitter.com/ivxnio",
 	email: `mailto:${site.email}`,
+	resume: "/john-franklin-anusiem-resume.pdf",
+} as const;
+
+/**
+ * Live demos. The pages live here under /demo; they call the demo API (the
+ * portfolio-demo repo, on the Hetzner box behind Cloudflare) at `api`.
+ * Override `api` locally with PUBLIC_DEMO_API=http://localhost:8080.
+ * `live` controls every link into the demos (nav, hero, project rows, docs
+ * pages); set it to false to hide them if the API is down for a while. The
+ * /demo pages build either way and say so when the API isn't answering.
+ */
+export const demo = {
+	api: "https://api.rhaqim.com",
+	live: true,
 } as const;
 
 export const nav: { label: string; href: string }[] = [
@@ -22,6 +36,8 @@ export const nav: { label: string; href: string }[] = [
 	{ label: "Products", href: "/#products" },
 	{ label: "Experience", href: "/#experience" },
 	{ label: "Research", href: "/#research" },
+	{ label: "Notes", href: "/#notes" },
+	...(demo.live ? [{ label: "Demos", href: "/demo" }] : []),
 ];
 
 /** Terse capability strip. Facts, not adjectives. */

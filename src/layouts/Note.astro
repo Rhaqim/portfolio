@@ -1,0 +1,101 @@
+---
+import Base from "@layouts/Base.astro";
+import { notes } from "@data/notes";
+
+import "@styles/prose.css";
+
+interface Props {
+	frontmatter: { slug: string; description?: string };
+}
+
+const { frontmatter } = Astro.props;
+const note = notes.find((n) => n.slug === frontmatter.slug);
+if (!note) {
+	throw new Error(`Note "${frontmatter.slug}" has no entry in src/data/notes.ts`);
+}
+const [year, month] = note.date.split("-").map(Number);
+const when = new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
+
+const schema = {
+	"@context": "https://schema.org",
+	"@type": "TechArticle",
+	headline: note.title,
+	description: note.summary,
+	datePublished: note.date,
+	author: { "@type": "Person", name: "John Franklin Anusiem" },
+	url: new URL(`/notes/${note.slug}`, Astro.site).toString(),
+};
+---
+
+<Base title={note.title} description={frontmatter.description ?? note.summary} {schema}>
+	<article class="note">
+		<header class="note-head" data-cloud="link" data-cloud-place="right">
+			<div class="wrap">
+				<p class="eyebrow note-kicker">
+					<a class="note-kicker-link" href="/#notes">Notes</a>
+					<span aria-hidden="true">/</span>
+					<time datetime={note.date}>{when}</time>
+				</p>
+				<h1 class="note-title">{note.title}</h1>
+				<p class="note-summary">{note.summary}</p>
+				<div class="tags note-tags">{note.tags.map((t) => <span class="tag">{t}</span>)}</div>
+			</div>
+		</header>
+		<div class="wrap note-body">
+			<div class="prose">
+				<slot />
+			</div>
+		</div>
+	</article>
+</Base>
+
+<style>
+	.note-head {
+		padding-top: clamp(48px, 7vw, 88px);
+		padding-bottom: clamp(32px, 5vw, 52px);
+		border-bottom: 1px solid var(--line);
+	}
+
+	.note-kicker {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+		margin-bottom: 20px;
+	}
+
+	.note-kicker-link {
+		color: var(--red);
+	}
+
+	.note-kicker-link:hover {
+		color: var(--red-bright);
+	}
+
+	.note-title {
+		font-size: clamp(1.9rem, 4.6vw, 3.1rem);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+		line-height: 1.08;
+		max-width: 20ch;
+	}
+
+	.note-summary {
+		margin-top: 16px;
+		font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
+		line-height: 1.6;
+		color: var(--fg-mid);
+		max-width: 62ch;
+	}
+
+	.note-tags {
+		margin-top: 22px;
+	}
+
+	.note-body {
+		padding-block: clamp(36px, 5vw, 64px) clamp(56px, 8vw, 96px);
+	}
+
+	.note-body .prose {
+		max-width: 72ch;
+	}
+</style>

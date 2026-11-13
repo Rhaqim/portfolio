@@ -16,6 +16,10 @@ export type Project = {
 	stars?: number;
 	repo?: string;
 	live?: string;
+	/** Demo page path under /demo on this site. Linked only while demo.live. */
+	demo?: string;
+	/** Point-cloud silhouette for this project (src/scripts/cloud/shapes.js). Default "window". */
+	cloud?: string;
 	tags: string[];
 };
 
@@ -23,6 +27,8 @@ export type Project = {
 export const systems: Project[] = [
 	{
 		slug: "buckt",
+		demo: "/buckt",
+		cloud: "bucket",
 		name: "buckt",
 		summary: "Media storage library",
 		detail:
@@ -37,6 +43,8 @@ export const systems: Project[] = [
 	},
 	{
 		slug: "ussd",
+		demo: "/ussd",
+		cloud: "phone",
 		name: "ussdframework",
 		summary: "USSD application engine",
 		detail:
@@ -51,16 +59,18 @@ export const systems: Project[] = [
 	},
 	{
 		slug: "loom",
+		demo: "/loom",
+		cloud: "network",
 		name: "loom",
 		summary: "Multi-agent runtime",
 		detail:
-			"Modality-agnostic orchestration for LLM applications: versioned agents, session branching, budgets, judges and a test harness.",
+			"Modality-agnostic orchestration for LLM applications: versioned agents, multi-agent turns, shared live sessions, branching, budgets and a test harness.",
 		language: "Go",
 		status: "active",
 		year: "2026",
 		install: "go get github.com/rhaqim/loom",
 		repo: "https://github.com/rhaqim/loom",
-		tags: ["OpenAI", "Anthropic", "Replicate", "Runway", "Postgres"],
+		tags: ["OpenAI", "Anthropic", "Replicate", "Runway", "Meshy", "Postgres", "SQLite"],
 	},
 ];
 

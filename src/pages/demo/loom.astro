@@ -1,0 +1,228 @@
+---
+import Base from "@layouts/Base.astro";
+import DemoNav from "@components/DemoNav.astro";
+import "@styles/demo.css";
+---
+
+<Base
+	title="loom demo"
+	description="Host a multiplayer tabletop game run by cooperating AI agents on loom, a Go multi-agent runtime, with per-turn costs. Or rewire an agent pipeline."
+>
+	<div class="demo">
+		<DemoNav slug="loom" position="top" />
+		<section class="wrap demo-intro" data-cloud="network">
+			<p class="eyebrow"><b>loom</b> · Go · live demo</p>
+			<h1>Agents that work together, on a real runtime.</h1>
+			<p class="lede">
+				<code>loom</code> is the orchestration layer I built under an AI storytelling product: versioned agents,
+				multi-agent turns, hooks, session forks, budgets and a cost ledger. Host a <b>multiplayer tabletop game</b>:
+				write the world, share a code, and let an AI game master run it, or run it yourself with AI-voiced NPCs.
+				Every round shows what each agent cost. Or rewire an <b>agent pipeline</b> and watch loom schedule it.
+			</p>
+			<div id="api-status"></div>
+		</section>
+
+		<section class="wrap demo-body">
+			<div class="panel">
+				<div class="panel-hd">
+					<span class="label">Model &amp; key</span>
+					<span class="spacer"></span>
+					<span class="chip" id="mode-chip">Dry run</span>
+				</div>
+				<div class="panel-bd key-grid">
+					<label class="field"><span>Model</span><select class="select" id="model"></select></label>
+					<label class="field"><span>API key</span><input class="input mono" id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Leave empty for a dry run" /></label>
+					<button class="btn" id="verify" type="button">Check key &amp; price</button>
+					<label class="check"><input type="checkbox" id="remember" /> Keep for this tab</label>
+					<div class="key-note stack">
+						<div id="verify-result"></div>
+						<p class="dim">
+							When you host a game, your key stays in the demo server's memory for that game only, is never
+							written to disk or logs, and pays for every AI step at your table. Players never need a key.
+							Use a key with a low spend limit and revoke it afterwards. Each game is capped at 400 agent steps a day
+							by loom's own budget guard. No key? Everything runs as a dry run with canned model output.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="tabs" role="tablist" style="margin-top:20px">
+				<button class="tab" role="tab" aria-selected="true" data-tab="tabletop">Multiplayer tabletop</button>
+				<button class="tab" role="tab" aria-selected="false" data-tab="pipeline">Agent pipeline</button>
+			</div>
+
+			<!-- ===================== Tabletop: lobby ===================== -->
+			<div data-pane="tabletop" class="pane" data-cloud="die" data-cloud-size="0.5">
+				<div id="lobby" class="grid-2">
+					<form class="panel" id="create">
+						<div class="panel-hd"><span class="label">Host a game</span></div>
+						<div class="panel-bd stack">
+							<label class="field"><span>Title</span><input class="input" id="g-title" maxlength="60" required placeholder="Bells Under Water" /></label>
+							<div class="field"><span>Start from</span><div class="row" id="g-presets"></div></div>
+							<label class="field"><span>The world</span><textarea class="textarea prose" id="g-world" rows="5" maxlength="1500" required placeholder="Where are we, what's wrong, who wants what?"></textarea></label>
+							<div class="field"><span>NPCs (up to 4)</span><div class="stack" id="g-npcs"></div>
+								<button type="button" class="btn btn-sm" id="g-add-npc" style="align-self:flex-start">Add NPC</button></div>
+							<fieldset class="field"><span>Who runs the game?</span>
+								<div class="choices choices-2">
+									<label class="choice"><input type="radio" name="g-mode" value="ai" checked /><b>An AI game master</b><small>Five agents run every round. You play a character too.</small></label>
+									<label class="choice"><input type="radio" name="g-mode" value="human" /><b>I'll be the game master</b><small>You narrate. AI voices your NPCs and, if you like, keeps the books.</small></label>
+								</div>
+							</fieldset>
+							<label class="check" id="g-bookkeeping-row" hidden><input type="checkbox" id="g-bookkeeping" checked /> AI bookkeeping: a referee updates sheets and a chronicler keeps the summary after each narration</label>
+							<div class="stack" id="g-character">
+								<label class="field"><span>Your character's name</span><input class="input" id="g-char-name" maxlength="20" placeholder="Nkem" /></label>
+								<fieldset class="field"><span>Archetype</span><div class="choices" id="g-archetypes"></div></fieldset>
+							</div>
+							<div class="row"><button class="btn btn-primary" type="submit" id="g-create">Create game</button><span class="dim" id="g-create-status" role="status"></span></div>
+						</div>
+					</form>
+
+					<form class="panel" id="join">
+						<div class="panel-hd"><span class="label">Join a game</span></div>
+						<div class="panel-bd stack">
+							<p class="mid">Got a code from a friend? You don't need an API key to join; the host's key runs the table.</p>
+							<label class="field" style="max-width:200px"><span>Game code</span><input class="input mono" id="j-code" maxlength="6" placeholder="K7QF2M" style="text-transform:uppercase;letter-spacing:.2em" /></label>
+							<label class="field"><span>Your character's name</span><input class="input" id="j-name" maxlength="20" placeholder="Ada" /></label>
+							<fieldset class="field"><span>Archetype</span><div class="choices" id="j-archetypes"></div></fieldset>
+							<div class="row"><button class="btn btn-primary" type="submit">Join</button><button class="btn btn-ghost" type="button" id="j-watch">Just watch</button><span class="dim" id="j-status" role="status"></span></div>
+						</div>
+					</form>
+				</div>
+
+				<!-- ===================== Tabletop: room ===================== -->
+				<div id="room" hidden class="stack">
+					<div class="panel">
+						<div class="panel-hd">
+							<b id="r-title"></b>
+							<span class="chip" id="r-mode"></span>
+							<span class="chip" id="r-status"></span>
+							<span class="chip" id="r-watching"></span>
+							<span class="spacer"></span>
+							<span class="code-big" id="r-code"></span>
+							<button class="btn btn-sm" id="r-copy" type="button">Copy invite link</button>
+							<button class="btn btn-sm btn-ghost" id="r-leave" type="button">Back to lobby</button>
+						</div>
+						<div class="panel-bd" id="r-world-wrap"><details><summary>The world</summary><p class="mid" id="r-world" style="margin-top:8px;white-space:pre-wrap"></p></details></div>
+					</div>
+
+					<div class="split-wide">
+						<div class="stack">
+							<div class="panel">
+								<div class="panel-hd"><span class="label">The story</span><span class="spacer"></span><span class="chip" id="r-round"></span><span id="r-busy" hidden class="row" style="gap:6px"><span class="pulse"></span><span class="dim mono" style="font-size:.7rem">agents working</span></span></div>
+								<div class="panel-bd"><ol class="list-plain feed" id="feed"></ol></div>
+								<form class="panel-bd composer" id="composer" hidden>
+									<div class="row" id="suggestions"></div>
+									<div class="composer-row">
+										<label class="sr-only" for="action">Your action</label>
+										<input class="input" id="action" maxlength="300" autocomplete="off" placeholder="What do you do?" />
+										<button class="btn btn-primary" id="act" type="submit">Act</button>
+									</div>
+									<p class="dim" id="composer-note" style="font-size:.8rem;margin-top:8px"></p>
+								</form>
+								<div class="panel-bd" id="room-error"></div>
+							</div>
+
+							<div class="panel" id="host-panel" hidden>
+								<div class="panel-hd"><span class="label" id="host-label">Host controls</span><span class="spacer"></span>
+									<button class="btn btn-sm btn-primary" id="h-start" type="button" hidden>Start the game</button>
+									<button class="btn btn-sm" id="h-resolve" type="button" hidden>Resolve round now</button>
+									<button class="btn btn-sm" id="h-key" type="button" hidden>Reconnect my key</button>
+									<button class="btn btn-sm btn-ghost" id="h-end" type="button">End game</button>
+								</div>
+								<div class="panel-bd stack" id="dm-console" hidden>
+									<label class="field"><span>Narrate</span><textarea class="textarea prose" id="dm-text" rows="4" maxlength="3000" placeholder="Resolve the players' actions and describe what happens."></textarea></label>
+									<div class="row"><button class="btn btn-primary btn-sm" id="dm-narrate" type="button">Narrate</button><span class="dim" style="font-size:.8rem" id="dm-narrate-note"></span></div>
+									<div class="grid-2">
+										<div class="stack">
+											<p class="eyebrow">Call for a check</p>
+											<div class="row">
+												<select class="select" id="dm-check-player" style="flex:1 1 120px"></select>
+												<select class="select" id="dm-check-ability" style="flex:0 0 80px"><option>STR</option><option selected>DEX</option><option>CON</option><option>INT</option><option>WIS</option><option>CHA</option></select>
+												<input class="input" id="dm-check-dc" type="number" min="5" max="25" value="12" style="flex:0 0 70px" aria-label="Difficulty class" />
+												<button class="btn btn-sm" id="dm-check" type="button">Roll</button>
+											</div>
+										</div>
+										<div class="stack">
+											<p class="eyebrow">Adjust a character</p>
+											<div class="row">
+												<select class="select" id="dm-adj-player" style="flex:1 1 120px"></select>
+												<input class="input" id="dm-adj-hp" type="number" min="-8" max="8" value="0" style="flex:0 0 70px" aria-label="HP change" />
+												<input class="input" id="dm-adj-item" maxlength="40" placeholder="item gained" style="flex:1 1 110px" />
+												<button class="btn btn-sm" id="dm-adjust" type="button">Apply</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-bd stack" id="npc-console" hidden>
+									<p class="eyebrow">Make an NPC speak</p>
+									<div class="row">
+										<select class="select" id="npc-name" style="flex:0 1 180px"></select>
+										<input class="input" id="npc-direction" maxlength="300" placeholder="Direction, e.g. refuses, but drops a hint" style="flex:1 1 200px" />
+										<button class="btn btn-sm" id="npc-speak" type="button">Speak</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<aside class="stack">
+							<div class="panel">
+								<div class="panel-hd"><span class="label">The party</span></div>
+								<div class="panel-bd"><ol class="list-plain party" id="party"></ol></div>
+							</div>
+							<div class="panel">
+								<div class="panel-hd"><span class="label">Cost</span><span class="spacer"></span><span class="chip" id="c-model"></span></div>
+								<div class="panel-bd stack" id="cost"></div>
+							</div>
+							<div class="panel">
+								<div class="panel-hd"><span class="label">This round, step by step</span></div>
+								<div class="panel-bd"><ol class="list-plain steps" id="live-steps"><li class="dim">Agent steps appear here as they finish.</li></ol></div>
+							</div>
+						</aside>
+					</div>
+				</div>
+			</div>
+
+			<!-- ===================== Pipeline ===================== -->
+			<div data-pane="pipeline" class="pane" hidden data-cloud="network" data-cloud-size="0.5">
+				<div class="grid-2">
+					<div class="panel">
+						<div class="panel-hd"><span class="label">Agents</span><span class="spacer"></span>
+							<button class="btn btn-sm btn-ghost" id="pl-reset" type="button">Reset</button>
+							<button class="btn btn-sm" id="pl-add" type="button">Add agent</button>
+						</div>
+						<div class="panel-bd stack">
+							<p class="mid">You never declare dependencies. Each agent's template references other agents' outputs as <code>{"{{.Inputs.Name}}"}</code>; loom reads those references, checks every one has a producer, and plans the graph into layers that run concurrently. The first agent is the lead. Uses the model and key above.</p>
+							<label class="field" style="max-width:200px"><span>Input name</span><input class="input mono" id="pl-input-name" /></label>
+							<label class="field"><span>Input</span><textarea class="textarea" id="pl-input" rows="8"></textarea></label>
+							<ol class="list-plain stack" id="pl-agents"></ol>
+						</div>
+					</div>
+					<div class="stack">
+						<div class="panel">
+							<div class="panel-hd"><span class="label">Plan</span><span class="spacer"></span>
+								<button class="btn btn-sm" id="pl-plan" type="button">Check wiring</button>
+								<button class="btn btn-sm btn-primary" id="pl-run" type="button">Run</button>
+							</div>
+							<div class="panel-bd stack">
+								<div id="pl-status"></div>
+								<div class="layers" id="pl-layers"><p class="dim">Check the wiring to see how loom will schedule these agents.</p></div>
+							</div>
+						</div>
+						<div class="panel">
+							<div class="panel-hd"><span class="label">Outputs</span><span class="spacer"></span><span class="chip" id="pl-cost"></span></div>
+							<div class="panel-bd"><ol class="list-plain stack" id="pl-outputs"><li class="dim">Run the pipeline to see each agent's output, tokens and cost.</li></ol></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<DemoNav slug="loom" position="bottom" />
+
+		<section id="feedback"></section>
+	</div>
+</Base>
+
+<script>
+	import "../../scripts/demo/loom.js";
+</script>
