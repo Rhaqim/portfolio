@@ -15,6 +15,18 @@ export const links = {
 	linkedin: "https://www.linkedin.com/in/john-franklin-anusiem/",
 	twitter: "https://twitter.com/ivxnio",
 	email: `mailto:${site.email}`,
+	resume: "/john-franklin-anusiem-resume.pdf",
+} as const;
+
+/**
+ * Live demos. The pages live here under /demo; they call the demo services
+ * on the Hetzner box through Cloudflare at `api`. Override `api` locally with
+ * PUBLIC_DEMO_API=http://localhost:8080. Flip `live` once the API is deployed;
+ * until then no "Try it" links render (the /demo pages still build).
+ */
+export const demo = {
+	api: "https://api.rhaqim.com",
+	live: false,
 } as const;
 
 export const nav: { label: string; href: string }[] = [
@@ -22,6 +34,7 @@ export const nav: { label: string; href: string }[] = [
 	{ label: "Products", href: "/#products" },
 	{ label: "Experience", href: "/#experience" },
 	{ label: "Research", href: "/#research" },
+	...(demo.live ? [{ label: "Demos", href: "/demo" }] : []),
 ];
 
 /** Terse capability strip. Facts, not adjectives. */

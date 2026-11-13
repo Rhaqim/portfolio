@@ -1,0 +1,67 @@
+---
+import Base from "@layouts/Base.astro";
+import "@styles/demo.css";
+---
+
+<Base
+	title="buckt demo"
+	description="A private, hour-long media sandbox running buckt, a Go media-management library: uploads, thumbnails, dedup, trash and lifecycle events."
+>
+	<div class="demo">
+		<section class="wrap demo-intro">
+			<p class="eyebrow"><b>buckt</b> · Go · live demo</p>
+			<h1>Your own media bucket, for an hour.</h1>
+			<p class="lede">
+				This is a real <code>buckt</code> client on SQLite and local disk, with a private sandbox for you.
+				Upload a PNG or JPEG and thumbnails are generated off the request path. Upload the same file twice
+				in one folder and it's stored once. Try an HTML file and the upload scanner turns it away.
+				Every upload has an hour-long TTL, and buckt's own expiry sweeper deletes it.
+			</p>
+			<div id="api-status"></div>
+		</section>
+
+		<section class="wrap demo-body split-wide">
+			<div class="panel" id="drop">
+				<div class="panel-hd">
+					<nav class="crumbs" id="crumbs" aria-label="Folder"></nav>
+					<span class="spacer"></span>
+					<button class="btn btn-sm" id="new-folder">New folder</button>
+					<label class="btn btn-sm btn-primary" for="file-input">Upload</label>
+					<input type="file" id="file-input" multiple class="sr-only" />
+				</div>
+				<div class="panel-bd">
+					<div id="toast" role="status" aria-live="polite"></div>
+					<div class="tiles" id="tiles"></div>
+					<p class="dim drop-hint">Drop files anywhere on this panel. Images, PDFs and plain text, up to 5 MB each.</p>
+				</div>
+				<div class="panel-hd" style="border-top:1px solid var(--line)">
+					<span class="label">Trash</span>
+					<span class="dim" style="font-size:.8rem">Delete from here to remove for good</span>
+				</div>
+				<div class="panel-bd"><ul class="list-plain" id="trash"></ul></div>
+			</div>
+
+			<aside class="stack">
+				<div class="panel">
+					<div class="panel-hd"><span class="label">Selected</span></div>
+					<div class="panel-bd" id="details"><p class="dim">Pick a file to see its record: hash, metadata, expiry and derivatives.</p></div>
+				</div>
+				<div class="panel">
+					<div class="panel-hd"><span class="label">Lifecycle events</span><span class="spacer"></span><span class="chip" id="usage"></span></div>
+					<div class="panel-bd"><ol class="list-plain events" id="events"></ol></div>
+				</div>
+				<div class="panel">
+					<div class="panel-hd"><span class="label">Backend metrics</span><span class="spacer"></span><span class="chip" id="backend"></span></div>
+					<div class="panel-bd"><table class="metrics" id="metrics"></table></div>
+				</div>
+				<button class="btn btn-ghost" id="reset">Reset my sandbox</button>
+			</aside>
+		</section>
+
+		<section id="feedback"></section>
+	</div>
+</Base>
+
+<script>
+	import "../../scripts/demo/buckt.js";
+</script>

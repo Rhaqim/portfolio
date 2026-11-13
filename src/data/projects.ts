@@ -16,6 +16,8 @@ export type Project = {
 	stars?: number;
 	repo?: string;
 	live?: string;
+	/** Demo page path under /demo on this site. Linked only while demo.live. */
+	demo?: string;
 	tags: string[];
 };
 
@@ -23,6 +25,7 @@ export type Project = {
 export const systems: Project[] = [
 	{
 		slug: "buckt",
+		demo: "/buckt",
 		name: "buckt",
 		summary: "Media storage library",
 		detail:
@@ -37,6 +40,7 @@ export const systems: Project[] = [
 	},
 	{
 		slug: "ussd",
+		demo: "/ussd",
 		name: "ussdframework",
 		summary: "USSD application engine",
 		detail:
@@ -51,6 +55,7 @@ export const systems: Project[] = [
 	},
 	{
 		slug: "loom",
+		demo: "/loom",
 		name: "loom",
 		summary: "Multi-agent runtime",
 		detail:
