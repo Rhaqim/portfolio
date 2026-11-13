@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Doc.astro
 slug: buckt
-description: "Buckt is a Go media management library: folder hierarchies, metadata, image derivatives, dedup and lifecycle events on top of local disk, S3, R2, GCS or Azure Blob."
+description: "Buckt is a Go media management library: folder hierarchies, metadata, image derivatives, dedup, presigned URLs, expiring files and lifecycle events on top of local disk, S3, R2, GCS or Azure Blob."
 ---
 
 Buckt sits inside your Go application and manages media workflows, delegating the
@@ -117,6 +117,7 @@ client, err := buckt.Default(
 | `WithUploadScanner(scan.Scanner)` | Reject uploads before they're stored |
 | `WithDedup()` | Collapse identical uploads in a folder to one blob |
 | `WithMetrics(metrics.Recorder)` | Per-backend operation metrics |
+| `WithExpirySweeper(duration)` | Background ticker that purges expired files |
 | `WithMaxFileSize(int64)` | Reject oversized uploads (0 = no limit) |
 | `WithMaxTrashBatchSize(int)` | Cap descendants moved in a single folder delete |
 | `WithBackendOpTimeout(duration)` | Bound backend I/O during a delete |
@@ -243,6 +244,43 @@ throughput.
 ```go
 client, _ := buckt.Default(buckt.WithBackend(s3))
 ```
+
+## Presigned URLs and direct uploads
+
+Hand clients a short-lived URL that reads a file **straight from the bucket**,
+so downloads never stream through your process: the CDN-friendly way to serve
+media.
+
+```go
+url, err := client.PresignedURL(fileID, 15*time.Minute)
+thumb, err := client.PresignedDerivativeURL(fileID, "thumbnail", 15*time.Minute)
+
+if errors.Is(err, buckt.ErrUnsupported) {
+  // local disk (or a client mid-migration) can't presign: stream instead
+}
+```
+
+Presigning is a cloud-backend capability: S3 and R2 (`cloud/aws`) today. A
+presigned URL bypasses buckt's own auth for its whole TTL, so keep the TTL short
+and never log the URLs.
+
+The reverse direction lets the browser upload **straight to the bucket**. The
+file ID is stable from the first call, so your app can track it immediately:
+
+```go
+// 1. Reserve: a stable file ID and a presigned PUT URL
+fileID, uploadURL, _ := client.PresignUpload(userID, parentID, "video.mp4", "video/mp4", 15*time.Minute)
+
+// 2. The client PUTs the bytes to uploadURL.
+
+// 3. Confirm: the file goes live and file.uploaded fires
+client.FinalizeUpload(fileID, sizeInBytes)
+```
+
+Until it's finalized the file is pending and hidden from listings. Because buckt
+never sees the bytes on this path, direct uploads skip dedup, scanning and
+content hashing, and derivatives are generated at finalize. Keep `UploadFile`
+for anything that needs those.
 
 ## Image derivatives
 
@@ -372,6 +410,24 @@ Each `Stat` holds `Count`, `Errors`, `Bytes` and `TotalDur`. Implement the
 one-method `metrics.Recorder` interface to forward to Prometheus, StatsD, or
 your own sink.
 
+## Expiring files
+
+Give a file a TTL and buckt deletes it permanently (blob, derivatives and record)
+once it's due: temp uploads, one-time shares, scratch space.
+
+```go
+// TTL written in the same insert, so the file never exists without one
+fileID, _ := client.UploadFileWithTTL("user123", "", "share.zip", "application/zip", data, 24*time.Hour)
+
+client.SetFileTTL(fileID, time.Hour)      // add or change later
+client.SetFileExpiry(fileID, time.Time{}) // zero time clears it
+```
+
+A sweep does the deleting. Call `PurgeExpired(ctx)` from your own scheduler, or
+let buckt run one with `WithExpirySweeper(10 * time.Minute)`. Each deletion
+emits `file.purged`. Temp uploads are never deduplicated, so expiring one can't
+take a permanent file with the same bytes down with it.
+
 ## Trash and deletion
 
 | Action | Result | API |
@@ -386,9 +442,12 @@ trash hard-deletes it, giving you an "empty trash" mechanism with no extra API.
 ```go
 trash, _ := client.GetTrashFolder("user123")
 
-client.MoveFile(fileID, originalParentID) // restore
-client.DeleteFile(fileID)                 // already trashed → hard delete
+client.RestoreFile("user123", fileID) // back to the folder it was trashed from
+client.DeleteFile(fileID)             // already trashed → hard delete
 ```
+
+Trashed items remember where they came from, so `RestoreFile` and
+`RestoreFolder` put them back in place, or at the root if that folder is gone.
 
 In non-flat namespace mode, deleted items are physically moved on the backend so
 paths stay consistent, not just renamed in the database.
@@ -420,8 +479,10 @@ func main() {
 | `WebModeMount` | API only, for mounting onto a parent Gin engine |
 
 The UI gives you breadcrumb navigation, image/video/audio/PDF previews,
-drag-and-drop moves, inline rename, a folder browser for move targets, and both
-delete modes.
+drag-and-drop moves, inline rename, a folder browser for move targets, both
+delete modes, and a per-file "expire in 1h / 24h / 7d" control. The API adds
+`GET /presign/:file_id`, `POST /upload/presign` + `POST /upload/finalize` for
+direct uploads, `PUT /expiry/:file_id` and `POST /purge-expired`.
 
 ## API reference
 
@@ -446,6 +507,21 @@ ListFilesMetadata(folderID string) ([]FileModel, error)
 MoveFile(fileID, newParentID string) error
 DeleteFile(fileID string) (string, error)              // → trash
 DeleteFilePermanently(fileID string) (string, error)   // → hard delete
+RestoreFile(userID, fileID string) error               // trash → original folder
+RestoreFolder(userID, folderID string) error
+
+// Presigned URLs and direct uploads (cloud backends)
+PresignedURL(fileID string, ttl time.Duration) (string, error)
+PresignedDerivativeURL(fileID, name string, ttl time.Duration) (string, error)
+PresignUpload(userID, parentID, name, contentType string, ttl time.Duration) (fileID, uploadURL string, err error)
+FinalizeUpload(fileID string, size int64) (string, error)
+
+// Expiry
+UploadFileWithTTL(userID, parentID, name, contentType string, data []byte, ttl time.Duration) (string, error)
+UploadFileWithExpiry(userID, parentID, name, contentType string, data []byte, at time.Time) (string, error)
+SetFileTTL(fileID string, ttl time.Duration) error
+SetFileExpiry(fileID string, at time.Time) error
+PurgeExpired(ctx context.Context) (purged int, err error)
 
 // Metadata
 SetFileMetadata(fileID string, metadata map[string]string) error
@@ -476,6 +552,7 @@ Branch on failures with `errors.Is` using the re-exported sentinels:
 | `ErrUploadRejected` | Rejected by an upload scanner | 422 |
 | `ErrTrashBatchExceeded` | Folder delete exceeds the trash batch cap | 409 |
 | `ErrBackendUnavailable` | Backend unreachable / feature not enabled | 503 |
+| `ErrUnsupported` | Not supported by this backend (e.g. presigning on local disk) | 501 |
 
 ## Security defaults
 

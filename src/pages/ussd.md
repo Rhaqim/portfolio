@@ -210,6 +210,11 @@ can call.
 failures the user is sent to `timeout_screen`, usually a Quit screen explaining
 the lockout.
 
+A failed attempt redisplays the screen with its error once; the next screen
+starts clean. Only valid entries are pushed onto the back-stack, so `0` after a
+mistake returns to the previous screen rather than to the one that rejected the
+input.
+
 ## Routing
 
 A Router screen evaluates `router_options` in order and jumps to the first
@@ -328,6 +333,24 @@ Whatever JSON you return is stored at `session.data[data_key]`.
 Resolution uses `session.language`, falling back to `"default"` (the value
 stored when a plain string is used), then to an empty string. Set the user's
 language with an Input screen early in the flow.
+
+## Logging
+
+The framework logs through the standard [`log`](https://docs.rs/log) facade
+under the target `ussdframework` and never writes to stdout itself. Nothing is
+emitted until your application installs a logger, and you choose the verbosity:
+
+```rust
+env_logger::init();
+```
+
+```sh
+RUST_LOG=ussdframework=warn ./my-app   # errors and warnings only
+RUST_LOG=ussdframework=off  ./my-app   # silence the framework entirely
+```
+
+Log messages carry session IDs and screen names only. User input and session
+data, which can include PINs, are never logged.
 
 ## Menu builder
 

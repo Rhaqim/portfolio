@@ -1,5 +1,6 @@
 ---
 import Base from "@layouts/Base.astro";
+import DemoNav from "@components/DemoNav.astro";
 import "@styles/demo.css";
 ---
 
@@ -8,6 +9,7 @@ import "@styles/demo.css";
 	description="A private, hour-long media sandbox running buckt, a Go media-management library: uploads, thumbnails, dedup, trash and lifecycle events."
 >
 	<div class="demo">
+		<DemoNav slug="buckt" position="top" />
 		<section class="wrap demo-intro">
 			<p class="eyebrow"><b>buckt</b> · Go · live demo</p>
 			<h1>Your own media bucket, for an hour.</h1>
@@ -57,6 +59,8 @@ import "@styles/demo.css";
 				<button class="btn btn-ghost" id="reset">Reset my sandbox</button>
 			</aside>
 		</section>
+
+		<DemoNav slug="buckt" position="bottom" />
 
 		<section id="feedback"></section>
 	</div>

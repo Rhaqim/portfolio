@@ -1,5 +1,5 @@
 ---
-import { site, stack, links } from "@data/site";
+import { site, stack, links, demo } from "@data/site";
 import { systems } from "@data/projects";
 
 const shipped = systems.length;
@@ -28,6 +28,14 @@ const shipped = systems.length;
 				<span>{shipped} systems</span>
 				<span class="hero-cta-arrow" aria-hidden="true">↓</span>
 			</a>
+			{
+				demo.live && (
+					<a class="hero-cta hero-cta--ghost" href="/demo">
+						<span>Try them live</span>
+						<span class="hero-cta-arrow" aria-hidden="true">→</span>
+					</a>
+				)
+			}
 			<a
 				class="hero-alt"
 				href={links.github}
@@ -122,6 +130,20 @@ const shipped = systems.length;
 
 	.hero-cta:hover {
 		background: var(--red-bright);
+	}
+
+	.hero-cta--ghost {
+		background: transparent;
+		border: 1px solid var(--red);
+		padding: 10px 17px;
+	}
+
+	.hero-cta--ghost:hover {
+		background: var(--red-wash);
+	}
+
+	.hero-cta--ghost:hover .hero-cta-arrow {
+		transform: translateX(2px);
 	}
 
 	.hero-cta-arrow {

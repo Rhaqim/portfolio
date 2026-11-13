@@ -1,5 +1,6 @@
 ---
 import Base from "@layouts/Base.astro";
+import DemoNav from "@components/DemoNav.astro";
 import "@styles/demo.css";
 ---
 
@@ -8,6 +9,7 @@ import "@styles/demo.css";
 	description="Dial *384# on a simulated phone running a mobile-loan menu on ussdframework, a Rust USSD framework. Edit the menu JSON and run it live."
 >
 	<div class="demo">
+		<DemoNav slug="ussd" position="top" />
 		<section class="wrap demo-intro">
 			<p class="eyebrow"><b>ussdframework</b> · Rust · live demo</p>
 			<h1>Dial <span class="mono">*384#</span> for a loan.</h1>
@@ -75,6 +77,8 @@ import "@styles/demo.css";
 				</div>
 			</div>
 		</section>
+
+		<DemoNav slug="ussd" position="bottom" />
 
 		<section id="feedback"></section>
 	</div>

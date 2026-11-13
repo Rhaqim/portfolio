@@ -62,7 +62,7 @@ function render() {
 			i ? el("span", { class: "dim" }, "/") : null,
 			last ? el("span", { class: "here" }, label) : el("button", { onclick: () => { path = path.slice(0, i + 1); render(); } }, label),
 		];
-	}));
+	}).filter(Boolean));
 
 	const tiles = [
 		...here.folders.map((f) => el("button", { class: "tile tile-folder", onclick: () => { path.push(f.id); render(); } },
@@ -127,7 +127,8 @@ function renderDetails() {
 	md.value = Object.entries(f.metadata || {}).map(([k, v]) => `${k}=${v}`).join("\n");
 	const move = el("select", { class: "select" }, allFolders().map((o) => el("option", { value: o.id }, o.name)));
 
-	host.replaceChildren(
+	// replaceChildren turns null into the text "null", so filter the optional parts.
+	host.replaceChildren(...[
 		f.content_type.startsWith("image/") ? el("div", { class: "preview" },
 			el("img", { src: f.derivatives ? url(`${B}/files/${f.id}/derivatives/medium`) : raw, alt: f.name })) : null,
 		el("dl", { class: "kv" },
@@ -151,7 +152,7 @@ function renderDetails() {
 			el("label", { class: "field" }, el("span", {}, "Move to"), move),
 			el("button", { class: "btn btn-sm", onclick: () => act(`${B}/files/${f.id}/move`, "POST", "Moved.", { folder_id: move.value }) }, "Move"),
 		),
-	);
+	].filter(Boolean));
 }
 
 async function loadEvents() {

@@ -1,5 +1,6 @@
 ---
 import Base from "@layouts/Base.astro";
+import DemoNav from "@components/DemoNav.astro";
 import "@styles/demo.css";
 ---
 
@@ -8,6 +9,7 @@ import "@styles/demo.css";
 	description="Host a multiplayer tabletop game run by cooperating AI agents on loom, a Go multi-agent runtime, with per-turn costs. Or rewire an agent pipeline."
 >
 	<div class="demo">
+		<DemoNav slug="loom" position="top" />
 		<section class="wrap demo-intro">
 			<p class="eyebrow"><b>loom</b> · Go · live demo</p>
 			<h1>Agents that work together, on a real runtime.</h1>
@@ -214,6 +216,8 @@ import "@styles/demo.css";
 				</div>
 			</div>
 		</section>
+
+		<DemoNav slug="loom" position="bottom" />
 
 		<section id="feedback"></section>
 	</div>

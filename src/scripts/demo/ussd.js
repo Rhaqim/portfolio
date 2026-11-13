@@ -49,7 +49,7 @@ function render() {
 			),
 		);
 	}
-	screen.replaceChildren(status, body, state.busy ? el("div", { class: "ussd-busy" }, "Running USSD code…") : null);
+	screen.replaceChildren(...[status, body, state.busy ? el("div", { class: "ussd-busy" }, "Running USSD code…") : null].filter(Boolean));
 }
 
 // ---------------------------------------------------------------------------

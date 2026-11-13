@@ -1,13 +1,14 @@
 ---
 layout: ../layouts/Doc.astro
 slug: loom
-description: "loom is a modality-agnostic Go engine for multi-agent AI applications: versioned agents and prompts, session branching and replay, hook pipelines, cost budgets, LLM-as-judge scoring, and a YAML-driven test harness."
+description: "loom is a modality-agnostic Go engine for multi-agent AI applications: versioned agents and prompts, multi-agent turns, shared multiplayer sessions with live event streams, branching and replay, hooks, cost budgets, LLM-as-judge scoring and a YAML-driven test harness."
 ---
 
 Most LLM applications rewrite the same infrastructure: session state, prompt
 versioning, retries, cost accounting, evaluation. loom is that infrastructure as
-a library. Text, image, video and structured output move through one pipeline,
-so switching modality means swapping an agent, not rewriting the runtime.
+a library. Text, image, video, audio, 3D assets and structured output move
+through one pipeline, so switching modality means swapping an agent, not
+rewriting the runtime.
 
 > Building with loom using an AI assistant? Point it at
 > [`llms.txt`](https://github.com/rhaqim/loom/blob/main/llms.txt), a
@@ -19,7 +20,12 @@ so switching modality means swapping an agent, not rewriting the runtime.
 go get github.com/rhaqim/loom
 ```
 
-Requires Go 1.24+ and a Postgres or SQLite database.
+Requires Go 1.26+ and a Postgres or SQLite database. The Anthropic adapter is
+its own module, so the SDK's dependencies stay out of loom:
+
+```bash
+go get github.com/rhaqim/loom/generator/anthropic
+```
 
 ## Quick start
 
@@ -197,11 +203,50 @@ that changes between products, or between text, image, video and spatial
 modalities, is the set of agents the flow references plus the registered
 generators.
 
+Followers don't have to be flat. A follower whose template reads another
+follower's `OutputKey` runs after it, so a flow is planned into dependency
+layers that each run concurrently. `Flows().Validate` rejects a variable nobody
+produces, or a cycle, before you publish; `Flows().Plan` returns the layers and
+edges as data for a UI. Followers' hooks can all write session state: each
+step's changes are merged three-way against the state it started from, so
+parallel writers never clobber each other, and a real conflict is logged.
+
 `StepRequest.Inputs` is exposed to templates as `{{.Inputs.x}}` and forwarded to
 the generator. Pre-hooks run **before** the template renders and receive the
 session, so a memory-recall hook can inject context the prompt then uses.
 `GeneratorOverride`, `ParamOverride` and `Overrides` allow per-request provider,
 parameter and key/model routing.
+
+## Shared sessions
+
+For a session several people share, such as a multiplayer game:
+
+```go
+// Participants are checkpointed state: a fork from before a join drops them.
+e.AddParticipant(ctx, sess, loom.Participant{ID: "wren", Role: "player"})
+
+// A step a person wrote: persisted, checkpointed, hooks run, no generator or cost.
+e.RecordStep(ctx, sess, loom.ExternalStep{
+    AgentSlug: "human-dm", Author: "participant:host",
+    Result:    loom.NewTextResult(narration, "stop", 0, 0),
+})
+
+// A human-led turn: the host's text is the lead, AI followers work on it.
+e.RunTurn(ctx, sess, loom.TurnRequest{
+    Flow: flow, LeadResult: loom.NewTextResult(narration, "stop", 0, 0), LeadAuthor: "participant:host",
+})
+
+// Everyone watches live: step.started, chunk, step.done, step.failed, turn.done, forked.
+sub, _ := e.Subscribe(ctx, sess.ID, loom.SubscribeOptions{FromStep: 0})
+for ev := range sub.Events { /* fan out to clients */ }
+```
+
+`Action.ParticipantID` is checked against membership (`loom.ErrNotParticipant`)
+and stored on the step. Subscriptions replay persisted steps from `FromStep`
+(pass `-1` for live only), resume after a disconnect from the last step seen,
+and drop a consumer that falls too far behind. The broadcaster is in-process by
+default; set `Config.Broadcaster` when several engine instances share sessions.
+Turn-taking itself stays application code.
 
 ## Branching and replay
 
@@ -215,15 +260,34 @@ e.RunStep(ctx, branch, loom.StepRequest{AgentSlug: "assistant", Action: action})
 tree, _ := e.Sessions().BranchTree(ctx, sess.ID)
 ```
 
+Retention rules expire whole sessions, roots included, for short-lived data
+such as a public demo:
+
+```go
+loom.New(loom.Config{ /* ... */
+    BranchGC: &loom.BranchGCConfig{ /* ... */
+        Retention: []loom.RetentionRule{
+            {Name: "demo", Tags: []string{"demo"}, MaxIdle: 48 * time.Hour, Action: loom.RetentionPurge},
+        },
+    },
+})
+```
+
 ## Generators
 
 | Package | Constructor | Modality |
 |---|---|---|
 | `generator/openai` | `NewChatGenerator(key, model)` | Text (streaming) |
-| `generator/anthropic` | `NewChatGenerator(key, model)` | Text (streaming) |
+| `generator/anthropic` | `NewChatGenerator(key, model)` | Text (streaming), on the official Anthropic Go SDK; its own module |
 | `generator/replicate` | `NewImageGenerator(key, model)` | Image (async) |
 | `generator/runway` | `NewVideoGenerator(key, model)` | Video (async) |
+| `generator/meshy` | `NewModel3DGenerator(key)` | 3D asset, GLB (async, text- or image-to-3D) |
 | `generator/echo` | `New(prefix)` | Text, stub for testing |
+
+The Anthropic adapter maps `Params.Extra["effort"]` to `output_config.effort`,
+can send a response format as native structured outputs
+(`.WithNativeStructuredOutputs()`), defaults `max_tokens` to 16000, and returns
+safety refusals as `*loom.GenerationError{Kind: GenerationRejected}`.
 
 Bring your own by implementing one of three interfaces, then register it via
 `Config.Generators` or `e.RegisterGenerator("slug", gen)`:
@@ -282,8 +346,16 @@ e.Hooks().RegisterPost("no-spoilers", func(ctx context.Context, req *loom.StepRe
 
 ## Cost and budgets
 
-Every step records input/output tokens and USD cost from the built-in pricing
-table. Budgets enforce a spend cap per platform key. Enforcement is best-effort:
+Every step records input/output tokens and USD cost inside its own transaction.
+Token-billed models are priced from `Config.Pricing` (per model id) or
+`Config.DefaultPrice`; image, video, audio and 3D jobs from `Config.JobPricing`.
+loom ships no price list, because prices go stale between releases. Rows priced
+from the built-in placeholder rate are marked `Estimated`, and a summary's
+`PricingConfigured` is false if any row it sums was estimated, so you never
+show placeholder dollars as real ones.
+
+Budgets cap spend per platform key (`TargetPlatformID`) or per session
+(`TargetSessionID`, one shared game whoever acts). Enforcement is best-effort:
 it reads prior recorded spend and fails open on DB errors, not a hard
 transactional ceiling.
 
@@ -301,7 +373,18 @@ usage, _ := e.Cost().SessionUsage(ctx, sess.ID)
 fmt.Printf("Session cost: $%.4f (%d tokens)\n", usage.TotalUSD, usage.TotalTokens)
 ```
 
-On block, `RunStep` returns `*loom.BudgetExceededError`.
+On block, `RunStep` returns `*loom.BudgetExceededError`, carrying used and limit
+USD, tokens and steps.
+
+Before anything runs, check a key and price a call:
+
+```go
+// Asks the provider's models endpoint: no tokens spent.
+info, err := e.VerifyGenerator(ctx, "claude", map[string]any{"api_key": key})
+if errors.Is(err, loom.ErrKeyRejected) { /* 401/403 */ }
+
+est, _ := e.Cost().Estimate(ctx, loom.EstimateRequest{Model: "claude-haiku-5-5", InputTokens: 7000, OutputTokens: 1800})
+```
 
 ## Judges
 
@@ -324,6 +407,24 @@ result, _ := pair.Compare(ctx, judge.PairwiseRequest{
 })
 // result.Winner == "A" | "B" | "tie"
 ```
+
+## Evaluations (experimental)
+
+A generator *produces* content; an evaluator *decides* things about it. It
+answers typed questions (yes/no, pick one, rate on a rubric) as calibrated
+probabilities in one round trip, with each question judged independently.
+
+```go
+eval, _ := e.Evaluate(ctx, prose, map[string]loom.EvalQuestion{
+    "cliched": loom.EvalNoul("Does this lean on stock clichés?"),
+    "quality": loom.EvalScore("Rate the prose", "generic", "flat", "vivid", "striking"),
+})
+if eval.Answers.Yes("cliched", 0.7) { /* retry */ }
+```
+
+`e.EvalGate` turns answers into a post-hook that accepts, retries or rejects;
+`FlowAgent.When` skips a follower entirely when one cheap question says it isn't
+needed. It's opt-in (`Config.Evaluator`) and the API may still change.
 
 ## Test harness
 
@@ -384,7 +485,12 @@ default:
 ```
 
 Also typed: `*loom.BudgetExceededError`, `*loom.RetryError` (via `loom.IsRetry` /
-`loom.RetryAnnotationFrom`), and `loom.ErrInvalidConfig` from `loom.New`.
+`loom.RetryAnnotationFrom`), `loom.ErrInvalidConfig` from `loom.New`,
+`loom.ErrNotParticipant` for an action from a non-member, `loom.ErrKeyRejected`
+from `VerifyGenerator`, and a `GenerationError` of kind `GenerationRejected` for
+a provider's safety refusal. `loom.ErrSessionNotPersisted` is the one partial
+success: the step committed but the session row is stale, so recover it with
+`Sessions().StateAt`.
 
 ## CLI
 
@@ -424,8 +530,9 @@ loom/
 ├── llms.txt            # AI-oriented guide
 ├── internal/engine/    # the implementation, grouped by domain
 ├── schema/             # idempotent DDL loader (Postgres + SQLite)
-├── generator/          # openai, anthropic, replicate, runway, echo
+├── generator/          # openai, anthropic (own module), replicate, runway, meshy, echo
 ├── judge/              # RubricJudge, PairwiseJudge, ConstraintJudge
+├── evaluator/          # experimental decision primitive (Noul / Choice / Score)
 ├── gc/                 # background branch GC worker
 ├── harness/            # TestPlan, VariantMatrix, Assertion DSL
 ├── cmd/loom-cli/       # migrate, seed, test

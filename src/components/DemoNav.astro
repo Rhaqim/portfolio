@@ -1,0 +1,161 @@
+---
+/**
+ * Navigation for a demo page. `position="top"`: a crumb back to all demos and
+ * a link to the project's docs. `position="bottom"`: previous / next demo.
+ */
+import { neighbours } from "@data/demos";
+
+interface Props {
+	slug: string;
+	position: "top" | "bottom";
+}
+
+const { slug, position } = Astro.props;
+const { current, prev, next } = neighbours(slug);
+---
+
+{
+	position === "top" && current && (
+		<nav class="dnav-top wrap" aria-label="Demos">
+			<a class="dnav-crumb" href="/demo">
+				<span aria-hidden="true">←</span> All demos
+			</a>
+			<span class="dnav-sep" aria-hidden="true">/</span>
+			<span class="dnav-here">{current.name}</span>
+			<a class="dnav-docs" href={`/${current.slug}`}>
+				Read the {current.name} docs <span aria-hidden="true">→</span>
+			</a>
+		</nav>
+	)
+}
+
+{
+	position === "bottom" && prev && next && (
+		<nav class="dnav-pager wrap" aria-label="More demos">
+			<a class="dnav-card" href={`/demo/${prev.slug}`} rel="prev">
+				<span class="dnav-label">
+					<span aria-hidden="true">←</span> Previous demo
+				</span>
+				<span class="dnav-name">{prev.name}</span>
+				<span class="dnav-title">{prev.title}</span>
+			</a>
+			<a class="dnav-card dnav-card--all" href="/demo">
+				<span class="dnav-label">Index</span>
+				<span class="dnav-name">All demos</span>
+			</a>
+			<a class="dnav-card dnav-card--next" href={`/demo/${next.slug}`} rel="next">
+				<span class="dnav-label">
+					Next demo <span aria-hidden="true">→</span>
+				</span>
+				<span class="dnav-name">{next.name}</span>
+				<span class="dnav-title">{next.title}</span>
+			</a>
+		</nav>
+	)
+}
+
+<style>
+	.dnav-top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px 10px;
+		padding-top: 22px;
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.04em;
+	}
+
+	.dnav-crumb {
+		color: var(--red);
+		transition: color 0.18s ease;
+	}
+
+	.dnav-crumb:hover {
+		color: var(--red-bright);
+	}
+
+	.dnav-sep {
+		color: var(--fg-faint);
+	}
+
+	.dnav-here {
+		color: var(--fg-mid);
+	}
+
+	.dnav-docs {
+		margin-left: auto;
+		color: var(--fg-dim);
+		transition: color 0.18s ease;
+	}
+
+	.dnav-docs:hover {
+		color: var(--fg);
+	}
+
+	.dnav-pager {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr) minmax(0, 1fr);
+		gap: 12px;
+		padding-block: 8px 40px;
+	}
+
+	.dnav-card {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		padding: 18px 20px;
+		border: 1px solid var(--line);
+		background: var(--bg-raised);
+		transition: border-color 0.18s ease;
+		min-width: 0;
+	}
+
+	.dnav-card:hover {
+		border-color: var(--line-strong);
+	}
+
+	.dnav-card--next {
+		text-align: right;
+	}
+
+	.dnav-card--all {
+		justify-content: center;
+		text-align: center;
+	}
+
+	.dnav-label {
+		font-family: var(--font-mono);
+		font-size: 0.6875rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--fg-dim);
+	}
+
+	.dnav-name {
+		font-family: var(--font-mono);
+		font-size: 1rem;
+		color: var(--fg);
+	}
+
+	.dnav-title {
+		font-size: 0.85rem;
+		color: var(--fg-mid);
+	}
+
+	@media (max-width: 640px) {
+		.dnav-pager {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		}
+
+		.dnav-card--all {
+			grid-column: 1 / -1;
+			order: 3;
+		}
+
+		.dnav-docs {
+			margin-left: 0;
+			flex-basis: 100%;
+		}
+	}
+</style>

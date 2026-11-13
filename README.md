@@ -22,14 +22,15 @@ range, `npm install` silently omits its peer dependencies from the lockfile and
 ```
 src/
 ├── data/          Single source of truth for everything the site renders
-│   ├── site.ts       Identity, links, nav, capability strip
+│   ├── site.ts       Identity, links, nav, capability strip, demo API + live flag
 │   ├── projects.ts   Systems (libraries) + products, keyed by slug
+│   ├── demos.ts      Live demos, in pager order
 │   ├── work.ts       Employment history
 │   └── research.ts   Hardware/research direction
 ├── layouts/
 │   ├── Base.astro    Head, SEO, JSON-LD, header, footer, reveal observer
 │   └── Doc.astro     Project page shell: masthead, TOC, prose, next link
-├── components/    Homepage sections + the shared project row
+├── components/    Homepage sections, the shared project row, DemoNav
 ├── pages/
 │   ├── index.astro   The index
 │   ├── 404.astro
@@ -38,11 +39,27 @@ src/
 │   ├── loom.md
 │   ├── conexus.md    Product case studies
 │   ├── brisa.md
-│   └── eriife.md
+│   ├── eriife.md
+│   └── demo/         Live demos: index, ussd, buckt, loom
+├── scripts/demo/  Browser code for the demos (talks to the demo API)
 └── styles/
     ├── global.css    Tokens, layout primitives, type scale
-    └── prose.css     Markdown documentation styles
+    ├── prose.css     Markdown documentation styles
+    └── demo.css      Demo pages, scoped under .demo
 ```
+
+## Live demos
+
+The `/demo` pages are static; their backend is the separate
+[portfolio-demo](../portfolio-demo) repo (an API on Hetzner behind Cloudflare at
+`api.rhaqim.com`). To work on them locally, run `make up` in `../portfolio-demo`,
+then `make site` there (or `PUBLIC_DEMO_API=http://localhost:8080 npm run dev`
+here).
+
+Links into the demos (nav, hero, project rows, docs pages) follow `demo.live`
+in `src/data/site.ts`. A project gets a "Try it" link when its entry in
+`projects.ts` has `demo: "/<slug>"`; to add a demo, also add it to
+`src/data/demos.ts` (for the pager) and a card on `src/pages/demo/index.astro`.
 
 ## Adding a project page
 

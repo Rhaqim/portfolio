@@ -59,13 +59,13 @@ export const systems: Project[] = [
 		name: "loom",
 		summary: "Multi-agent runtime",
 		detail:
-			"Modality-agnostic orchestration for LLM applications: versioned agents, session branching, budgets, judges and a test harness.",
+			"Modality-agnostic orchestration for LLM applications: versioned agents, multi-agent turns, shared live sessions, branching, budgets and a test harness.",
 		language: "Go",
 		status: "active",
 		year: "2026",
 		install: "go get github.com/rhaqim/loom",
 		repo: "https://github.com/rhaqim/loom",
-		tags: ["OpenAI", "Anthropic", "Replicate", "Runway", "Postgres"],
+		tags: ["OpenAI", "Anthropic", "Replicate", "Runway", "Meshy", "Postgres", "SQLite"],
 	},
 ];
 
