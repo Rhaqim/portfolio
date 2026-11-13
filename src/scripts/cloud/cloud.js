@@ -9,8 +9,18 @@
 //
 // The script API is the seam for agents later: anything that can return an SVG
 // path, a word or an image can drive the cloud.
+//
+// Observation. Like an electron, the cloud only takes a definite shape while
+// someone is watching. Unwatched, each particle decoheres into a probability
+// cloud (a hydrogen orbital, now and then something else) and keeps jumping
+// to new places in it; watched again, it collapses back onto the shape.
+// "Watching" is a guess from attention: recent input, the cursor near the
+// cloud, the tab being in front. Coming back to the tab catches it
+// mid-collapse. A camera-based gaze signal (hud) can take over with
+// rhaqimCloud.observe(v), 0..1, and observe(null) hands control back.
+// Each collapse dispatches a "cloud:collapse" event on window.
 
-import { shapes, sample, fromSVGPath, fromText, fromImage } from "./shapes.js";
+import { shapes, sample, fromSVGPath, fromText, fromImage, fromDensity, orbitals, blur } from "./shapes.js";
 
 const STORE = "rhaqim-cloud";
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -48,6 +58,76 @@ function start(canvas) {
 	let pinned = null; // a script-requested shape overrides the page's
 	let current = ""; // key of the shape currently formed
 	const cache = new Map();
+
+	// ---- observation ------------------------------------------------------
+
+	const IDLE = 8000; // ms without input before attention is assumed to drift
+	const POOL = N * 4; // positions a decohered particle can jump between
+	const ox = new Float32Array(N), oy = new Float32Array(N); // each particle's spot in the cloud
+	const th = new Float32Array(N); // collapse threshold: particles lock on in a cascade
+	for (let i = 0; i < N; i++) th[i] = 0.05 + Math.random() * 0.9;
+	let obs = 1; // smoothed observation, 0 = superposition, 1 = collapsed
+	let external = null; // a gaze signal, when something provides one
+	let lastInput = performance.now();
+	let holdUntil = 0; // keep the superposition briefly so a returning visitor sees it
+	let decohered = false, flash = 0, orbitalSince = 0;
+	let pool = new Float32Array(POOL * 2);
+
+	/** Pick what the cloud becomes while unobserved: an orbital, at a random
+	 *  angle, or once in a while a smeared ψ. */
+	function newOrbital(now = performance.now()) {
+		orbitalSince = now;
+		if (Math.random() < 1 / 7) {
+			pool = blur(sample(fromText("ψ"), POOL), 0.025);
+		} else {
+			const names = Object.keys(orbitals);
+			const [p, L] = orbitals[names[(Math.random() * names.length) | 0]];
+			pool = fromDensity(p, POOL, L, Math.random() < 0.5 ? 0 : Math.random() * Math.PI);
+		}
+		for (let i = 0; i < N; i++) jump(i);
+	}
+	function jump(i) {
+		const j = ((Math.random() * POOL) | 0) * 2;
+		ox[i] = pool[j]; oy[i] = pool[j + 1];
+	}
+
+	/** Where attention seems to be, 0..1, before smoothing. */
+	function attention(now) {
+		if (now < holdUntil) return 0;
+		if (external !== null) return external;
+		const idle = now - lastInput;
+		if (idle < IDLE) return 1;
+		// A cursor resting on the cloud still counts, for a while.
+		const near = mouse.active && idle < IDLE * 4 && Math.hypot(mouse.x - place.cx, mouse.y - place.cy) < place.size * 0.75;
+		return near ? 1 : 0;
+	}
+
+	function updateObservation(now, dt) {
+		const a = attention(now);
+		// Collapse is quick; decoherence is slow (~4 s), so a glance away doesn't undo it.
+		obs = a > obs ? obs + (a - obs) * (1 - Math.pow(0.93, dt)) : Math.max(a, obs - 0.004 * dt);
+		if (obs < 0.9 && !decohered) { decohered = true; newOrbital(now); }
+		if (decohered && obs < 0.1 && now - orbitalSince > 15000) newOrbital(now);
+		if (decohered && obs > 0.97) {
+			decohered = false;
+			flash = 1;
+			dispatchEvent(new CustomEvent("cloud:collapse"));
+		}
+		flash *= Math.pow(0.94, dt);
+	}
+
+	/** Start (or return to) a superposition and let it collapse in view. */
+	function decohereNow(hold) {
+		obs = 0;
+		decohered = true;
+		newOrbital();
+		for (let i = 0; i < N; i++) {
+			x[i] = place.cx + ox[i] * place.size; y[i] = place.cy + oy[i] * place.size;
+			vx[i] = vy[i] = 0;
+		}
+		lastInput = performance.now();
+		holdUntil = lastInput + hold;
+	}
 
 	function resize() {
 		dpr = Math.min(devicePixelRatio || 1, 2);
@@ -164,13 +244,32 @@ function start(canvas) {
 		place.size += (want.size - place.size) * ease;
 		alpha += (want.alpha - alpha) * ease * 0.6;
 
+		updateObservation(now, dt);
 		const R = Math.max(70, place.size * 0.28), R2 = R * R;
 		const damp = Math.pow(0.86, dt);
+		const leap = (1 - obs) * 0.03 * dt; // chance a decohered particle jumps this frame
+		const shimmer = (1 - obs) * 0.6;
 		for (let i = 0; i < N; i++) {
-			const breathe = Math.sin(t * 1.3 + phase[i]) * 1.6;
-			const tx = place.cx + target[i * 2] * place.size + breathe;
-			const ty = place.cy + target[i * 2 + 1] * place.size + Math.cos(t * 1.1 + phase[i]) * 1.6;
-			let ax = (tx - x[i]) * k[i], ay = (ty - y[i]) * k[i];
+			let tx, ty, ki = k[i];
+			if (obs > th[i]) {
+				const breathe = Math.sin(t * 1.3 + phase[i]) * 1.6;
+				tx = place.cx + target[i * 2] * place.size + breathe;
+				ty = place.cy + target[i * 2 + 1] * place.size + Math.cos(t * 1.1 + phase[i]) * 1.6;
+			} else {
+				// Unobserved: no trajectory, just a new position in the cloud now and then.
+				tx = place.cx + ox[i] * place.size;
+				ty = place.cy + oy[i] * place.size;
+				if (Math.random() < leap) {
+					jump(i);
+					x[i] = place.cx + ox[i] * place.size; y[i] = place.cy + oy[i] * place.size;
+					vx[i] = vy[i] = 0;
+					continue;
+				}
+				ki *= 0.6;
+				vx[i] += (Math.random() - 0.5) * shimmer * dt;
+				vy[i] += (Math.random() - 0.5) * shimmer * dt;
+			}
+			let ax = (tx - x[i]) * ki, ay = (ty - y[i]) * ki;
 			if (mouse.active) {
 				const dx = x[i] - mouse.x, dy = y[i] - mouse.y, d2 = dx * dx + dy * dy;
 				if (d2 < R2 && d2 > 0.01) {
@@ -190,10 +289,12 @@ function start(canvas) {
 		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 		ctx.clearRect(0, 0, W, H);
 		ctx.fillStyle = "rgb(224, 27, 24)";
+		// A collapse flares briefly: brighter, slightly larger points.
+		const glow = 1 + flash * 0.5, grow = flash * 0.8;
 		for (let l = 0; l < 3; l++) {
 			const { size, alpha: a } = LAYERS[l];
-			ctx.globalAlpha = a * alpha;
-			for (const i of byLayer[l]) ctx.fillRect(x[i], y[i], size, size);
+			ctx.globalAlpha = Math.min(1, a * alpha * glow);
+			for (const i of byLayer[l]) ctx.fillRect(x[i], y[i], size + grow, size + grow);
 		}
 		ctx.globalAlpha = 1;
 	}
@@ -204,8 +305,11 @@ function start(canvas) {
 	const run = () => { if (!raf && !reduced && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(frame); } };
 	const stop = () => { cancelAnimationFrame(raf); raf = 0; };
 
-	addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; }, { passive: true });
+	const seen = () => (lastInput = performance.now());
+	for (const ev of ["scroll", "wheel", "keydown", "touchstart"]) addEventListener(ev, seen, { passive: true });
+	addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; seen(); }, { passive: true });
 	addEventListener("pointerdown", (e) => {
+		seen();
 		// A click scatters the cloud harder.
 		for (let i = 0; i < N; i++) {
 			const dx = x[i] - e.clientX, dy = y[i] - e.clientY, d = Math.hypot(dx, dy) || 1;
@@ -216,7 +320,13 @@ function start(canvas) {
 	addEventListener("scroll", () => { choose(); }, { passive: true });
 	addEventListener("resize", () => { resize(); choose(); if (reduced) snap(); });
 	addEventListener("cloud:refresh", () => choose());
-	document.addEventListener("visibilitychange", () => (document.hidden ? stop() : run()));
+	document.addEventListener("visibilitychange", () => {
+		if (document.hidden) return stop();
+		// Nobody could see it while the tab was away: it's a cloud again, and
+		// looking back collapses it.
+		if (!reduced) decohereNow(450);
+		run();
+	});
 	addEventListener("pagehide", () => {
 		try { sessionStorage.setItem(STORE, JSON.stringify({ key: current, cx: place.cx, cy: place.cy, size: place.size })); } catch {}
 	});
@@ -234,9 +344,9 @@ function start(canvas) {
 		} else {
 			await morph("orb");
 			aim();
-			// First visit: start scattered, so the cloud visibly assembles.
+			// First visit: start as a probability cloud, so the first look collapses it.
 			Object.assign(place, want);
-			for (let i = 0; i < N; i++) { x[i] = Math.random() * W; y[i] = Math.random() * H; }
+			if (!reduced) decohereNow(700);
 		}
 		requestAnimationFrame(() => { choose(); reduced ? snap() : run(); });
 	})();
@@ -251,5 +361,9 @@ function start(canvas) {
 		get shapes() { return Object.keys(shapes); },
 		/** Re-scan the page for [data-cloud] elements (after rendering new ones). */
 		refresh() { observe(); choose(); },
+		/** Say how observed the cloud is, 0..1 (e.g. from gaze tracking); null = guess from attention. */
+		observe(v) { external = v === null || v === undefined ? null : Math.min(1, Math.max(0, +v || 0)); },
+		/** How collapsed the cloud is right now, 0..1. */
+		get observed() { return obs; },
 	};
 }

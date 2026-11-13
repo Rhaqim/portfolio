@@ -192,6 +192,59 @@ function samplePixels(px, size, n, test = (i) => px[i + 3] > 128) {
 	return out;
 }
 
+// ---------------------------------------------------------------------------
+// Densities: clouds rather than silhouettes
+// ---------------------------------------------------------------------------
+
+/** `n` points drawn from a 2D probability density p(x, y) over [-L, L]², by
+ *  rejection sampling. Scaled so the 98th-percentile radius is 0.5 (the
+ *  cloud spans about 1, like a sampled shape), then rotated by `angle`. */
+export function fromDensity(p, n, L, angle = 0) {
+	const G = 96, step = (2 * L) / G;
+	let max = 0;
+	for (let i = 0; i < G; i++) for (let j = 0; j < G; j++) max = Math.max(max, p(-L + (i + 0.5) * step, -L + (j + 0.5) * step));
+	max *= 1.2; // the grid can miss a sharp peak (1s at the origin)
+	const out = new Float32Array(n * 2);
+	if (!(max > 0)) return out;
+	let got = 0;
+	for (let tries = 0; got < n && tries < n * 400; tries++) {
+		const x = (Math.random() * 2 - 1) * L, y = (Math.random() * 2 - 1) * L;
+		if (Math.random() * max < p(x, y)) { out[got * 2] = x; out[got * 2 + 1] = y; got++; }
+	}
+	for (let i = got; i < n && got; i++) { out[i * 2] = out[(i % got) * 2]; out[i * 2 + 1] = out[(i % got) * 2 + 1]; }
+	const radii = new Float32Array(n);
+	for (let i = 0; i < n; i++) radii[i] = Math.hypot(out[i * 2], out[i * 2 + 1]);
+	radii.sort();
+	const s = 0.5 / (radii[Math.floor(n * 0.98)] || 1), c = Math.cos(angle) * s, sn = Math.sin(angle) * s;
+	for (let i = 0; i < n; i++) {
+		const x = out[i * 2], y = out[i * 2 + 1];
+		out[i * 2] = x * c - y * sn;
+		out[i * 2 + 1] = x * sn + y * c;
+	}
+	return out;
+}
+
+/** Hydrogen-like orbitals, |ψ|² on a slice through the nucleus (x across,
+ *  z up; distances in Bohr radii). [density, half-width of the sampling box]. */
+export const orbitals = {
+	"1s": [(x, z) => Math.exp(-2 * Math.hypot(x, z)), 4],
+	"2s": [(x, z) => { const r = Math.hypot(x, z); return (2 - r) ** 2 * Math.exp(-r); }, 12],
+	"2p": [(x, z) => z * z * Math.exp(-Math.hypot(x, z)), 10],
+	"3p": [(x, z) => { const r = Math.hypot(x, z); return z * z * (6 - r) ** 2 * Math.exp((-2 * r) / 3); }, 20],
+	"3d": [(x, z) => { const r = Math.hypot(x, z); return (3 * z * z - r * r) ** 2 * Math.exp((-2 * r) / 3); }, 20],
+	"3dxz": [(x, z) => (x * z) ** 2 * Math.exp((-2 * Math.hypot(x, z)) / 3), 18],
+};
+
+/** A sampled shape smeared into a cloud: each point nudged by Gaussian noise. */
+export function blur(pts, sigma) {
+	const out = new Float32Array(pts.length);
+	for (let i = 0; i < pts.length; i++) {
+		const g = Math.sqrt(-2 * Math.log(Math.random() || 1e-9)) * Math.cos(Math.PI * 2 * Math.random());
+		out[i] = pts[i] + g * sigma;
+	}
+	return out;
+}
+
 /** An SVG path's `d` attribute, in any coordinate space (e.g. an agent's output). */
 export function fromSVGPath(d, viewBox = 100) {
 	const path = new Path2D(d);
