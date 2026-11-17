@@ -280,15 +280,15 @@ const host = (u: string) => u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/,
 		content: ": ";
 	}
 
+	/* Printing: keep headings with what follows, and don't split a bullet or an
+	   entry header. A whole job may split between bullets: forcing it onto one
+	   page pushes a long job to the next page and leaves the first one empty. */
 	@media print {
-		.cv-job,
+		.cv-job-head,
 		.cv-section h2 {
 			break-inside: avoid;
 		}
-	}
 
-	/* Printing: keep headings with what follows, and don't split a bullet or an entry header. */
-	@media print {
 		.cv h2,
 		.cv-job-head,
 		.cv-group {

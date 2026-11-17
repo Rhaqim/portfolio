@@ -1,0 +1,79 @@
+{
+  "company": "DualEntry",
+  "role": "Senior/Staff Backend Engineer",
+  "roleUrl": "https://jobs.ashbyhq.com/dualentry/bb7da28b-f93b-42ff-87dd-10fde58bb359",
+  "location": "Remote (EMEA)",
+  "prepared": "2026-11-17",
+  "theme": {
+    "bg": "#fafaf9", "surface": "#ffffff", "fg": "#1d1f20", "muted": "#5c6063", "line": "#e4e4e1",
+    "accent": "#1d1f20", "onAccent": "#ffffff",
+    "heading": "Instrument Sans", "body": "Inter", "radius": 8,
+    "cloud": { "text": "Σ" }
+  },
+  "headline": "Backends where the business logic has to be right. Loans then, agents now.",
+  "pitch": "I led delivery of a USSD loan service on a financial platform serving 16 million customers, built on Python, Django and PostgreSQL. Now I lead engineering at an AI studio and own its infrastructure end to end: schema, CI/CD, recovery, and the alerting that says when something breaks.",
+  "matches": [
+    {
+      "requirement": "Deep experience with complex business logic",
+      "evidence": "Led a team of four delivering a USSD loan service from development to production, on a financial services platform handling over 1 million loan requests a month, through rollouts across six countries.",
+      "refs": ["equity-lead", "equity-rollout"],
+      "links": [{ "label": "Dial a loan (USSD demo)", "href": "/demo/ussd" }]
+    },
+    {
+      "requirement": "PostgreSQL, SQL, ORMs, migrations, schema design",
+      "evidence": "Designed the PostgreSQL schema for an NFT indexer, worked in the Django ORM daily at Equity, and built Buckt on GORM. Cut database reads by 40% and API response times from 1.2s to 600ms with query work and caching.",
+      "refs": ["nirvana-schema", "equity-orm", "dgrs-buckt", "dgrs-postgres"],
+      "links": [{ "label": "Buckt docs", "href": "/buckt" }]
+    },
+    {
+      "requirement": "Ship end to end: architecture, CI/CD, testing, monitoring",
+      "evidence": "Built CI/CD across five repositories, separate dev, staging and production environments, a generator–reviewer workflow with production-like test environments, and a founder's dashboard that turns errors and logs into Telegram alerts.",
+      "refs": ["dgrs-cicd", "dgrs-envs", "dgrs-ai-review", "dgrs-monitoring"],
+      "links": []
+    },
+    {
+      "requirement": "Integrating third-party tools and external systems",
+      "evidence": "Designed Loom's plugin architecture to connect agents to external generation tools, and guided Equity's engineers on service integration and business logic.",
+      "refs": ["dgrs-plugins", "equity-framework"],
+      "links": [{ "label": "Loom docs", "href": "/loom" }]
+    },
+    {
+      "requirement": "Deploying on AWS or similar, production readiness",
+      "evidence": "Provision and run DGRS Labs' servers myself behind Cloudflare, with a backup and disaster-recovery system that restores the full stack. At Equity, containerized services shipped through Azure Pipelines to Kubernetes.",
+      "refs": ["dgrs-infra", "dgrs-dr", "equity-k8s"],
+      "links": []
+    },
+    {
+      "requirement": "Bonus: Python with FastAPI or Django",
+      "evidence": "Django and its ORM were the backbone of Equity's USSD service, and I led the FastAPI proof of concept that showed it was a viable alternative for the loan service.",
+      "refs": ["equity-orm", "equity-fastapi"],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production backends in Python, Golang and Rust. Led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries. Now leads engineering on a suite of AI products and single-handedly runs the company's infrastructure, CI/CD and monitoring. Strong in PostgreSQL, schema design and ORMs.",
+    "jobs": [
+      { "id": "dgrs", "bullets": [
+        { "ref": "dgrs-lead" }, { "ref": "dgrs-postgres" }, { "ref": "dgrs-buckt" }, { "ref": "dgrs-loom" },
+        { "ref": "dgrs-infra" }, { "ref": "dgrs-cicd" }, { "ref": "dgrs-envs" }, { "ref": "dgrs-monitoring" }, { "ref": "dgrs-grafana" }, { "ref": "dgrs-dr" }, { "ref": "dgrs-ai-review" }
+      ] },
+      { "id": "equity", "bullets": [
+        { "ref": "equity-lead" }, { "ref": "equity-orm" }, { "ref": "equity-framework" }, { "ref": "equity-fastapi" }, { "ref": "equity-k8s" }
+      ] },
+      { "id": "nirvana", "bullets": [
+        { "ref": "nirvana-schema" }, { "ref": "nirvana-dashboard" }
+      ] }
+    ],
+    "skills": [
+      { "id": "languages", "items": ["Python", "Golang", "Rust"] },
+      { "id": "backend", "items": ["PostgreSQL", "Django", "Django ORM", "GORM", "FastAPI", "Redis", "API Design", "Query Optimisation"] },
+      { "id": "devops", "items": ["Docker", "Kubernetes", "GitHub Actions", "Linux server administration", "Cloudflare", "Grafana", "Monitoring & alerting", "Backup & Disaster recovery"] },
+      { "id": "ai", "items": ["Agent Orchestration", "AI-assisted Development (Claude, Codex)"] }
+    ]
+  },
+  "note": "Accounting is business logic with no room for mostly right. Loans were the same: a loan service that gets an amount wrong isn't a bug you fix next sprint. That's the kind of backend I've spent my career on, and I like that you'd rather use Postgres until it breaks.\n\nAt DGRS Labs I own the whole path to production: servers, environments, CI/CD across five repositories, backups and recovery, and the dashboard that sends errors to Telegram. I'd bring that end-to-end ownership from the first week.\n\nMy infrastructure work has been on Linux servers behind Cloudflare at DGRS Labs, and Azure Pipelines with Kubernetes at Equity. The systems linked above have live demos if you'd like to try them.",
+  "sources": [
+    { "label": "Job posting", "href": "https://jobs.ashbyhq.com/dualentry/bb7da28b-f93b-42ff-87dd-10fde58bb359" },
+    { "label": "dualentry.com (tone and logo colour)", "href": "https://www.dualentry.com/" }
+  ]
+}
