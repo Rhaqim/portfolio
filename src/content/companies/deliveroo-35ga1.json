@@ -1,0 +1,70 @@
+{
+  "company": "Deliveroo",
+  "role": "Software Engineer, Support Engineering",
+  "roleUrl": "https://job-boards.greenhouse.io/deliveroo/jobs/8206351",
+  "location": "London",
+  "prepared": "2026-11-17",
+  "theme": {
+    "bg": "#f7f6f3", "surface": "#ffffff", "fg": "#1c1f22", "muted": "#565b60", "line": "#e2e0db",
+    "accent": "#007f7a", "onAccent": "#ffffff",
+    "heading": "Plus Jakarta Sans", "body": "Plus Jakarta Sans", "radius": 8,
+    "cloud": { "shape": "phone" }
+  },
+  "headline": "Go services, and the production work that keeps them fast, for the tools support teams rely on.",
+  "pitch": "I lead a team of three engineers at DGRS Labs and run all of its infrastructure myself, from Linux servers to CI/CD. Loom, the Go multi-agent runtime I built there, runs agents concurrently and streams live events to shared sessions. Before that I led delivery of a USSD loan service on a platform serving 16 million customers in six countries.",
+  "matches": [
+    {
+      "requirement": "Production Go, high-throughput services",
+      "evidence": "Loom and Buckt are both Go. Loom is the orchestration platform behind CoNexus, coordinating six agents per scene with followers run concurrently; Buckt manages the platform's media library in production.",
+      "refs": ["dgrs-loom", "dgrs-buckt"],
+      "links": [{ "label": "Loom docs", "href": "/loom" }, { "label": "Try Loom", "href": "/demo/loom" }]
+    },
+    {
+      "requirement": "Low-latency systems at scale",
+      "evidence": "Cut API response times from 1.2s to 600ms and database reads by 40%, and took average page loads from 4.5s to 1.1s. At Equity the loan service handled over 1 million loan requests a month.",
+      "refs": ["dgrs-postgres", "dgrs-assets", "equity-lead"],
+      "links": []
+    },
+    {
+      "requirement": "SQL and NoSQL databases, especially Cassandra",
+      "evidence": "PostgreSQL is my default, and I've used Redis for caching and session state in production. I haven't run Cassandra in production; that would be new ground.",
+      "refs": ["dgrs-postgres", "equity-k8s"],
+      "links": [{ "label": "Redis sessions in the USSD framework", "href": "/ussd" }]
+    },
+    {
+      "requirement": "On-call, reliability and incident management",
+      "evidence": "As the sole owner of DGRS Labs' infrastructure, keeping it up is my job. I built its backup and disaster-recovery system, and owned production support through Equity's rollouts across six countries.",
+      "refs": ["dgrs-infra", "dgrs-dr", "equity-rollout"],
+      "links": []
+    },
+    {
+      "requirement": "Well-tested code and high quality standards",
+      "evidence": "Set up separate dev, staging and production environments with release rules the team follows, and a generator–reviewer workflow with production-like Docker test environments. Loom ships with its own test harness.",
+      "refs": ["dgrs-envs", "dgrs-ai-review", "dgrs-cicd"],
+      "links": [{ "label": "Loom's test harness", "href": "/loom#test-harness" }]
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production backends in Golang, Python and Rust. Leads a team of three at an AI studio, built its Go agent orchestration platform, and single-handedly runs its infrastructure and CI/CD. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "jobs": [
+      { "id": "dgrs", "bullets": [
+        { "ref": "dgrs-lead" }, { "ref": "dgrs-loom" }, { "ref": "dgrs-postgres" }, { "ref": "dgrs-assets" }, { "ref": "dgrs-buckt" },
+        { "ref": "dgrs-infra" }, { "ref": "dgrs-cicd" }, { "ref": "dgrs-envs" }, { "ref": "dgrs-dr" }, { "ref": "dgrs-ai-review" }
+      ] },
+      { "id": "equity", "bullets": [
+        { "ref": "equity-lead" }, { "ref": "equity-rollout" }, { "ref": "equity-k8s" }, { "ref": "equity-framework" }
+      ] }
+    ],
+    "skills": [
+      { "id": "languages", "items": ["Golang", "Python", "Rust"] },
+      { "id": "backend", "items": ["PostgreSQL", "Redis", "API Design", "Query Optimisation", "Node.js"] },
+      { "id": "devops", "items": ["Docker", "Kubernetes", "GitHub Actions", "Linux server administration", "Cloudflare", "NGINX"] },
+      { "id": "leadership", "items": ["System Architecture", "Technical Direction", "Code Review", "Production Delivery"] }
+    ]
+  },
+  "note": "Support tooling is where a backend's speed and reliability reach people directly. When it's slow, a support agent and a customer are both left waiting. That's the kind of system I like building, and most of my recent work has been in Go.\n\nAt DGRS Labs I own the whole path from code to production: the services, the database work, the pipelines, and the recovery plan for when something breaks. I'd bring that habit of owning what I ship, and of thinking about how it fails before it does.\n\nCassandra would be new to me. I've gone deep on PostgreSQL and Redis, and I'd want to learn Cassandra properly on real traffic. The systems linked above have live demos if you'd like to try them.",
+  "sources": [
+    { "label": "Job posting", "href": "https://job-boards.greenhouse.io/deliveroo/jobs/8206351" },
+    { "label": "deliveroo.co.uk (theme colour)", "href": "https://deliveroo.co.uk" }
+  ]
+}
