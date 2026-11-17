@@ -141,6 +141,7 @@ function start(canvas) {
 
 	async function resolve(spec) {
 		if (typeof spec === "string" && spec.startsWith("text:")) return { key: spec, draw: fromText(spec.slice(5)) };
+		if (typeof spec === "string" && spec.startsWith("svg:")) return { key: spec.slice(0, 80), draw: fromSVGPath(spec.slice(4), 100) };
 		if (typeof spec === "string") return { key: spec, draw: shapes[spec] || shapes.orb };
 		if (spec.svg) return { key: "svg:" + spec.svg.slice(0, 64), draw: fromSVGPath(spec.svg, spec.viewBox) };
 		if (spec.text) return { key: "text:" + spec.text, draw: fromText(spec.text) };
@@ -285,10 +286,14 @@ function start(canvas) {
 		raf = requestAnimationFrame(frame);
 	}
 
+	// A page can recolour the cloud with a --cloud custom property (company
+	// pages set it to the company's accent); the site's red otherwise.
+	const colour = getComputedStyle(document.documentElement).getPropertyValue("--cloud").trim() || "rgb(224, 27, 24)";
+
 	function draw() {
 		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 		ctx.clearRect(0, 0, W, H);
-		ctx.fillStyle = "rgb(224, 27, 24)";
+		ctx.fillStyle = colour;
 		// A collapse flares briefly: brighter, slightly larger points.
 		const glow = 1 + flash * 0.5, grow = flash * 0.8;
 		for (let l = 0; l < 3; l++) {

@@ -1,0 +1,67 @@
+---
+/**
+ * A bare A4 document for printing to PDF (`npm run company:pdf` drives
+ * headless Chrome against these pages). No site chrome, no cloud.
+ */
+import "@styles/global.css";
+
+interface Props {
+	title: string;
+	/** Extra CSS custom properties for :root (a company theme). */
+	vars?: string;
+	fontHref?: string;
+}
+
+const { title, vars, fontHref } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow, noarchive" />
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" />
+		{fontHref && <link rel="stylesheet" href={fontHref} />}
+		{vars && <style is:inline set:html={`html:root { ${vars} }`} />}
+	</head>
+	<body class="print">
+		<main class="sheet"><slot /></main>
+	</body>
+</html>
+
+<style is:global>
+	@page {
+		size: A4;
+		margin: 14mm 15mm;
+		/* Chrome leaves page margins unpainted unless @page has its own background. */
+		background: var(--bg);
+	}
+
+	html,
+	body.print {
+		background: var(--bg);
+	}
+
+	.sheet {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 40px 24px;
+	}
+
+	@media print {
+		.sheet {
+			padding: 0;
+			max-width: none;
+		}
+
+		html,
+		body.print {
+			-webkit-print-color-adjust: exact;
+			print-color-adjust: exact;
+		}
+	}
+</style>

@@ -1,0 +1,303 @@
+---
+/**
+ * A resume rendered from a ResumeModel. `variant="styled"` follows the page's
+ * tokens (so a company theme restyles it); `variant="plain"` is the
+ * applicant-tracking version: one column, black on white, real text, no
+ * tables or columns a parser could scramble.
+ */
+import { formatPeriod } from "@data/resume";
+import type { ResumeModel } from "@lib/company";
+
+interface Props {
+	model: ResumeModel;
+	variant?: "styled" | "plain";
+}
+
+const { model, variant = "styled" } = Astro.props;
+const c = model.contact;
+const host = (u: string) => u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+---
+
+<article class:list={["cv", `cv--${variant}`]}>
+	<header class="cv-head">
+		<div>
+			<h1 class="cv-name">{c.name}</h1>
+			<p class="cv-title">{c.title}</p>
+		</div>
+		<ul class="cv-contact">
+			<li><a href={`mailto:${c.email}`}>{c.email}</a></li>
+			<li><a href={c.linkedin}>{variant === "plain" ? host(c.linkedin) : "LinkedIn"}</a></li>
+			<li><a href={c.site}>{host(c.site)}</a></li>
+			<li>{c.location}</li>
+		</ul>
+	</header>
+
+	<section class="cv-section">
+		<h2>Summary</h2>
+		<p>{model.summary}</p>
+	</section>
+
+	<section class="cv-section">
+		<h2>Experience</h2>
+		{
+			model.jobs.map((job) => (
+				<div class="cv-job">
+					<div class="cv-job-head">
+						<h3>{job.title}</h3>
+						<span class="cv-period">{formatPeriod(job.start, job.end)}</span>
+					</div>
+					<p class="cv-company">
+						{job.company}
+						{job.companyNote && ` - ${job.companyNote}`}
+					</p>
+					{(job.groups?.length ? job.groups : [{ id: undefined, label: undefined }]).map((g) => {
+						const items = job.bullets.filter((b) => (g.id ? b.group === g.id : true));
+						return items.length ? (
+							<>
+								{g.label && <p class="cv-group">{g.label}</p>}
+								<ul class="cv-bullets">{items.map((b) => <li>{b.text}</li>)}</ul>
+							</>
+						) : null;
+					})}
+				</div>
+			))
+		}
+	</section>
+
+	<section class="cv-section">
+		<h2>Education</h2>
+		{
+			model.education.map((e) => (
+				<div class="cv-job">
+					<div class="cv-job-head">
+						<h3>{e.field}</h3>
+						<span class="cv-period">{formatPeriod(e.start, e.end)}</span>
+					</div>
+					<p class="cv-company">{e.school} - {e.degree}</p>
+					{e.note && <p class="cv-note">{e.note}</p>}
+				</div>
+			))
+		}
+	</section>
+
+	<section class="cv-section">
+		<h2>Skills</h2>
+		<dl class="cv-skills">
+			{
+				model.skills.map((s) => (
+					<div>
+						<dt>{s.label}</dt>
+						<dd>{s.items.join(", ")}</dd>
+					</div>
+				))
+			}
+		</dl>
+	</section>
+
+	<section class="cv-section">
+		<h2>Languages</h2>
+		<p>{model.languages.map((l) => `${l.name} (${l.level})`).join(", ")}</p>
+	</section>
+</article>
+
+<style>
+	.cv {
+		font-family: var(--font-sans);
+		color: var(--fg);
+		line-height: 1.5;
+		font-size: 0.9375rem;
+	}
+
+	.cv a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.cv-head {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 16px 32px;
+		padding-bottom: 18px;
+	}
+
+	.cv-name {
+		font-family: var(--font-heading, var(--font-sans));
+		font-size: 1.9rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+	}
+
+	.cv-title {
+		color: var(--red);
+		margin-top: 4px;
+	}
+
+	.cv-contact {
+		list-style: none;
+		padding: 0;
+		font-size: 0.85rem;
+		color: var(--fg-mid);
+	}
+
+	.cv-section {
+		padding-top: 16px;
+		margin-top: 16px;
+		border-top: 1px solid var(--line-strong);
+	}
+
+	.cv-section h2 {
+		font-family: var(--font-heading, var(--font-sans));
+		font-size: 0.8rem;
+		font-weight: 600;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--fg-mid);
+		margin-bottom: 10px;
+	}
+
+	.cv-job + .cv-job {
+		margin-top: 16px;
+	}
+
+	.cv-job-head {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 4px 16px;
+		align-items: baseline;
+	}
+
+	.cv-job h3 {
+		font-family: var(--font-heading, var(--font-sans));
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--red);
+	}
+
+	.cv-period {
+		font-size: 0.85rem;
+		color: var(--fg-mid);
+		white-space: nowrap;
+	}
+
+	.cv-company {
+		color: var(--fg-mid);
+		font-size: 0.9rem;
+	}
+
+	.cv-group {
+		font-style: italic;
+		margin-top: 8px;
+		font-size: 0.9rem;
+	}
+
+	.cv-bullets {
+		margin: 6px 0 0 1.1em;
+		padding: 0;
+	}
+
+	.cv-bullets li + li {
+		margin-top: 4px;
+	}
+
+	.cv-note {
+		margin-top: 4px;
+		font-size: 0.9rem;
+	}
+
+	.cv-skills {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 10px 24px;
+	}
+
+	.cv-skills dt {
+		font-weight: 600;
+		font-size: 0.9rem;
+	}
+
+	.cv-skills dd {
+		margin: 2px 0 0;
+		color: var(--fg-mid);
+		font-size: 0.9rem;
+	}
+
+	/* ---- Applicant-tracking version: plain, black on white, one column ---- */
+	.cv--plain {
+		font-family: Arial, Helvetica, sans-serif;
+		color: #000;
+		font-size: 10.5pt;
+	}
+
+	.cv--plain .cv-name,
+	.cv--plain h2,
+	.cv--plain h3 {
+		font-family: Arial, Helvetica, sans-serif;
+		color: #000;
+	}
+
+	.cv--plain .cv-title,
+	.cv--plain .cv-contact,
+	.cv--plain .cv-period,
+	.cv--plain .cv-company,
+	.cv--plain .cv-skills dd {
+		color: #000;
+	}
+
+	.cv--plain .cv-head,
+	.cv--plain .cv-skills {
+		display: block;
+	}
+
+	.cv--plain .cv-contact {
+		margin-top: 6px;
+	}
+
+	.cv--plain .cv-contact li {
+		display: inline;
+	}
+
+	.cv--plain .cv-contact li + li::before {
+		content: " | ";
+	}
+
+	.cv--plain .cv-section {
+		border-top: 1px solid #000;
+	}
+
+	.cv--plain .cv-skills div + div {
+		margin-top: 4px;
+	}
+
+	.cv--plain .cv-skills dt,
+	.cv--plain .cv-skills dd {
+		display: inline;
+	}
+
+	.cv--plain .cv-skills dt::after {
+		content: ": ";
+	}
+
+	@media print {
+		.cv-job,
+		.cv-section h2 {
+			break-inside: avoid;
+		}
+	}
+
+	/* Printing: keep headings with what follows, and don't split a bullet or an entry header. */
+	@media print {
+		.cv h2,
+		.cv-job-head,
+		.cv-group {
+			break-after: avoid;
+		}
+
+		.cv-bullets li,
+		.cv-skills > * {
+			break-inside: avoid;
+		}
+	}
+</style>

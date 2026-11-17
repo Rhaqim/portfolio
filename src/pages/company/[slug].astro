@@ -1,0 +1,275 @@
+---
+/**
+ * A page prepared for one company's role, generated from
+ * src/content/companies/<slug>.json by the company-page skill and reviewed in
+ * a pull request. Unlisted: noindex, out of the sitemap, linked only from an
+ * application.
+ */
+import { existsSync } from "node:fs";
+import { getCollection } from "astro:content";
+import Base from "@layouts/Base.astro";
+import Resume from "@components/resume/Resume.astro";
+import { tailoredResume, bulletText, fontHref, themeVars, pdfPaths, type CompanyEntry } from "@lib/company";
+import { contact } from "@data/resume";
+
+export async function getStaticPaths() {
+	const entries = await getCollection("companies");
+	return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+	entry: CompanyEntry;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const slug = entry.id;
+const model = tailoredResume(entry);
+const pdf = pdfPaths(slug);
+const has = (p: string) => existsSync(`public${p}`);
+const styledHref = has(pdf.styled) ? pdf.styled : `/company/${slug}/resume`;
+const plainHref = has(pdf.plain) ? pdf.plain : `/company/${slug}/resume-ats`;
+const cloud = "shape" in d.theme.cloud ? d.theme.cloud.shape : "text" in d.theme.cloud ? `text:${d.theme.cloud.text}` : `svg:${d.theme.cloud.svg}`;
+const when = new Date(`${d.prepared}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+const mail = `mailto:${contact.email}?subject=${encodeURIComponent(`${d.role} at ${d.company}`)}`;
+---
+
+<Base title={`For ${d.company}`} description={`Prepared by ${contact.name} for the ${d.role} role at ${d.company}.`} noindex>
+	<Fragment slot="head">
+		<link rel="stylesheet" href={fontHref(d.theme)} />
+		<style is:inline set:html={`html:root { ${themeVars(d.theme)} }`}></style>
+	</Fragment>
+
+	<div class="co">
+		<section class="wrap co-hero" data-cloud={cloud} data-cloud-size="0.75">
+			<p class="eyebrow co-eyebrow">For <b>{d.company}</b> · {d.role}{d.location && ` · ${d.location}`}</p>
+			<h1 class="co-headline">{d.headline}</h1>
+			<p class="co-pitch">{d.pitch}</p>
+			<div class="co-actions">
+				<a class="co-btn co-btn--primary" href={styledHref} download={styledHref.endsWith(".pdf") ? "" : undefined}>Résumé (PDF)</a>
+				<a class="co-btn" href={plainHref} download={plainHref.endsWith(".pdf") ? "" : undefined}>Plain résumé for your ATS</a>
+				<a class="co-btn" href={mail}>Email me</a>
+				{d.roleUrl && <a class="co-link" href={d.roleUrl} target="_blank" rel="noopener noreferrer">The role ↗</a>}
+			</div>
+		</section>
+
+		<section class="wrap co-section" aria-labelledby="fit-title">
+			<h2 class="co-h2" id="fit-title">What you're looking for, and where I've done it</h2>
+			<div class="co-matches">
+				{
+					d.matches.map((m) => (
+						<article class="co-match">
+							<p class="co-req">{m.requirement}</p>
+							<p class="co-evidence">{m.evidence}</p>
+							{m.refs.length > 0 && (
+								<ul class="co-refs">
+									{m.refs.map((r) => bulletText(r)).filter(Boolean).map((t) => <li>{t}</li>)}
+								</ul>
+							)}
+							{m.links.length > 0 && (
+								<p class="co-match-links">
+									{m.links.map((l) => (
+										<a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noopener noreferrer" : undefined}>
+											{l.label} {l.href.startsWith("http") ? "↗" : "→"}
+										</a>
+									))}
+								</p>
+							)}
+						</article>
+					))
+				}
+			</div>
+		</section>
+
+		<section class="wrap co-section" aria-labelledby="note-title">
+			<h2 class="co-h2" id="note-title">A note</h2>
+			<div class="co-note">
+				{d.note.split(/\n{2,}/).map((p) => <p>{p}</p>)}
+				<p class="co-sign">{contact.name}</p>
+			</div>
+		</section>
+
+		<section class="wrap co-section" aria-labelledby="cv-title">
+			<h2 class="co-h2" id="cv-title">Résumé</h2>
+			<div class="co-cv">
+				<Resume model={model} />
+			</div>
+		</section>
+
+		<p class="wrap co-disclaimer">
+			Prepared by {contact.name} for the {d.role} role at {d.company}, {when}. An independent page: not affiliated with or endorsed by {d.company}.
+		</p>
+	</div>
+</Base>
+
+<style>
+	.co {
+		padding-bottom: 48px;
+	}
+
+	.co :global(h1),
+	.co :global(h2),
+	.co :global(h3) {
+		font-family: var(--font-heading, var(--font-sans));
+	}
+
+	.co-hero {
+		padding-block: clamp(48px, 8vw, 104px) clamp(28px, 4vw, 48px);
+	}
+
+	.co-eyebrow b {
+		color: var(--red);
+		font-weight: 600;
+	}
+
+	.co-headline {
+		margin-top: 16px;
+		font-size: clamp(2rem, 5vw, 3.4rem);
+		font-weight: 600;
+		line-height: 1.06;
+		letter-spacing: -0.03em;
+		max-width: 20ch;
+	}
+
+	.co-pitch {
+		margin-top: 18px;
+		max-width: 62ch;
+		font-size: clamp(1rem, 1.5vw, 1.125rem);
+		line-height: 1.65;
+		color: var(--fg-mid);
+	}
+
+	.co-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 12px 16px;
+		margin-top: 28px;
+	}
+
+	.co-btn {
+		display: inline-flex;
+		align-items: center;
+		padding: 11px 18px;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius, 0);
+		font-size: 0.875rem;
+		font-weight: 500;
+		color: var(--fg);
+		transition: border-color 0.18s ease, opacity 0.18s ease;
+	}
+
+	.co-btn:hover {
+		border-color: var(--fg-mid);
+	}
+
+	.co-btn--primary {
+		background: var(--red);
+		border-color: var(--red);
+		color: var(--on-accent);
+	}
+
+	.co-btn--primary:hover {
+		opacity: 0.9;
+		border-color: var(--red);
+	}
+
+	.co-link {
+		font-size: 0.875rem;
+		color: var(--fg-mid);
+	}
+
+	.co-link:hover {
+		color: var(--fg);
+	}
+
+	.co-section {
+		padding-top: clamp(28px, 4vw, 48px);
+	}
+
+	.co-h2 {
+		font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		margin-bottom: 20px;
+		max-width: 32ch;
+	}
+
+	.co-matches {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 14px;
+	}
+
+	.co-match {
+		padding: 20px;
+		background: var(--bg-raised);
+		border: 1px solid var(--line);
+		border-radius: var(--radius, 0);
+		border-top: 2px solid var(--red);
+	}
+
+	.co-req {
+		font-weight: 600;
+		line-height: 1.4;
+	}
+
+	.co-evidence {
+		margin-top: 10px;
+		color: var(--fg-mid);
+		line-height: 1.6;
+		font-size: 0.95rem;
+	}
+
+	.co-refs {
+		margin: 12px 0 0;
+		padding-left: 14px;
+		border-left: 1px solid var(--line-strong);
+		list-style: none;
+		font-size: 0.85rem;
+		color: var(--fg-mid);
+	}
+
+	.co-refs li + li {
+		margin-top: 6px;
+	}
+
+	.co-match-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px 16px;
+		margin-top: 14px;
+		font-size: 0.85rem;
+	}
+
+	.co-match-links a {
+		color: var(--red);
+	}
+
+	.co-note {
+		max-width: 68ch;
+		line-height: 1.75;
+		color: var(--fg-mid);
+	}
+
+	.co-note p + p {
+		margin-top: 14px;
+	}
+
+	.co-sign {
+		color: var(--fg);
+	}
+
+	.co-cv {
+		padding: clamp(20px, 4vw, 40px);
+		background: var(--bg-raised);
+		border: 1px solid var(--line);
+		border-radius: var(--radius, 0);
+	}
+
+	.co-disclaimer {
+		padding-top: 40px;
+		font-size: 0.8rem;
+		color: var(--fg-dim);
+	}
+</style>

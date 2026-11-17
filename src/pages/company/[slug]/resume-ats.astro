@@ -1,0 +1,17 @@
+---
+/** The tailored resume as plain text-first HTML, for applicant-tracking systems. */
+import { getCollection } from "astro:content";
+import Print from "@layouts/Print.astro";
+import Resume from "@components/resume/Resume.astro";
+import { tailoredResume, type CompanyEntry } from "@lib/company";
+
+export async function getStaticPaths() {
+	return (await getCollection("companies")).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: CompanyEntry };
+---
+
+<Print title={`John-Franklin Anusiem · Résumé`} vars="--bg: #ffffff; --fg: #000000">
+	<Resume model={tailoredResume(entry)} variant="plain" />
+</Print>

@@ -16,6 +16,9 @@ range, `npm install` silently omits its peer dependencies from the lockfile and
 | `npm run dev` | Dev server at `localhost:4321` |
 | `npm run build` | Build to `./dist/` |
 | `npm run preview` | Serve the production build locally |
+| `npm run company:check -- <slug>` | Check company pages and print a review sheet |
+| `npm run company:brand -- <url>` | Summarise a company site's colours and fonts |
+| `npm run company:pdf -- <slug>` | Print a company page's résumés to PDF (needs a build) |
 
 ## Structure
 
@@ -106,6 +109,33 @@ entry, so the two can't drift apart.
 
 Slugs are top-level routes (`/buckt`, `/ussd`) so each one maps cleanly to a
 subdomain later without changing any links on the page.
+
+## Company pages
+
+Unlisted pages tailored to one application, at `/company/<company>-<5 random chars>`
+(e.g. `/company/deliveroo-k7f3q`). The company name is in the link so it's
+recognisable; the suffix keeps it unguessable. Each page is themed after the
+company's look (inspired by, never a copy: free fonts, no logos, a disclaimer),
+maps the role's requirements to evidence, and carries a tailored résumé with a
+styled PDF and a plain ATS PDF.
+
+- **One JSON file per page** in `src/content/companies/`, validated by the
+  schema in `src/content.config.ts`. The route, theme, cloud shape and résumé
+  all come from it.
+- **The résumé can't be invented.** `src/data/resume.ts` is the source of truth.
+  A page picks bullets by id and may lightly rephrase them; `company:check`
+  fails any rephrasing, summary or claim that introduces a number not in the
+  source, any skill not listed there, and any theme that fails WCAG contrast.
+- **Unlisted.** Pages are `noindex` (meta tag and `X-Robots-Tag` in
+  `public/_headers`), excluded from the sitemap, and never linked from the site.
+- **Always reviewed.** The `company-page` skill in `.claude/skills/` builds a
+  page from a job link, then pushes a `company/<slug>` branch and stops. Nothing
+  goes live until that branch is reviewed and merged by hand.
+
+The print routes `/company/<slug>/resume/` and `/resume-ats/` are what
+`company:pdf` renders (headless Chrome, no npm dependencies; set `CHROME` if it
+isn't found). PDFs land in `public/company/<slug>/` and the page links to them
+after the next build.
 
 ## Notes
 
