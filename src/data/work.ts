@@ -13,7 +13,7 @@ export const experience: Role[] = [
 	{
 		company: "DGRS Labs",
 		companyUrl: "https://www.dgrslabs.ink",
-		role: "Lead Developer",
+		role: "Lead Software Engineer",
 		period: "2024-present",
 		impact:
 			"Built CoNexus from first commit to production, and the storage and orchestration layers it runs on.",
@@ -23,10 +23,10 @@ export const experience: Role[] = [
 	{
 		company: "Equity Group Holdings",
 		companyUrl: "https://equitygroupholdings.com",
-		role: "Senior Backend Engineer",
+		role: "Senior Backend Developer",
 		period: "2021-2024",
 		impact:
-			"Led the USSD loan service rollout across five African markets, serving millions of sessions daily on feature phones.",
+			"Led delivery of a USSD loan service across six countries, on a platform serving 16 million customers and over 1 million loan requests a month.",
 		stack: ["Python", "FastAPI", "Postgres", "Redis", "Kubernetes", "Azure"],
 	},
 	{
@@ -35,8 +35,8 @@ export const experience: Role[] = [
 		role: "Full Stack Developer",
 		period: "2023-2024",
 		impact:
-			"Shipped product surfaces and the REST APIs behind them at early-startup cadence.",
-		stack: ["Next.js", "Node.js", "MongoDB", "Express"],
+			"Built a Rust indexer for ERC-721 and ERC-1155 NFTs, and led a user-metrics dashboard deployed on Oracle Cloud.",
+		stack: ["Rust", "PostgreSQL", "Ethereum", "React", "Node.js"],
 	},
 ];
 
@@ -52,8 +52,8 @@ export const education: Study[] = [
 	{
 		school: "University of Sunderland",
 		schoolUrl: "https://www.sunderland.ac.uk",
-		degree: "MSc Computer Science",
-		period: "2026-2027",
+		degree: "Master's, Computer Science",
+		period: "2026-present",
 		current: true,
 	},
 ];

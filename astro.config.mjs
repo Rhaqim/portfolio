@@ -32,7 +32,8 @@ function rehypeWrapTables() {
 // https://astro.build/config
 export default defineConfig({
 	site: "https://rhaqim.com",
-	integrations: [sitemap()],
+	// Company pages are unlisted: never in the sitemap (they're noindex too).
+	integrations: [sitemap({ filter: (page) => !page.includes("/company/") })],
 	output: "static",
 	devToolbar: {
 		enabled: false,

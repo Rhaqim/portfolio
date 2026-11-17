@@ -3,7 +3,7 @@ export const site = {
 	name: "Rhaqim",
 	legalName: "John Franklin Anusiem",
 	role: "Systems Engineer",
-	email: "anusiemj@gmail.com",
+	email: "anusiemjohn@gmail.com",
 	description:
 		"Systems engineer. I build backend infrastructure: a Rust USSD engine, a Go media-storage library, a multi-agent runtime. I'm moving down the stack toward embedded systems and hardware.",
 	/** One line. It is the first thing anyone reads. */

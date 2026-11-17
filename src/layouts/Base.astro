@@ -12,9 +12,11 @@ interface Props {
 	/** Appended to the site name in <title>. Omit on the homepage. */
 	bare?: boolean;
 	schema?: Record<string, unknown>;
+	/** Keep the page out of search engines (unlisted pages). */
+	noindex?: boolean;
 }
 
-const { title, description, bare = false, schema } = Astro.props;
+const { title, description, bare = false, schema, noindex = false } = Astro.props;
 
 const pageTitle = bare ? title : `${title} · ${site.name}`;
 const canonical = new URL(Astro.url.pathname, site.url).toString();
@@ -60,6 +62,7 @@ const personSchema = {
 		/>
 
 		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, nofollow, noarchive" />}
 		<meta name="author" content={site.legalName} />
 		<meta name="theme-color" content="#08080a" />
 
@@ -92,6 +95,7 @@ const personSchema = {
 				/>
 			)
 		}
+		<slot name="head" />
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>

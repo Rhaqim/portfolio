@@ -1,0 +1,17 @@
+---
+/** The tailored resume in the company's theme, for printing to PDF. */
+import { getCollection } from "astro:content";
+import Print from "@layouts/Print.astro";
+import Resume from "@components/resume/Resume.astro";
+import { tailoredResume, fontHref, themeVars, type CompanyEntry } from "@lib/company";
+
+export async function getStaticPaths() {
+	return (await getCollection("companies")).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: CompanyEntry };
+---
+
+<Print title={`John-Franklin Anusiem · Résumé for ${entry.data.company}`} vars={themeVars(entry.data.theme)} fontHref={fontHref(entry.data.theme)}>
+	<Resume model={tailoredResume(entry)} />
+</Print>
