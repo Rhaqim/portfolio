@@ -68,6 +68,8 @@ export const jobs: Job[] = [
 			{ id: "dgrs-models", group: "ai", text: "Built CoNexus's in-house AI model service on open-source models, cutting operating costs by 30% by reducing reliance on third-party AI providers." },
 			{ id: "dgrs-buckt", group: "ai", text: "Created Buckt, a Go media management service built on GORM over PostgreSQL or SQLite, that organizes the platform's asset library and lowers storage and operational costs." },
 			{ id: "dgrs-assets", group: "ai", text: "Moved 15,000 media assets out of the frontend bundle into dedicated NGINX-served storage, cutting average page load time from 4.5s to 1.1s." },
+			{ id: "dgrs-frontend", group: "ai", text: "Designed and built the platform's frontend in TypeScript with Astro and Svelte, before moving mainly to backend and DevOps." },
+			{ id: "dgrs-images", group: "ai", text: "Moved AI image generation off the backend, where it was throttling the server, into a TypeScript service on the frontend: the backend sends a prompt drawn from the story, and the frontend requests the image from the AI servers." },
 			{ id: "dgrs-postgres", group: "ai", text: "Optimized PostgreSQL queries and added caching, reducing database reads by 40% and API response times from 1.2s to 600ms." },
 			{ id: "dgrs-infra", group: "infra", text: "Built and run the company's entire infrastructure single-handedly: provisioning and configuring Linux servers, deploying the platform and routing traffic through Cloudflare." },
 			{ id: "dgrs-envs", group: "infra", text: "Set up separate development, staging and production environments, and defined the deployment rules and release process the whole team follows." },
@@ -118,7 +120,8 @@ export const education: Education[] = [
 export const skills: { id: string; label: string; items: string[] }[] = [
 	{ id: "languages", label: "Languages", items: ["Golang", "Python", "Rust", "JavaScript/TypeScript"] },
 	{ id: "backend", label: "Backend and Data", items: ["FastAPI", "Django", "Django ORM", "GORM", "Node.js", "PostgreSQL", "Redis", "API Design", "Query Optimisation"] },
-	{ id: "devops", label: "DevOps & Infrastructure", items: ["Linux server administration", "Docker", "Cloudflare", "GitHub Actions", "NGINX", "Kubernetes", "Azure Pipelines", "Backup & Disaster recovery", "Grafana", "Tailscale", "Monitoring & alerting"] },
+	{ id: "frontend", label: "Frontend", items: ["Astro", "Svelte", "React"] },
+	{ id: "devops", label: "DevOps & Infrastructure", items: ["Linux server administration", "Docker", "Cloudflare", "GitHub Actions", "NGINX", "Kubernetes", "Azure Pipelines", "Backup & Disaster recovery", "Grafana", "Tailscale", "Monitoring & alerting", "AWS S3"] },
 	{ id: "ai", label: "AI Systems", items: ["Agent Orchestration", "Open-source model deployment", "Multi-agent Pipelines", "Open-source LLM Deployment", "AI-assisted Development (Claude, Codex)"] },
 	{ id: "leadership", label: "Engineering Leadership", items: ["Technical Direction", "System Architecture", "Team Leadership", "Code Review", "Production Delivery"] },
 ];

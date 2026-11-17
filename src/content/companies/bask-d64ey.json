@@ -1,0 +1,252 @@
+{
+  "company": "Bask Health",
+  "role": "Senior Back-End Software Engineer",
+  "roleUrl": "https://wellfound.com/jobs/4657081-senior-back-end-software-engineer-remote",
+  "location": "Remote",
+  "prepared": "2026-11-17",
+  "theme": {
+    "bg": "#0a0a0a",
+    "surface": "#141414",
+    "fg": "#f5f5f5",
+    "muted": "#a3a3a3",
+    "line": "#2a2a2a",
+    "accent": "#3b82f6",
+    "onAccent": "#000000",
+    "heading": "Figtree",
+    "body": "Inter",
+    "radius": 12,
+    "cloud": {
+      "text": "+"
+    }
+  },
+  "headline": "From the form field to the database is how I already work, with AI in the loop.",
+  "pitch": "At DGRS Labs I designed the frontend in TypeScript, architected Loom, the agent platform behind CoNexus, and run the company's entire infrastructure on my own. Changes go through a Claude and Codex generator–reviewer workflow and production-like Docker test environments before they ship. Before that I led delivery of a USSD loan service on a platform serving 16 million customers.",
+  "matches": [
+    {
+      "requirement": "Dangerous on the back end: SQL databases and database schema design",
+      "evidence": "Designed the PostgreSQL schema for Nirvana Labs' indexed blockchain data. At DGRS Labs I optimized PostgreSQL queries and added caching, cutting database reads by 40% and API responses from 1.2s to 600ms, and built Buckt on GORM over PostgreSQL or SQLite.",
+      "refs": [
+        "nirvana-schema",
+        "dgrs-postgres",
+        "dgrs-buckt"
+      ],
+      "links": [
+        {
+          "label": "Buckt docs",
+          "href": "/buckt"
+        },
+        {
+          "label": "Try Buckt",
+          "href": "/demo/buckt"
+        }
+      ]
+    },
+    {
+      "requirement": "Own entire projects or large areas of the codebase, from scratch",
+      "evidence": "Architected and built Loom from scratch, lead the team of three behind DGRS Labs' AI products, and single-handedly run the company's infrastructure, environments and release process.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-lead",
+        "dgrs-infra",
+        "dgrs-envs"
+      ],
+      "links": [
+        {
+          "label": "Loom docs",
+          "href": "/loom"
+        },
+        {
+          "label": "Run a table with agents",
+          "href": "/demo/loom"
+        }
+      ]
+    },
+    {
+      "requirement": "TypeScript throughout, from the interface through the API",
+      "evidence": "Designed and built DGRS Labs' frontend in TypeScript with Astro and Svelte. When AI image generation was throttling the backend, I moved it into a TypeScript service on the frontend: the backend sends the story's prompt and the frontend requests the image.",
+      "refs": [
+        "dgrs-frontend",
+        "dgrs-images"
+      ],
+      "links": [
+        {
+          "label": "How CoNexus works",
+          "href": "/conexus"
+        }
+      ]
+    },
+    {
+      "requirement": "AI-first with Claude Code and Cursor, and a real test suite",
+      "evidence": "Introduced a generator–reviewer workflow with Claude and Codex, backed by production-like Docker test environments, so defects are caught before deployment. GitHub Actions pipelines across five repositories replaced manual SSH deploys.",
+      "refs": [
+        "dgrs-ai-review",
+        "dgrs-cicd"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Make automation legible and trustworthy",
+      "evidence": "Loom records token and dollar cost on every step, caps spend with budgets, streams live events to every client, and lets any session be forked and replayed from any step, so you can see what each agent did and why.",
+      "refs": [
+        "dgrs-loom"
+      ],
+      "links": [
+        {
+          "label": "Branching and replay",
+          "href": "/loom#branching-and-replay"
+        },
+        {
+          "label": "Cost and budgets",
+          "href": "/loom#cost-and-budgets"
+        }
+      ]
+    },
+    {
+      "requirement": "Building paid products and services",
+      "evidence": "Led delivery of a USSD loan service from development to production on a financial platform serving 16 million customers and over 1 million loan requests a month, through rollouts across six countries.",
+      "refs": [
+        "equity-lead",
+        "equity-rollout"
+      ],
+      "links": [
+        {
+          "label": "USSD write-up",
+          "href": "/ussd"
+        },
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production systems end to end in fintech and AI, in TypeScript, Golang and Python. Designed the TypeScript frontend of an AI storytelling product, architected its agent orchestration platform, and single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-frontend"
+          },
+          {
+            "ref": "dgrs-images"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-buckt"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-envs"
+          },
+          {
+            "ref": "dgrs-cicd"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-rollout"
+          },
+          {
+            "ref": "equity-orm"
+          },
+          {
+            "ref": "equity-k8s"
+          }
+        ]
+      },
+      {
+        "id": "nirvana",
+        "bullets": [
+          {
+            "ref": "nirvana-schema"
+          },
+          {
+            "ref": "nirvana-dashboard"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "JavaScript/TypeScript",
+          "Golang",
+          "Python",
+          "Rust"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "Node.js",
+          "PostgreSQL",
+          "Redis",
+          "API Design",
+          "Query Optimisation",
+          "GORM",
+          "Django ORM"
+        ]
+      },
+      {
+        "id": "frontend",
+        "items": [
+          "Astro",
+          "Svelte",
+          "React"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "AWS S3",
+          "Docker",
+          "GitHub Actions",
+          "Cloudflare",
+          "Linux server administration",
+          "Monitoring & alerting"
+        ]
+      },
+      {
+        "id": "ai",
+        "items": [
+          "AI-assisted Development (Claude, Codex)",
+          "Agent Orchestration",
+          "Multi-agent Pipelines"
+        ]
+      }
+    ]
+  },
+  "note": "You describe one engineer following a change from a form field to the database without crossing a team boundary. That's close to how I already work: at DGRS Labs I designed the frontend in TypeScript, built backend services and the agent platform, and run every server they deploy to. AI is already part of that loop, with generated changes going through a reviewer pass and production-like environments before they ship.\n\nWhat would be new is your exact stack. I've used AWS S3, and Buckt has an S3 backend, but SST, Lambda, SQS, EventBridge and Prisma or Drizzle would be new ground. I'd start by shipping small changes through your test suite, and I'd rather say that plainly than stretch.\n\nHealthcare would be new too. The part of the role I've spent the most time on is making automation legible: Loom records what every agent step did and cost, and any session can be replayed. That seems like the right instinct for software acting on behalf of patients and care teams.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://wellfound.com/jobs/4657081-senior-back-end-software-engineer-remote"
+    },
+    {
+      "label": "Bask Health homepage (colours)",
+      "href": "https://bask.health/"
+    }
+  ]
+}
