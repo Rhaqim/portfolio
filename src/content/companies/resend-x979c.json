@@ -1,0 +1,101 @@
+{
+  "company": "Resend",
+  "role": "Backend Engineer",
+  "roleUrl": "https://jobs.ashbyhq.com/resend/6589bee8-3ec9-4620-90b6-890b23464c4d",
+  "location": "Remote, Europe",
+  "prepared": "2026-11-17",
+  "theme": {
+    "bg": "#000000",
+    "surface": "#111111",
+    "fg": "#ededed",
+    "muted": "#a0a0a0",
+    "line": "#2a2a2a",
+    "accent": "#62ffb3",
+    "onAccent": "#000000",
+    "heading": "DM Serif Display",
+    "body": "Inter",
+    "radius": 8,
+    "cloud": { "text": "@" }
+  },
+  "headline": "I build the queues, workers and retries behind a product, then run them in production.",
+  "pitch": "At DGRS Labs I built queues and asynchronous media pipelines, background workers, and Loom, a Go agent platform whose agents run asynchronously and stream events to the client. I also wrote Buckt, a Go media library with its own API, and single-handedly run the company's infrastructure, deployments and alerting.",
+  "matches": [
+    {
+      "requirement": "Queues, asynchronous processing, retries, duplicate events and partial failures",
+      "evidence": "Built queues and async media pipelines for image and video generation, Loom's asynchronous agents with event streaming, and workers for scheduled cleanup and credit refreshes. Loom's retries are typed, and Buckt dedups uploads and migrates storage resumably and idempotently.",
+      "refs": ["dgrs-queues", "dgrs-async-agents", "dgrs-workers", "dgrs-buckt"],
+      "links": [{ "label": "Loom errors and retries", "href": "/loom#errors" }, { "label": "Buckt live migration", "href": "/buckt#live-migration" }]
+    },
+    {
+      "requirement": "Design systems from scratch and think through their rollout",
+      "evidence": "Architected and built Loom, the agent platform behind CoNexus, and Buckt, its media service. At Equity I owned delivery, testing, deployment and production support through rollouts across six countries.",
+      "refs": ["dgrs-loom", "dgrs-buckt", "equity-rollout"],
+      "links": [{ "label": "Loom docs", "href": "/loom" }, { "label": "Run a table with agents", "href": "/demo/loom" }]
+    },
+    {
+      "requirement": "Operate what you build: deployments, observability and production debugging",
+      "evidence": "Run DGRS Labs' entire infrastructure on my own, with separate development, staging and production environments, GitHub Actions pipelines across five repositories, and a dashboard that ingests errors and logs and alerts to Telegram.",
+      "refs": ["dgrs-infra", "dgrs-envs", "dgrs-cicd", "dgrs-monitoring"],
+      "links": []
+    },
+    {
+      "requirement": "APIs, relational data models and diagnosing slow queries",
+      "evidence": "Optimized PostgreSQL queries and added caching, cutting database reads by 40% and API responses from 1.2s to 600ms. Buckt runs on GORM over PostgreSQL or SQLite, and at Equity the USSD menus lived in the Django ORM.",
+      "refs": ["dgrs-postgres", "dgrs-buckt", "equity-orm"],
+      "links": [{ "label": "Buckt API reference", "href": "/buckt#api-reference" }]
+    },
+    {
+      "requirement": "Node.js, TypeScript, Go and Postgres",
+      "evidence": "Go for Loom and Buckt, PostgreSQL underneath both, and TypeScript for DGRS Labs' Astro and Svelte frontend and the service that moved AI image generation off the backend.",
+      "refs": ["dgrs-loom", "dgrs-buckt", "dgrs-frontend", "dgrs-images"],
+      "links": [{ "label": "How CoNexus works", "href": "/conexus" }]
+    },
+    {
+      "requirement": "Developer tools and public APIs",
+      "evidence": "Buckt and Loom are Go libraries other developers install, with documented APIs, configuration, typed errors and a test harness, plus demos you can run in the browser.",
+      "refs": ["dgrs-buckt", "dgrs-loom"],
+      "links": [{ "label": "Try Buckt", "href": "/demo/buckt" }, { "label": "Loom test harness", "href": "/loom#test-harness" }]
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and operating production backends in Golang, TypeScript and Python. Architected Loom, an agent orchestration platform with asynchronous agents and event streaming, built queues, media pipelines and background workers, and single-handedly runs the company's infrastructure, deployments and alerting. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          { "ref": "dgrs-loom" },
+          { "ref": "dgrs-async-agents" },
+          { "ref": "dgrs-queues" },
+          { "ref": "dgrs-workers" },
+          { "ref": "dgrs-buckt" },
+          { "ref": "dgrs-postgres" },
+          { "ref": "dgrs-frontend" },
+          { "ref": "dgrs-lead" },
+          { "ref": "dgrs-infra" },
+          { "ref": "dgrs-envs" },
+          { "ref": "dgrs-cicd" },
+          { "ref": "dgrs-monitoring" }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          { "ref": "equity-lead" },
+          { "ref": "equity-rollout" },
+          { "ref": "equity-k8s" }
+        ]
+      }
+    ],
+    "skills": [
+      { "id": "languages", "items": ["Golang", "JavaScript/TypeScript", "Python", "Rust"] },
+      { "id": "backend", "items": ["PostgreSQL", "Node.js", "Redis", "API Design", "Query Optimisation", "GORM"] },
+      { "id": "devops", "items": ["Docker", "Kubernetes", "GitHub Actions", "Monitoring & alerting", "Linux server administration", "Cloudflare", "AWS S3", "Backup & Disaster recovery"] },
+      { "id": "leadership", "items": ["System Architecture", "Technical Direction", "Code Review", "Production Delivery"] }
+    ]
+  },
+  "note": "Resend is a developer tool, and most of what I'm proudest of is too: Loom and Buckt are Go libraries other engineers install, with docs, typed errors and demos. Behind CoNexus I built the kind of backend your role describes, with queues and asynchronous media pipelines, workers on schedules, agents that stream events instead of blocking, and an infrastructure I deploy, monitor and fix myself.\n\nThe gaps, plainly: I have 5+ years of experience, fewer than you ask for. I haven't managed infrastructure as code with Terraform or CDK, and on AWS I've used S3 rather than serverless or container services. I'd learn your setup by shipping small changes through it, and I'd rather say so than stretch.\n\nI'm based in Lagos (UTC+1) and open to relocating.",
+  "sources": [
+    { "label": "Job posting", "href": "https://jobs.ashbyhq.com/resend/6589bee8-3ec9-4620-90b6-890b23464c4d" },
+    { "label": "Resend homepage (colours)", "href": "https://resend.com/" }
+  ]
+}
