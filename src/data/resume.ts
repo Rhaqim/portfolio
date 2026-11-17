@@ -73,6 +73,7 @@ export const jobs: Job[] = [
 			{ id: "dgrs-queues", group: "ai", text: "Built queues and asynchronous media pipelines that take image and video generation off the request path." },
 			{ id: "dgrs-async-agents", group: "ai", text: "Designed Loom so connected agents can run asynchronously and stream events to the client, instead of leaving it waiting on a long response." },
 			{ id: "dgrs-workers", group: "ai", text: "Ran background workers for scheduled jobs, such as cleaning up stories users abandoned for a month and refreshing credits for customers on higher tiers." },
+			{ id: "dgrs-email", group: "ai", text: "Used Resend for the platform's email: password resets and changes, one-time codes for email login, and newsletters." },
 			{ id: "dgrs-postgres", group: "ai", text: "Optimized PostgreSQL queries and added caching, reducing database reads by 40% and API response times from 1.2s to 600ms." },
 			{ id: "dgrs-infra", group: "infra", text: "Built and run the company's entire infrastructure single-handedly: provisioning and configuring Linux servers, deploying the platform and routing traffic through Cloudflare." },
 			{ id: "dgrs-envs", group: "infra", text: "Set up separate development, staging and production environments, and defined the deployment rules and release process the whole team follows." },
