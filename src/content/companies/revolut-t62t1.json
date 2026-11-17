@@ -1,0 +1,70 @@
+{
+  "company": "Revolut",
+  "role": "Senior Platform Engineer (Python), AI agents",
+  "roleUrl": "https://www.revolut.com/careers/position/python-platform-engineer-ai-info-sec-7f102f5b-0d41-4656-ba5c-645adb89fadd/",
+  "prepared": "2026-11-17",
+  "theme": {
+    "bg": "#f4f4f6", "surface": "#ffffff", "fg": "#191c1f", "muted": "#5b6068", "line": "#e1e2e6",
+    "accent": "#494fdf", "onAccent": "#ffffff",
+    "heading": "Manrope", "body": "Inter", "radius": 20,
+    "cloud": { "shape": "network" }
+  },
+  "headline": "I built the agent platform behind a live AI product. Yours has to hold up in regulated finance.",
+  "pitch": "At DGRS Labs I architected Loom, the orchestration platform that runs six specialized AI agents behind CoNexus, with plugins for external tools and a no-code interface so non-engineers can deploy agents. Before that I built Python backend components for a USSD loan service on a financial platform serving 16 million customers.",
+  "matches": [
+    {
+      "requirement": "Production experience building LLM agent systems",
+      "evidence": "Architected and built Loom, which coordinates six specialized agents in production for CoNexus, and lead the team that runs it. Non-technical staff create and deploy new agents through its admin interface.",
+      "refs": ["dgrs-loom", "dgrs-plugins", "dgrs-lead"],
+      "links": [{ "label": "Loom docs", "href": "/loom" }, { "label": "Run a table with agents", "href": "/demo/loom" }]
+    },
+    {
+      "requirement": "Tool integrations, orchestration and state management",
+      "evidence": "Loom's plugin architecture connects agents to external generation tools. Multi-agent turns run a lead agent then its followers concurrently; sessions keep state, stream live events to every client, and can be forked and replayed from any step.",
+      "refs": ["dgrs-loom", "dgrs-plugins"],
+      "links": [{ "label": "Turns and flows", "href": "/loom#turns-and-multi-agent-flows" }, { "label": "Branching and replay", "href": "/loom#branching-and-replay" }]
+    },
+    {
+      "requirement": "Evaluation, cost efficiency and failure handling",
+      "evidence": "Loom records token and dollar cost on every step and caps spend with budgets, and has LLM-as-judge scoring, a test harness that runs prompt variants in parallel, typed errors and hooks that can retry a step. Separately, an in-house model service on open-source models cut CoNexus's operating costs by 30%.",
+      "refs": ["dgrs-models", "dgrs-loom"],
+      "links": [{ "label": "Cost and budgets", "href": "/loom#cost-and-budgets" }, { "label": "Out-forecast the agents", "href": "/demo/forecast" }]
+    },
+    {
+      "requirement": "Python services, APIs and distributed systems",
+      "evidence": "At Equity I built reusable USSD framework components in Python and Rust and led a FastAPI proof of concept for the loan service, on a platform handling over 1 million loan requests a month.",
+      "refs": ["equity-framework", "equity-fastapi", "equity-lead"],
+      "links": [{ "label": "Try the USSD framework", "href": "/demo/ussd" }]
+    },
+    {
+      "requirement": "Docker, Kubernetes and CI/CD",
+      "evidence": "Containerized services and deployed them through Azure Pipelines and Kubernetes at Equity. At DGRS Labs I built GitHub Actions pipelines across five repositories and the dev, staging and production environments the team ships through.",
+      "refs": ["equity-k8s", "dgrs-cicd", "dgrs-envs"],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building production backends in Python, Golang and Rust. Architected and built Loom, the agent orchestration platform behind an AI storytelling product, coordinating six specialized agents with external tool integrations, and leads the team that runs it. Previously built Python backend components for a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "jobs": [
+      { "id": "dgrs", "bullets": [
+        { "ref": "dgrs-loom" }, { "ref": "dgrs-plugins" }, { "ref": "dgrs-models" }, { "ref": "dgrs-lead" }, { "ref": "dgrs-postgres" },
+        { "ref": "dgrs-ai-review" }, { "ref": "dgrs-cicd" }, { "ref": "dgrs-envs" }, { "ref": "dgrs-infra" }
+      ] },
+      { "id": "equity", "bullets": [
+        { "ref": "equity-framework" }, { "ref": "equity-fastapi" }, { "ref": "equity-lead" }, { "ref": "equity-k8s" }, { "ref": "equity-rollout" }
+      ] }
+    ],
+    "skills": [
+      { "id": "languages", "items": ["Python", "Golang", "Rust", "JavaScript/TypeScript"] },
+      { "id": "ai", "items": ["Agent Orchestration", "Multi-agent Pipelines", "Open-source LLM Deployment", "AI-assisted Development (Claude, Codex)"] },
+      { "id": "backend", "items": ["FastAPI", "Django", "PostgreSQL", "Redis", "API Design"] },
+      { "id": "devops", "items": ["Docker", "Kubernetes", "GitHub Actions", "Azure Pipelines", "Linux server administration"] },
+      { "id": "leadership", "items": ["System Architecture", "Technical Direction", "Code Review"] }
+    ]
+  },
+  "note": "Most of the hard problems in agent systems aren't in the prompt. They're in everything around it: which tool ran, what context the next step sees, what it cost, and what happens when a step fails halfway through. That's where most of my time on Loom went, and it's what this role describes.\n\nLoom is written in Go. My Python is from Equity, where I built USSD framework components and led the FastAPI proof of concept for a loan service on a financial services platform. I'd be glad to bring the agent-platform patterns back to Python, for teams who need them to be dependable.\n\nYou can run Loom yourself in the demos linked above: a tabletop game where agents share a live session, and a forecasting desk where you play against them.",
+  "sources": [
+    { "label": "Job posting", "href": "https://www.revolut.com/careers/position/python-platform-engineer-ai-info-sec-7f102f5b-0d41-4656-ba5c-645adb89fadd/" },
+    { "label": "revolut.com (look and feel; site blocks automated fetches)", "href": "https://www.revolut.com/" }
+  ]
+}
