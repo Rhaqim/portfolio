@@ -35,7 +35,7 @@ export const experience: Role[] = [
 		role: "Full Stack Developer",
 		period: "2023-2024",
 		impact:
-			"Built ChainQuery, a Rust indexer for Ethereum transactions (mostly ERC-20), and worked across the React and Node.js stack.",
+			"Built a Rust indexer for ERC-721 and ERC-1155 NFTs, and led a user-metrics dashboard deployed on Oracle Cloud.",
 		stack: ["Rust", "PostgreSQL", "Ethereum", "React", "Node.js"],
 	},
 ];
@@ -55,10 +55,5 @@ export const education: Study[] = [
 		degree: "Master's, Computer Science",
 		period: "2026-present",
 		current: true,
-	},
-	{
-		school: "University of Calabar",
-		degree: "Bachelor's, Computer Science",
-		period: "2019-2023",
 	},
 ];

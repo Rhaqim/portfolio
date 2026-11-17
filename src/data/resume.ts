@@ -22,6 +22,8 @@ export type Job = {
 	end?: string; // same; absent = present
 	/** Optional sub-headings, in order; bullets name the group they sit under. */
 	groups?: { id: string; label: string }[];
+	/** Left off tailored pages unless John asks for it in review. */
+	optIn?: boolean;
 	bullets: (Bullet & { group?: string })[];
 };
 
@@ -96,9 +98,11 @@ export const jobs: Job[] = [
 		companyUrl: "https://nirvanalabs.io",
 		start: "2023",
 		end: "2024",
+		optIn: true,
 		bullets: [
-			{ id: "nirvana-chainquery", text: "Built ChainQuery, a Rust indexer for Ethereum transactions, focused mainly on ERC-20 token transfers, with the indexed data stored in PostgreSQL." },
-			{ id: "nirvana-fullstack", text: "Worked across the stack, building React frontends and Node.js backend services." },
+			{ id: "nirvana-indexer", text: "Built a Rust-based NFT indexer for ERC-721 and ERC-1155 tokens." },
+			{ id: "nirvana-schema", text: "Designed the PostgreSQL schema for indexed blockchain data." },
+			{ id: "nirvana-dashboard", text: "Led development of a user-metrics dashboard and its API integrations, deployed on Oracle Cloud." },
 		],
 	},
 ];

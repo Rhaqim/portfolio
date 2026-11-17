@@ -82,6 +82,7 @@ for (const file of files) {
 	for (const tj of d.resume?.jobs || []) {
 		const job = jobs.find((j) => j.id === tj.id);
 		if (!job) { errors.push(`resume.jobs: unknown job id "${tj.id}" (known: ${jobs.map((j) => j.id).join(", ")})`); continue; }
+		if (job.optIn) warnings.push(`resume includes ${job.company}, which is opt-in: keep it only if John asked for it`);
 		for (const b of tj.bullets || []) {
 			const src = bulletsById.get(b.ref);
 			if (!src) { errors.push(`resume: unknown bullet ref "${b.ref}"`); continue; }
