@@ -15,10 +15,29 @@ Output: `src/content/companies/<slug>.json`, two PDFs in `public/company/<slug>/
 - **Inspired by, never impersonating.** No logos, no brand fonts (pick the nearest free font from the `fonts` list in `src/content.config.ts`), no copied taglines. The cloud shape is one of the built-in shapes or ≤6 characters of text, never their logo. The page already says it is independent and unaffiliated: keep that.
 - **Unlisted.** The slug is `<company>-<5 random lowercase letters/digits>` (e.g. `deliveroo-k7f3q`). Generate the suffix with `node -e "console.log(Math.random().toString(36).slice(2,7))"`. Never link a company page from anywhere else on the site.
 - Keep John's email and personal details out of anything sent to external services (search queries, fetch URLs).
+- **Only build for roles John can actually get.** Run the eligibility gate below before any other work. If it fails, don't build: tell John why in a few lines and stop.
+
+## Eligibility gate
+
+Quick rejections usually come from knockout screens (location, work authorization, years), not from résumé wording. A page can't fix those, so check them first. John is based in **Lagos, Nigeria** (`contact.location` in `src/data/resume.ts`), is open to relocating, and has no work authorization outside Nigeria unless `resume.ts` or John says otherwise.
+
+**Build** when at least one of these holds:
+- Remote and open to Nigeria: "anywhere", "worldwide", "global", EMEA, Africa, or a time-zone requirement John can meet from Lagos (UTC+1).
+- The company offers **relocation** or **visa sponsorship** for the role's country.
+
+**Reject** when any of these holds:
+- Location: onsite, hybrid or remote limited to countries or regions John isn't in (e.g. "Canada only", "US-based", "must reside in the EU"), with no relocation or sponsorship offered. "No visa sponsorship" combined with a country restriction is a rejection.
+- Authorization: requires citizenship, existing work authorization or security clearance John doesn't have.
+- Experience: the stated minimum is more than 2 years above John's (count from the earliest non-opt-in job in `resume.ts`). Within 2 years, build, but tell John it's a stretch.
+- Language: requires fluency in a language not in `languages` in `resume.ts`.
+
+**When it's unclear** (e.g. Ashby says "Europe" while the text says "remote in European time zones"), read the posting's own wording. A time zone alone passes; "based in" or "located in" a region fails unless relocation or sponsorship is offered. If it's still ambiguous, ask John before building.
+
+**On rejection**, reply with: the verdict, the exact posting text that fails the gate, and anything that would change it (e.g. "if you have Canadian work authorization, I'll build it"). Build anyway only if John explicitly overrides.
 
 ## Workflow
 
-1. **Read the role.** Fetch the posting. Pull out: company, exact role title, location, the 3–6 requirements that matter most (skip boilerplate), and the language they use. If blocked, ask John to paste the text.
+1. **Read the role, then run the eligibility gate.** Fetch the posting. Pull out: company, exact role title, location and remote terms, relocation or sponsorship, minimum years, the 3–6 requirements that matter most (skip boilerplate), and the language they use. If blocked, ask John to paste the text. Stop here if the gate fails.
 2. **Read the company's look.** `npm run company:brand -- <company homepage>` prints their colours, CSS variables, theme-color and fonts. Optionally skim the careers/engineering blog for tone. Note what you used in `sources`.
 3. **Choose a theme** (`theme` in the JSON): `bg`, `surface`, `fg`, `muted`, `line`, `accent`, `onAccent` as 6-digit hex; `heading`/`body` fonts from the allow-list; `radius` 0–24 matching their corners; `cloud` as `{ "shape": "orb|phone|die|bucket|network|host|link|window" }` or `{ "text": "GO" }`. Pick the accent from their brand, then build neutrals that pass contrast: fg/bg ≥ 7 (min 4.5), muted/bg ≥ 4.5, onAccent/accent ≥ 4.5, accent/bg ≥ 3. A light brand can get a light page.
 4. **Map evidence.** For each key requirement write a `matches` item: `requirement` (their words, short), `evidence` (1–2 sentences, John's real work), `refs` (bullet ids that prove it), `links` (site pages: `/loom`, `/buckt`, `/ussd`, `/demo/...`, `/notes/...`). Prefer things they can click and try.
