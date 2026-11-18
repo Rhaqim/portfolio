@@ -93,11 +93,24 @@ export const jobs: Job[] = [
 		end: "2024-04",
 		bullets: [
 			{ id: "equity-lead", text: "Led a team of four engineers delivering a USSD loan service from development to production on a financial services platform serving 16 million customers and handling over 1 million loan requests per month." },
-			{ id: "equity-rollout", text: "Owned delivery, testing, deployment and production support through international rollouts across six countries." },
+			{ id: "equity-rollout", text: "Owned delivery, testing, deployment and production support through international rollouts across six countries, including Rwanda." },
+			{ id: "equity-mpesa", text: "Worked on the loan service's mobile money integrations, including M-Pesa." },
+			{ id: "equity-drf", text: "Built the service's APIs mainly with Django REST Framework." },
 			{ id: "equity-framework", text: "Built reusable USSD framework components in Python and Rust, and guided engineers on service integration and business logic." },
 			{ id: "equity-orm", text: "Worked with the Django ORM daily: it was how the USSD service stored and served its menus." },
 			{ id: "equity-fastapi", text: "Led a FastAPI proof of concept that showed it was a viable alternative to Django for the loan service." },
 			{ id: "equity-k8s", text: "Containerized services with Docker, deployed them via Azure Pipelines and Kubernetes, and used Redis to support performance and reliability in production." },
+		],
+	},
+	{
+		id: "upwork",
+		title: "Freelance Python Developer",
+		company: "Upwork",
+		start: "2021-02",
+		end: "2021-07",
+		optIn: true,
+		bullets: [
+			{ id: "upwork-stocks", text: "Built a stock trend analysis tool and dashboard in Python and Django REST Framework, collecting market data from APIs and implementing the client's analysis calculations." },
 		],
 	},
 	{
@@ -123,7 +136,7 @@ export const education: Education[] = [
 
 export const skills: { id: string; label: string; items: string[] }[] = [
 	{ id: "languages", label: "Languages", items: ["Golang", "Python", "Rust", "JavaScript/TypeScript"] },
-	{ id: "backend", label: "Backend and Data", items: ["FastAPI", "Django", "Django ORM", "GORM", "Node.js", "PostgreSQL", "Redis", "API Design", "Query Optimisation"] },
+	{ id: "backend", label: "Backend and Data", items: ["FastAPI", "Django", "Django REST Framework", "Django ORM", "GORM", "Node.js", "PostgreSQL", "Redis", "API Design", "Query Optimisation"] },
 	{ id: "frontend", label: "Frontend", items: ["Astro", "Svelte", "React"] },
 	{ id: "devops", label: "DevOps & Infrastructure", items: ["Linux server administration", "Docker", "Cloudflare", "GitHub Actions", "NGINX", "Kubernetes", "Azure Pipelines", "Backup & Disaster recovery", "Grafana", "Tailscale", "Monitoring & alerting", "AWS S3"] },
 	{ id: "ai", label: "AI Systems", items: ["Agent Orchestration", "Open-source model deployment", "Multi-agent Pipelines", "Open-source LLM Deployment", "AI-assisted Development (Claude, Codex)"] },

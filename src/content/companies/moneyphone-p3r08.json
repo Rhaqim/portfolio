@@ -15,90 +15,223 @@
     "heading": "Nunito Sans",
     "body": "Nunito Sans",
     "radius": 10,
-    "cloud": { "shape": "phone" }
+    "cloud": {
+      "shape": "phone"
+    }
   },
   "headline": "I led delivery of a loan service people use from their phones, at Equity Group, in Python.",
-  "pitch": "At Equity Group Holdings I led a team of four delivering a USSD loan service in Python and Django, on a financial platform serving 16 million customers and over 1 million loan requests a month, through rollouts across six countries. Today I lead engineering at DGRS Labs, where I built Loom, an agent orchestration platform, and an AI-assisted generator–reviewer workflow with production-like test environments.",
+  "pitch": "At Equity Group Holdings I led a team of four delivering a USSD loan service in Python, Django and Django REST Framework, connected to mobile money including M-Pesa, on a financial platform serving 16 million customers and over 1 million loan requests a month, through rollouts across six countries including Rwanda. Today I lead engineering at DGRS Labs, where I built Loom, an agent orchestration platform, and an AI-assisted generator–reviewer workflow with production-like test environments.",
   "matches": [
     {
       "requirement": "Lending platforms and financial services backends",
-      "evidence": "Led a team of four delivering a USSD loan service from development to production on Equity Group's platform: 16 million customers, over 1 million loan requests a month, and rollouts across six countries that I owned through testing, deployment and production support.",
-      "refs": ["equity-lead", "equity-rollout"],
-      "links": [{ "label": "USSD write-up", "href": "/ussd" }, { "label": "Try the USSD framework", "href": "/demo/ussd" }]
+      "evidence": "Led a team of four delivering a USSD loan service from development to production on Equity Group's platform, which serves 16 million customers and handles over 1 million loan requests a month, and owned its testing, deployment and production support.",
+      "refs": [
+        "equity-lead",
+        "equity-rollout"
+      ],
+      "links": [
+        {
+          "label": "USSD write-up",
+          "href": "/ussd"
+        },
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
     },
     {
-      "requirement": "Python, Django and PostgreSQL",
-      "evidence": "Built reusable USSD framework components in Python and Rust, worked in the Django ORM daily because it stored and served the loan service's menus, and led a FastAPI proof of concept for the same service. At DGRS Labs I cut PostgreSQL reads by 40% and API responses from 1.2s to 600ms.",
-      "refs": ["equity-framework", "equity-orm", "equity-fastapi", "dgrs-postgres"],
-      "links": [{ "label": "How the framework works", "href": "/ussd" }]
+      "requirement": "Mobile money integrations, and experience in Rwanda and other African markets",
+      "evidence": "Worked on the loan service's mobile money integrations, including M-Pesa, and supported it through international rollouts across six countries, including Rwanda.",
+      "refs": [
+        "equity-mpesa",
+        "equity-rollout"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Python, Django, Django REST Framework and PostgreSQL",
+      "evidence": "Built the loan service's APIs mainly with Django REST Framework, worked in the Django ORM daily because it stored and served the USSD menus, and built reusable framework components in Python and Rust. At DGRS Labs I cut PostgreSQL reads by 40% and API responses from 1.2s to 600ms.",
+      "refs": [
+        "equity-drf",
+        "equity-orm",
+        "equity-framework",
+        "dgrs-postgres"
+      ],
+      "links": [
+        {
+          "label": "How the framework works",
+          "href": "/ussd"
+        }
+      ]
     },
     {
       "requirement": "AI-assisted and agentic development, agent orchestration and automated code review",
       "evidence": "Introduced a generator–reviewer workflow with Claude and Codex, backed by production-like Docker test environments, so defects are caught before deployment. Architected Loom, the platform that coordinates six specialized agents behind CoNexus.",
-      "refs": ["dgrs-ai-review", "dgrs-loom"],
-      "links": [{ "label": "Loom docs", "href": "/loom" }, { "label": "Run a table with agents", "href": "/demo/loom" }]
+      "refs": [
+        "dgrs-ai-review",
+        "dgrs-loom"
+      ],
+      "links": [
+        {
+          "label": "Loom docs",
+          "href": "/loom"
+        },
+        {
+          "label": "Run a table with agents",
+          "href": "/demo/loom"
+        }
+      ]
     },
     {
       "requirement": "Docker, CI/CD, automated testing and deployment practices",
       "evidence": "Containerized services with Docker and deployed them via Azure Pipelines and Kubernetes at Equity. At DGRS Labs I built GitHub Actions pipelines across five repositories, cutting deployment time by 80%, and set up separate development, staging and production environments.",
-      "refs": ["equity-k8s", "dgrs-cicd", "dgrs-envs"],
+      "refs": [
+        "equity-k8s",
+        "dgrs-cicd",
+        "dgrs-envs"
+      ],
       "links": []
     },
     {
-      "requirement": "Background tasks, message queues and asynchronous workflows",
-      "evidence": "Built queues and asynchronous media pipelines that take slow generation work off the request path, and ran background workers for scheduled jobs such as cleaning up abandoned stories and refreshing customer credits.",
-      "refs": ["dgrs-queues", "dgrs-workers"],
-      "links": []
-    },
-    {
-      "requirement": "Linux, production operations and incident investigation",
-      "evidence": "Run DGRS Labs' entire infrastructure on my own: Linux servers, Cloudflare, a dashboard that ingests errors and logs and alerts to Telegram, and a backup and disaster-recovery system that restores the full stack automatically.",
-      "refs": ["dgrs-infra", "dgrs-monitoring", "dgrs-dr"],
+      "requirement": "Production operations, background tasks and asynchronous workflows",
+      "evidence": "Run DGRS Labs' entire infrastructure on my own, with a dashboard that ingests errors and logs and alerts to Telegram. Built queues and asynchronous media pipelines, and background workers for scheduled jobs such as refreshing customer credits.",
+      "refs": [
+        "dgrs-infra",
+        "dgrs-monitoring",
+        "dgrs-queues",
+        "dgrs-workers"
+      ],
       "links": []
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building production backends in Python, Golang and Rust. Led delivery of a USSD loan service in Python and Django on a financial platform serving 16 million customers and over 1 million loan requests a month across six countries. Now leads engineering at an AI studio: built an agent orchestration platform and an AI-assisted generator–reviewer workflow, and single-handedly runs the company's infrastructure.",
+    "summary": "Lead software engineer with 5+ years building production backends in Python, Golang and Rust. Led delivery of a USSD loan service in Python, Django and Django REST Framework, integrated with mobile money including M-Pesa, on a financial platform serving 16 million customers and over 1 million loan requests a month across six countries. Now leads engineering at an AI studio: built an agent orchestration platform and an AI-assisted generator–reviewer workflow, and single-handedly runs the company's infrastructure.",
     "jobs": [
       {
         "id": "dgrs",
         "bullets": [
-          { "ref": "dgrs-lead" },
-          { "ref": "dgrs-ai-review" },
-          { "ref": "dgrs-loom" },
-          { "ref": "dgrs-postgres" },
-          { "ref": "dgrs-queues" },
-          { "ref": "dgrs-workers" },
-          { "ref": "dgrs-infra" },
-          { "ref": "dgrs-envs" },
-          { "ref": "dgrs-cicd" },
-          { "ref": "dgrs-monitoring" },
-          { "ref": "dgrs-dr" }
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          },
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-queues"
+          },
+          {
+            "ref": "dgrs-workers"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-monitoring"
+          },
+          {
+            "ref": "dgrs-dr"
+          }
         ]
       },
       {
         "id": "equity",
         "bullets": [
-          { "ref": "equity-lead" },
-          { "ref": "equity-framework" },
-          { "ref": "equity-orm" },
-          { "ref": "equity-fastapi" },
-          { "ref": "equity-rollout" },
-          { "ref": "equity-k8s" }
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-mpesa"
+          },
+          {
+            "ref": "equity-drf"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-orm"
+          },
+          {
+            "ref": "equity-rollout"
+          },
+          {
+            "ref": "equity-k8s"
+          }
+        ]
+      },
+      {
+        "id": "upwork",
+        "bullets": [
+          {
+            "ref": "upwork-stocks"
+          }
         ]
       }
     ],
     "skills": [
-      { "id": "languages", "items": ["Python", "Golang", "Rust", "JavaScript/TypeScript"] },
-      { "id": "backend", "items": ["Django", "Django ORM", "FastAPI", "PostgreSQL", "Redis", "API Design", "Query Optimisation"] },
-      { "id": "devops", "items": ["Docker", "Kubernetes", "Azure Pipelines", "GitHub Actions", "Linux server administration", "Monitoring & alerting", "Backup & Disaster recovery"] },
-      { "id": "ai", "items": ["AI-assisted Development (Claude, Codex)", "Agent Orchestration", "Multi-agent Pipelines"] },
-      { "id": "leadership", "items": ["Team Leadership", "Technical Direction", "Code Review", "Production Delivery"] }
+      {
+        "id": "languages",
+        "items": [
+          "Python",
+          "Golang",
+          "Rust",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "Django",
+          "Django REST Framework",
+          "Django ORM",
+          "FastAPI",
+          "PostgreSQL",
+          "Redis",
+          "API Design",
+          "Query Optimisation"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Docker",
+          "Kubernetes",
+          "Azure Pipelines",
+          "GitHub Actions",
+          "Linux server administration",
+          "Monitoring & alerting",
+          "Backup & Disaster recovery"
+        ]
+      },
+      {
+        "id": "ai",
+        "items": [
+          "AI-assisted Development (Claude, Codex)",
+          "Agent Orchestration",
+          "Multi-agent Pipelines"
+        ]
+      }
     ]
   },
-  "note": "MoneyPhone is building what I spent my Equity years on: loans people can take out from a phone, for borrowers that traditional banking serves badly. There I led a team of four delivering a USSD loan service in Python and Django, from development through testing, deployment and production support, as it rolled out across six countries. Before joining Equity I'd already worked on Python projects with Kenyan teams, so the market and the people weren't new to me.\n\nSince then I've led engineering at DGRS Labs, where AI is part of how we ship: generated changes go through a Claude and Codex generator–reviewer workflow and production-like Docker environments before they deploy, and I built Loom, the agent orchestration platform behind our product. I'd bring both halves: the care that money needs, and a workflow that lets a small team move quickly without lowering the bar.\n\nI'm in Lagos (UTC+1), which keeps a full working day of overlap with the Netherlands.",
+  "note": "MoneyPhone is building what I spent my Equity years on: loans people can take out from a phone, for borrowers that traditional banking serves badly. There I led a team of four delivering a USSD loan service in Python and Django, connected to mobile money including M-Pesa, from development through testing, deployment and production support, as it rolled out across six countries including Rwanda. Before Equity I was already building in Python and Django REST Framework as a freelancer on Upwork, including a stock trend analysis tool and dashboard that pulled market data from APIs and implemented the calculations the client wanted.\n\nSince then I've led engineering at DGRS Labs, where AI is part of how we ship: generated changes go through a Claude and Codex generator–reviewer workflow and production-like Docker environments before they deploy, and I built Loom, the agent orchestration platform behind our product. I'd bring both halves: the care that money needs, and a workflow that lets a small team move quickly without lowering the bar.\n\nI'm in Lagos (UTC+1), which keeps a full working day of overlap with the Netherlands.",
   "sources": [
-    { "label": "Job posting", "href": "https://moneyphone.breezy.hr/p/8ff87449dcdd01-senior-software-engineer" },
-    { "label": "MoneyPhone homepage (colours)", "href": "https://www.money-phone.com/" }
+    {
+      "label": "Job posting",
+      "href": "https://moneyphone.breezy.hr/p/8ff87449dcdd01-senior-software-engineer"
+    },
+    {
+      "label": "MoneyPhone homepage (colours)",
+      "href": "https://www.money-phone.com/"
+    }
   ]
 }
