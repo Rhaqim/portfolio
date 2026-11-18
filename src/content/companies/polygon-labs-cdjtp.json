@@ -24,10 +24,11 @@
   "matches": [
     {
       "requirement": "Move agentic workflows into production for real users and Operators",
-      "evidence": "Architected and built Loom, which coordinates six specialized agents in production for CoNexus. Its no-code admin lets non-technical staff create, configure and deploy new agents, and plugins connect agents to external tools such as Meshy.",
+      "evidence": "Architected and built Loom, which coordinates six specialized agents in production for CoNexus. Its no-code admin lets non-technical staff create and deploy new agents, plugins connect agents to external tools, and story embeddings in pgvector let the AI retrieve the context it needs.",
       "refs": [
         "dgrs-loom",
         "dgrs-plugins",
+        "dgrs-pgvector",
         "dgrs-lead"
       ],
       "links": [
@@ -56,15 +57,20 @@
       ]
     },
     {
-      "requirement": "Evals for LLM systems: test sets, rubrics, regression and release gates",
-      "evidence": "Loom has rubric and pairwise LLM judges, an evaluator whose answers become a gate that accepts, retries or rejects a step, and a test harness that runs plans in code or YAML with every variant in parallel.",
+      "requirement": "Evals and guardrails: rubrics, regression, release gates and approval checks",
+      "evidence": "Loom has rubric and pairwise LLM judges, eval gates that accept, retry or reject a step, a test harness that runs variants in parallel, and pre- and post-hooks that cancel, moderate or retry steps. For code, a Claude and Codex generator–reviewer workflow runs in production-like Docker test environments.",
       "refs": [
-        "dgrs-loom"
+        "dgrs-loom",
+        "dgrs-ai-review"
       ],
       "links": [
         {
           "label": "Judges",
           "href": "/loom#judges"
+        },
+        {
+          "label": "Hooks",
+          "href": "/loom#hooks"
         },
         {
           "label": "Test harness",
@@ -73,27 +79,18 @@
       ]
     },
     {
-      "requirement": "Guardrails: approval gates, CI checks and policies around agents",
-      "evidence": "Loom's pre-hooks can cancel a step before it runs and post-hooks validate, moderate or retry its output. For code, I introduced a Claude and Codex generator–reviewer workflow with production-like Docker test environments, and defined the deployment rules the whole team follows.",
+      "requirement": "Production observability: tracing, metrics, alerting and dashboards",
+      "evidence": "My first project at Equity was instrumenting the Django loan service with OpenTelemetry to trace where errors occurred. At DGRS Labs I connected Grafana to the backend behind Tailscale, then built a founder's dashboard that ingests errors and logs and alerts to Telegram.",
       "refs": [
-        "dgrs-loom",
-        "dgrs-ai-review",
-        "dgrs-envs"
+        "equity-otel",
+        "dgrs-grafana",
+        "dgrs-monitoring"
       ],
-      "links": [
-        {
-          "label": "Hooks",
-          "href": "/loom#hooks"
-        },
-        {
-          "label": "Typed errors",
-          "href": "/loom#errors"
-        }
-      ]
+      "links": []
     },
     {
       "requirement": "Daily AI coding agents, and a record of automating manual processes",
-      "evidence": "Claude and Codex are part of how I write and review production code. Automations I've shipped: GitHub Actions pipelines that ended manual SSH deploys, a disaster-recovery system that restores the full stack automatically, and a dashboard that turns errors and logs into Telegram alerts.",
+      "evidence": "Claude and Codex are part of how I write and review production code, and I write Claude Code skills for repeatable workflows. Automations I've shipped: GitHub Actions pipelines that ended manual SSH deploys, a disaster-recovery system that restores the full stack automatically, and error alerts to Telegram.",
       "refs": [
         "dgrs-ai-review",
         "dgrs-cicd",
@@ -135,6 +132,9 @@
             "ref": "dgrs-async-agents"
           },
           {
+            "ref": "dgrs-pgvector"
+          },
+          {
             "ref": "dgrs-models"
           },
           {
@@ -153,9 +153,6 @@
             "ref": "dgrs-monitoring"
           },
           {
-            "ref": "dgrs-grafana"
-          },
-          {
             "ref": "dgrs-dr"
           }
         ]
@@ -165,6 +162,9 @@
         "bullets": [
           {
             "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-otel"
           },
           {
             "ref": "equity-mpesa"
@@ -196,6 +196,8 @@
           "Agent Orchestration",
           "Multi-agent Pipelines",
           "AI-assisted Development (Claude, Codex)",
+          "Claude Code skills",
+          "pgvector",
           "Open-source LLM Deployment"
         ]
       },
@@ -224,6 +226,7 @@
           "GitHub Actions",
           "Docker",
           "Kubernetes",
+          "OpenTelemetry",
           "Grafana",
           "Monitoring & alerting",
           "Linux server administration",
@@ -232,7 +235,7 @@
       }
     ]
   },
-  "note": "Your Platform Team is the job I've been doing at DGRS Labs. Loom is where CoNexus's agents get built and run: non-technical staff create and deploy their own through its admin, every step is priced and budgeted, judges score output, and hooks stop a step that shouldn't run. Your Operators sound like the people I've been building for.\n\nWhat I'd bring first is the spend and evals side: per-key budgets that block, downgrade or notify, and rubric judges and eval gates that accept, retry or reject a step. I also already work the way you describe, with Claude and Codex writing and reviewing code under a generator–reviewer workflow before anything deploys.\n\nWhat would be new: I haven't run MCP servers with per-user OAuth, or worked with Okta, SSO and SCIM provisioning. I'd rather say that plainly. I'm in Lagos (UTC+1), well inside your EMEA hours.",
+  "note": "Your Platform Team is the job I've been doing at DGRS Labs. Loom is where CoNexus's agents get built and run: non-technical staff create and deploy their own through its admin, every step is priced and budgeted, judges score output, and hooks stop a step that shouldn't run. Your Operators sound like the people I've been building for.\n\nWhat I'd bring first is the spend and evals side: per-key budgets that block, downgrade or notify, and rubric judges and eval gates that accept, retry or reject a step. I also already work the way you describe, with Claude and Codex writing and reviewing code under a generator–reviewer workflow before anything deploys.\n\nWhat would be new: I've built agents and their tool integrations, but not MCP servers with per-user OAuth, and I haven't worked with Okta, SSO and SCIM provisioning or GitHub Apps. I'd rather say that plainly. I'm in Lagos (UTC+1), well inside your EMEA hours.",
   "sources": [
     {
       "label": "Job posting",

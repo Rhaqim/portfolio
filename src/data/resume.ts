@@ -74,6 +74,7 @@ export const jobs: Job[] = [
 			{ id: "dgrs-async-agents", group: "ai", text: "Designed Loom so connected agents can run asynchronously and stream events to the client, instead of leaving it waiting on a long response." },
 			{ id: "dgrs-workers", group: "ai", text: "Ran background workers for scheduled jobs, such as cleaning up stories users abandoned for a month and refreshing credits for customers on higher tiers." },
 			{ id: "dgrs-email", group: "ai", text: "Used Resend for the platform's email: password resets and changes, one-time codes for email login, and newsletters." },
+			{ id: "dgrs-pgvector", group: "ai", text: "Stored story embeddings in PostgreSQL with pgvector so the AI could retrieve the context it needed to drive each story forward." },
 			{ id: "dgrs-postgres", group: "ai", text: "Optimized PostgreSQL queries and added caching, reducing database reads by 40% and API response times from 1.2s to 600ms." },
 			{ id: "dgrs-infra", group: "infra", text: "Built and run the company's entire infrastructure single-handedly: provisioning and configuring Linux servers, deploying the platform and routing traffic through Cloudflare." },
 			{ id: "dgrs-envs", group: "infra", text: "Set up separate development, staging and production environments, and defined the deployment rules and release process the whole team follows." },
@@ -94,6 +95,7 @@ export const jobs: Job[] = [
 		bullets: [
 			{ id: "equity-lead", text: "Led a team of four engineers delivering a USSD loan service from development to production on a financial services platform serving 16 million customers and handling over 1 million loan requests per month." },
 			{ id: "equity-rollout", text: "Owned delivery, testing, deployment and production support through international rollouts across six countries, including Rwanda." },
+			{ id: "equity-otel", text: "Instrumented the Django loan service with OpenTelemetry to trace where errors occurred, my first project at Equity." },
 			{ id: "equity-mpesa", text: "Worked on the loan service's mobile money integrations, including M-Pesa." },
 			{ id: "equity-drf", text: "Built the service's APIs mainly with Django REST Framework." },
 			{ id: "equity-framework", text: "Built reusable USSD framework components in Python and Rust, and guided engineers on service integration and business logic." },
@@ -138,8 +140,8 @@ export const skills: { id: string; label: string; items: string[] }[] = [
 	{ id: "languages", label: "Languages", items: ["Golang", "Python", "Rust", "JavaScript/TypeScript"] },
 	{ id: "backend", label: "Backend and Data", items: ["FastAPI", "Django", "Django REST Framework", "Django ORM", "GORM", "Node.js", "PostgreSQL", "Redis", "API Design", "Query Optimisation"] },
 	{ id: "frontend", label: "Frontend", items: ["Astro", "Svelte", "React"] },
-	{ id: "devops", label: "DevOps & Infrastructure", items: ["Linux server administration", "Docker", "Cloudflare", "GitHub Actions", "NGINX", "Kubernetes", "Azure Pipelines", "Backup & Disaster recovery", "Grafana", "Tailscale", "Monitoring & alerting", "AWS S3"] },
-	{ id: "ai", label: "AI Systems", items: ["Agent Orchestration", "Open-source model deployment", "Multi-agent Pipelines", "Open-source LLM Deployment", "AI-assisted Development (Claude, Codex)"] },
+	{ id: "devops", label: "DevOps & Infrastructure", items: ["Linux server administration", "Docker", "Cloudflare", "GitHub Actions", "NGINX", "Kubernetes", "Azure Pipelines", "Backup & Disaster recovery", "Grafana", "Tailscale", "Monitoring & alerting", "OpenTelemetry", "AWS S3"] },
+	{ id: "ai", label: "AI Systems", items: ["Agent Orchestration", "Open-source model deployment", "Multi-agent Pipelines", "Open-source LLM Deployment", "AI-assisted Development (Claude, Codex)", "Claude Code skills", "pgvector"] },
 	{ id: "leadership", label: "Engineering Leadership", items: ["Technical Direction", "System Architecture", "Team Leadership", "Code Review", "Production Delivery"] },
 ];
 
