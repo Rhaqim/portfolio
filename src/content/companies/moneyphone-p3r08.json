@@ -133,9 +133,6 @@
             "ref": "dgrs-infra"
           },
           {
-            "ref": "dgrs-envs"
-          },
-          {
             "ref": "dgrs-cicd"
           },
           {
@@ -169,9 +166,14 @@
           },
           {
             "ref": "equity-k8s"
-          },
+          }
+        ]
+      },
+      {
+        "id": "upwork",
+        "bullets": [
           {
-            "ref": "equity-fastapi"
+            "ref": "upwork-stocks"
           }
         ]
       }
@@ -217,15 +219,6 @@
           "AI-assisted Development (Claude, Codex)",
           "Agent Orchestration",
           "Multi-agent Pipelines"
-        ]
-      },
-      {
-        "id": "leadership",
-        "items": [
-          "Team Leadership",
-          "Technical Direction",
-          "Code Review",
-          "Production Delivery"
         ]
       }
     ]

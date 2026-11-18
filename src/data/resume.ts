@@ -103,6 +103,17 @@ export const jobs: Job[] = [
 		],
 	},
 	{
+		id: "upwork",
+		title: "Freelance Python Developer",
+		company: "Upwork",
+		start: "2021-02",
+		end: "2021-07",
+		optIn: true,
+		bullets: [
+			{ id: "upwork-stocks", text: "Built a stock trend analysis tool and dashboard in Python and Django REST Framework, collecting market data from APIs and implementing the client's analysis calculations." },
+		],
+	},
+	{
 		id: "nirvana",
 		title: "Full Stack Developer",
 		company: "Nirvana Labs",
