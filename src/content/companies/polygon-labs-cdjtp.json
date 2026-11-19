@@ -1,0 +1,249 @@
+{
+  "company": "Polygon Labs",
+  "role": "AI Platform Engineer",
+  "roleUrl": "https://jobs.ashbyhq.com/polygon-labs/ec7277f7-4757-4863-967c-eecaee0d0740",
+  "location": "Remote, EMEA",
+  "prepared": "2026-11-18",
+  "theme": {
+    "bg": "#f6f5f9",
+    "surface": "#ffffff",
+    "fg": "#07060d",
+    "muted": "#55535f",
+    "line": "#e4e4e7",
+    "accent": "#670de5",
+    "onAccent": "#ffffff",
+    "heading": "Sora",
+    "body": "Inter",
+    "radius": 16,
+    "cloud": {
+      "shape": "network"
+    }
+  },
+  "headline": "I built the agent platform behind a live product, with budgets, judges and hooks built in.",
+  "pitch": "At DGRS Labs I architected Loom, the agent orchestration platform behind CoNexus: six specialized agents in production, plugins to external tools, and a no-code admin so non-technical staff create and deploy their own agents. It records the cost of every step, caps spend with budgets, scores output with LLM judges, and gates steps with hooks. Before that I led a USSD loan service with mobile money integrations on a platform serving 16 million customers.",
+  "matches": [
+    {
+      "requirement": "Move agentic workflows into production for real users and Operators",
+      "evidence": "Architected and built Loom, which coordinates six specialized agents in production for CoNexus. Its no-code admin lets non-technical staff create and deploy new agents, plugins connect agents to external tools, and story embeddings in pgvector let the AI retrieve the context it needs.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-plugins",
+        "dgrs-pgvector",
+        "dgrs-lead"
+      ],
+      "links": [
+        {
+          "label": "Loom docs",
+          "href": "/loom"
+        },
+        {
+          "label": "Run a table with agents",
+          "href": "/demo/loom"
+        }
+      ]
+    },
+    {
+      "requirement": "Track AI spend: per-key limits, budgets and actionable alerts",
+      "evidence": "Loom records tokens and dollar cost on every step, and budgets cap spend per platform key or per session by day, with block, downgrade or notify on exceed. Separately, an in-house model service on open-source models cut CoNexus's operating costs by 30%.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-models"
+      ],
+      "links": [
+        {
+          "label": "Cost and budgets",
+          "href": "/loom#cost-and-budgets"
+        }
+      ]
+    },
+    {
+      "requirement": "Evals and guardrails: rubrics, regression, release gates and approval checks",
+      "evidence": "Loom has rubric and pairwise LLM judges, eval gates that accept, retry or reject a step, a test harness that runs variants in parallel, and pre- and post-hooks that cancel, moderate or retry steps. For code, a Claude and Codex generator–reviewer workflow runs in production-like Docker test environments.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-ai-review"
+      ],
+      "links": [
+        {
+          "label": "Judges",
+          "href": "/loom#judges"
+        },
+        {
+          "label": "Hooks",
+          "href": "/loom#hooks"
+        },
+        {
+          "label": "Test harness",
+          "href": "/loom#test-harness"
+        }
+      ]
+    },
+    {
+      "requirement": "Production observability: tracing, metrics, alerting and dashboards",
+      "evidence": "My first project at Equity was instrumenting the Django loan service with OpenTelemetry to trace where errors occurred. At DGRS Labs I connected Grafana to the backend behind Tailscale, then built a founder's dashboard that ingests errors and logs and alerts to Telegram.",
+      "refs": [
+        "equity-otel",
+        "dgrs-grafana",
+        "dgrs-monitoring"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Daily AI coding agents, and a record of automating manual processes",
+      "evidence": "Claude and Codex are part of how I write and review production code, and I write Claude Code skills for repeatable workflows. Automations I've shipped: GitHub Actions pipelines that ended manual SSH deploys, a disaster-recovery system that restores the full stack automatically, and error alerts to Telegram.",
+      "refs": [
+        "dgrs-ai-review",
+        "dgrs-cicd",
+        "dgrs-dr",
+        "dgrs-monitoring"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Payments, fintech and blockchain experience",
+      "evidence": "Led a team of four delivering a USSD loan service, integrated with mobile money including M-Pesa, on a platform handling over 1 million loan requests a month. At Nirvana Labs I built a Rust NFT indexer for ERC-721 and ERC-1155 tokens and designed its PostgreSQL schema.",
+      "refs": [
+        "equity-lead",
+        "equity-mpesa",
+        "nirvana-indexer",
+        "nirvana-schema"
+      ],
+      "links": [
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production systems in fintech and AI. Architected Loom, an agent orchestration platform that coordinates six specialized agents in production, with tool plugins, cost tracking and budgets, LLM judges and a no-code admin for non-technical staff. Builds with Claude and Codex in an AI-assisted generator–reviewer workflow, and single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-plugins"
+          },
+          {
+            "ref": "dgrs-async-agents"
+          },
+          {
+            "ref": "dgrs-pgvector"
+          },
+          {
+            "ref": "dgrs-models"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-monitoring"
+          },
+          {
+            "ref": "dgrs-dr"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-otel"
+          },
+          {
+            "ref": "equity-mpesa"
+          },
+          {
+            "ref": "equity-rollout"
+          },
+          {
+            "ref": "equity-k8s"
+          }
+        ]
+      },
+      {
+        "id": "nirvana",
+        "bullets": [
+          {
+            "ref": "nirvana-indexer"
+          },
+          {
+            "ref": "nirvana-schema"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "ai",
+        "items": [
+          "Agent Orchestration",
+          "Multi-agent Pipelines",
+          "AI-assisted Development (Claude, Codex)",
+          "Claude Code skills",
+          "pgvector",
+          "Open-source LLM Deployment"
+        ]
+      },
+      {
+        "id": "languages",
+        "items": [
+          "Golang",
+          "Python",
+          "JavaScript/TypeScript",
+          "Rust"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "PostgreSQL",
+          "Redis",
+          "API Design",
+          "Django REST Framework",
+          "FastAPI"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "GitHub Actions",
+          "Docker",
+          "Kubernetes",
+          "OpenTelemetry",
+          "Grafana",
+          "Monitoring & alerting",
+          "Linux server administration",
+          "Tailscale"
+        ]
+      }
+    ]
+  },
+  "note": "Your Platform Team is the job I've been doing at DGRS Labs. Loom is where CoNexus's agents get built and run: non-technical staff create and deploy their own through its admin, every step is priced and budgeted, judges score output, and hooks stop a step that shouldn't run. Your Operators sound like the people I've been building for.\n\nWhat I'd bring first is the spend and evals side: per-key budgets that block, downgrade or notify, and rubric judges and eval gates that accept, retry or reject a step. I also already work the way you describe, with Claude and Codex writing and reviewing code under a generator–reviewer workflow before anything deploys.\n\nWhat would be new: I've built agents and their tool integrations, but not MCP servers with per-user OAuth, and I haven't worked with Okta, SSO and SCIM provisioning or GitHub Apps. I'd rather say that plainly. I'm in Lagos (UTC+1), well inside your EMEA hours.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://jobs.ashbyhq.com/polygon-labs/ec7277f7-4757-4863-967c-eecaee0d0740"
+    },
+    {
+      "label": "Polygon homepage (colours)",
+      "href": "https://polygon.technology/"
+    }
+  ]
+}
