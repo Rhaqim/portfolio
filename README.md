@@ -41,12 +41,12 @@ src/
 │   ├── 404.astro
 │   ├── buckt.md      Library docs
 │   ├── ussd.md
-│   ├── loom.md
+│   ├── noewright.md
 │   ├── conexus.md    Product case studies
 │   ├── brisa.md
 │   ├── eriife.md
 │   ├── notes/        Notes (markdown, Note layout)
-│   └── demo/         Live demos: index, ussd, buckt, loom, forecast
+│   └── demo/         Live demos: index, ussd, buckt, noewright, forecast
 ├── scripts/demo/  Browser code for the demos (talks to the demo API)
 ├── scripts/cloud/ The red point cloud: engine (cloud.js) + shape library (shapes.js)
 └── styles/

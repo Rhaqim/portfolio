@@ -26,7 +26,7 @@ export const fonts = [
 ] as const;
 
 /** Point-cloud shapes available on the site (src/scripts/cloud/shapes.js). */
-export const cloudShapes = ["orb", "phone", "die", "bucket", "network", "host", "link", "window"] as const;
+export const cloudShapes = ["orb", "phone", "die", "bucket", "network", "mind", "host", "link", "window"] as const;
 
 const link = z.object({
 	label: z.string().min(1).max(60),

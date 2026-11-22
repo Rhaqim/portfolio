@@ -1,30 +1,35 @@
 ---
 layout: ../layouts/Doc.astro
-slug: loom
-description: "loom is a modality-agnostic Go engine for multi-agent AI applications: versioned agents and prompts, multi-agent turns, shared multiplayer sessions with live event streams, branching and replay, hooks, cost budgets, LLM-as-judge scoring and a YAML-driven test harness."
+slug: noewright
+description: "Noewright (formerly Noewright) is a modality-agnostic Go engine for multi-agent AI applications: versioned agents and prompts, multi-agent turns, shared multiplayer sessions with live event streams, branching and replay, hooks, cost budgets, LLM-as-judge scoring and a YAML-driven test harness."
 ---
 
 Most LLM applications rewrite the same infrastructure: session state, prompt
-versioning, retries, cost accounting, evaluation. loom is that infrastructure as
+versioning, retries, cost accounting, evaluation. Noewright is that infrastructure as
 a library. Text, image, video, audio, 3D assets and structured output move
 through one pipeline, so switching modality means swapping an agent, not
 rewriting the runtime.
 
-> Building with loom using an AI assistant? Point it at
-> [`llms.txt`](https://github.com/rhaqim/loom/blob/main/llms.txt), a
+> **Formerly loom.** The module moved from `github.com/rhaqim/loom` to
+> `github.com/rhaqim/noewright` at v0.1.0. Existing databases keep working: tables
+> keep the `loom_` prefix. See
+> [MIGRATING.md](https://github.com/rhaqim/noewright/blob/main/MIGRATING.md).
+
+> Building with Noewright using an AI assistant? Point it at
+> [`llms.txt`](https://github.com/rhaqim/noewright/blob/main/llms.txt), a
 > self-contained, task-oriented guide to the API written for LLMs.
 
 ## Install
 
 ```bash
-go get github.com/rhaqim/loom
+go get github.com/rhaqim/noewright
 ```
 
 Requires Go 1.26+ and a Postgres or SQLite database. The Anthropic adapter is
-its own module, so the SDK's dependencies stay out of loom:
+its own module, so the SDK's dependencies stay out of Noewright:
 
 ```bash
-go get github.com/rhaqim/loom/generator/anthropic
+go get github.com/rhaqim/noewright/generator/anthropic
 ```
 
 ## Quick start
@@ -41,32 +46,32 @@ import (
 
     _ "github.com/lib/pq"
 
-    loom "github.com/rhaqim/loom"
-    "github.com/rhaqim/loom/generator/openai"
-    "github.com/rhaqim/loom/schema"
+    "github.com/rhaqim/noewright"
+    "github.com/rhaqim/noewright/generator/openai"
+    "github.com/rhaqim/noewright/schema"
 )
 
 func main() {
     db, _ := sql.Open("postgres", "postgres://user:pass@localhost/mydb?sslmode=disable")
     ctx := context.Background()
 
-    // Apply the loom schema (idempotent).
+    // Apply the noewright schema (idempotent).
     schema.NewLoader(schema.DialectPostgres).Apply(ctx, db)
 
-    e, _ := loom.New(loom.Config{
+    e, _ := noewright.New(noewright.Config{
         DB:      db,
-        Dialect: loom.DialectPostgres,
-        Generators: map[string]loom.Generator{
+        Dialect: noewright.DialectPostgres,
+        Generators: map[string]noewright.Generator{
             "gpt4o": openai.NewChatGenerator(os.Getenv("OPENAI_API_KEY"), "gpt-4o"),
         },
     })
 
-    e.Prompts().Create(ctx, &loom.Prompt{
-        Slug: "assistant-sys", Version: 1, Kind: loom.PromptKindSystem,
+    e.Prompts().Create(ctx, &noewright.Prompt{
+        Slug: "assistant-sys", Version: 1, Kind: noewright.PromptKindSystem,
         Body: "You are a vivid storyteller. Keep responses to 2-3 paragraphs.",
     })
-    e.Prompts().Create(ctx, &loom.Prompt{
-        Slug: "assistant-user", Version: 1, Kind: loom.PromptKindUserTemplate,
+    e.Prompts().Create(ctx, &noewright.Prompt{
+        Slug: "assistant-user", Version: 1, Kind: noewright.PromptKindUserTemplate,
         Body: "The user says: {{.Action.Payload.text}}",
     })
 
@@ -74,20 +79,20 @@ func main() {
     sys, _ := e.Prompts().Get(ctx, "", "assistant-sys", 1)
     user, _ := e.Prompts().Get(ctx, "", "assistant-user", 1)
 
-    e.Agents().Create(ctx, &loom.Agent{
-        Slug: "assistant", Version: 1, Modal: loom.ModalityText,
+    e.Agents().Create(ctx, &noewright.Agent{
+        Slug: "assistant", Version: 1, Modal: noewright.ModalityText,
         GeneratorSlug:  "gpt4o",
         SystemPromptID: sys.ID,
         UserTemplateID: user.ID,
     })
 
-    sess := &loom.Session{PlatformID: "user-1", State: loom.State{Modality: loom.ModalityText}}
+    sess := &noewright.Session{PlatformID: "user-1", State: noewright.State{Modality: noewright.ModalityText}}
     e.Sessions().Create(ctx, sess)
 
-    step, err := e.RunStep(ctx, sess, loom.StepRequest{
+    step, err := e.RunStep(ctx, sess, noewright.StepRequest{
         AgentSlug: "assistant",
-        Action: &loom.Action{
-            Kind:    loom.ActionFreeText,
+        Action: &noewright.Action{
+            Kind:    noewright.ActionFreeText,
             Payload: map[string]any{"text": "I push open the ancient door."},
         },
     })
@@ -95,7 +100,7 @@ func main() {
         log.Fatal(err)
     }
 
-    fmt.Println(step.Result.(*loom.TextResult).Content)
+    fmt.Println(step.Result.(*noewright.TextResult).Content)
 }
 ```
 
@@ -107,11 +112,11 @@ Increment the version to roll out a new prompt or model without breaking
 sessions already in flight.
 
 ```go
-e.Prompts().Create(ctx, &loom.Prompt{
-    Slug: "my-sys", Version: 1, Kind: loom.PromptKindSystem, Body: "...",
+e.Prompts().Create(ctx, &noewright.Prompt{
+    Slug: "my-sys", Version: 1, Kind: noewright.PromptKindSystem, Body: "...",
 })
 
-e.Agents().Create(ctx, &loom.Agent{
+e.Agents().Create(ctx, &noewright.Agent{
     Slug: "my-agent", Version: 1,
     GeneratorSlug:  "openai",
     SystemPromptID: sysPrompt.ID,
@@ -140,22 +145,22 @@ A **Session** holds conversation history, state variables and tags. A **Step** i
 one agent invocation, recording the request, result, action and duration.
 
 ```go
-sess := &loom.Session{
+sess := &noewright.Session{
     PlatformID: "user-123",
-    State: loom.State{
-        Modality: loom.ModalityText,
+    State: noewright.State{
+        Modality: noewright.ModalityText,
         Vars:     map[string]any{"scene": "A dark tavern"},
     },
 }
 e.Sessions().Create(ctx, sess)
 
-step, err := e.RunStep(ctx, sess, loom.StepRequest{
+step, err := e.RunStep(ctx, sess, noewright.StepRequest{
     AgentSlug: "assistant",
-    Action: &loom.Action{
-        Kind:    loom.ActionFreeText,
+    Action: &noewright.Action{
+        Kind:    noewright.ActionFreeText,
         Payload: map[string]any{"text": "I order a drink."},
     },
-    OnChunk: func(c loom.Chunk) { fmt.Print(c.Content) }, // streaming
+    OnChunk: func(c noewright.Chunk) { fmt.Print(c.Content) }, // streaming
 })
 ```
 
@@ -180,21 +185,21 @@ followers, then runs the followers concurrently. Every resulting step is
 persisted under one `turn_id`.
 
 ```go
-flow := loom.Flow{
+flow := noewright.Flow{
     Slug: "chat-turn",
-    Lead: loom.FlowAgent{AgentSlug: "author", Stream: true, OutputKey: "Prose"},
-    Followers: []loom.FlowAgent{
+    Lead: noewright.FlowAgent{AgentSlug: "author", Stream: true, OutputKey: "Prose"},
+    Followers: []noewright.FlowAgent{
         {AgentSlug: "logician"}, // sees the lead's prose via {{.Inputs.Prose}}
         {AgentSlug: "sensory"},
     },
 }
 
-turn, err := e.RunTurn(ctx, sess, loom.TurnRequest{
+turn, err := e.RunTurn(ctx, sess, noewright.TurnRequest{
     Flow:    flow,
-    Action:  &loom.Action{Kind: loom.ActionFreeText, Payload: map[string]any{"text": "I open the door."}},
-    OnChunk: func(c loom.Chunk) { fmt.Print(c.Content) },
+    Action:  &noewright.Action{Kind: noewright.ActionFreeText, Payload: map[string]any{"text": "I open the door."}},
+    OnChunk: func(c noewright.Chunk) { fmt.Print(c.Content) },
 })
-prose := loom.ResultText(turn.Lead.Result)
+prose := noewright.ResultText(turn.Lead.Result)
 logician := turn.Followers["logician"].Result // a *StructuredResult
 ```
 
@@ -223,25 +228,25 @@ For a session several people share, such as a multiplayer game:
 
 ```go
 // Participants are checkpointed state: a fork from before a join drops them.
-e.AddParticipant(ctx, sess, loom.Participant{ID: "wren", Role: "player"})
+e.AddParticipant(ctx, sess, noewright.Participant{ID: "wren", Role: "player"})
 
 // A step a person wrote: persisted, checkpointed, hooks run, no generator or cost.
-e.RecordStep(ctx, sess, loom.ExternalStep{
+e.RecordStep(ctx, sess, noewright.ExternalStep{
     AgentSlug: "human-dm", Author: "participant:host",
-    Result:    loom.NewTextResult(narration, "stop", 0, 0),
+    Result:    noewright.NewTextResult(narration, "stop", 0, 0),
 })
 
 // A human-led turn: the host's text is the lead, AI followers work on it.
-e.RunTurn(ctx, sess, loom.TurnRequest{
-    Flow: flow, LeadResult: loom.NewTextResult(narration, "stop", 0, 0), LeadAuthor: "participant:host",
+e.RunTurn(ctx, sess, noewright.TurnRequest{
+    Flow: flow, LeadResult: noewright.NewTextResult(narration, "stop", 0, 0), LeadAuthor: "participant:host",
 })
 
 // Everyone watches live: step.started, chunk, step.done, step.failed, turn.done, forked.
-sub, _ := e.Subscribe(ctx, sess.ID, loom.SubscribeOptions{FromStep: 0})
+sub, _ := e.Subscribe(ctx, sess.ID, noewright.SubscribeOptions{FromStep: 0})
 for ev := range sub.Events { /* fan out to clients */ }
 ```
 
-`Action.ParticipantID` is checked against membership (`loom.ErrNotParticipant`)
+`Action.ParticipantID` is checked against membership (`noewright.ErrNotParticipant`)
 and stored on the step. Subscriptions replay persisted steps from `FromStep`
 (pass `-1` for live only), resume after a disconnect from the last step seen,
 and drop a consumer that falls too far behind. The broadcaster is in-process by
@@ -255,7 +260,7 @@ is untouched; stale branches are collected by the GC worker.
 
 ```go
 branch, err := e.Sessions().Fork(ctx, sess.ID, 2)
-e.RunStep(ctx, branch, loom.StepRequest{AgentSlug: "assistant", Action: action})
+e.RunStep(ctx, branch, noewright.StepRequest{AgentSlug: "assistant", Action: action})
 
 tree, _ := e.Sessions().BranchTree(ctx, sess.ID)
 ```
@@ -264,10 +269,10 @@ Retention rules expire whole sessions, roots included, for short-lived data
 such as a public demo:
 
 ```go
-loom.New(loom.Config{ /* ... */
-    BranchGC: &loom.BranchGCConfig{ /* ... */
-        Retention: []loom.RetentionRule{
-            {Name: "demo", Tags: []string{"demo"}, MaxIdle: 48 * time.Hour, Action: loom.RetentionPurge},
+noewright.New(noewright.Config{ /* ... */
+    BranchGC: &noewright.BranchGCConfig{ /* ... */
+        Retention: []noewright.RetentionRule{
+            {Name: "demo", Tags: []string{"demo"}, MaxIdle: 48 * time.Hour, Action: noewright.RetentionPurge},
         },
     },
 })
@@ -287,7 +292,7 @@ loom.New(loom.Config{ /* ... */
 The Anthropic adapter maps `Params.Extra["effort"]` to `output_config.effort`,
 can send a response format as native structured outputs
 (`.WithNativeStructuredOutputs()`), defaults `max_tokens` to 16000, and returns
-safety refusals as `*loom.GenerationError{Kind: GenerationRejected}`.
+safety refusals as `*noewright.GenerationError{Kind: GenerationRejected}`.
 
 Bring your own by implementing one of three interfaces, then register it via
 `Config.Generators` or `e.RegisterGenerator("slug", gen)`:
@@ -325,18 +330,18 @@ annotation. They're registered by name and run in registration order.
 
 ```go
 // Pre-hook: cancel a step if conditions aren't met.
-e.Hooks().RegisterPre("check-hp", func(ctx context.Context, req *loom.StepRequest) error {
+e.Hooks().RegisterPre("check-hp", func(ctx context.Context, req *noewright.StepRequest) error {
     if character.CurrentHP <= 0 {
-        return loom.ErrSkip // silently skip the step
+        return noewright.ErrSkip // silently skip the step
     }
     return nil
 })
 
 // Post-hook: retry if the output contains a forbidden phrase.
-e.Hooks().RegisterPost("no-spoilers", func(ctx context.Context, req *loom.StepRequest, res loom.Result) (loom.Result, error) {
-    tr := res.(*loom.TextResult)
+e.Hooks().RegisterPost("no-spoilers", func(ctx context.Context, req *noewright.StepRequest, res noewright.Result) (noewright.Result, error) {
+    tr := res.(*noewright.TextResult)
     if strings.Contains(tr.Content, "THE KILLER IS") {
-        return nil, loom.ErrRetryWith(loom.RetryAnnotation{
+        return nil, noewright.ErrRetryWith(noewright.RetryAnnotation{
             Reason: "Do not reveal the killer's identity.",
         })
     }
@@ -349,7 +354,7 @@ e.Hooks().RegisterPost("no-spoilers", func(ctx context.Context, req *loom.StepRe
 Every step records input/output tokens and USD cost inside its own transaction.
 Token-billed models are priced from `Config.Pricing` (per model id) or
 `Config.DefaultPrice`; image, video, audio and 3D jobs from `Config.JobPricing`.
-loom ships no price list, because prices go stale between releases. Rows priced
+Noewright ships no price list, because prices go stale between releases. Rows priced
 from the built-in placeholder rate are marked `Estimated`, and a summary's
 `PricingConfigured` is false if any row it sums was estimated, so you never
 show placeholder dollars as real ones.
@@ -360,12 +365,12 @@ it reads prior recorded spend and fails open on DB errors, not a hard
 transactional ceiling.
 
 ```go
-e.Budgets().Create(ctx, &loom.Budget{
+e.Budgets().Create(ctx, &noewright.Budget{
     Name:     "user-daily-cap",
-    Target:   loom.BudgetTarget{Kind: loom.TargetPlatformID, Key: "user-123"},
-    Window:   loom.BudgetWindowDay,
-    Limit:    loom.BudgetLimit{USD: 0.50}, // USD/Tokens/Steps; 0 = no cap on that axis
-    OnExceed: loom.BudgetBlock,            // or BudgetDowngrade / BudgetNotify
+    Target:   noewright.BudgetTarget{Kind: noewright.TargetPlatformID, Key: "user-123"},
+    Window:   noewright.BudgetWindowDay,
+    Limit:    noewright.BudgetLimit{USD: 0.50}, // USD/Tokens/Steps; 0 = no cap on that axis
+    OnExceed: noewright.BudgetBlock,            // or BudgetDowngrade / BudgetNotify
     Active:   true,                        // an inactive budget is ignored
 })
 
@@ -373,7 +378,7 @@ usage, _ := e.Cost().SessionUsage(ctx, sess.ID)
 fmt.Printf("Session cost: $%.4f (%d tokens)\n", usage.TotalUSD, usage.TotalTokens)
 ```
 
-On block, `RunStep` returns `*loom.BudgetExceededError`, carrying used and limit
+On block, `RunStep` returns `*noewright.BudgetExceededError`, carrying used and limit
 USD, tokens and steps.
 
 Before anything runs, check a key and price a call:
@@ -381,9 +386,9 @@ Before anything runs, check a key and price a call:
 ```go
 // Asks the provider's models endpoint: no tokens spent.
 info, err := e.VerifyGenerator(ctx, "claude", map[string]any{"api_key": key})
-if errors.Is(err, loom.ErrKeyRejected) { /* 401/403 */ }
+if errors.Is(err, noewright.ErrKeyRejected) { /* 401/403 */ }
 
-est, _ := e.Cost().Estimate(ctx, loom.EstimateRequest{Model: "claude-haiku-5-5", InputTokens: 7000, OutputTokens: 1800})
+est, _ := e.Cost().Estimate(ctx, noewright.EstimateRequest{Model: "claude-haiku-5-5", InputTokens: 7000, OutputTokens: 1800})
 ```
 
 ## Judges
@@ -391,7 +396,7 @@ est, _ := e.Cost().Estimate(ctx, loom.EstimateRequest{Model: "claude-haiku-5-5",
 Score and compare outputs using another model as judge.
 
 ```go
-import "github.com/rhaqim/loom/judge"
+import "github.com/rhaqim/noewright/judge"
 
 rubric := e.Judges().Rubric("quality-judge")
 verdict, _ := rubric.Score(ctx, judge.ScoreRequest{
@@ -415,9 +420,9 @@ answers typed questions (yes/no, pick one, rate on a rubric) as calibrated
 probabilities in one round trip, with each question judged independently.
 
 ```go
-eval, _ := e.Evaluate(ctx, prose, map[string]loom.EvalQuestion{
-    "cliched": loom.EvalNoul("Does this lean on stock clichés?"),
-    "quality": loom.EvalScore("Rate the prose", "generic", "flat", "vivid", "striking"),
+eval, _ := e.Evaluate(ctx, prose, map[string]noewright.EvalQuestion{
+    "cliched": noewright.EvalNoul("Does this lean on stock clichés?"),
+    "quality": noewright.EvalScore("Rate the prose", "generic", "flat", "vivid", "striking"),
 })
 if eval.Answers.Yes("cliched", 0.7) { /* retry */ }
 ```
@@ -432,8 +437,8 @@ Test plans in code or YAML. The harness runs every variant in parallel.
 
 ```go
 import (
-    loom "github.com/rhaqim/loom"
-    "github.com/rhaqim/loom/harness"
+    "github.com/rhaqim/noewright"
+    "github.com/rhaqim/noewright/harness"
 )
 
 plan := &harness.TestPlan{
@@ -451,7 +456,7 @@ plan := &harness.TestPlan{
     Assertions: []harness.Assertion{
         harness.MinLength(80),
         harness.NoKeyword("ERROR"),
-        harness.HasStatus(loom.ResultStatusReady),
+        harness.HasStatus(noewright.ResultStatusReady),
     },
 }
 
@@ -469,38 +474,38 @@ step, err := e.RunStep(ctx, sess, req)
 switch {
 case err == nil:
     // ok
-case loom.IsSkip(err):
+case noewright.IsSkip(err):
     // a pre-hook skipped the step (not a failure)
-case errors.Is(err, loom.ErrNotFound):
-    var nf *loom.NotFoundError // nf.Kind ("agent"/"prompt"/...), nf.Key
+case errors.Is(err, noewright.ErrNotFound):
+    var nf *noewright.NotFoundError // nf.Kind ("agent"/"prompt"/...), nf.Key
     errors.As(err, &nf)
-case errors.Is(err, loom.ErrGeneratorNotRegistered):
+case errors.Is(err, noewright.ErrGeneratorNotRegistered):
     // misconfiguration
 default:
-    var ge *loom.GenerationError
-    if errors.As(err, &ge) && ge.Kind == loom.GenerationTransport {
+    var ge *noewright.GenerationError
+    if errors.As(err, &ge) && ge.Kind == noewright.GenerationTransport {
         // provider transport failure, safe to retry
     }
 }
 ```
 
-Also typed: `*loom.BudgetExceededError`, `*loom.RetryError` (via `loom.IsRetry` /
-`loom.RetryAnnotationFrom`), `loom.ErrInvalidConfig` from `loom.New`,
-`loom.ErrNotParticipant` for an action from a non-member, `loom.ErrKeyRejected`
+Also typed: `*noewright.BudgetExceededError`, `*noewright.RetryError` (via `noewright.IsRetry` /
+`noewright.RetryAnnotationFrom`), `noewright.ErrInvalidConfig` from `noewright.New`,
+`noewright.ErrNotParticipant` for an action from a non-member, `noewright.ErrKeyRejected`
 from `VerifyGenerator`, and a `GenerationError` of kind `GenerationRejected` for
-a provider's safety refusal. `loom.ErrSessionNotPersisted` is the one partial
+a provider's safety refusal. `noewright.ErrSessionNotPersisted` is the one partial
 success: the step committed but the session row is stale, so recover it with
 `Sessions().StateAt`.
 
 ## CLI
 
 ```bash
-loom-cli migrate         # apply the schema
-loom-cli seed seed.yaml  # seed agents and prompts
-loom-cli test plan.yaml  # run a test plan
+noewright migrate         # apply the schema
+noewright seed seed.yaml  # seed agents and prompts
+noewright test plan.yaml  # run a test plan
 ```
 
-Set the DSN via `LOOM_DSN` or `--dsn-file <path>`. `--dsn <string>` works but
+Set the DSN via `NOEWRIGHT_DSN` (the older `LOOM_DSN` is still read as a fallback) or `--dsn-file <path>`. `--dsn <string>` works but
 exposes credentials in `ps`, so prefer the others.
 
 ```yaml
@@ -521,11 +526,11 @@ agents:
 ## Project layout
 
 The public API is a thin **facade**: applications import only
-`github.com/rhaqim/loom`. The implementation lives under `internal/engine`,
+`github.com/rhaqim/noewright`. The implementation lives under `internal/engine`,
 unimportable by other modules, so its layout can change without breaking you.
 
 ```
-loom/
+noewright/
 ├── aliases.go          # GENERATED public API: aliases + re-exports
 ├── llms.txt            # AI-oriented guide
 ├── internal/engine/    # the implementation, grouped by domain
@@ -535,7 +540,7 @@ loom/
 ├── evaluator/          # experimental decision primitive (Noul / Choice / Score)
 ├── gc/                 # background branch GC worker
 ├── harness/            # TestPlan, VariantMatrix, Assertion DSL
-├── cmd/loom-cli/       # migrate, seed, test
+├── cmd/noewright/      # migrate, seed, test
 └── examples/           # each has its own go.mod
 ```
 

@@ -33,8 +33,13 @@ function rehypeWrapTables() {
 export default defineConfig({
 	site: "https://rhaqim.com",
 	// Company pages are unlisted: never in the sitemap (they're noindex too).
-	integrations: [sitemap({ filter: (page) => !page.includes("/company/") })],
+	integrations: [sitemap({ filter: (page) => !page.includes("/company/") && !page.endsWith("/demo/loom/") })],
 	output: "static",
+	// loom was renamed Noewright; keep old links (and sent company pages) working.
+	// /demo/loom is a page of its own (src/pages/demo/loom.astro) so invite links keep their ?game= code.
+	redirects: {
+		"/loom": "/noewright",
+	},
 	devToolbar: {
 		enabled: false,
 	},

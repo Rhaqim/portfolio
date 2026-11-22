@@ -96,13 +96,26 @@ export const shapes = {
 		});
 	},
 
-	/** loom: agents as a layered graph, lead on the left. */
+	/** Agents as a layered graph, lead on the left (the agent-pipeline demo). */
 	network(ctx, S) {
 		const n = [[0.12, 0.5], [0.4, 0.25], [0.4, 0.75], [0.66, 0.2], [0.66, 0.55], [0.9, 0.42]].map(([x, y]) => [S * x, S * y]);
 		const edges = [[0, 1], [0, 2], [1, 3], [1, 4], [2, 4], [3, 5], [4, 5]];
 		for (const [a, b] of edges) line(ctx, [n[a], n[b]], S * 0.022);
 		n.forEach(([x, y], i) => dot(ctx, x, y, S * (i === 0 ? 0.085 : 0.065)));
 		hole(ctx, () => n.forEach(([x, y], i) => dot(ctx, x, y, S * (i === 0 ? 0.045 : 0.03))));
+	},
+
+	/** Noewright: the orb's outline holding a graph of agents, the
+	 *  larger centre node coordinating the rest. */
+	mind(ctx, S) {
+		const c = S / 2, r = S * 0.44;
+		ctx.lineWidth = S * 0.035;
+		ctx.beginPath(); ctx.arc(c, c, r, 0, TAU); ctx.stroke();
+		const n = [[0.31, 0.4], [0.55, 0.26], [0.72, 0.47], [0.5, 0.55], [0.32, 0.68], [0.63, 0.75]].map(([x, y]) => [S * x, S * y]);
+		const edges = [[0, 1], [0, 3], [1, 2], [1, 3], [2, 3], [3, 4], [3, 5], [2, 5], [4, 5]];
+		for (const [a, b] of edges) line(ctx, [n[a], n[b]], S * 0.022);
+		n.forEach(([x, y], i) => dot(ctx, x, y, S * (i === 3 ? 0.075 : 0.055)));
+		hole(ctx, () => n.forEach(([x, y], i) => dot(ctx, x, y, S * (i === 3 ? 0.038 : 0.026))));
 	},
 
 	/** Forecast desk: the host behind the desk, a board of odds behind them. */

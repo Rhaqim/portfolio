@@ -17,8 +17,8 @@ export type Demo = {
 export const demos: Demo[] = [
 	{ slug: "ussd", name: "ussdframework", title: "Dial a loan", language: "Rust" },
 	{ slug: "buckt", name: "buckt", title: "A media sandbox", language: "Go" },
-	{ slug: "loom", name: "loom", title: "Run a table with agents", language: "Go" },
-	{ slug: "forecast", name: "Forecast Desk", title: "Out-forecast the agents", language: "Go", docs: "loom", docsName: "loom" },
+	{ slug: "noewright", name: "Noewright", title: "Run a table with agents", language: "Go" },
+	{ slug: "forecast", name: "Forecast Desk", title: "Out-forecast the agents", language: "Go", docs: "noewright", docsName: "Noewright" },
 ];
 
 /** The demos either side of `slug`, wrapping around. */

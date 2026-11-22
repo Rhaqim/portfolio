@@ -29,7 +29,7 @@
   <!-- Datasheet strip -->
   <g font-size="15" letter-spacing="2.5">
     <text x="118" y="512" fill="#6b6a72">GO<tspan fill="#46454d"> · </tspan>RUST<tspan fill="#46454d"> · </tspan>PYTHON<tspan fill="#46454d"> · </tspan>TYPESCRIPT</text>
-    <text x="1120" y="512" fill="#e01b18" text-anchor="end">BUCKT / USSDFRAMEWORK / LOOM</text>
+    <text x="1120" y="512" fill="#e01b18" text-anchor="end">BUCKT / USSDFRAMEWORK / NOEWRIGHT</text>
   </g>
 
   <!-- Footer -->

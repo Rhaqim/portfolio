@@ -10,7 +10,7 @@ continuity, imagery and structure from it. The hard part was never the model
 call. It was everything around it.
 
 I built it from the first commit and still lead it. Two of the libraries on this
-site, [buckt](/buckt) and [loom](/loom), exist because CoNexus needed them
+site, [buckt](/buckt) and [Noewright](/noewright) (formerly loom), exist because CoNexus needed them
 first.
 
 ## What it does
@@ -51,11 +51,11 @@ live backend migration.
 
 **Agent orchestration.** Versioned agents and prompts, session branching, hook
 pipelines, cost budgets, judge scoring and a test harness became
-[loom](/loom), the same runtime, now modality-agnostic and reusable.
+[Noewright](/noewright), the same runtime, now modality-agnostic and reusable.
 
 **Evaluation.** Narrative quality is not a unit test. Scoring outputs with a
 model against explicit rubric dimensions, and comparing two variants pairwise,
-became loom's judge subsystem.
+became Noewright's judge subsystem.
 
 Extracting them made CoNexus smaller and easier to reason about. It also meant
 the interesting parts survive independently of any one product.
