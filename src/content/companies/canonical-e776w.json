@@ -1,0 +1,203 @@
+{
+  "company": "Canonical",
+  "role": "Senior Software Engineer - Python/Golang - Kubernetes",
+  "roleUrl": "https://job-boards.greenhouse.io/canonical/jobs/7774649",
+  "location": "Home based, EMEA",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#ffffff",
+    "surface": "#f7f7f7",
+    "fg": "#111111",
+    "muted": "#5c5c5c",
+    "line": "#e4e4e4",
+    "accent": "#c4421a",
+    "onAccent": "#ffffff",
+    "heading": "Work Sans",
+    "body": "Work Sans",
+    "radius": 0,
+    "cloud": {
+      "shape": "host"
+    }
+  },
+  "headline": "Go and Python, Kubernetes in production, and a Linux estate I run myself.",
+  "pitch": "I write Go at DGRS Labs (Buckt, and Loom's agent engine) and wrote it earlier at Nirvana Labs. I write Python at Equity, where I built a loan service's APIs and reusable framework components, and at DGRS Labs for AI agents. At Equity I containerized services and deployed them via Kubernetes; at DGRS Labs I provision and run every Linux server myself.",
+  "matches": [
+    {
+      "requirement": "A Golang developer also fluent in Python",
+      "evidence": "Go: Buckt, a Go media library at DGRS Labs, and ChainQuery, an Ethereum indexer I wrote in Go at Nirvana Labs. Python: the loan service's Django REST Framework APIs at Equity and open-source AI agents at DGRS Labs.",
+      "refs": [
+        "dgrs-buckt",
+        "nirvana-go",
+        "equity-drf",
+        "dgrs-python-agents"
+      ],
+      "links": [
+        {
+          "label": "Buckt docs",
+          "href": "/buckt"
+        },
+        {
+          "label": "Noewright docs (formerly Loom)",
+          "href": "/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Experience with Kubernetes",
+      "evidence": "Containerized Equity's services with Docker and deployed them via Azure Pipelines and Kubernetes, with Redis for performance and reliability in production.",
+      "refs": [
+        "equity-k8s",
+        "equity-rollout"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Linux and open source",
+      "evidence": "Provision and configure every Linux server at DGRS Labs, with scripts that restore the full stack automatically. Buckt and Noewright are open Go libraries with public docs.",
+      "refs": [
+        "dgrs-infra",
+        "dgrs-dr",
+        "dgrs-buckt"
+      ],
+      "links": [
+        {
+          "label": "Buckt docs",
+          "href": "/buckt"
+        },
+        {
+          "label": "Noewright docs (formerly Loom)",
+          "href": "/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Strong written and verbal communication",
+      "evidence": "Defined the deployment rules and release process the whole DGRS Labs team follows, and guided Equity's engineers on service integration and business logic.",
+      "refs": [
+        "dgrs-envs",
+        "equity-framework",
+        "dgrs-lead"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production systems, writing Go and Python throughout. Created Buckt, a Go media library, architected a Go engine for multi-agent applications, and single-handedly runs the company's Linux infrastructure and CI/CD. Previously led delivery of a Python USSD loan service, containerized and deployed via Kubernetes, on a financial platform serving 16 million customers in six countries.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-buckt"
+          },
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-python-agents"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-envs"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-dr"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-monitoring"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-k8s"
+          },
+          {
+            "ref": "equity-drf"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-rollout"
+          },
+          {
+            "ref": "equity-otel"
+          }
+        ]
+      },
+      {
+        "id": "nirvana",
+        "bullets": [
+          {
+            "ref": "nirvana-go"
+          },
+          {
+            "ref": "nirvana-indexer"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "Golang",
+          "Python",
+          "Rust",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Kubernetes",
+          "Docker",
+          "Linux server administration",
+          "GitHub Actions",
+          "Azure Pipelines",
+          "NGINX",
+          "Backup & Disaster recovery",
+          "OpenTelemetry"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "PostgreSQL",
+          "Redis",
+          "Django REST Framework",
+          "FastAPI",
+          "GORM"
+        ]
+      }
+    ]
+  },
+  "note": "The role asks for a Go developer who is also fluent in Python and knows Kubernetes. I've written both languages across my career: Go at DGRS Labs and Nirvana Labs, Python at Equity and DGRS Labs. I've deployed on Kubernetes and I run Linux servers every day.\n\nWhat I'd bring first is the operator's view: I build the software and then keep it running myself, so I care about how a thing is installed, upgraded and recovered as much as how it's written.\n\nWhat would be new: I've used Kubernetes as a platform to deploy onto, not written operators or charms for it. I'm in Lagos, which suits EMEA hours, and the twice-yearly sprints in person are fine with me.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://job-boards.greenhouse.io/canonical/jobs/7774649"
+    },
+    {
+      "label": "Canonical homepage (colours)",
+      "href": "https://canonical.com"
+    }
+  ]
+}

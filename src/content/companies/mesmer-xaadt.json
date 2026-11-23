@@ -1,0 +1,201 @@
+{
+  "company": "Mesmer",
+  "role": "Founding Engineer",
+  "roleUrl": "https://news.ycombinator.com/item?id=50340449",
+  "location": "Berlin, onsite (visa and relocation)",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#faf8f5",
+    "surface": "#ffffff",
+    "fg": "#0b0a09",
+    "muted": "#56524c",
+    "line": "#e7e2da",
+    "accent": "#c8102a",
+    "onAccent": "#ffffff",
+    "heading": "Instrument Sans",
+    "body": "Inter",
+    "radius": 4,
+    "cloud": {
+      "shape": "host"
+    }
+  },
+  "headline": "I already ship with coding agents every day, under a generator–reviewer workflow I set up.",
+  "pitch": "At DGRS Labs I introduced a Claude and Codex generator–reviewer workflow with production-like Docker test environments, and I write Claude Code skills for repeatable work. I also removed the bottlenecks in how my team ships: GitHub Actions pipelines that cut deployment time by 80% and ended manual SSH deploys, and the release process everyone follows.",
+  "matches": [
+    {
+      "requirement": "Senior engineers who use coding agents every day",
+      "evidence": "Claude and Codex write and review my production code under a generator–reviewer workflow I introduced, with production-like Docker test environments that catch defects before deployment.",
+      "refs": [
+        "dgrs-ai-review",
+        "dgrs-lead"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Find the biggest bottleneck in how a team ships, and fix it",
+      "evidence": "Replaced manual SSH deploys with GitHub Actions pipelines across five repositories, cutting deployment time by 80%, and set up separate environments with release rules the whole team follows.",
+      "refs": [
+        "dgrs-cicd",
+        "dgrs-envs",
+        "dgrs-assets"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Work at the frontier of how software gets built with agents",
+      "evidence": "Architected Loom, which coordinates six agents in production, with plugins to external tools and agents that run asynchronously and stream events.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-plugins",
+        "dgrs-async-agents"
+      ],
+      "links": [
+        {
+          "label": "Noewright docs (formerly Loom)",
+          "href": "/noewright"
+        },
+        {
+          "label": "Run a table with agents",
+          "href": "/demo/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Build the product that makes the work repeatable",
+      "evidence": "Built Loom's no-code admin so non-technical staff can create and deploy agents without engineering support, and a recovery system that restores the full stack from scripts.",
+      "refs": [
+        "dgrs-plugins",
+        "dgrs-dr"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Something you've built",
+      "evidence": "Noewright (formerly Loom) and Buckt, both with public docs, plus a playable demo of Noewright's agents.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-buckt"
+      ],
+      "links": [
+        {
+          "label": "Run a table with agents",
+          "href": "/demo/noewright"
+        },
+        {
+          "label": "Noewright docs (formerly Loom)",
+          "href": "/noewright"
+        },
+        {
+          "label": "Buckt docs",
+          "href": "/buckt"
+        }
+      ]
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production systems in AI and fintech. Ships with coding agents daily through a Claude and Codex generator–reviewer workflow he introduced, and writes Claude Code skills for repeatable work. Architected Loom, an agent orchestration platform running six agents in production, and runs the company's infrastructure and CI/CD. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-ai-review"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-envs"
+          },
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-plugins"
+          },
+          {
+            "ref": "dgrs-async-agents"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-models"
+          },
+          {
+            "ref": "dgrs-assets"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-dr"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-rollout"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-k8s"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "ai",
+        "items": [
+          "AI-assisted Development (Claude, Codex)",
+          "Claude Code skills",
+          "Agent Orchestration",
+          "Multi-agent Pipelines",
+          "Open-source LLM Deployment"
+        ]
+      },
+      {
+        "id": "languages",
+        "items": [
+          "Golang",
+          "Python",
+          "Rust",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "GitHub Actions",
+          "Docker",
+          "Linux server administration",
+          "Kubernetes",
+          "Cloudflare",
+          "Backup & Disaster recovery"
+        ]
+      }
+    ]
+  },
+  "note": "I found Mesmer through your Hacker News post. Keeping a team at the state of the art with agents is what I've been doing at DGRS Labs on a small scale: I introduced the generator–reviewer workflow we use, built the pipelines that replaced manual deploys, and write Claude Code skills for the work we repeat.\n\nWhat I'd bring first is that practice, from someone who has run it in production rather than in a demo, plus the platform side: Loom is the agent system behind our product.\n\nI haven't worked inside other companies' codebases as a consultant, which your role includes. I'm in Lagos and would relocate to Berlin with your visa support.",
+  "sources": [
+    {
+      "label": "Hiring post on Hacker News",
+      "href": "https://news.ycombinator.com/item?id=50340449"
+    },
+    {
+      "label": "Mesmer homepage (colours)",
+      "href": "https://mesmer.co"
+    }
+  ]
+}

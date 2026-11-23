@@ -1,0 +1,222 @@
+{
+  "company": "Odoo",
+  "role": "Software Developer (Python/PostgreSQL)",
+  "roleUrl": "https://www.odoo.com/r/4zN",
+  "location": "Hybrid, Belgium (visa and relocation)",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#ffffff",
+    "surface": "#f8f9fa",
+    "fg": "#111827",
+    "muted": "#4b5563",
+    "line": "#e5e7eb",
+    "accent": "#714b67",
+    "onAccent": "#ffffff",
+    "heading": "Inter",
+    "body": "Inter",
+    "radius": 8,
+    "cloud": {
+      "shape": "window"
+    }
+  },
+  "headline": "Python and PostgreSQL every day, from Django ORM models to query tuning.",
+  "pitch": "I've written Python throughout my career: a stock-analysis tool for an Upwork client, a loan service's APIs and framework components at Equity, and AI agents at DGRS Labs. On PostgreSQL I optimized queries and caching to cut database reads by 40%, and I built frontends in TypeScript with Astro and Svelte before moving mainly to backend.",
+  "matches": [
+    {
+      "requirement": "Master a programming language",
+      "evidence": "Python across every role: Django REST Framework at Equity and for an Upwork client, reusable framework components at Equity, and AI agents at DGRS Labs. I also write Go and Rust.",
+      "refs": [
+        "equity-drf",
+        "equity-framework",
+        "dgrs-python-agents",
+        "upwork-stocks"
+      ],
+      "links": [
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
+    },
+    {
+      "requirement": "Proficiency in object-oriented programming",
+      "evidence": "Designed reusable USSD framework components that other engineers built on, and Loom's plugin architecture for connecting agents to external tools.",
+      "refs": [
+        "equity-framework",
+        "dgrs-plugins"
+      ],
+      "links": [
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
+    },
+    {
+      "requirement": "Strong SQL, relational databases and DB design",
+      "evidence": "Optimized PostgreSQL queries and caching, cutting reads by 40% and API responses from 1.2s to 600ms. Worked with the Django ORM daily at Equity, where it stored and served the USSD menus.",
+      "refs": [
+        "dgrs-postgres",
+        "equity-orm",
+        "dgrs-pgvector"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Autonomous, and eager to build real stuff",
+      "evidence": "Created Buckt and architected Loom at DGRS Labs, and run the company's entire infrastructure on my own.",
+      "refs": [
+        "dgrs-buckt",
+        "dgrs-loom",
+        "dgrs-infra"
+      ],
+      "links": [
+        {
+          "label": "Buckt docs",
+          "href": "/buckt"
+        },
+        {
+          "label": "Noewright docs (formerly Loom)",
+          "href": "/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Fast JS framework, website builder and more",
+      "evidence": "Designed and built CoNexus's frontend in TypeScript with Astro and Svelte, and a TypeScript image-generation service.",
+      "refs": [
+        "dgrs-frontend",
+        "dgrs-images"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Software engineer with 5+ years writing Python and PostgreSQL in production, in fintech and AI. Built a loan service's APIs with Django REST Framework and the Django ORM, optimized PostgreSQL queries and caching to cut database reads by 40%, and built frontends in TypeScript. Leads a team of three and runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-python-agents"
+          },
+          {
+            "ref": "dgrs-pgvector"
+          },
+          {
+            "ref": "dgrs-frontend"
+          },
+          {
+            "ref": "dgrs-images"
+          },
+          {
+            "ref": "dgrs-buckt"
+          },
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-plugins"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-cicd"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-drf"
+          },
+          {
+            "ref": "equity-orm"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-fastapi"
+          },
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-rollout"
+          }
+        ]
+      },
+      {
+        "id": "upwork",
+        "bullets": [
+          {
+            "ref": "upwork-stocks"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "Python",
+          "JavaScript/TypeScript",
+          "Golang",
+          "Rust"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "Django",
+          "Django ORM",
+          "Django REST Framework",
+          "FastAPI",
+          "PostgreSQL",
+          "Query Optimisation",
+          "API Design"
+        ]
+      },
+      {
+        "id": "frontend",
+        "items": [
+          "Astro",
+          "Svelte",
+          "React"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Docker",
+          "GitHub Actions",
+          "Linux server administration"
+        ]
+      }
+    ]
+  },
+  "note": "Odoo's backend is Python on PostgreSQL, which is what I've written most: Django REST Framework and the Django ORM at Equity, and PostgreSQL tuning at DGRS Labs. Open-source code with no client deadlines is an appealing way to do that work.\n\nWhat I'd bring first is database sense: I've designed schemas, tuned slow queries and added caching where it paid off, and I'm comfortable on the frontend too.\n\nWhat would be new: Odoo's own framework and its ORM, which I'd learn in onboarding. I'm in Lagos and would relocate to Belgium with your visa support.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://www.odoo.com/r/4zN"
+    },
+    {
+      "label": "Hiring post on Hacker News",
+      "href": "https://news.ycombinator.com/item?id=50348803"
+    },
+    {
+      "label": "Odoo homepage (colours)",
+      "href": "https://www.odoo.com"
+    }
+  ]
+}

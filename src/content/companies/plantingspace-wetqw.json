@@ -1,0 +1,207 @@
+{
+  "company": "PlantingSpace",
+  "role": "Backend Software Engineering",
+  "roleUrl": "https://jobs.ashbyhq.com/PlantingSpace/ee49f642-c430-4071-aac5-fcc62654ccf8",
+  "location": "Remote (European time zones)",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#ffffff",
+    "surface": "#f8f9fa",
+    "fg": "#212529",
+    "muted": "#5f666d",
+    "line": "#dee2e6",
+    "accent": "#087f4c",
+    "onAccent": "#ffffff",
+    "heading": "Archivo",
+    "body": "Inter",
+    "radius": 4,
+    "cloud": {
+      "shape": "network"
+    }
+  },
+  "headline": "Typed-language backends, CI/CD and observability, for a team that ships carefully.",
+  "pitch": "I've written Rust at Equity (USSD framework components) and Nirvana Labs (an NFT indexer), Go at DGRS Labs and Nirvana Labs, and TypeScript for CoNexus's frontend. At DGRS Labs I run the infrastructure and CI/CD myself, and at Equity I instrumented a Django service with OpenTelemetry.",
+  "matches": [
+    {
+      "requirement": "Typed languages such as Rust, and willingness to work in Julia, TypeScript and Rust",
+      "evidence": "Rust: reusable USSD framework components at Equity and an NFT indexer at Nirvana Labs. Go: Buckt at DGRS Labs. TypeScript: CoNexus's frontend in Astro and Svelte.",
+      "refs": [
+        "equity-framework",
+        "nirvana-indexer",
+        "dgrs-buckt",
+        "dgrs-frontend"
+      ],
+      "links": [
+        {
+          "label": "Buckt docs",
+          "href": "/buckt"
+        }
+      ]
+    },
+    {
+      "requirement": "Scalable services: databases, networking and compute",
+      "evidence": "Optimized PostgreSQL and caching to cut reads by 40%, moved 15,000 assets to NGINX-served storage, and route production traffic through Cloudflare. Led a loan service on a platform serving 16 million customers.",
+      "refs": [
+        "dgrs-postgres",
+        "dgrs-assets",
+        "dgrs-infra",
+        "equity-lead"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Observability across the stack",
+      "evidence": "Instrumented Equity's Django loan service with OpenTelemetry. At DGRS Labs I connected Grafana to the backend behind Tailscale, then built a dashboard that ingests errors and logs and alerts to Telegram.",
+      "refs": [
+        "equity-otel",
+        "dgrs-grafana",
+        "dgrs-monitoring"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "CI/CD with trade-offs between correctness and developer experience",
+      "evidence": "Built GitHub Actions pipelines across five repositories, cutting deployment time by 80%, and a Claude and Codex review step with production-like Docker test environments before deploy.",
+      "refs": [
+        "dgrs-cicd",
+        "dgrs-ai-review",
+        "dgrs-envs"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Hosting ML models or other heavy services (useful)",
+      "evidence": "Built CoNexus's in-house model service on open-source models, cutting operating costs by 30%, and queues that take image and video generation off the request path.",
+      "refs": [
+        "dgrs-models",
+        "dgrs-queues"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Terraform and Kubernetes (useful)",
+      "evidence": "Deployed Equity's services via Azure Pipelines and Kubernetes. I haven't used Terraform.",
+      "refs": [
+        "equity-k8s"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production backends in Rust, Go, Python and TypeScript. Owns infrastructure, CI/CD and observability as sole DevOps owner, built an in-house model service on open-source models, and optimized PostgreSQL and caching to cut reads by 40%. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers, with framework components in Python and Rust.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-buckt"
+          },
+          {
+            "ref": "dgrs-models"
+          },
+          {
+            "ref": "dgrs-queues"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-assets"
+          },
+          {
+            "ref": "dgrs-frontend"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          },
+          {
+            "ref": "dgrs-monitoring"
+          },
+          {
+            "ref": "dgrs-grafana"
+          },
+          {
+            "ref": "dgrs-lead"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-otel"
+          },
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-k8s"
+          }
+        ]
+      },
+      {
+        "id": "nirvana",
+        "bullets": [
+          {
+            "ref": "nirvana-indexer"
+          },
+          {
+            "ref": "nirvana-go"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "Rust",
+          "Golang",
+          "JavaScript/TypeScript",
+          "Python"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "GitHub Actions",
+          "Docker",
+          "Kubernetes",
+          "OpenTelemetry",
+          "Grafana",
+          "Monitoring & alerting",
+          "Linux server administration"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "PostgreSQL",
+          "Redis",
+          "API Design",
+          "Query Optimisation"
+        ]
+      }
+    ]
+  },
+  "note": "A reasoning engine that propagates uncertainty through every step needs a backend that is just as careful, and the work you describe, scalable services, observability and CI/CD with real trade-offs, is the part of the job I own at DGRS Labs.\n\nWhat I'd bring first is operational depth: I run our infrastructure, pipelines and monitoring myself, and I've written production Rust and Go alongside Python.\n\nWhat would be new: Julia, the functional languages you list, and Terraform. I'd rather say that plainly, and I'm glad to learn Julia. I'm in Lagos (UTC+1), inside European time zones, and quarterly meet-ups are fine.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://jobs.ashbyhq.com/PlantingSpace/ee49f642-c430-4071-aac5-fcc62654ccf8"
+    },
+    {
+      "label": "PlantingSpace homepage (colours)",
+      "href": "https://planting.space"
+    }
+  ]
+}

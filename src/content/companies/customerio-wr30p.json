@@ -1,0 +1,211 @@
+{
+  "company": "Customer.io",
+  "role": "Senior Software Engineer, Backend",
+  "roleUrl": "https://job-boards.greenhouse.io/customerio/jobs/7778291",
+  "location": "Remote, EMEA",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#fbfbf9",
+    "surface": "#ffffff",
+    "fg": "#141414",
+    "muted": "#5a5a5a",
+    "line": "#e6e6e1",
+    "accent": "#c50122",
+    "onAccent": "#ffffff",
+    "heading": "Instrument Sans",
+    "body": "Inter",
+    "radius": 8,
+    "cloud": {
+      "shape": "phone"
+    }
+  },
+  "headline": "Backends in Go and Rust, messaging that reaches users, and on-call for what I ship.",
+  "pitch": "I write Go at DGRS Labs (Buckt, and the Loom agent engine) and wrote it earlier at Nirvana Labs; at Equity I built USSD framework components in Python and Rust for a loan service handling over 1 million loan requests a month. At DGRS Labs I also run the platform's email, queues and workers, and keep production running as sole DevOps owner.",
+  "matches": [
+    {
+      "requirement": "Distributed systems in Go (or similar statically typed languages)",
+      "evidence": "Go: Buckt, a media library at DGRS Labs, and ChainQuery, an Ethereum indexer I wrote in Go at Nirvana Labs before moving it to Rust. Rust: reusable USSD framework components at Equity and an NFT indexer at Nirvana Labs.",
+      "refs": [
+        "dgrs-buckt",
+        "nirvana-go",
+        "equity-framework",
+        "nirvana-indexer"
+      ],
+      "links": [
+        {
+          "label": "Buckt docs",
+          "href": "/buckt"
+        },
+        {
+          "label": "Noewright docs (formerly Loom)",
+          "href": "/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Help customers send timely, relevant messages at scale",
+      "evidence": "Run CoNexus's transactional and marketing email with Resend: password resets, one-time login codes and newsletters. Built queues and background workers for scheduled jobs off the request path.",
+      "refs": [
+        "dgrs-email",
+        "dgrs-queues",
+        "dgrs-workers"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "On-call for the systems you build",
+      "evidence": "Sole owner of DevOps at DGRS Labs: I run the servers, wrote the disaster-recovery scripts that restore the full stack, and built a dashboard that alerts to Telegram. At Equity I owned production support through rollouts across six countries.",
+      "refs": [
+        "dgrs-infra",
+        "dgrs-dr",
+        "dgrs-monitoring",
+        "equity-rollout"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Scalable services in production",
+      "evidence": "Led a team of four delivering a USSD loan service on a platform serving 16 million customers, on Kubernetes with Redis. Optimized PostgreSQL and caching at DGRS Labs, cutting reads by 40%.",
+      "refs": [
+        "equity-lead",
+        "equity-k8s",
+        "dgrs-postgres"
+      ],
+      "links": [
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
+    },
+    {
+      "requirement": "Use AI to ship fast and with confidence",
+      "evidence": "Introduced a Claude and Codex generator–reviewer workflow with production-like Docker test environments that catches defects before deployment.",
+      "refs": [
+        "dgrs-ai-review"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production backends in Go, Rust and Python. Created Buckt, a Go media library, architected a Go engine for multi-agent applications, and runs the platform's email, queues, workers and infrastructure as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers and over 1 million loan requests a month.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-buckt"
+          },
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-async-agents"
+          },
+          {
+            "ref": "dgrs-queues"
+          },
+          {
+            "ref": "dgrs-workers"
+          },
+          {
+            "ref": "dgrs-email"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-dr"
+          },
+          {
+            "ref": "dgrs-monitoring"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-k8s"
+          },
+          {
+            "ref": "equity-rollout"
+          },
+          {
+            "ref": "equity-otel"
+          }
+        ]
+      },
+      {
+        "id": "nirvana",
+        "bullets": [
+          {
+            "ref": "nirvana-go"
+          },
+          {
+            "ref": "nirvana-indexer"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "Golang",
+          "Rust",
+          "Python",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "PostgreSQL",
+          "Redis",
+          "GORM",
+          "API Design",
+          "Query Optimisation"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Docker",
+          "Kubernetes",
+          "GitHub Actions",
+          "Linux server administration",
+          "Monitoring & alerting",
+          "OpenTelemetry",
+          "AWS S3"
+        ]
+      }
+    ]
+  },
+  "note": "I've been on your side of the product as a customer of email tooling: at DGRS Labs I run our password resets, one-time login codes and newsletters, and I know what a late or duplicated message costs a product.\n\nWhat I'd bring first is ownership of what I ship: I build in Go, deploy it and stay on call for it, because I'm the one who runs our production.\n\nWhat would be new: your posting asks for more years of distributed systems work than I have, and I've used PostgreSQL rather than MySQL, and AWS only for S3. I'd rather say that plainly and let the work speak. I'm in Lagos (UTC+1), inside your EMEA hours.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://job-boards.greenhouse.io/customerio/jobs/7778291"
+    },
+    {
+      "label": "Customer.io homepage (colours)",
+      "href": "https://customer.io"
+    }
+  ]
+}
