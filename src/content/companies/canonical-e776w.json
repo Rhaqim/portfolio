@@ -20,11 +20,11 @@
     }
   },
   "headline": "Go and Python, Kubernetes in production, and a Linux estate I run myself.",
-  "pitch": "I write Go at DGRS Labs (Buckt, and Loom's agent engine) and wrote it earlier at Nirvana Labs. I write Python at Equity, where I built a loan service's APIs and reusable framework components, and at DGRS Labs for AI agents. At Equity I containerized services and deployed them via Kubernetes; at DGRS Labs I provision and run every Linux server myself.",
+  "pitch": "I write Go at DGRS Labs (buckt, and loom's agent engine) and wrote it earlier at Nirvana Labs. I write Python at Equity, where I built a loan service's APIs and reusable framework components, and at DGRS Labs for AI agents. At Equity I containerized services and deployed them via Kubernetes; at DGRS Labs I provision and run every Linux server myself.",
   "matches": [
     {
       "requirement": "A Golang developer also fluent in Python",
-      "evidence": "Go: Buckt, a Go media library at DGRS Labs, and ChainQuery, an Ethereum indexer I wrote in Go at Nirvana Labs. Python: the loan service's Django REST Framework APIs at Equity and open-source AI agents at DGRS Labs.",
+      "evidence": "Go: buckt, a Go media library at DGRS Labs, and ChainQuery, an Ethereum indexer I wrote in Go at Nirvana Labs. Python: the loan service's Django REST Framework APIs at Equity and open-source AI agents at DGRS Labs.",
       "refs": [
         "dgrs-buckt",
         "nirvana-go",
@@ -33,11 +33,11 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         },
         {
-          "label": "Noewright docs (formerly Loom)",
+          "label": "Noewright docs (formerly loom)",
           "href": "/noewright"
         }
       ]
@@ -53,7 +53,7 @@
     },
     {
       "requirement": "Linux and open source",
-      "evidence": "Provision and configure every Linux server at DGRS Labs, with scripts that restore the full stack automatically. Buckt and Noewright are open Go libraries with public docs.",
+      "evidence": "Provision and configure every Linux server at DGRS Labs, with scripts that restore the full stack automatically. buckt and Noewright are open Go libraries with public docs.",
       "refs": [
         "dgrs-infra",
         "dgrs-dr",
@@ -61,11 +61,11 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         },
         {
-          "label": "Noewright docs (formerly Loom)",
+          "label": "Noewright docs (formerly loom)",
           "href": "/noewright"
         }
       ]
@@ -82,7 +82,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building and running production systems, writing Go and Python throughout. Created Buckt, a Go media library, architected a Go engine for multi-agent applications, and single-handedly runs the company's Linux infrastructure and CI/CD. Previously led delivery of a Python USSD loan service, containerized and deployed via Kubernetes, on a financial platform serving 16 million customers in six countries.",
+    "summary": "Lead software engineer with 5+ years building and running production systems, writing Go and Python throughout. Created buckt, a Go media library, architected a Go engine for multi-agent applications, and single-handedly runs the company's Linux infrastructure and CI/CD. Previously led delivery of a Python USSD loan service, containerized and deployed via Kubernetes, on a financial platform serving 16 million customers in six countries.",
     "jobs": [
       {
         "id": "dgrs",

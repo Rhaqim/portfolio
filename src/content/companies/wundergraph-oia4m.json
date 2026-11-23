@@ -20,11 +20,11 @@
     }
   },
   "headline": "I write Go libraries other engineers build on, and I own them end to end.",
-  "pitch": "Buckt is my Go media library: folder hierarchies, presigned URLs, lifecycle events, with cloud backends as separate Go modules. Loom, now Noewright, is a Go engine for multi-agent applications that runs CoNexus's six agents in production. Before both, I wrote ChainQuery, an Ethereum indexer, in Go at Nirvana Labs before moving it to Rust.",
+  "pitch": "buckt is my Go media library: folder hierarchies, presigned URLs, lifecycle events, with cloud backends as separate Go modules. loom, now Noewright, is a Go engine for multi-agent applications that runs CoNexus's six agents in production. Before both, I wrote ChainQuery, an Ethereum indexer, in Go at Nirvana Labs before moving it to Rust.",
   "matches": [
     {
       "requirement": "Senior/Staff Golang experience in a leading or ownership role",
-      "evidence": "Created Buckt, a Go media management service on GORM, and architected Loom, the Go agent engine behind CoNexus, while leading a team of three. Earlier I wrote ChainQuery, an Ethereum indexer, in Go.",
+      "evidence": "Created buckt, a Go media management service on GORM, and architected loom, the Go agent engine behind CoNexus, while leading a team of three. Earlier I wrote ChainQuery, an Ethereum indexer, in Go.",
       "refs": [
         "dgrs-buckt",
         "dgrs-loom",
@@ -33,11 +33,11 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         },
         {
-          "label": "Noewright docs (formerly Loom)",
+          "label": "Noewright docs (formerly loom)",
           "href": "/noewright"
         }
       ]
@@ -53,7 +53,7 @@
     },
     {
       "requirement": "Going deep on one hard problem for weeks",
-      "evidence": "Designed Loom so agents run asynchronously and stream events to the client instead of blocking on a long response, and moved the ChainQuery indexer from Go to Rust.",
+      "evidence": "Designed loom so agents run asynchronously and stream events to the client instead of blocking on a long response, and moved the ChainQuery indexer from Go to Rust.",
       "refs": [
         "dgrs-async-agents",
         "nirvana-go",
@@ -79,7 +79,7 @@
     },
     {
       "requirement": "API gateways, proxies and networking (bonus)",
-      "evidence": "Route all production traffic through Cloudflare and serve the platform's media from NGINX, and designed Loom's plugin architecture that connects agents to external generation APIs.",
+      "evidence": "Route all production traffic through Cloudflare and serve the platform's media from NGINX, and designed loom's plugin architecture that connects agents to external generation APIs.",
       "refs": [
         "dgrs-infra",
         "dgrs-assets",
@@ -89,7 +89,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building production backends, in Go since Nirvana Labs and across DGRS Labs. Created Buckt, a Go media library, and architected Loom, a Go engine for multi-agent applications that runs in production. Owns architecture, performance and the full infrastructure as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers, with framework components in Python and Rust.",
+    "summary": "Lead software engineer with 5+ years building production backends, in Go since Nirvana Labs and across DGRS Labs. Created buckt, a Go media library, and architected loom, a Go engine for multi-agent applications that runs in production. Owns architecture, performance and the full infrastructure as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers, with framework components in Python and Rust.",
     "jobs": [
       {
         "id": "dgrs",
@@ -194,7 +194,7 @@
       }
     ]
   },
-  "note": "The Router is the kind of Go I like most: a library other teams build on, where performance is the product. Buckt and Noewright are both Go libraries I own end to end, from API design to docs, and I'd bring that ownership habit first.\n\nWhat would be new: I haven't worked on ASTs, a query planner or GraphQL federation, and I haven't tuned Go for low GC pressure at the depth your engine needs. I'd rather say that plainly, and it's exactly the kind of problem I'd want to go deep on.\n\nI'm in Lagos, which runs on the same clock as CET in winter, and travelling to meet the team is fine.",
+  "note": "The Router is the kind of Go I like most: a library other teams build on, where performance is the product. buckt and Noewright are both Go libraries I own end to end, from API design to docs, and I'd bring that ownership habit first.\n\nWhat would be new: I haven't worked on ASTs, a query planner or GraphQL federation, and I haven't tuned Go for low GC pressure at the depth your engine needs. I'd rather say that plainly, and it's exactly the kind of problem I'd want to go deep on.\n\nI'm in Lagos, which runs on the same clock as CET in winter, and travelling to meet the team is fine.",
   "sources": [
     {
       "label": "Job posting",

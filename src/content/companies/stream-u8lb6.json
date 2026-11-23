@@ -20,11 +20,11 @@
     }
   },
   "headline": "A lead who still writes the Go, tunes the PostgreSQL and runs the servers himself.",
-  "pitch": "At DGRS Labs I lead a team of three engineers and stay hands-on: I built Buckt, a Go media library, architected Loom, the agent platform behind CoNexus, cut database reads by 40% and run the company's entire infrastructure. Before that I led a team of four delivering a USSD loan service on a platform serving 16 million customers, deployed on Kubernetes with Redis.",
+  "pitch": "At DGRS Labs I lead a team of three engineers and stay hands-on: I built buckt, a Go media library, architected loom, the agent platform behind CoNexus, cut database reads by 40% and run the company's entire infrastructure. Before that I led a team of four delivering a USSD loan service on a platform serving 16 million customers, deployed on Kubernetes with Redis.",
   "matches": [
     {
       "requirement": "Go or Python, and APIs or SDKs other developers use",
-      "evidence": "Go at DGRS Labs (Buckt, a Go library with public docs) and earlier at Nirvana Labs, where I wrote the ChainQuery indexer in Go. Python at Equity, where I built the loan service's APIs with Django REST Framework, and at DGRS Labs for AI agents.",
+      "evidence": "Go at DGRS Labs (buckt, a Go library with public docs) and earlier at Nirvana Labs, where I wrote the ChainQuery indexer in Go. Python at Equity, where I built the loan service's APIs with Django REST Framework, and at DGRS Labs for AI agents.",
       "refs": [
         "dgrs-buckt",
         "nirvana-go",
@@ -33,11 +33,11 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         },
         {
-          "label": "Noewright docs (formerly Loom)",
+          "label": "Noewright docs (formerly loom)",
           "href": "/noewright"
         }
       ]
@@ -98,7 +98,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building and running production backends in fintech and AI, in Go and Python on PostgreSQL. Leads a team of three while staying hands-on: built Buckt, a Go media library, architected an agent orchestration platform, optimized PostgreSQL and caching, and single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries, deployed on Kubernetes with Redis.",
+    "summary": "Lead software engineer with 5+ years building and running production backends in fintech and AI, in Go and Python on PostgreSQL. Leads a team of three while staying hands-on: built buckt, a Go media library, architected an agent orchestration platform, optimized PostgreSQL and caching, and single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries, deployed on Kubernetes with Redis.",
     "jobs": [
       {
         "id": "dgrs",

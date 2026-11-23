@@ -20,11 +20,11 @@
     }
   },
   "headline": "I built a multi-agent engine with async runs, live event streams and shared sessions.",
-  "pitch": "Loom, now Noewright, is the Go engine I architected for CoNexus: six specialized agents in production, plugins to external generation tools, and agents that run asynchronously and stream events to the client. I've also built open-source AI agents in Python for Degenerous AI and a TypeScript service for image generation.",
+  "pitch": "loom, now Noewright, is the Go engine I architected for CoNexus: six specialized agents in production, plugins to external generation tools, and agents that run asynchronously and stream events to the client. I've also built open-source AI agents in Python for Degenerous AI and a TypeScript service for image generation.",
   "matches": [
     {
       "requirement": "Experience building LLM-based applications and agentic systems",
-      "evidence": "Architected Loom, which coordinates six specialized agents in production for CoNexus, with plugins to tools like Meshy and a no-code admin for non-technical staff. Built an in-house model service on open-source models that cut operating costs by 30%.",
+      "evidence": "Architected loom, which coordinates six specialized agents in production for CoNexus, with plugins to tools like Meshy and a no-code admin for non-technical staff. Built an in-house model service on open-source models that cut operating costs by 30%.",
       "refs": [
         "dgrs-loom",
         "dgrs-plugins",
@@ -33,7 +33,7 @@
       ],
       "links": [
         {
-          "label": "Noewright docs (formerly Loom)",
+          "label": "Noewright docs (formerly loom)",
           "href": "/noewright"
         },
         {
@@ -44,7 +44,7 @@
     },
     {
       "requirement": "Stateful, durable workflows that span minutes, hours or longer",
-      "evidence": "Designed Loom so agents run asynchronously and stream events to the client, and built queues and background workers that take long generation jobs off the request path.",
+      "evidence": "Designed loom so agents run asynchronously and stream events to the client, and built queues and background workers that take long generation jobs off the request path.",
       "refs": [
         "dgrs-async-agents",
         "dgrs-queues",
@@ -63,7 +63,7 @@
     },
     {
       "requirement": "Agent-to-agent handoff and delegation",
-      "evidence": "Loom's agents hand work along a chain: one writes the story, another the reader's choices, and others turn each scene into prompts for visuals, atmosphere, VFX and sound.",
+      "evidence": "loom's agents hand work along a chain: one writes the story, another the reader's choices, and others turn each scene into prompts for visuals, atmosphere, VFX and sound.",
       "refs": [
         "dgrs-loom"
       ],
@@ -76,18 +76,18 @@
     },
     {
       "requirement": "Simple developer APIs over complex systems",
-      "evidence": "Noewright and Buckt are libraries with public docs, built so other engineers can use them without reading the internals.",
+      "evidence": "Noewright and buckt are libraries with public docs, built so other engineers can use them without reading the internals.",
       "refs": [
         "dgrs-loom",
         "dgrs-buckt"
       ],
       "links": [
         {
-          "label": "Noewright docs (formerly Loom)",
+          "label": "Noewright docs (formerly loom)",
           "href": "/noewright"
         },
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         }
       ]
@@ -105,7 +105,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building production systems in fintech and AI. Architected Loom, a multi-agent engine that runs six specialized agents in production with asynchronous runs, event streaming and tool plugins, and built AI agents in Python and services in TypeScript. Single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
+    "summary": "Lead software engineer with 5+ years building production systems in fintech and AI. Architected loom, a multi-agent engine that runs six specialized agents in production with asynchronous runs, event streaming and tool plugins, and built AI agents in Python and services in TypeScript. Single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
     "jobs": [
       {
         "id": "dgrs",
@@ -207,7 +207,7 @@
       }
     ]
   },
-  "note": "Stateful agents that keep working across long interactions are the problem I've been working on with Loom since 2024. Its agents run asynchronously, stream events back as they go, and hand work to each other along a chain, and shared sessions let several people watch the same run.\n\nWhat I'd bring first is that design experience: where state should live, what a client needs to see while an agent works, and how to make a long run recoverable.\n\nWhat would be new: real-time voice, WebRTC, and SMS as a channel. I haven't built for those, and I'd rather say so. I'm in Lagos (UTC+1), inside your EMEA hours.",
+  "note": "Stateful agents that keep working across long interactions are the problem I've been working on with loom since 2024. Its agents run asynchronously, stream events back as they go, and hand work to each other along a chain, and shared sessions let several people watch the same run.\n\nWhat I'd bring first is that design experience: where state should live, what a client needs to see while an agent works, and how to make a long run recoverable.\n\nWhat would be new: real-time voice, WebRTC, and SMS as a channel. I haven't built for those, and I'd rather say so. I'm in Lagos (UTC+1), inside your EMEA hours.",
   "sources": [
     {
       "label": "Job posting",

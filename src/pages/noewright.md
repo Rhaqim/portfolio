@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Doc.astro
 slug: noewright
-description: "Noewright (formerly Noewright) is a modality-agnostic Go engine for multi-agent AI applications: versioned agents and prompts, multi-agent turns, shared multiplayer sessions with live event streams, branching and replay, hooks, cost budgets, LLM-as-judge scoring and a YAML-driven test harness."
+description: "Noewright (formerly loom) is a modality-agnostic Go engine for multi-agent AI applications: versioned agents and prompts, multi-agent turns, shared multiplayer sessions with live event streams, branching and replay, hooks, cost budgets, LLM-as-judge scoring and a YAML-driven test harness."
 ---
 
 Most LLM applications rewrite the same infrastructure: session state, prompt

@@ -40,7 +40,7 @@
     },
     {
       "requirement": "Proficiency in object-oriented programming",
-      "evidence": "Designed reusable USSD framework components that other engineers built on, and Loom's plugin architecture for connecting agents to external tools.",
+      "evidence": "Designed reusable USSD framework components that other engineers built on, and loom's plugin architecture for connecting agents to external tools.",
       "refs": [
         "equity-framework",
         "dgrs-plugins"
@@ -64,7 +64,7 @@
     },
     {
       "requirement": "Autonomous, and eager to build real stuff",
-      "evidence": "Created Buckt and architected Loom at DGRS Labs, and run the company's entire infrastructure on my own.",
+      "evidence": "Created buckt and architected loom at DGRS Labs, and run the company's entire infrastructure on my own.",
       "refs": [
         "dgrs-buckt",
         "dgrs-loom",
@@ -72,11 +72,11 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         },
         {
-          "label": "Noewright docs (formerly Loom)",
+          "label": "Noewright docs (formerly loom)",
           "href": "/noewright"
         }
       ]

@@ -20,11 +20,11 @@
     }
   },
   "headline": "Backends in Go and Rust, messaging that reaches users, and on-call for what I ship.",
-  "pitch": "I write Go at DGRS Labs (Buckt, and the Loom agent engine) and wrote it earlier at Nirvana Labs; at Equity I built USSD framework components in Python and Rust for a loan service handling over 1 million loan requests a month. At DGRS Labs I also run the platform's email, queues and workers, and keep production running as sole DevOps owner.",
+  "pitch": "I write Go at DGRS Labs (buckt, and the loom agent engine) and wrote it earlier at Nirvana Labs; at Equity I built USSD framework components in Python and Rust for a loan service handling over 1 million loan requests a month. At DGRS Labs I also run the platform's email, queues and workers, and keep production running as sole DevOps owner.",
   "matches": [
     {
       "requirement": "Distributed systems in Go (or similar statically typed languages)",
-      "evidence": "Go: Buckt, a media library at DGRS Labs, and ChainQuery, an Ethereum indexer I wrote in Go at Nirvana Labs before moving it to Rust. Rust: reusable USSD framework components at Equity and an NFT indexer at Nirvana Labs.",
+      "evidence": "Go: buckt, a media library at DGRS Labs, and ChainQuery, an Ethereum indexer I wrote in Go at Nirvana Labs before moving it to Rust. Rust: reusable USSD framework components at Equity and an NFT indexer at Nirvana Labs.",
       "refs": [
         "dgrs-buckt",
         "nirvana-go",
@@ -33,11 +33,11 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         },
         {
-          "label": "Noewright docs (formerly Loom)",
+          "label": "Noewright docs (formerly loom)",
           "href": "/noewright"
         }
       ]
@@ -88,7 +88,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building and running production backends in Go, Rust and Python. Created Buckt, a Go media library, architected a Go engine for multi-agent applications, and runs the platform's email, queues, workers and infrastructure as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers and over 1 million loan requests a month.",
+    "summary": "Lead software engineer with 5+ years building and running production backends in Go, Rust and Python. Created buckt, a Go media library, architected a Go engine for multi-agent applications, and runs the platform's email, queues, workers and infrastructure as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers and over 1 million loan requests a month.",
     "jobs": [
       {
         "id": "dgrs",

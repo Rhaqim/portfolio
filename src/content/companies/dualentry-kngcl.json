@@ -21,9 +21,9 @@
     },
     {
       "requirement": "PostgreSQL, SQL, ORMs, migrations, schema design",
-      "evidence": "Designed the PostgreSQL schema for an NFT indexer, worked in the Django ORM daily at Equity, and built Buckt on GORM. Cut database reads by 40% and API response times from 1.2s to 600ms with query work and caching.",
+      "evidence": "Designed the PostgreSQL schema for an NFT indexer, worked in the Django ORM daily at Equity, and built buckt on GORM. Cut database reads by 40% and API response times from 1.2s to 600ms with query work and caching.",
       "refs": ["nirvana-schema", "equity-orm", "dgrs-buckt", "dgrs-postgres"],
-      "links": [{ "label": "Buckt docs", "href": "/buckt" }]
+      "links": [{ "label": "buckt docs", "href": "/buckt" }]
     },
     {
       "requirement": "Ship end to end: architecture, CI/CD, testing, monitoring",
@@ -33,9 +33,9 @@
     },
     {
       "requirement": "Integrating third-party tools and external systems",
-      "evidence": "Designed Loom's plugin architecture to connect agents to external generation tools, and guided Equity's engineers on service integration and business logic.",
+      "evidence": "Designed loom's plugin architecture to connect agents to external generation tools, and guided Equity's engineers on service integration and business logic.",
       "refs": ["dgrs-plugins", "equity-framework"],
-      "links": [{ "label": "Loom docs", "href": "/loom" }]
+      "links": [{ "label": "loom docs", "href": "/loom" }]
     },
     {
       "requirement": "Deploying on AWS or similar, production readiness",

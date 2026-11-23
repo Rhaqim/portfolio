@@ -50,7 +50,7 @@
     },
     {
       "requirement": "Go, or deep backend experience and willingness to move to Go",
-      "evidence": "Go at DGRS Labs (Buckt) and earlier at Nirvana Labs, where I wrote the ChainQuery indexer in Go. Python at Equity with Django REST Framework, plus framework components in Rust.",
+      "evidence": "Go at DGRS Labs (buckt) and earlier at Nirvana Labs, where I wrote the ChainQuery indexer in Go. Python at Equity with Django REST Framework, plus framework components in Rust.",
       "refs": [
         "dgrs-buckt",
         "nirvana-go",
@@ -59,7 +59,7 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         }
       ]

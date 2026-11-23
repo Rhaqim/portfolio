@@ -24,7 +24,7 @@
   "matches": [
     {
       "requirement": "Typed languages such as Rust, and willingness to work in Julia, TypeScript and Rust",
-      "evidence": "Rust: reusable USSD framework components at Equity and an NFT indexer at Nirvana Labs. Go: Buckt at DGRS Labs. TypeScript: CoNexus's frontend in Astro and Svelte.",
+      "evidence": "Rust: reusable USSD framework components at Equity and an NFT indexer at Nirvana Labs. Go: buckt at DGRS Labs. TypeScript: CoNexus's frontend in Astro and Svelte.",
       "refs": [
         "equity-framework",
         "nirvana-indexer",
@@ -33,7 +33,7 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         }
       ]
