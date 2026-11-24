@@ -1,0 +1,208 @@
+{
+  "company": "WunderGraph",
+  "role": "Senior/Staff Golang Engineer (EMEA)",
+  "roleUrl": "https://jobs.ashbyhq.com/WunderGraph/b6f74cd5-4bd7-4c06-b865-3f61a9f3de8a",
+  "location": "Remote, EMEA (CET hours)",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#0b0510",
+    "surface": "#151020",
+    "fg": "#f7f4fb",
+    "muted": "#ada6bd",
+    "line": "#2a2338",
+    "accent": "#ec4899",
+    "onAccent": "#12040b",
+    "heading": "Inter",
+    "body": "Inter",
+    "radius": 8,
+    "cloud": {
+      "text": "GO"
+    }
+  },
+  "headline": "I write Go libraries other engineers build on, and I own them end to end.",
+  "pitch": "buckt is my Go media library: folder hierarchies, presigned URLs, lifecycle events, with cloud backends as separate Go modules. loom, now Noewright, is a Go engine for multi-agent applications that runs CoNexus's six agents in production. Before both, I wrote ChainQuery, an Ethereum indexer, in Go at Nirvana Labs before moving it to Rust.",
+  "matches": [
+    {
+      "requirement": "Senior/Staff Golang experience in a leading or ownership role",
+      "evidence": "Created buckt, a Go media management service on GORM, and architected loom, the Go agent engine behind CoNexus, while leading a team of three. Earlier I wrote ChainQuery, an Ethereum indexer, in Go.",
+      "refs": [
+        "dgrs-buckt",
+        "dgrs-loom",
+        "dgrs-lead",
+        "nirvana-go"
+      ],
+      "links": [
+        {
+          "label": "buckt docs",
+          "href": "/buckt"
+        },
+        {
+          "label": "Noewright docs (formerly loom)",
+          "href": "/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Performance work driven by what customers feel",
+      "evidence": "Optimized PostgreSQL queries and added caching, cutting database reads by 40% and API responses from 1.2s to 600ms, and moved 15,000 media assets to NGINX-served storage, cutting page load from 4.5s to 1.1s.",
+      "refs": [
+        "dgrs-postgres",
+        "dgrs-assets"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Going deep on one hard problem for weeks",
+      "evidence": "Designed loom so agents run asynchronously and stream events to the client instead of blocking on a long response, and moved the ChainQuery indexer from Go to Rust.",
+      "refs": [
+        "dgrs-async-agents",
+        "nirvana-go",
+        "nirvana-indexer"
+      ],
+      "links": [
+        {
+          "label": "Shared sessions and event streams",
+          "href": "/noewright#shared-sessions"
+        }
+      ]
+    },
+    {
+      "requirement": "Self-starter in a fully remote team, no hand-holding",
+      "evidence": "I've been the sole owner of DevOps at DGRS Labs since 2024: servers, Cloudflare, environments, GitHub Actions pipelines across five repositories and an automated disaster-recovery system.",
+      "refs": [
+        "dgrs-infra",
+        "dgrs-cicd",
+        "dgrs-dr",
+        "dgrs-envs"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "API gateways, proxies and networking (bonus)",
+      "evidence": "Route all production traffic through Cloudflare and serve the platform's media from NGINX, and designed loom's plugin architecture that connects agents to external generation APIs.",
+      "refs": [
+        "dgrs-infra",
+        "dgrs-assets",
+        "dgrs-plugins"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building production backends, in Go since Nirvana Labs and across DGRS Labs. Created buckt, a Go media library, and architected loom, a Go engine for multi-agent applications that runs in production. Owns architecture, performance and the full infrastructure as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers, with framework components in Python and Rust.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-buckt"
+          },
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-async-agents"
+          },
+          {
+            "ref": "dgrs-plugins"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-assets"
+          },
+          {
+            "ref": "dgrs-queues"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-dr"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-k8s"
+          },
+          {
+            "ref": "equity-rollout"
+          }
+        ]
+      },
+      {
+        "id": "nirvana",
+        "bullets": [
+          {
+            "ref": "nirvana-go"
+          },
+          {
+            "ref": "nirvana-indexer"
+          },
+          {
+            "ref": "nirvana-schema"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "Golang",
+          "Rust",
+          "Python",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "GORM",
+          "PostgreSQL",
+          "Redis",
+          "API Design",
+          "Query Optimisation"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Docker",
+          "Kubernetes",
+          "GitHub Actions",
+          "NGINX",
+          "Cloudflare",
+          "Linux server administration"
+        ]
+      }
+    ]
+  },
+  "note": "The Router is the kind of Go I like most: a library other teams build on, where performance is the product. buckt and Noewright are both Go libraries I own end to end, from API design to docs, and I'd bring that ownership habit first.\n\nWhat would be new: I haven't worked on ASTs, a query planner or GraphQL federation, and I haven't tuned Go for low GC pressure at the depth your engine needs. I'd rather say that plainly, and it's exactly the kind of problem I'd want to go deep on.\n\nI'm in Lagos, which runs on the same clock as CET in winter, and travelling to meet the team is fine.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://jobs.ashbyhq.com/WunderGraph/b6f74cd5-4bd7-4c06-b865-3f61a9f3de8a"
+    },
+    {
+      "label": "WunderGraph homepage (colours)",
+      "href": "https://wundergraph.com"
+    }
+  ]
+}

@@ -20,11 +20,11 @@
     }
   },
   "headline": "I build the queues, workers and retries behind a product, then run them in production.",
-  "pitch": "At DGRS Labs I built queues and asynchronous media pipelines, background workers, and Loom, a Go agent platform whose agents run asynchronously and stream events to the client. I also wrote Buckt, a Go media library with its own API, and single-handedly run the company's infrastructure, deployments and alerting.",
+  "pitch": "At DGRS Labs I built queues and asynchronous media pipelines, background workers, and loom, a Go agent platform whose agents run asynchronously and stream events to the client. I also wrote buckt, a Go media library with its own API, and single-handedly run the company's infrastructure, deployments and alerting.",
   "matches": [
     {
       "requirement": "Queues, asynchronous processing, retries, duplicate events and partial failures",
-      "evidence": "Built queues and async media pipelines for image and video generation, Loom's asynchronous agents with event streaming, and workers for scheduled cleanup and credit refreshes. Loom's retries are typed, and Buckt dedups uploads and migrates storage resumably and idempotently.",
+      "evidence": "Built queues and async media pipelines for image and video generation, loom's asynchronous agents with event streaming, and workers for scheduled cleanup and credit refreshes. loom's retries are typed, and buckt dedups uploads and migrates storage resumably and idempotently.",
       "refs": [
         "dgrs-queues",
         "dgrs-async-agents",
@@ -33,18 +33,18 @@
       ],
       "links": [
         {
-          "label": "Loom errors and retries",
+          "label": "loom errors and retries",
           "href": "/loom#errors"
         },
         {
-          "label": "Buckt live migration",
+          "label": "buckt live migration",
           "href": "/buckt#live-migration"
         }
       ]
     },
     {
       "requirement": "Design systems from scratch and think through their rollout",
-      "evidence": "Architected and built Loom, the agent platform behind CoNexus, and Buckt, its media service. At Equity I owned delivery, testing, deployment and production support through rollouts across six countries.",
+      "evidence": "Architected and built loom, the agent platform behind CoNexus, and buckt, its media service. At Equity I owned delivery, testing, deployment and production support through rollouts across six countries.",
       "refs": [
         "dgrs-loom",
         "dgrs-buckt",
@@ -52,7 +52,7 @@
       ],
       "links": [
         {
-          "label": "Loom docs",
+          "label": "loom docs",
           "href": "/loom"
         },
         {
@@ -74,7 +74,7 @@
     },
     {
       "requirement": "APIs, relational data models and diagnosing slow queries",
-      "evidence": "Optimized PostgreSQL queries and added caching, cutting database reads by 40% and API responses from 1.2s to 600ms. Buckt runs on GORM over PostgreSQL or SQLite, and at Equity the USSD menus lived in the Django ORM.",
+      "evidence": "Optimized PostgreSQL queries and added caching, cutting database reads by 40% and API responses from 1.2s to 600ms. buckt runs on GORM over PostgreSQL or SQLite, and at Equity the USSD menus lived in the Django ORM.",
       "refs": [
         "dgrs-postgres",
         "dgrs-buckt",
@@ -82,14 +82,14 @@
       ],
       "links": [
         {
-          "label": "Buckt API reference",
+          "label": "buckt API reference",
           "href": "/buckt#api-reference"
         }
       ]
     },
     {
       "requirement": "Node.js, TypeScript, Go and Postgres",
-      "evidence": "Go for Loom and Buckt, PostgreSQL underneath both, and TypeScript for DGRS Labs' Astro and Svelte frontend and the service that moved AI image generation off the backend.",
+      "evidence": "Go for loom and buckt, PostgreSQL underneath both, and TypeScript for DGRS Labs' Astro and Svelte frontend and the service that moved AI image generation off the backend.",
       "refs": [
         "dgrs-loom",
         "dgrs-buckt",
@@ -105,25 +105,25 @@
     },
     {
       "requirement": "Developer tools and public APIs",
-      "evidence": "Buckt and Loom are Go libraries other developers install, with documented APIs, configuration, typed errors and a test harness, plus demos you can run in the browser.",
+      "evidence": "buckt and loom are Go libraries other developers install, with documented APIs, configuration, typed errors and a test harness, plus demos you can run in the browser.",
       "refs": [
         "dgrs-buckt",
         "dgrs-loom"
       ],
       "links": [
         {
-          "label": "Try Buckt",
+          "label": "Try buckt",
           "href": "/demo/buckt"
         },
         {
-          "label": "Loom test harness",
+          "label": "loom test harness",
           "href": "/loom#test-harness"
         }
       ]
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building and operating production backends in Golang, TypeScript and Python. Architected Loom, an agent orchestration platform with asynchronous agents and event streaming, built queues, media pipelines and background workers, and single-handedly runs the company's infrastructure, deployments and alerting. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "summary": "Lead software engineer with 5+ years building and operating production backends in Golang, TypeScript and Python. Architected loom, an agent orchestration platform with asynchronous agents and event streaming, built queues, media pipelines and background workers, and single-handedly runs the company's infrastructure, deployments and alerting. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
     "jobs": [
       {
         "id": "dgrs",
@@ -226,7 +226,7 @@
       }
     ]
   },
-  "note": "At DGRS Labs, Resend sent our password resets, email login codes and newsletters. It's also a developer tool, and most of what I'm proudest of is too: Loom and Buckt are Go libraries other engineers install, with docs, typed errors and demos. Behind CoNexus I built the kind of backend your role describes, with queues and asynchronous media pipelines, workers on schedules, agents that stream events instead of blocking, and an infrastructure I deploy, monitor and fix myself.\n\nThe gaps, plainly: I have 5+ years of experience, fewer than you ask for. I haven't managed infrastructure as code with Terraform or CDK, and on AWS I've used S3 rather than serverless or container services. I'd learn your setup by shipping small changes through it, and I'd rather say so than stretch.\n\nI'm based in Lagos (UTC+1) and open to relocating.",
+  "note": "At DGRS Labs, Resend sent our password resets, email login codes and newsletters. It's also a developer tool, and most of what I'm proudest of is too: loom and buckt are Go libraries other engineers install, with docs, typed errors and demos. Behind CoNexus I built the kind of backend your role describes, with queues and asynchronous media pipelines, workers on schedules, agents that stream events instead of blocking, and an infrastructure I deploy, monitor and fix myself.\n\nThe gaps, plainly: I have 5+ years of experience, fewer than you ask for. I haven't managed infrastructure as code with Terraform or CDK, and on AWS I've used S3 rather than serverless or container services. I'd learn your setup by shipping small changes through it, and I'd rather say so than stretch.\n\nI'm based in Lagos (UTC+1) and open to relocating.",
   "sources": [
     {
       "label": "Job posting",

@@ -11,13 +11,13 @@
     "cloud": { "shape": "phone" }
   },
   "headline": "Go services, and the production work that keeps them fast, for the tools support teams rely on.",
-  "pitch": "I lead a team of three engineers at DGRS Labs and run all of its infrastructure myself, from Linux servers to CI/CD. Loom, the Go multi-agent runtime I built there, runs agents concurrently and streams live events to shared sessions. Before that I led delivery of a USSD loan service on a platform serving 16 million customers in six countries.",
+  "pitch": "I lead a team of three engineers at DGRS Labs and run all of its infrastructure myself, from Linux servers to CI/CD. loom, the Go multi-agent runtime I built there, runs agents concurrently and streams live events to shared sessions. Before that I led delivery of a USSD loan service on a platform serving 16 million customers in six countries.",
   "matches": [
     {
       "requirement": "Production Go, high-throughput services",
-      "evidence": "Loom and Buckt are both Go. Loom is the orchestration platform behind CoNexus, coordinating six agents per scene with followers run concurrently; Buckt manages the platform's media library in production.",
+      "evidence": "loom and buckt are both Go. loom is the orchestration platform behind CoNexus, coordinating six agents per scene with followers run concurrently; buckt manages the platform's media library in production.",
       "refs": ["dgrs-loom", "dgrs-buckt"],
-      "links": [{ "label": "Loom docs", "href": "/loom" }, { "label": "Try Loom", "href": "/demo/loom" }]
+      "links": [{ "label": "loom docs", "href": "/loom" }, { "label": "Try loom", "href": "/demo/loom" }]
     },
     {
       "requirement": "Low-latency systems at scale",
@@ -39,9 +39,9 @@
     },
     {
       "requirement": "Well-tested code and high quality standards",
-      "evidence": "Set up separate dev, staging and production environments with release rules the team follows, and a generator–reviewer workflow with production-like Docker test environments. Loom ships with its own test harness.",
+      "evidence": "Set up separate dev, staging and production environments with release rules the team follows, and a generator–reviewer workflow with production-like Docker test environments. loom ships with its own test harness.",
       "refs": ["dgrs-envs", "dgrs-ai-review", "dgrs-cicd"],
-      "links": [{ "label": "Loom's test harness", "href": "/loom#test-harness" }]
+      "links": [{ "label": "loom's test harness", "href": "/loom#test-harness" }]
     }
   ],
   "resume": {

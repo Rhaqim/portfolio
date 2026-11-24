@@ -1,0 +1,229 @@
+{
+  "company": "Stream",
+  "role": "Staff Software Engineer, Backend (Chat / Activity Feeds)",
+  "roleUrl": "https://jobs.ashbyhq.com/stream/7c17d265-2eff-4a1f-97dd-c0e55b218068",
+  "location": "Amsterdam (visa and relocation support) or Remote (EU)",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#0d1721",
+    "surface": "#132131",
+    "fg": "#f2f5f9",
+    "muted": "#a3b0bf",
+    "line": "#24364a",
+    "accent": "#4586ff",
+    "onAccent": "#06101c",
+    "heading": "Inter",
+    "body": "Inter",
+    "radius": 8,
+    "cloud": {
+      "shape": "link"
+    }
+  },
+  "headline": "A lead who still writes the Go, tunes the PostgreSQL and runs the servers himself.",
+  "pitch": "At DGRS Labs I lead a team of three engineers and stay hands-on: I built buckt, a Go media library, architected loom, the agent platform behind CoNexus, cut database reads by 40% and run the company's entire infrastructure. Before that I led a team of four delivering a USSD loan service on a platform serving 16 million customers, deployed on Kubernetes with Redis.",
+  "matches": [
+    {
+      "requirement": "Go or Python, and APIs or SDKs other developers use",
+      "evidence": "Go at DGRS Labs (buckt, a Go library with public docs) and earlier at Nirvana Labs, where I wrote the ChainQuery indexer in Go. Python at Equity, where I built the loan service's APIs with Django REST Framework, and at DGRS Labs for AI agents.",
+      "refs": [
+        "dgrs-buckt",
+        "nirvana-go",
+        "equity-drf",
+        "dgrs-python-agents"
+      ],
+      "links": [
+        {
+          "label": "buckt docs",
+          "href": "/buckt"
+        },
+        {
+          "label": "Noewright docs (formerly loom)",
+          "href": "/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Strong relational database experience (PostgreSQL)",
+      "evidence": "Optimized PostgreSQL queries and added caching at DGRS Labs, reducing database reads by 40% and API responses from 1.2s to 600ms. Designed the PostgreSQL schema for indexed blockchain data at Nirvana Labs.",
+      "refs": [
+        "dgrs-postgres",
+        "nirvana-schema",
+        "equity-orm"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Redis or a similar in-memory data store",
+      "evidence": "Used Redis in production at Equity to support the loan service's performance and reliability, and added a caching layer in front of PostgreSQL at DGRS Labs.",
+      "refs": [
+        "equity-k8s",
+        "dgrs-postgres"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Features used by many people, scaled as usage grows",
+      "evidence": "Led delivery of a USSD loan service on a platform serving 16 million customers and handling over 1 million loan requests a month, through rollouts across six countries.",
+      "refs": [
+        "equity-lead",
+        "equity-rollout",
+        "dgrs-assets"
+      ],
+      "links": [
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
+    },
+    {
+      "requirement": "Infrastructure and database work as part of a normal week, including Kubernetes",
+      "evidence": "Deployed services via Azure Pipelines and Kubernetes at Equity. At DGRS Labs I run the infrastructure single-handedly: Linux servers, Cloudflare, GitHub Actions pipelines across five repositories and an automated disaster-recovery system.",
+      "refs": [
+        "equity-k8s",
+        "dgrs-infra",
+        "dgrs-cicd",
+        "dgrs-dr"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Technical leadership on systems in production",
+      "evidence": "Lead a team of three across DGRS Labs' AI products, owning architecture and production delivery, after leading a team of four at Equity. Both roles kept me writing code daily.",
+      "refs": [
+        "dgrs-lead",
+        "equity-lead"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production backends in fintech and AI, in Go and Python on PostgreSQL. Leads a team of three while staying hands-on: built buckt, a Go media library, architected an agent orchestration platform, optimized PostgreSQL and caching, and single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries, deployed on Kubernetes with Redis.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-buckt"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-async-agents"
+          },
+          {
+            "ref": "dgrs-assets"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-dr"
+          },
+          {
+            "ref": "dgrs-envs"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-rollout"
+          },
+          {
+            "ref": "equity-k8s"
+          },
+          {
+            "ref": "equity-drf"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-orm"
+          }
+        ]
+      },
+      {
+        "id": "nirvana",
+        "bullets": [
+          {
+            "ref": "nirvana-go"
+          },
+          {
+            "ref": "nirvana-schema"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "Golang",
+          "Python",
+          "Rust",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "PostgreSQL",
+          "Redis",
+          "GORM",
+          "Django REST Framework",
+          "FastAPI",
+          "API Design",
+          "Query Optimisation"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Kubernetes",
+          "Docker",
+          "GitHub Actions",
+          "Linux server administration",
+          "NGINX",
+          "Cloudflare",
+          "Monitoring & alerting"
+        ]
+      },
+      {
+        "id": "leadership",
+        "items": [
+          "Technical Direction",
+          "System Architecture",
+          "Team Leadership",
+          "Code Review"
+        ]
+      }
+    ]
+  },
+  "note": "You describe someone who led a team and chose to stay hands-on. That's my week at DGRS Labs: I lead a team of three and still write the Go, tune the PostgreSQL and run the servers myself, because there's nobody else to hand infrastructure to.\n\nWhat I'd bring first is database and caching work like the change that cut our reads by 40% and halved response times, and the habit of owning deploys, recovery and the release process rather than treating them as someone else's job.\n\nWhat would be new: Stream's request rates, and gRPC, Raft or RocksDB in production. I'd rather say that plainly. I'm in Lagos and would relocate to Amsterdam with your visa support, and if my experience fits Senior better than Staff, I'm glad to talk about that.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://jobs.ashbyhq.com/stream/7c17d265-2eff-4a1f-97dd-c0e55b218068"
+    },
+    {
+      "label": "Stream homepage (colours)",
+      "href": "https://getstream.io"
+    }
+  ]
+}

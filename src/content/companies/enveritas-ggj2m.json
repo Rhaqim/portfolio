@@ -1,0 +1,202 @@
+{
+  "company": "Enveritas",
+  "role": "Backend Software Engineer - Python/Postgres",
+  "roleUrl": "https://boards.greenhouse.io/enveritas/jobs/4006514008",
+  "location": "Remote, Global (via Deel)",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#f7f5f0",
+    "surface": "#ffffff",
+    "fg": "#1c1a16",
+    "muted": "#5e5a52",
+    "line": "#e3dfd5",
+    "accent": "#2f6b3b",
+    "onAccent": "#ffffff",
+    "heading": "Source Serif 4",
+    "body": "Source Sans 3",
+    "radius": 6,
+    "cloud": {
+      "shape": "orb"
+    }
+  },
+  "headline": "Python and PostgreSQL backends, with the observability and CI/CD around them.",
+  "pitch": "At Equity I built a loan service's APIs mainly with Django REST Framework, worked with the Django ORM daily and instrumented the service with OpenTelemetry. At DGRS Labs I optimized PostgreSQL queries and caching to cut database reads by 40%, and I run the company's Linux servers, Docker environments and CI/CD myself.",
+  "matches": [
+    {
+      "requirement": "Extensive Python, with Django or Flask",
+      "evidence": "Built Equity's loan service APIs with Django REST Framework and the Django ORM, plus reusable framework components in Python. Earlier, a Python and DRF stock-analysis tool for an Upwork client; more recently, AI agents in Python at DGRS Labs.",
+      "refs": [
+        "equity-drf",
+        "equity-orm",
+        "upwork-stocks",
+        "dgrs-python-agents"
+      ],
+      "links": [
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
+    },
+    {
+      "requirement": "Advanced PostgreSQL: query optimization and performance tuning",
+      "evidence": "Optimized PostgreSQL queries and added caching at DGRS Labs, cutting database reads by 40% and API responses from 1.2s to 600ms. Stored story embeddings in PostgreSQL with pgvector.",
+      "refs": [
+        "dgrs-postgres",
+        "dgrs-pgvector",
+        "equity-orm"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Linux, Bash scripting and Docker",
+      "evidence": "Provision and configure DGRS Labs' Linux servers, and wrote the backup and recovery scripts that restore the full stack automatically. Containerized Equity's services with Docker.",
+      "refs": [
+        "dgrs-infra",
+        "dgrs-dr",
+        "equity-k8s",
+        "dgrs-ai-review"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Improve observability and contribute to CI/CD",
+      "evidence": "Instrumented Equity's Django loan service with OpenTelemetry to trace errors. Built GitHub Actions pipelines across five repositories at DGRS Labs, cutting deployment time by 80%.",
+      "refs": [
+        "equity-otel",
+        "dgrs-cicd",
+        "dgrs-monitoring"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Explain complex ideas to non-technical colleagues",
+      "evidence": "Built a no-code admin so non-technical staff can create and deploy AI agents themselves, and defined the release process the whole team follows.",
+      "refs": [
+        "dgrs-plugins",
+        "dgrs-envs",
+        "dgrs-lead"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building production backends in Python and PostgreSQL, in fintech and AI. Built a loan service's APIs with Django REST Framework and instrumented it with OpenTelemetry; optimized PostgreSQL and caching to cut database reads by 40%; runs Linux servers, Docker environments and GitHub Actions CI/CD as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-pgvector"
+          },
+          {
+            "ref": "dgrs-python-agents"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-plugins"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-dr"
+          },
+          {
+            "ref": "dgrs-envs"
+          },
+          {
+            "ref": "dgrs-monitoring"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-drf"
+          },
+          {
+            "ref": "equity-orm"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-otel"
+          },
+          {
+            "ref": "equity-k8s"
+          },
+          {
+            "ref": "equity-rollout"
+          }
+        ]
+      },
+      {
+        "id": "upwork",
+        "bullets": [
+          {
+            "ref": "upwork-stocks"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "Python",
+          "Golang",
+          "Rust",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "Django",
+          "Django REST Framework",
+          "Django ORM",
+          "FastAPI",
+          "PostgreSQL",
+          "Redis",
+          "Query Optimisation"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Linux server administration",
+          "Docker",
+          "GitHub Actions",
+          "OpenTelemetry",
+          "Kubernetes",
+          "AWS S3",
+          "Backup & Disaster recovery"
+        ]
+      }
+    ]
+  },
+  "note": "Building the system that helps coffee supply chains meet EUDR is the kind of backend work I want: real consequences, rules that change, and a small team that has to stay careful. My background is Python on Django and PostgreSQL, much of it in regulated financial services at Equity.\n\nWhat I'd bring first is PostgreSQL performance work and the operational habits around it: observability, CI/CD and recovery scripts I've written and run myself.\n\nWhat would be new: your posting asks for more years than I have, and I've used AWS only for S3, and haven't worked with Terraform, the other AWS services you list, or PostGIS. I'd rather say that plainly. I'm in Lagos (UTC+1) and can work your core hours.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://boards.greenhouse.io/enveritas/jobs/4006514008"
+    }
+  ]
+}

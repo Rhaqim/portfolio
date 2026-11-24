@@ -1,0 +1,212 @@
+{
+  "company": "Abel",
+  "role": "Founding Engineer, Agent-Native Systems",
+  "roleUrl": "https://abel.ai/careers/founding-engineer-agent-native-systems/",
+  "location": "Beijing / Shanghai / Remote",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#122121",
+    "surface": "#182b2b",
+    "fg": "#f1f5f4",
+    "muted": "#a2b2ae",
+    "line": "#284040",
+    "accent": "#86e0dc",
+    "onAccent": "#0b1a1a",
+    "heading": "Source Serif 4",
+    "body": "Inter",
+    "radius": 4,
+    "cloud": {
+      "shape": "mind"
+    }
+  },
+  "headline": "I've owned an agent platform end to end, from the agents to the servers they run on.",
+  "pitch": "At DGRS Labs I architected loom, which runs six specialized agents in production for CoNexus, built an in-house model service on open-source models that cut operating costs by 30%, and run the company's entire infrastructure, including incident response and disaster recovery. I write Python, Go, Rust and TypeScript.",
+  "matches": [
+    {
+      "requirement": "Strong Python; TypeScript, Go or Rust a plus",
+      "evidence": "Python: open-source AI agents for Degenerous AI and Equity's Django REST Framework APIs. Go: buckt and loom's engine. Rust: USSD framework components at Equity.",
+      "refs": [
+        "dgrs-python-agents",
+        "equity-drf",
+        "dgrs-buckt",
+        "equity-framework"
+      ],
+      "links": [
+        {
+          "label": "buckt docs",
+          "href": "/buckt"
+        }
+      ]
+    },
+    {
+      "requirement": "Production experience with LLM applications and agents",
+      "evidence": "Architected loom, coordinating six agents in production with plugins to external tools and a no-code admin. Stored story embeddings with pgvector so the AI retrieves the context it needs.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-plugins",
+        "dgrs-models",
+        "dgrs-pgvector"
+      ],
+      "links": [
+        {
+          "label": "Noewright docs (formerly loom)",
+          "href": "/noewright"
+        },
+        {
+          "label": "Run a table with agents",
+          "href": "/demo/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Owning critical systems, including incident response",
+      "evidence": "Sole owner of DevOps at DGRS Labs since 2024. I built a dashboard that sends errors to Telegram and a disaster-recovery system that restores the full stack automatically.",
+      "refs": [
+        "dgrs-infra",
+        "dgrs-dr",
+        "dgrs-monitoring",
+        "equity-rollout"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Cloud platforms, Kubernetes and managed data stores",
+      "evidence": "Deployed Equity's services via Azure Pipelines and Kubernetes with Redis; at DGRS Labs I run PostgreSQL and tuned it to cut reads by 40%.",
+      "refs": [
+        "equity-k8s",
+        "dgrs-postgres",
+        "dgrs-infra"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Building production systems end to end, ideally early-stage",
+      "evidence": "Lead a team of three across DGRS Labs' AI product suite, owning architecture through delivery, with CI/CD and environments I set up.",
+      "refs": [
+        "dgrs-lead",
+        "dgrs-cicd",
+        "dgrs-envs"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building and running production systems in AI and fintech. Architected loom, an agent orchestration platform that runs six specialized agents in production, built an in-house model service on open-source models, and single-handedly runs the company's infrastructure, incident response and disaster recovery. Writes Python, Go, Rust and TypeScript. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-plugins"
+          },
+          {
+            "ref": "dgrs-models"
+          },
+          {
+            "ref": "dgrs-python-agents"
+          },
+          {
+            "ref": "dgrs-async-agents"
+          },
+          {
+            "ref": "dgrs-pgvector"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-dr"
+          },
+          {
+            "ref": "dgrs-monitoring"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-k8s"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-rollout"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "ai",
+        "items": [
+          "Agent Orchestration",
+          "Multi-agent Pipelines",
+          "Open-source LLM Deployment",
+          "AI-assisted Development (Claude, Codex)",
+          "pgvector"
+        ]
+      },
+      {
+        "id": "languages",
+        "items": [
+          "Python",
+          "Golang",
+          "Rust",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Kubernetes",
+          "Docker",
+          "Linux server administration",
+          "GitHub Actions",
+          "Monitoring & alerting",
+          "Backup & Disaster recovery"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "PostgreSQL",
+          "Redis",
+          "FastAPI",
+          "API Design"
+        ]
+      }
+    ]
+  },
+  "note": "A founding engineer for agent-native systems needs to own the agents and the systems under them at once. That has been my job at DGRS Labs: I built the agent platform, the model service and the infrastructure, and I'm the one who responds when something breaks.\n\nWhat I'd bring first is that end-to-end ownership, and a working sense of where agents fail in production and how to recover cleanly.\n\nWhat would be new: forecasting and time-series models, which I haven't built. Your post on X listed remote while the job page lists Beijing and Shanghai; I'm in Lagos (UTC+1) and would like to know whether remote from here works, or whether relocation is an option.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://abel.ai/careers/founding-engineer-agent-native-systems/"
+    },
+    {
+      "label": "Hiring post on X",
+      "href": "https://x.com/abel_ai_lab/status/2123815633318199801"
+    },
+    {
+      "label": "Abel homepage (colours)",
+      "href": "https://abel.ai"
+    }
+  ]
+}

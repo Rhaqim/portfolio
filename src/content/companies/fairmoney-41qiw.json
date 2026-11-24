@@ -1,0 +1,212 @@
+{
+  "company": "FairMoney",
+  "role": "Senior Software Engineer (Identity)",
+  "roleUrl": "https://apply.workable.com/j/E5AEF973E5",
+  "location": "Lagos, Nigeria (hybrid)",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#ffffff",
+    "surface": "#f5f7fb",
+    "fg": "#171d32",
+    "muted": "#566079",
+    "line": "#e4e7ec",
+    "accent": "#295de0",
+    "onAccent": "#ffffff",
+    "heading": "Poppins",
+    "body": "Inter",
+    "radius": 12,
+    "cloud": {
+      "shape": "phone"
+    }
+  },
+  "headline": "Lending in production at Equity, Go and Python backends, and I'm already in Lagos.",
+  "pitch": "At Equity I led a team of four delivering a USSD loan service on a platform serving 16 million customers and handling over 1 million loan requests a month, with mobile money integrations including M-Pesa. At DGRS Labs I lead a team of three, write Go and Python, and built our email-based login with one-time codes.",
+  "matches": [
+    {
+      "requirement": "Backend engineering: system design, CI/CD, reliable and secure distributed systems",
+      "evidence": "Led Equity's USSD loan service from development to production across six countries. At DGRS Labs I built GitHub Actions pipelines across five repositories, separate environments and the release process the team follows.",
+      "refs": [
+        "equity-lead",
+        "equity-rollout",
+        "dgrs-cicd",
+        "dgrs-envs"
+      ],
+      "links": [
+        {
+          "label": "Try the USSD framework",
+          "href": "/demo/ussd"
+        }
+      ]
+    },
+    {
+      "requirement": "Identity, authentication or fraud, ideally in financial services",
+      "evidence": "Built CoNexus's account email flows on Resend: password resets and changes, and one-time codes for email login. My financial services experience is Equity's loan service and its mobile money integrations.",
+      "refs": [
+        "dgrs-email",
+        "equity-mpesa",
+        "equity-lead"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Go, or deep backend experience and willingness to move to Go",
+      "evidence": "Go at DGRS Labs (buckt) and earlier at Nirvana Labs, where I wrote the ChainQuery indexer in Go. Python at Equity with Django REST Framework, plus framework components in Rust.",
+      "refs": [
+        "dgrs-buckt",
+        "nirvana-go",
+        "equity-drf",
+        "equity-framework"
+      ],
+      "links": [
+        {
+          "label": "buckt docs",
+          "href": "/buckt"
+        }
+      ]
+    },
+    {
+      "requirement": "Hands-on AI coding assistants in delivery",
+      "evidence": "Introduced a Claude and Codex generator–reviewer workflow with production-like Docker test environments that catches defects before deployment.",
+      "refs": [
+        "dgrs-ai-review"
+      ],
+      "links": []
+    },
+    {
+      "requirement": "Interest in growing into people leadership",
+      "evidence": "Lead a team of three engineers at DGRS Labs, after leading a team of four at Equity.",
+      "refs": [
+        "dgrs-lead",
+        "equity-lead"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building production backends in fintech and AI, in Go and Python. Previously led delivery of a USSD loan service with mobile money integrations, including M-Pesa, on a financial platform serving 16 million customers and over 1 million loan requests a month. Now leads a team of three, built email login with one-time codes, and runs the company's infrastructure and CI/CD.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-buckt"
+          },
+          {
+            "ref": "dgrs-email"
+          },
+          {
+            "ref": "dgrs-postgres"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          },
+          {
+            "ref": "dgrs-infra"
+          },
+          {
+            "ref": "dgrs-cicd"
+          },
+          {
+            "ref": "dgrs-envs"
+          },
+          {
+            "ref": "dgrs-dr"
+          },
+          {
+            "ref": "dgrs-loom"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-mpesa"
+          },
+          {
+            "ref": "equity-rollout"
+          },
+          {
+            "ref": "equity-drf"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-k8s"
+          },
+          {
+            "ref": "equity-otel"
+          }
+        ]
+      },
+      {
+        "id": "nirvana",
+        "bullets": [
+          {
+            "ref": "nirvana-go"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "languages",
+        "items": [
+          "Golang",
+          "Python",
+          "Rust",
+          "JavaScript/TypeScript"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "PostgreSQL",
+          "Redis",
+          "Django REST Framework",
+          "FastAPI",
+          "GORM",
+          "API Design"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Docker",
+          "Kubernetes",
+          "GitHub Actions",
+          "Linux server administration",
+          "OpenTelemetry",
+          "Monitoring & alerting"
+        ]
+      },
+      {
+        "id": "leadership",
+        "items": [
+          "Team Leadership",
+          "Technical Direction",
+          "Code Review",
+          "Production Delivery"
+        ]
+      }
+    ]
+  },
+  "note": "Lending is where I learned to build carefully: at Equity I led the team that took a USSD loan service to production across six countries, with mobile money integrations and real customers waiting on every request. FairMoney is solving the same problem for Nigerians, and I live here.\n\nWhat I'd bring first is that production discipline, plus Go, and the AI-assisted review workflow I set up at DGRS Labs.\n\nWhat would be new: I've built authentication flows like password resets and one-time login codes, but not KYC, fraud scoring or identity verification. I'd rather say that plainly. I'm in Lagos, so hybrid works, and I'd also be glad to talk about your Lending team.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://apply.workable.com/j/E5AEF973E5"
+    },
+    {
+      "label": "FairMoney homepage (colours)",
+      "href": "https://fairmoney.io"
+    }
+  ]
+}

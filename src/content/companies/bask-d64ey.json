@@ -20,11 +20,11 @@
     }
   },
   "headline": "From the form field to the database is how I already work, with AI in the loop.",
-  "pitch": "At DGRS Labs I designed the frontend in TypeScript, architected Loom, the agent platform behind CoNexus, and run the company's entire infrastructure on my own. Changes go through a Claude and Codex generator–reviewer workflow and production-like Docker test environments before they ship. Before that I led delivery of a USSD loan service on a platform serving 16 million customers.",
+  "pitch": "At DGRS Labs I designed the frontend in TypeScript, architected loom, the agent platform behind CoNexus, and run the company's entire infrastructure on my own. Changes go through a Claude and Codex generator–reviewer workflow and production-like Docker test environments before they ship. Before that I led delivery of a USSD loan service on a platform serving 16 million customers.",
   "matches": [
     {
       "requirement": "Dangerous on the back end: SQL databases and database schema design",
-      "evidence": "Designed the PostgreSQL schema for Nirvana Labs' indexed blockchain data. At DGRS Labs I optimized PostgreSQL queries and added caching, cutting database reads by 40% and API responses from 1.2s to 600ms, and built Buckt on GORM over PostgreSQL or SQLite.",
+      "evidence": "Designed the PostgreSQL schema for Nirvana Labs' indexed blockchain data. At DGRS Labs I optimized PostgreSQL queries and added caching, cutting database reads by 40% and API responses from 1.2s to 600ms, and built buckt on GORM over PostgreSQL or SQLite.",
       "refs": [
         "nirvana-schema",
         "dgrs-postgres",
@@ -32,18 +32,18 @@
       ],
       "links": [
         {
-          "label": "Buckt docs",
+          "label": "buckt docs",
           "href": "/buckt"
         },
         {
-          "label": "Try Buckt",
+          "label": "Try buckt",
           "href": "/demo/buckt"
         }
       ]
     },
     {
       "requirement": "Own entire projects or large areas of the codebase, from scratch",
-      "evidence": "Architected and built Loom from scratch, lead the team of three behind DGRS Labs' AI products, and single-handedly run the company's infrastructure, environments and release process.",
+      "evidence": "Architected and built loom from scratch, lead the team of three behind DGRS Labs' AI products, and single-handedly run the company's infrastructure, environments and release process.",
       "refs": [
         "dgrs-loom",
         "dgrs-lead",
@@ -52,7 +52,7 @@
       ],
       "links": [
         {
-          "label": "Loom docs",
+          "label": "loom docs",
           "href": "/loom"
         },
         {
@@ -86,7 +86,7 @@
     },
     {
       "requirement": "Make automation legible and trustworthy",
-      "evidence": "Loom records token and dollar cost on every step, caps spend with budgets, streams live events to every client, and lets any session be forked and replayed from any step, so you can see what each agent did and why.",
+      "evidence": "loom records token and dollar cost on every step, caps spend with budgets, streams live events to every client, and lets any session be forked and replayed from any step, so you can see what each agent did and why.",
       "refs": [
         "dgrs-loom"
       ],
@@ -238,7 +238,7 @@
       }
     ]
   },
-  "note": "You describe one engineer following a change from a form field to the database without crossing a team boundary. That's close to how I already work: at DGRS Labs I designed the frontend in TypeScript, built backend services and the agent platform, and run every server they deploy to. AI is already part of that loop, with generated changes going through a reviewer pass and production-like environments before they ship.\n\nWhat would be new is your exact stack. I've used AWS S3, and Buckt has an S3 backend, but SST, Lambda, SQS, EventBridge and Prisma or Drizzle would be new ground. I'd start by shipping small changes through your test suite, and I'd rather say that plainly than stretch.\n\nHealthcare would be new too. The part of the role I've spent the most time on is making automation legible: Loom records what every agent step did and cost, and any session can be replayed. That seems like the right instinct for software acting on behalf of patients and care teams.",
+  "note": "You describe one engineer following a change from a form field to the database without crossing a team boundary. That's close to how I already work: at DGRS Labs I designed the frontend in TypeScript, built backend services and the agent platform, and run every server they deploy to. AI is already part of that loop, with generated changes going through a reviewer pass and production-like environments before they ship.\n\nWhat would be new is your exact stack. I've used AWS S3, and buckt has an S3 backend, but SST, Lambda, SQS, EventBridge and Prisma or Drizzle would be new ground. I'd start by shipping small changes through your test suite, and I'd rather say that plainly than stretch.\n\nHealthcare would be new too. The part of the role I've spent the most time on is making automation legible: loom records what every agent step did and cost, and any session can be replayed. That seems like the right instinct for software acting on behalf of patients and care teams.",
   "sources": [
     {
       "label": "Job posting",

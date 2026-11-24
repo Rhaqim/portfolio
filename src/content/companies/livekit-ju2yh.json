@@ -1,0 +1,221 @@
+{
+  "company": "LiveKit",
+  "role": "Software Engineer, Agents",
+  "roleUrl": "https://jobs.ashbyhq.com/livekit/1757f49e-7e19-4c45-85f7-e4637dff66fb",
+  "location": "Remote, EMEA",
+  "prepared": "2026-11-23",
+  "theme": {
+    "bg": "#070707",
+    "surface": "#111414",
+    "fg": "#f5f7f7",
+    "muted": "#9fa8aa",
+    "line": "#1f2a2c",
+    "accent": "#1fd5f9",
+    "onAccent": "#03181c",
+    "heading": "Instrument Sans",
+    "body": "Inter",
+    "radius": 12,
+    "cloud": {
+      "shape": "mind"
+    }
+  },
+  "headline": "I built a multi-agent engine with async runs, live event streams and shared sessions.",
+  "pitch": "loom, now Noewright, is the Go engine I architected for CoNexus: six specialized agents in production, plugins to external generation tools, and agents that run asynchronously and stream events to the client. I've also built open-source AI agents in Python for Degenerous AI and a TypeScript service for image generation.",
+  "matches": [
+    {
+      "requirement": "Experience building LLM-based applications and agentic systems",
+      "evidence": "Architected loom, which coordinates six specialized agents in production for CoNexus, with plugins to tools like Meshy and a no-code admin for non-technical staff. Built an in-house model service on open-source models that cut operating costs by 30%.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-plugins",
+        "dgrs-models",
+        "dgrs-python-agents"
+      ],
+      "links": [
+        {
+          "label": "Noewright docs (formerly loom)",
+          "href": "/noewright"
+        },
+        {
+          "label": "Run a table with agents",
+          "href": "/demo/noewright"
+        }
+      ]
+    },
+    {
+      "requirement": "Stateful, durable workflows that span minutes, hours or longer",
+      "evidence": "Designed loom so agents run asynchronously and stream events to the client, and built queues and background workers that take long generation jobs off the request path.",
+      "refs": [
+        "dgrs-async-agents",
+        "dgrs-queues",
+        "dgrs-workers"
+      ],
+      "links": [
+        {
+          "label": "Sessions and steps",
+          "href": "/noewright#sessions-and-steps"
+        },
+        {
+          "label": "Branching and replay",
+          "href": "/noewright#branching-and-replay"
+        }
+      ]
+    },
+    {
+      "requirement": "Agent-to-agent handoff and delegation",
+      "evidence": "loom's agents hand work along a chain: one writes the story, another the reader's choices, and others turn each scene into prompts for visuals, atmosphere, VFX and sound.",
+      "refs": [
+        "dgrs-loom"
+      ],
+      "links": [
+        {
+          "label": "Turns and multi-agent flows",
+          "href": "/noewright#turns-and-multi-agent-flows"
+        }
+      ]
+    },
+    {
+      "requirement": "Simple developer APIs over complex systems",
+      "evidence": "Noewright and buckt are libraries with public docs, built so other engineers can use them without reading the internals.",
+      "refs": [
+        "dgrs-loom",
+        "dgrs-buckt"
+      ],
+      "links": [
+        {
+          "label": "Noewright docs (formerly loom)",
+          "href": "/noewright"
+        },
+        {
+          "label": "buckt docs",
+          "href": "/buckt"
+        }
+      ]
+    },
+    {
+      "requirement": "Work primarily with Python and TypeScript",
+      "evidence": "Python agents for Degenerous AI and Django REST Framework APIs at Equity; a TypeScript frontend in Astro and Svelte and a TypeScript image-generation service at DGRS Labs.",
+      "refs": [
+        "dgrs-python-agents",
+        "equity-drf",
+        "dgrs-frontend",
+        "dgrs-images"
+      ],
+      "links": []
+    }
+  ],
+  "resume": {
+    "summary": "Lead software engineer with 5+ years building production systems in fintech and AI. Architected loom, a multi-agent engine that runs six specialized agents in production with asynchronous runs, event streaming and tool plugins, and built AI agents in Python and services in TypeScript. Single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
+    "jobs": [
+      {
+        "id": "dgrs",
+        "bullets": [
+          {
+            "ref": "dgrs-loom"
+          },
+          {
+            "ref": "dgrs-async-agents"
+          },
+          {
+            "ref": "dgrs-plugins"
+          },
+          {
+            "ref": "dgrs-python-agents"
+          },
+          {
+            "ref": "dgrs-models"
+          },
+          {
+            "ref": "dgrs-queues"
+          },
+          {
+            "ref": "dgrs-images"
+          },
+          {
+            "ref": "dgrs-frontend"
+          },
+          {
+            "ref": "dgrs-pgvector"
+          },
+          {
+            "ref": "dgrs-lead"
+          },
+          {
+            "ref": "dgrs-ai-review"
+          },
+          {
+            "ref": "dgrs-cicd"
+          }
+        ]
+      },
+      {
+        "id": "equity",
+        "bullets": [
+          {
+            "ref": "equity-lead"
+          },
+          {
+            "ref": "equity-drf"
+          },
+          {
+            "ref": "equity-framework"
+          },
+          {
+            "ref": "equity-rollout"
+          }
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "id": "ai",
+        "items": [
+          "Agent Orchestration",
+          "Multi-agent Pipelines",
+          "Open-source LLM Deployment",
+          "AI-assisted Development (Claude, Codex)",
+          "pgvector"
+        ]
+      },
+      {
+        "id": "languages",
+        "items": [
+          "Python",
+          "JavaScript/TypeScript",
+          "Golang",
+          "Rust"
+        ]
+      },
+      {
+        "id": "backend",
+        "items": [
+          "PostgreSQL",
+          "Redis",
+          "API Design",
+          "FastAPI",
+          "Django REST Framework"
+        ]
+      },
+      {
+        "id": "devops",
+        "items": [
+          "Docker",
+          "GitHub Actions",
+          "Linux server administration",
+          "Monitoring & alerting"
+        ]
+      }
+    ]
+  },
+  "note": "Stateful agents that keep working across long interactions are the problem I've been working on with loom since 2024. Its agents run asynchronously, stream events back as they go, and hand work to each other along a chain, and shared sessions let several people watch the same run.\n\nWhat I'd bring first is that design experience: where state should live, what a client needs to see while an agent works, and how to make a long run recoverable.\n\nWhat would be new: real-time voice, WebRTC, and SMS as a channel. I haven't built for those, and I'd rather say so. I'm in Lagos (UTC+1), inside your EMEA hours.",
+  "sources": [
+    {
+      "label": "Job posting",
+      "href": "https://jobs.ashbyhq.com/livekit/1757f49e-7e19-4c45-85f7-e4637dff66fb"
+    },
+    {
+      "label": "LiveKit homepage (colours)",
+      "href": "https://livekit.io"
+    }
+  ]
+}

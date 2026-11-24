@@ -20,7 +20,7 @@
     }
   },
   "headline": "I led delivery of a loan service people use from their phones, at Equity Group, in Python.",
-  "pitch": "At Equity Group Holdings I led a team of four delivering a USSD loan service in Python, Django and Django REST Framework, connected to mobile money including M-Pesa, on a financial platform serving 16 million customers and over 1 million loan requests a month, through rollouts across six countries including Rwanda. Today I lead engineering at DGRS Labs, where I built Loom, an agent orchestration platform, and an AI-assisted generator–reviewer workflow with production-like test environments.",
+  "pitch": "At Equity Group Holdings I led a team of four delivering a USSD loan service in Python, Django and Django REST Framework, connected to mobile money including M-Pesa, on a financial platform serving 16 million customers and over 1 million loan requests a month, through rollouts across six countries including Rwanda. Today I lead engineering at DGRS Labs, where I built loom, an agent orchestration platform, and an AI-assisted generator–reviewer workflow with production-like test environments.",
   "matches": [
     {
       "requirement": "Lending platforms and financial services backends",
@@ -67,14 +67,14 @@
     },
     {
       "requirement": "AI-assisted and agentic development, agent orchestration and automated code review",
-      "evidence": "Introduced a generator–reviewer workflow with Claude and Codex, backed by production-like Docker test environments, so defects are caught before deployment. Architected Loom, the platform that coordinates six specialized agents behind CoNexus.",
+      "evidence": "Introduced a generator–reviewer workflow with Claude and Codex, backed by production-like Docker test environments, so defects are caught before deployment. Architected loom, the platform that coordinates six specialized agents behind CoNexus.",
       "refs": [
         "dgrs-ai-review",
         "dgrs-loom"
       ],
       "links": [
         {
-          "label": "Loom docs",
+          "label": "loom docs",
           "href": "/loom"
         },
         {
@@ -223,7 +223,7 @@
       }
     ]
   },
-  "note": "MoneyPhone is building what I spent my Equity years on: loans people can take out from a phone, for borrowers that traditional banking serves badly. There I led a team of four delivering a USSD loan service in Python and Django, connected to mobile money including M-Pesa, from development through testing, deployment and production support, as it rolled out across six countries including Rwanda. Before Equity I was already building in Python and Django REST Framework as a freelancer on Upwork, including a stock trend analysis tool and dashboard that pulled market data from APIs and implemented the calculations the client wanted.\n\nSince then I've led engineering at DGRS Labs, where AI is part of how we ship: generated changes go through a Claude and Codex generator–reviewer workflow and production-like Docker environments before they deploy, and I built Loom, the agent orchestration platform behind our product. I'd bring both halves: the care that money needs, and a workflow that lets a small team move quickly without lowering the bar.\n\nI'm in Lagos (UTC+1), which keeps a full working day of overlap with the Netherlands.",
+  "note": "MoneyPhone is building what I spent my Equity years on: loans people can take out from a phone, for borrowers that traditional banking serves badly. There I led a team of four delivering a USSD loan service in Python and Django, connected to mobile money including M-Pesa, from development through testing, deployment and production support, as it rolled out across six countries including Rwanda. Before Equity I was already building in Python and Django REST Framework as a freelancer on Upwork, including a stock trend analysis tool and dashboard that pulled market data from APIs and implemented the calculations the client wanted.\n\nSince then I've led engineering at DGRS Labs, where AI is part of how we ship: generated changes go through a Claude and Codex generator–reviewer workflow and production-like Docker environments before they deploy, and I built loom, the agent orchestration platform behind our product. I'd bring both halves: the care that money needs, and a workflow that lets a small team move quickly without lowering the bar.\n\nI'm in Lagos (UTC+1), which keeps a full working day of overlap with the Netherlands.",
   "sources": [
     {
       "label": "Job posting",
