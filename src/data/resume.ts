@@ -81,6 +81,7 @@ export const jobs: Job[] = [
 			{ id: "dgrs-envs", group: "infra", text: "Set up separate development, staging and production environments, and defined the deployment rules and release process the whole team follows." },
 			{ id: "dgrs-cicd", group: "infra", text: "Built GitHub Actions CI/CD pipelines across five repositories, cutting deployment time by 80% and ending manual SSH deployments." },
 			{ id: "dgrs-dr", group: "infra", text: "Designed a backup and disaster-recovery system with scripts that pull the latest code and backups and restore the full stack automatically, keeping downtime to a minimum." },
+			{ id: "dgrs-r2", group: "infra", text: "Migrated the platform's media from local server storage to Cloudflare R2 with buckt across development, staging and production (2,330 files, 1,381 of them in production), with no failed copies and no downtime at cutover." },
 			{ id: "dgrs-monitoring", group: "infra", text: "Built a founder's dashboard that ingests the platform's errors and logs and sends alerts to Telegram." },
 			{ id: "dgrs-grafana", group: "infra", text: "Before that, connected Grafana to the backend services and kept it private behind a Tailscale VPN." },
 			{ id: "dgrs-ai-review", group: "infra", text: "Introduced an AI-assisted generator–reviewer workflow (Claude + Codex) with production-like Docker test environments, catching defects before deployment." },
@@ -142,7 +143,7 @@ export const skills: { id: string; label: string; items: string[] }[] = [
 	{ id: "languages", label: "Languages", items: ["Golang", "Python", "Rust", "JavaScript/TypeScript"] },
 	{ id: "backend", label: "Backend and Data", items: ["FastAPI", "Django", "Django REST Framework", "Django ORM", "GORM", "Node.js", "PostgreSQL", "Redis", "API Design", "Query Optimisation"] },
 	{ id: "frontend", label: "Frontend", items: ["Astro", "Svelte", "React"] },
-	{ id: "devops", label: "DevOps & Infrastructure", items: ["Linux server administration", "Docker", "Cloudflare", "GitHub Actions", "NGINX", "Kubernetes", "Azure Pipelines", "Backup & Disaster recovery", "Grafana", "Tailscale", "Monitoring & alerting", "OpenTelemetry", "AWS S3"] },
+	{ id: "devops", label: "DevOps & Infrastructure", items: ["Linux server administration", "Docker", "Cloudflare", "GitHub Actions", "NGINX", "Kubernetes", "Azure Pipelines", "Backup & Disaster recovery", "Grafana", "Tailscale", "Monitoring & alerting", "OpenTelemetry", "AWS S3", "Cloudflare R2"] },
 	{ id: "ai", label: "AI Systems", items: ["Agent Orchestration", "Open-source model deployment", "Multi-agent Pipelines", "Open-source LLM Deployment", "AI-assisted Development (Claude, Codex)", "Claude Code skills", "pgvector"] },
 	{ id: "leadership", label: "Engineering Leadership", items: ["Technical Direction", "System Architecture", "Team Leadership", "Code Review", "Production Delivery"] },
 ];
