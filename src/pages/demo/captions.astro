@@ -1,0 +1,132 @@
+---
+import Base from "@layouts/Base.astro";
+import DemoNav from "@components/DemoNav.astro";
+import "@styles/demo.css";
+---
+
+<Base
+	title="Sermon captions"
+	description="Live sermon captions in Yorùbá, Igbo and Nigerian Pidgin on Noewright, a Go multi-agent runtime: Scripture is quoted from real Bibles, a hook enforces it, a judge scores every line, and the congregation follows on their phones."
+>
+	<div class="demo">
+		<DemoNav slug="captions" position="top" />
+		<section class="wrap demo-intro" data-cloud="mind">
+			<p class="eyebrow"><b>Noewright</b> · Go · live demo</p>
+			<h1>Sermon captions in Yorùbá, Igbo and Pidgin.</h1>
+			<p class="lede" id="sc-lede">
+				Speak or paste a line of a sermon. A <b>detector</b> finds any Bible passage in it, and Go looks the passage up in
+				real Bibles. Then one Noewright turn streams a clean <b>English caption</b> while three <b>translators</b> write
+				Yorùbá, Igbo and Nigerian Pidgin captions in parallel. When the preacher reads a verse aloud, a <b>scripture
+				guard</b> (a Noewright hook) makes each caption quote that language's Bible word for word, and sends back any
+				that doesn't. A <b>judge</b> scores every caption. Anyone with the follow link watches the captions arrive on
+				their phone.
+			</p>
+			<p class="dim sc-disclaimer">
+				Yorùbá, Igbo and Pidgin captions are machine translations: read the judge's scores as a second opinion, not a guarantee.
+				Scripture is never machine-translated; see the Bibles below.
+			</p>
+			<div id="api-status"></div>
+		</section>
+
+		<section class="wrap demo-body stack" id="sc-speaker">
+			<div class="panel">
+				<div class="panel-hd"><span class="label">Model &amp; key</span><span class="spacer"></span><span class="chip" id="mode-chip">Dry run</span></div>
+				<div class="panel-bd key-grid">
+					<label class="field"><span>Model</span><select class="select" id="model"></select></label>
+					<label class="field"><span>API key</span><input class="input mono" id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Optional" /></label>
+					<label class="check"><input type="checkbox" id="remember" /> Keep for this tab</label>
+					<span></span>
+					<p class="dim key-note" id="key-note">Your key goes with each request, is used for that line only and is never stored. A line is six model calls (detect, caption, three translators, judge), plus a retry when the guard sends one back. With no key, the same orchestration runs with canned output.</p>
+				</div>
+			</div>
+
+			<div class="split-wide">
+				<div class="stack">
+					<div class="panel">
+						<div class="panel-hd"><span class="label">Pulpit</span><span class="spacer"></span><span class="dim mono sc-count" id="sc-count"></span></div>
+						<div class="panel-bd stack">
+							<label class="field"><span>What the preacher just said</span>
+								<textarea class="textarea" id="sc-text" rows="3" maxlength="400" placeholder="Proverbs 3:5 says, Trust in the LORD with all thine heart; and lean not unto thine own understanding."></textarea>
+							</label>
+							<div class="row">
+								<button class="btn btn-primary" id="sc-send" type="button">Caption it</button>
+								<button class="btn" id="sc-next" type="button">Next sample line</button>
+								<button class="btn btn-ghost" id="sc-play" type="button">Play the sample sermon</button>
+								<span class="dim" id="sc-status" role="status"></span>
+							</div>
+							<p class="dim sc-hint" id="sc-sample-hint"></p>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-hd">
+							<span class="label">On screen</span><span class="spacer"></span>
+							<span id="sc-busy" hidden class="row" style="gap:6px"><span class="pulse"></span><span class="dim mono" style="font-size:.7rem">agents working</span></span>
+						</div>
+						<div class="tabs" role="tablist" id="sc-langs"></div>
+						<div class="panel-bd stack">
+							<div class="sc-screen" id="sc-screen" aria-live="polite"><p class="sc-screen-text dim">Captions appear here.</p></div>
+							<div id="sc-verses"></div>
+							<div class="sc-agents" id="sc-agents"></div>
+							<div id="sc-error"></div>
+						</div>
+					</div>
+
+					<div class="panel">
+						<div class="panel-hd"><span class="label">The service so far</span><span class="spacer"></span><button class="btn btn-sm btn-ghost" id="sc-new" type="button">New service</button></div>
+						<div class="panel-bd"><ol class="list-plain sc-history" id="sc-history"><li class="dim">No lines yet.</li></ol></div>
+					</div>
+				</div>
+
+				<aside class="stack">
+					<div class="panel">
+						<div class="panel-hd"><span class="label">Follow on a phone</span></div>
+						<div class="panel-bd stack">
+							<p class="mid" style="font-size:.88rem">Open this link on another device and pick a language. Captions arrive as the preacher speaks, through Noewright's session events.</p>
+							<input class="input mono" id="sc-follow" readonly aria-label="Follow link" />
+							<div class="row"><button class="btn btn-sm" id="sc-copy" type="button">Copy link</button><a class="btn btn-sm btn-ghost" id="sc-open" target="_blank" rel="noopener">Open</a></div>
+						</div>
+					</div>
+					<div class="panel">
+						<div class="panel-hd"><span class="label">This line, step by step</span><span class="spacer"></span><span class="chip" id="sc-cost"></span></div>
+						<div class="panel-bd"><ol class="list-plain steps" id="sc-steps"><li class="dim">Agent steps appear here as they finish.</li></ol></div>
+					</div>
+				</aside>
+			</div>
+		</section>
+
+		<section class="wrap demo-body stack" id="sc-follower" hidden>
+			<div class="panel">
+				<div class="panel-hd"><span class="label" id="sc-f-title">Live captions</span><span class="spacer"></span><span class="chip" id="sc-f-live">connecting</span></div>
+				<div class="tabs" role="tablist" id="sc-f-langs"></div>
+				<div class="panel-bd stack">
+					<div class="sc-screen sc-screen--follow" id="sc-f-screen" aria-live="polite"><p class="sc-screen-text dim">Waiting for the preacher.</p></div>
+					<ol class="list-plain sc-feed" id="sc-f-feed"></ol>
+				</div>
+			</div>
+		</section>
+
+		<section class="wrap demo-body">
+			<div class="panel">
+				<div class="panel-hd"><span class="label">The Bibles</span></div>
+				<div class="panel-bd stack sc-bibles">
+					<p class="mid">Passages read aloud are quoted from these texts, never translated by a model:</p>
+					<ul class="list-plain">
+						<li><b>Yorùbá:</b> Biblica® ní oore ọ̀fẹ́ láti lo Bíbélì Mímọ́ ní Èdè Yorùbá Òde-Òní, © 2009, 2017 Biblica, Inc., <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://ebible.org/yor/">eBible.org</a>.</li>
+						<li><b>Igbo:</b> Biblica® Baịbụlụ Nsọ nʼIgbo Ndị Ugbu a nke dịrị onye ọbụla ịgụ, © 2020 Biblica, Inc., <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://ebible.org/ibo/">eBible.org</a>.</li>
+						<li><b>English and Nigerian Pidgin:</b> King James Version, public domain. The Nigerian Pidgin Bible isn't openly licensed, so Pidgin captions quote the KJV.</li>
+					</ul>
+					<p class="dim" style="font-size:.82rem">Biblica® is a trademark of Biblica, Inc. This demo is independent and not affiliated with Biblica or any church software company. The sample sermon was written for this page.</p>
+				</div>
+			</div>
+		</section>
+
+		<DemoNav slug="captions" position="bottom" />
+
+		<section id="feedback"></section>
+	</div>
+</Base>
+
+<script>
+	import "../../scripts/demo/captions.js";
+</script>
