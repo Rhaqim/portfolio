@@ -285,3 +285,34 @@
 .demo .fd-axis { font-family: var(--font-mono); font-size: 10px; fill: var(--fg-dim); }
 .demo .fd-label { font-family: var(--font-mono); font-size: 11px; }
 .demo .fd-bt-table td { vertical-align: top; }
+
+/* ---- Sermon captions ---- */
+.demo .sc-disclaimer { font-size: .85rem; margin-top: 10px; max-width: 70ch; }
+.demo .sc-hint { font-size: .82rem; }
+.demo .sc-count { font-size: .7rem; }
+.demo .sc-tab-name { text-transform: none; letter-spacing: 0; }
+@media (max-width: 560px) { .demo .sc-tab-name { display: none; } }
+.demo .sc-screen { background: #000; border: 1px solid var(--line-strong); padding: clamp(18px, 4vw, 36px); min-height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.demo .sc-screen--follow { min-height: min(42vh, 360px); }
+.demo .sc-screen-text { font-size: clamp(1.15rem, 2.6vw, 1.75rem); line-height: 1.4; color: #fff; overflow-wrap: anywhere; }
+.demo .sc-screen-ref { font-size: .75rem; color: var(--red-bright); letter-spacing: .06em; }
+.demo .sc-verse { border-left: 2px solid var(--line-strong); padding: 6px 0 6px 12px; font-size: .9rem; }
+.demo .sc-verse--quoted { border-left-color: var(--red); }
+.demo .sc-verse-hd { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+.demo .sc-verse-hd b { font-weight: 500; }
+.demo .sc-verse + .sc-verse { margin-top: 8px; }
+.demo .sc-agents { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.demo .sc-agents:empty { display: none; }
+@media (max-width: 760px) { .demo .sc-agents { grid-template-columns: minmax(0, 1fr); } }
+.demo .sc-line { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.demo .sc-line-hd { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.demo .sc-spoken { flex: 1 1 260px; color: var(--fg); min-width: 0; }
+.demo .sc-line-langs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+@media (max-width: 760px) { .demo .sc-line-langs { grid-template-columns: minmax(0, 1fr); } }
+.demo .sc-line-lang { background: var(--bg-sunken); border: 1px solid var(--line); padding: 8px 10px; font-size: .88rem; min-width: 0; overflow-wrap: anywhere; }
+.demo .sc-line-lang-hd { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin-bottom: 4px; }
+.demo .sc-line-lang-hd b { font-weight: 500; margin-right: auto; }
+.demo .sc-note { font-size: .78rem; margin-top: 4px; }
+.demo .sc-feed-line { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.demo .sc-bibles li + li { margin-top: 6px; }
+.demo .sc-bibles li { font-size: .88rem; }

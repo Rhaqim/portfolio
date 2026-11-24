@@ -19,6 +19,7 @@ export const demos: Demo[] = [
 	{ slug: "buckt", name: "buckt", title: "A media sandbox", language: "Go" },
 	{ slug: "noewright", name: "Noewright", title: "Run a table with agents", language: "Go" },
 	{ slug: "forecast", name: "Forecast Desk", title: "Out-forecast the agents", language: "Go", docs: "noewright", docsName: "Noewright" },
+	{ slug: "captions", name: "Sermon captions", title: "Caption a sermon in three languages", language: "Go", docs: "noewright", docsName: "Noewright" },
 ];
 
 /** The demos either side of `slug`, wrapping around. */
