@@ -146,7 +146,7 @@ function setMode(m) {
 }
 
 function renderAgentModels() {
-	fill($("#sc-agent-models"), graphAgents().map((a) => {
+	fill($("#sc-agent-models"), graphAgents().flatMap((a) => {
 		const sel = el("select", { class: "select", id: `model-${a.agent}`, onchange: (e) => { agentModels[a.agent] = e.target.value; persist(); } },
 			[...modelSelect.cloneNode(true).children]);
 		sel.value = agentModels[a.agent] || modelSelect.value;
