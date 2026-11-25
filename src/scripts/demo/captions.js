@@ -296,11 +296,139 @@ function addStep(s) {
 	const role = roles[s.role] || "after caption + lookup";
 	$("#sc-steps").append(el("li", {},
 		el("div", { class: "step-top" }, el("b", {}, s.agent.replace(/^sc-/, "")), el("span", { class: "r" }, role),
-			el("span", { class: "c" }, s.error ? "failed" : `${s.input_tokens}→${s.output_tokens} tok · ${s.priced ? fmtUSD(s.usd) : "—"}`)),
+			el("span", { class: "c" }, s.error ? `failed${s.wall_ms ? ` after ${secs(s.wall_ms)}` : ""}` : [
+				s.wall_ms ? secs(s.wall_ms) : secs(s.duration_ms || 0),
+				s.first_token_ms ? `first word ${secs(s.first_token_ms)}` : null,
+				`${s.input_tokens}→${s.output_tokens} tok${s.reasoning_tokens ? ` (${s.reasoning_tokens} thinking)` : ""}`,
+				s.priced ? fmtUSD(s.usd) : "—",
+			].filter(Boolean).join(" · "))),
 		s.error ? el("p", { class: "notice notice-err", style: "margin-top:6px" }, s.error) : el("details", {},
 			el("summary", {}, "prompt & output"),
 			el("p", { class: "eyebrow", style: "margin-top:8px" }, "Rendered prompt"), el("pre", { class: "code" }, s.prompt),
 			el("p", { class: "eyebrow", style: "margin-top:8px" }, "Output"), el("pre", { class: "code" }, s.output))));
+}
+
+// ---------------------------------------------------------------------------
+// Where the time went: every node on the line's clock (ms from the request's
+// arrival on the server), drawn as a timeline, with the slowest agent named
+// and, where the numbers say, why.
+// ---------------------------------------------------------------------------
+
+const TL_ROWS = [
+	["detect", "detector"], ["caption", "caption"], ["lookup", "lookup"],
+	["yo", "Yorùbá"], ["ig", "Igbo"], ["pcm", "Pidgin"], ["judge", "judge"],
+];
+// All times are ms from the request reaching the server, so they include any
+// time queued behind the previous line.
+let timing = null; // { waited, offset, nodes: {id: {start, end, kind, first, out, reasoning}}, onScreen, total, guard }
+let timingTick = 0;
+const secs = (ms) => (ms >= 10000 ? `${Math.round(ms / 1000)}s` : `${(ms / 1000).toFixed(1)}s`);
+const serverNow = () => (timing ? performance.now() - timing.offset : 0);
+
+function timingStart() {
+	timing = { waited: 0, offset: performance.now(), nodes: {}, onScreen: 0, total: 0, guard: {} };
+	clearInterval(timingTick);
+	timingTick = setInterval(renderTiming, 250);
+	renderTiming();
+}
+
+function timingStop() {
+	clearInterval(timingTick);
+	timingTick = 0;
+	if (timing && !timing.total) timing.total = serverNow();
+	renderTiming();
+}
+
+function timingNode(d) {
+	if (!timing || d.at_ms == null) return;
+	const n = (timing.nodes[d.node] ||= {});
+	if (d.kind === "started") n.start = d.at_ms;
+	else { n.end = d.at_ms; n.kind = d.kind; }
+	if (d.node === "line" && d.kind === "done") timing.onScreen = d.at_ms;
+}
+
+function timingStep(s) {
+	if (!timing) return;
+	const n = (timing.nodes[s.role] ||= {});
+	if (s.start_ms != null && n.start == null) n.start = s.start_ms;
+	if (s.first_token_ms) n.first = s.first_token_ms;
+	n.out = s.output_tokens || 0;
+	n.reasoning = s.reasoning_tokens || 0;
+	n.model = agentModes[s.agent]?.model;
+}
+
+// why explains a slow agent from what the numbers show.
+function whyOf(id, n) {
+	const out = [];
+	if (n.reasoning && n.out) {
+		const pct = Math.round((100 * n.reasoning) / n.out);
+		if (pct >= 30) out.push(`${pct}% of its ${n.out} output tokens were hidden reasoning, thinking nobody reads, which ${n.model ? `${n.model}` : "a reasoning model"} spends before it answers`);
+	}
+	if (n.first && n.end != null && n.start != null && n.first > 0.5 * (n.end - n.start)) out.push(`it took ${secs(n.first)} to send its first word`);
+	if (timing.guard[id]) out.push("the scripture guard sent it back once, so it ran twice");
+	if (!out.length && n.out > 400) out.push(`it wrote ${n.out} tokens`);
+	return out;
+}
+
+function renderTiming() {
+	const box = $("#sc-timeline"), sum = $("#sc-time-sum");
+	if (!timing) return;
+	const now = timingTick ? serverNow() : timing.total;
+	const span = Math.max(1, timing.total || now, ...Object.values(timing.nodes).map((n) => n.end || 0));
+	const left = (ms) => `${Math.max(0, Math.min(100, (ms / span) * 100))}%`;
+	const width = (a, b) => `${Math.max(0, ((b - a) / span) * 100)}%`;
+	const mark = timing.onScreen ? el("i", { class: "sc-tl-mark", style: `left:${left(timing.onScreen)}`, title: `captions on screen at ${secs(timing.onScreen)}` }) : null;
+	// The slowest agent that has finished, by wall time.
+	let slow = null, slowMs = 0;
+	for (const [id] of TL_ROWS) {
+		const n = timing.nodes[id];
+		if (id !== "lookup" && n?.start != null && n.end != null && n.end - n.start > slowMs) { slow = id; slowMs = n.end - n.start; }
+	}
+	const rows = [];
+	if (timing.waited > 300) rows.push(el("div", { class: "sc-tl-row" }, el("span", { class: "n", title: "queued behind the previous line's judge" }, "queued"),
+		el("div", { class: "sc-tl-track" }, el("i", { class: "sc-tl-bar wait", style: `left:0;width:${width(0, timing.waited)}` }), mark),
+		el("span", { class: "t" }, secs(timing.waited))));
+	for (const [id, name] of TL_ROWS) {
+		const n = timing.nodes[id];
+		if (!n || n.start == null) continue;
+		const end = n.end ?? now;
+		const bars = [];
+		// The lighter part is time before any answer: until the first token
+		// when the node streams, else the reasoning tokens' share of its run.
+		const think = n.first ? n.first : n.reasoning && n.out && n.end != null ? ((end - n.start) * n.reasoning) / n.out : 0;
+		const cls = `sc-tl-bar${id === "lookup" ? " func" : ""}${n.end == null ? " running" : ""}${n.kind === "failed" ? " failed" : ""}`;
+		bars.push(el("i", { class: cls, style: `left:${left(n.start)};width:${width(n.start, end)}` }));
+		if (think > 0) bars.push(el("i", { class: "sc-tl-bar think", style: `left:${left(n.start)};width:${width(0, think)}` }));
+		rows.push(el("div", { class: `sc-tl-row${id === slow && !timingTick ? " slow" : ""}` },
+			el("span", { class: "n" }, name),
+			el("div", { class: "sc-tl-track", title: `${name}: started at ${secs(n.start)}, ${n.end == null ? "running" : `took ${secs(end - n.start)}`}${n.reasoning ? `, ${n.reasoning} reasoning tokens` : ""}` }, bars, mark),
+			el("span", { class: "t" }, n.end == null ? "…" : secs(end - n.start))));
+	}
+	if (rows.length) rows.push(el("div", { class: "sc-tl-legend" },
+		el("span", {}, el("i"), "working"), el("span", {}, el("i", { class: "think" }), "before the first word / thinking"),
+		el("span", {}, el("i", { class: "mark" }), "on screen"), timing.waited > 300 ? el("span", {}, el("i", { class: "wait" }), "queued") : null));
+	fill(box, rows);
+	$("#sc-total").textContent = timingTick ? secs(now) : timing.total ? `${secs(timing.total)} total` : "";
+	if (timingTick) {
+		sum.textContent = timing.onScreen ? `On screen at ${secs(timing.onScreen)}. The judge is still scoring…` : "Agents working…";
+		return;
+	}
+	const parts = [];
+	if (timing.onScreen) parts.push(["Captions reached the screen at ", el("b", {}, secs(timing.onScreen)), "."]);
+	else parts.push(["This line never reached the screen."]);
+	if (timing.waited > 300) parts.push([" It queued ", el("b", {}, secs(timing.waited)), " of that behind the previous line's judge."]);
+	const cap = timing.nodes.caption;
+	if (cap?.end != null && timing.onScreen) {
+		const tr = ["yo", "ig", "pcm"].map((c) => timing.nodes[c]).filter((n) => n?.end != null);
+		const slowest = tr.length ? Math.max(...tr.map((n) => n.end - n.start)) : 0;
+		parts.push([` The English caption took ${secs(cap.end - cap.start)}, then the translators ran side by side; the slowest took ${secs(slowest)}.`]);
+	}
+	if (slow) {
+		const why = whyOf(slow, timing.nodes[slow]);
+		const name = TL_ROWS.find(([id]) => id === slow)[1];
+		parts.push([" Slowest agent: ", el("b", {}, `${name}, ${secs(slowMs)}`), why.length ? ` — ${why.join("; ")}.` : "."]);
+	}
+	fill(sum, parts.flat());
 }
 
 // ---------------------------------------------------------------------------
@@ -329,17 +457,19 @@ async function caption(text) {
 	let shown;
 	const ctl = new AbortController();
 	inflight.add(ctl);
+	timingStart();
 	const onScreen = new Promise((r) => (shown = r));
 	const run = stream(`${C}/${svc.id}/line`, {
 		body: lineBody(text), headers: headers(), signal: ctl.signal,
 		onEvent: (ev, d) => {
 			if (ev === "session") {
 				dry = d.dry_run;
+				if (timing) { timing.waited = d.waited_ms || 0; timing.offset = performance.now() - (d.at_ms || 0); }
 				agentModes = Object.fromEntries(Object.entries(d.agents || {}).map(([a, v]) => [a, { mode: v.mode, model: v.model }]));
 				$("#sc-status").textContent = d.dry_run ? "Dry run: no model is called." : mode === "per" ? "Running each agent on its own model." : `Running on ${d.model}.`;
 				drawGraph();
 			}
-			if (ev === "node") { nodeState[d.node] = d.kind; drawGraph(); }
+			if (ev === "node") { nodeState[d.node] = d.kind; timingNode(d); drawGraph(); }
 			if (ev === "scripture") {
 				live && (live.refs = d);
 				agentCard("detect", "Detector", "in parallel with the caption", d.length
@@ -349,12 +479,14 @@ async function caption(text) {
 			if (ev === "chunk" && live) live.en += d.text;
 			if (ev === "caption" && live) live.captions[d.lang] = d.text;
 			if (ev === "step") {
+				timingStep(d);
 				addStep(d);
 				if (!d.error) { usd += d.usd; priced = priced && d.priced; }
 				$("#sc-cost").textContent = dry ? "dry run" : priced ? fmtUSD(usd) : "cost —";
 			}
 			if (ev === "line") {
 				lineN = d.n;
+				if (timing) timing.guard = d.guard || {};
 				svc.lines = [...(svc.lines || []), d];
 				live = null;
 				const g = Object.entries(d.guard || {});
@@ -373,6 +505,7 @@ async function caption(text) {
 						d.judge?.[x.code]?.note ? el("span", { class: "dim" }, ` · ${d.judge[x.code].note}`) : null))));
 				renderHistory();
 			}
+			if (ev === "done" && timing) timing.total = d.total_ms;
 			if (ev === "error") throw new Error(d.message);
 			if (["chunk", "caption", "scripture"].includes(ev)) renderSpeaker();
 		},
@@ -386,6 +519,7 @@ async function caption(text) {
 		shown(false);
 	}).finally(() => {
 		inflight.delete(ctl);
+		timingStop();
 		agentModes = {};
 		if (busy) setBusy(false);
 		shown(false);

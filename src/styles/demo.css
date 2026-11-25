@@ -242,6 +242,30 @@
 .demo .step-top .c { margin-left: auto; color: var(--fg-mid); }
 .demo .steps details { margin-top: 6px; }
 
+/* Captions: where the time went */
+.demo .sc-time-sum { font-size: .84rem; }
+.demo .sc-time-sum b { color: var(--fg); font-weight: 500; }
+.demo .sc-timeline { display: grid; gap: 5px; font-family: var(--font-mono); font-size: .66rem; }
+.demo .sc-timeline:empty { display: none; }
+.demo .sc-tl-row { display: grid; grid-template-columns: 5.2rem minmax(0, 1fr) 3.4rem; gap: 8px; align-items: center; }
+.demo .sc-tl-row .n { color: var(--fg-mid); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.demo .sc-tl-row .t { text-align: right; color: var(--fg-dim); }
+.demo .sc-tl-row.slow .n, .demo .sc-tl-row.slow .t { color: var(--red-bright); }
+.demo .sc-tl-track { position: relative; height: 12px; background: var(--bg-sunken); border: 1px solid var(--line); }
+.demo .sc-tl-bar { position: absolute; top: 0; bottom: 0; min-width: 2px; background: var(--fg-dim); }
+.demo .sc-tl-bar.func { background: var(--line-strong); }
+.demo .sc-tl-bar.wait { background: repeating-linear-gradient(45deg, var(--line-strong) 0 4px, transparent 4px 8px); }
+.demo .sc-tl-bar.think { background: color-mix(in srgb, var(--fg-dim) 45%, transparent); }
+.demo .sc-tl-row.slow .sc-tl-bar:not(.think) { background: var(--red); }
+.demo .sc-tl-bar.running { animation: demo-pulse 1.2s ease-in-out infinite; }
+.demo .sc-tl-bar.failed { background: var(--red-wash); outline: 1px solid var(--red); }
+.demo .sc-tl-mark { position: absolute; top: -3px; bottom: -3px; width: 0; border-left: 1.5px dashed var(--ok); }
+.demo .sc-tl-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--fg-dim); margin-top: 2px; }
+.demo .sc-tl-legend i { display: inline-block; width: 10px; height: 8px; margin-right: 4px; vertical-align: middle; background: var(--fg-dim); }
+.demo .sc-tl-legend i.think { background: color-mix(in srgb, var(--fg-dim) 45%, transparent); }
+.demo .sc-tl-legend i.wait { background: repeating-linear-gradient(45deg, var(--line-strong) 0 3px, transparent 3px 6px); }
+.demo .sc-tl-legend i.mark { width: 0; border-left: 1.5px dashed var(--ok); background: none; }
+
 /* =========================== Forecast Desk =========================== */
 .demo .fd-disclaimer { margin-top: 10px; font-size: .8rem; font-family: var(--font-mono); }
 .demo .fd-teams { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; align-items: center; }

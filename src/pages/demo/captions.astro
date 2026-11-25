@@ -103,6 +103,13 @@ import "@styles/demo.css";
 						</div>
 					</div>
 					<div class="panel">
+						<div class="panel-hd"><span class="label">Where the time went</span><span class="spacer"></span><span class="chip" id="sc-total"></span></div>
+						<div class="panel-bd stack">
+							<p class="mid sc-time-sum" id="sc-time-sum">Caption a line to see how long each agent took, what it waited on, and why the slowest one was slow.</p>
+							<div class="sc-timeline" id="sc-timeline" role="img" aria-label="Timeline of the agents for this line"></div>
+						</div>
+					</div>
+					<div class="panel">
 						<div class="panel-hd"><span class="label">This line, step by step</span><span class="spacer"></span><span class="chip" id="sc-cost"></span></div>
 						<div class="panel-bd"><ol class="list-plain steps" id="sc-steps"><li class="dim">Agent steps appear here as they finish.</li></ol></div>
 					</div>
