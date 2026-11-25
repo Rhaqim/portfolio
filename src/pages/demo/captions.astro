@@ -14,11 +14,12 @@ import "@styles/demo.css";
 			<p class="eyebrow"><b>Noewright</b> · Go · live demo</p>
 			<h1>Sermon captions in Yorùbá, Igbo and Pidgin.</h1>
 			<p class="lede" id="sc-lede">
-				Speak or paste a line of a sermon. A <b>detector</b> finds any Bible passage in it, and Go looks the passage up in
-				real Bibles. Then one Noewright turn streams a clean <b>English caption</b> while three <b>translators</b> write
-				Yorùbá, Igbo and Nigerian Pidgin captions in parallel. When the preacher reads a verse aloud, a <b>scripture
+				Speak or paste a line of a sermon. Each line runs as one Noewright graph: a clean <b>English caption</b> starts
+				streaming at once while a <b>detector</b> finds any Bible passage and Go looks it up in real Bibles. Then three
+				<b>translators</b> write Yorùbá, Igbo and Nigerian Pidgin captions in parallel. Run every agent on one model, or
+				give each agent its own. When the preacher reads a verse aloud, a <b>scripture
 				guard</b> (a Noewright hook) makes each caption quote that language's Bible word for word, and sends back any
-				that doesn't. A <b>judge</b> scores every caption. Anyone with the follow link watches the captions arrive on
+				that doesn't. A <b>judge</b> scores every caption once it is on screen. Anyone with the follow link watches the captions arrive on
 				their phone.
 			</p>
 			<p class="dim sc-disclaimer">
@@ -29,14 +30,27 @@ import "@styles/demo.css";
 		</section>
 
 		<section class="wrap demo-body stack" id="sc-speaker">
-			<div class="panel">
-				<div class="panel-hd"><span class="label">Model &amp; key</span><span class="spacer"></span><span class="chip" id="mode-chip">Dry run</span></div>
-				<div class="panel-bd key-grid">
-					<label class="field"><span>Model</span><select class="select" id="model"></select></label>
-					<label class="field"><span>API key</span><input class="input mono" id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Optional" /></label>
-					<label class="check"><input type="checkbox" id="remember" /> Keep for this tab</label>
-					<span></span>
-					<p class="dim key-note" id="key-note">Your key goes with each request, is used for that line only and is never stored. A line is six model calls (detect, caption, three translators, judge), plus a retry when the guard sends one back. With no key, the same orchestration runs with canned output.</p>
+			<div class="panel" id="sc-wiring">
+				<div class="panel-hd"><span class="label">The agents, and how Noewright wires them</span><span class="spacer"></span><span class="chip" id="mode-chip">Dry run</span></div>
+				<div class="panel-bd sc-wiring">
+					<div class="sc-graph" id="sc-graph"></div>
+					<div class="stack sc-models">
+						<div class="tabs" role="tablist" id="sc-model-mode">
+							<button class="tab" type="button" role="tab" aria-selected="true" data-mode="one">One model for all</button>
+							<button class="tab" type="button" role="tab" aria-selected="false" data-mode="per">A model per agent</button>
+						</div>
+						<div class="stack" id="sc-one">
+							<label class="field"><span>Model</span><select class="select" id="model"></select></label>
+							<label class="field"><span>API key</span><input class="input mono" id="key" type="password" autocomplete="off" spellcheck="false" placeholder="Optional" /></label>
+						</div>
+						<div class="stack" id="sc-per" hidden>
+							<div class="sc-agent-models" id="sc-agent-models"></div>
+							<label class="field"><span>Anthropic key</span><input class="input mono" id="key-anthropic" type="password" autocomplete="off" spellcheck="false" placeholder="For agents on Claude" /></label>
+							<label class="field"><span>OpenAI key</span><input class="input mono" id="key-openai" type="password" autocomplete="off" spellcheck="false" placeholder="For agents on GPT" /></label>
+						</div>
+						<label class="check"><input type="checkbox" id="remember" /> Keep for this tab</label>
+						<p class="dim key-note" id="key-note">Your keys go with each request, are used for that line only and are never stored. An agent with no key for its provider runs on canned output, so you can mix real and simulated agents.</p>
+					</div>
 				</div>
 			</div>
 

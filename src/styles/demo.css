@@ -316,3 +316,23 @@
 .demo .sc-feed-line { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
 .demo .sc-bibles li + li { margin-top: 6px; }
 .demo .sc-bibles li { font-size: .88rem; }
+
+/* ---------- Captions: the agent graph ---------- */
+.demo .sc-wiring { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .demo .sc-wiring { grid-template-columns: minmax(0, 1fr); } }
+.demo .sc-graph { overflow-x: auto; background: var(--bg-sunken); border: 1px solid var(--line); }
+.demo .sc-graph svg { display: block; width: 100%; min-width: 460px; height: auto; }
+.demo .sc-graph .edge { fill: none; stroke: var(--line-strong); stroke-width: 1.4; }
+.demo .sc-graph .node rect { fill: var(--bg-raised); stroke: var(--line-strong); stroke-width: 1.2; transition: stroke .2s, fill .2s; }
+.demo .sc-graph .node.func rect { fill: var(--bg-sunken); stroke-dasharray: 4 3; }
+.demo .sc-graph .node.agent { cursor: pointer; }
+.demo .sc-graph .node text { font-family: var(--font-mono); fill: var(--fg); font-size: 12px; }
+.demo .sc-graph .node text.sub { fill: var(--fg-dim); font-size: 10.5px; }
+.demo .sc-graph .node.started rect { stroke: var(--red-bright); fill: var(--red-wash); }
+.demo .sc-graph .node.done rect { stroke: var(--fg-mid); }
+.demo .sc-graph .node.failed rect { stroke: var(--red-bright); }
+.demo .sc-graph .node.failed text { fill: var(--red-bright); }
+.demo .sc-graph .node.skipped { opacity: .45; }
+.demo .sc-graph .node.focus rect { stroke: var(--fg); stroke-width: 2; }
+.demo .sc-agent-models { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 12px; align-items: center; }
+.demo .sc-agent-models label { font-family: var(--font-mono); font-size: .72rem; color: var(--fg-dim); }

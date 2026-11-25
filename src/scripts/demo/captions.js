@@ -74,33 +74,157 @@ function bootFollower() {
 		speaking: () => { current = { en: "", captions: {}, refs: [] }; render(); },
 		chunk: (d) => { if (current) { current.en += d.text; if (lang === "en") render(); } },
 		line: (l) => { current = null; lines.push(l); render(); },
+		judge: (d) => { const l = lines.find((x) => x.n === d.n); if (l) l.judge = d.judge; },
 	});
 }
 
 // ---------------------------------------------------------------------------
-// Speaker: model & key (shared with the other Noewright pages)
+// Speaker: the agent graph, models and keys
 // ---------------------------------------------------------------------------
+//
+// The page draws the graph the server runs (config.graph, from the same Go
+// builder) and lets the speaker run every agent on one model and key, or pick
+// a model per agent with a key per provider. Keys go with each request only.
 
 const keyInput = $("#key"), modelSelect = $("#model"), remember = $("#remember");
-try {
-	const saved = sessionStorage.getItem("loom-key");
+const providerKeys = { anthropic: $("#key-anthropic"), openai: $("#key-openai") };
+let mode = "one"; // "one" | "per"
+let agentModels = {}; // agent slug → "provider/model"
+let models = []; // from /api/loom/config
+let nodeState = {}; // graph node id → started | done | failed | skipped
+let agentModes = {}; // agent slug → { mode, model } from the last run
+
+const SS = (k, v) => { try { v === undefined ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, v); } catch {} };
+const GS = (k) => { try { return sessionStorage.getItem(k); } catch { return null; } };
+
+function restoreKeys() {
+	const saved = GS("loom-key");
 	if (saved) { keyInput.value = saved; remember.checked = true; }
-} catch {}
-const persist = () => {
-	try {
-		if (remember.checked && keyInput.value) sessionStorage.setItem("loom-key", keyInput.value);
-		else sessionStorage.removeItem("loom-key");
-		sessionStorage.setItem("loom-model", modelSelect.value);
-	} catch {}
+	for (const [p, input] of Object.entries(providerKeys)) {
+		const v = GS(`loom-key-${p}`);
+		if (v) { input.value = v; remember.checked = true; }
+	}
+	mode = GS("sc-mode") === "per" ? "per" : "one";
+	try { agentModels = JSON.parse(GS("sc-agent-models") || "{}"); } catch { agentModels = {}; }
+}
+
+const graphAgents = () => (cfg?.graph?.nodes || []).filter((n) => n.agent);
+const modelLabel = (id) => models.find((m) => `${m.provider}/${m.id}` === id)?.label || id;
+const providerOf = (id) => (id || "").split("/")[0];
+
+function persist() {
+	const keep = remember.checked;
+	SS("loom-key", keep && keyInput.value ? keyInput.value : undefined);
+	for (const [p, input] of Object.entries(providerKeys)) SS(`loom-key-${p}`, keep && input.value ? input.value : undefined);
+	SS("loom-model", modelSelect.value);
+	SS("sc-mode", mode);
+	SS("sc-agent-models", JSON.stringify(agentModels));
 	const chip = $("#mode-chip");
-	const own = keyInput.value.trim();
-	chip.textContent = own ? modelSelect.selectedOptions[0]?.textContent.split(" ·")[0] || "Live" : cfg?.house ? `Demo key · ${cfg.house_model}` : "Dry run";
-	chip.className = own || cfg?.house ? "chip chip-red" : "chip";
-};
-keyInput.addEventListener("input", persist);
+	const live = mode === "one" ? !!keyInput.value.trim() : graphAgents().some((a) => providerKeys[providerOf(agentModels[a.agent])]?.value.trim());
+	chip.textContent = live ? (mode === "one" ? modelSelect.selectedOptions[0]?.textContent.split(" ·")[0] || "Live" : "Your keys") : cfg?.house ? `Demo key · ${cfg.house_model}` : "Dry run";
+	chip.className = live || cfg?.house ? "chip chip-red" : "chip";
+	drawGraph();
+}
+
+// assignment says what each agent will run on, for the diagram.
+function assignment(agent) {
+	if (busy && agentModes[agent]) return agentModes[agent].model;
+	if (mode === "one") {
+		if (keyInput.value.trim()) return modelLabel(modelSelect.value);
+		return cfg?.house ? `${cfg.house_model} · demo key` : "dry run";
+	}
+	const m = agentModels[agent] || modelSelect.value;
+	return providerKeys[providerOf(m)]?.value.trim() ? modelLabel(m) : `${modelLabel(m)} · dry run`;
+}
+
+function setMode(m) {
+	mode = m;
+	for (const t of document.querySelectorAll("#sc-model-mode .tab")) t.setAttribute("aria-selected", String(t.dataset.mode === m));
+	$("#sc-one").hidden = m !== "one";
+	$("#sc-per").hidden = m !== "per";
+	persist();
+}
+
+function renderAgentModels() {
+	fill($("#sc-agent-models"), graphAgents().map((a) => {
+		const sel = el("select", { class: "select", id: `model-${a.agent}`, onchange: (e) => { agentModels[a.agent] = e.target.value; persist(); } },
+			[...modelSelect.cloneNode(true).children]);
+		sel.value = agentModels[a.agent] || modelSelect.value;
+		agentModels[a.agent] = sel.value;
+		return [el("label", { for: `model-${a.agent}` }, a.label), sel];
+	}));
+}
+
+const SVGNS = "http://www.w3.org/2000/svg";
+function svg(tag, attrs = {}, ...kids) {
+	const n = document.createElementNS(SVGNS, tag);
+	for (const [k, v] of Object.entries(attrs)) if (v != null) n.setAttribute(k, v);
+	for (const c of kids.flat()) if (c != null) n.append(c instanceof Node ? c : document.createTextNode(String(c)));
+	return n;
+}
+
+// drawGraph lays the graph out top-down by depth (longest path from the
+// start) and marks each node with what it runs on and how far it has got.
+function drawGraph() {
+	const g = cfg?.graph;
+	if (!g) return;
+	const depth = {};
+	for (const n of g.nodes) depth[n.id] = 0;
+	for (let i = 0; i < g.nodes.length; i++) for (const [a, b] of g.edges) depth[b] = Math.max(depth[b], depth[a] + 1);
+	const rows = {};
+	for (const n of g.nodes) (rows[depth[n.id]] ??= []).push(n);
+	const W = 620, BW = 168, BH = 44, RH = 74, top = 16;
+	const pos = {};
+	for (const [d, list] of Object.entries(rows)) {
+		const gap = Math.min(BW + 22, (W - 20) / list.length);
+		const x0 = W / 2 - (gap * (list.length - 1)) / 2;
+		list.forEach((n, i) => (pos[n.id] = { x: x0 + i * gap, y: top + +d * RH }));
+	}
+	const H = top + Object.keys(rows).length * RH;
+	const edges = g.edges.map(([a, b]) => {
+		const p = pos[a], q = pos[b];
+		const y1 = p.y + BH, y2 = q.y, my = (y1 + y2) / 2;
+		return svg("path", { class: "edge", d: `M${p.x} ${y1} C${p.x} ${my} ${q.x} ${my} ${q.x} ${y2 - 4}`, "marker-end": "url(#sc-arrow)" });
+	});
+	const nodes = g.nodes.map((n) => {
+		const p = pos[n.id];
+		const sub = n.agent ? assignment(n.agent) : n.kind === "func" ? "Go function" : "";
+		const cls = `node ${n.agent ? "agent" : "func"} ${nodeState[n.id] || ""}`;
+		const grp = svg("g", { class: cls, transform: `translate(${p.x - BW / 2} ${p.y})`, tabindex: n.agent ? "0" : null, role: n.agent ? "button" : null,
+			"aria-label": n.agent ? `${n.label}: ${sub}. Choose its model.` : null },
+			svg("title", {}, n.agent ? `${n.agent} · ${sub}` : n.label),
+			svg("rect", { width: BW, height: BH, rx: 2 }),
+			svg("text", { x: 10, y: 18 }, n.label),
+			svg("text", { x: 10, y: 34, class: "sub" }, sub.length > 26 ? sub.slice(0, 25) + "…" : sub));
+		if (n.agent) {
+			const pick = () => { setMode("per"); const s = $(`#model-${n.agent}`); s?.focus(); };
+			grp.addEventListener("click", pick);
+			grp.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+		}
+		return grp;
+	});
+	fill($("#sc-graph"), svg("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "How one caption line runs: the English caption and the detector start together, the Bible lookup follows the detector, the three translators start once both are done, the line goes on screen, then the judge scores it." },
+		svg("defs", {}, svg("marker", { id: "sc-arrow", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: "auto" },
+			svg("path", { d: "M0 0L10 5L0 10z", fill: "var(--fg-dim)" }))),
+		edges, nodes));
+}
+
+for (const input of [keyInput, ...Object.values(providerKeys)]) input.addEventListener("input", persist);
 remember.addEventListener("change", persist);
 modelSelect.addEventListener("change", persist);
-const headers = () => (keyInput.value.trim() ? { "X-LLM-Key": keyInput.value.trim(), "X-LLM-Model": modelSelect.value } : {});
+for (const t of document.querySelectorAll("#sc-model-mode .tab")) t.addEventListener("click", () => setMode(t.dataset.mode));
+
+function headers() {
+	if (mode === "one") return keyInput.value.trim() ? { "X-LLM-Key": keyInput.value.trim(), "X-LLM-Model": modelSelect.value } : {};
+	const h = {};
+	if (providerKeys.anthropic.value.trim()) h["X-LLM-Key-Anthropic"] = providerKeys.anthropic.value.trim();
+	if (providerKeys.openai.value.trim()) h["X-LLM-Key-OpenAI"] = providerKeys.openai.value.trim();
+	return h;
+}
+
+function lineBody(text) {
+	return mode === "per" ? { text, models: { ...agentModels } } : { text };
+}
 
 // ---------------------------------------------------------------------------
 // Speaker: rendering
@@ -164,8 +288,8 @@ function agentCard(key, title, role, body) {
 }
 
 function addStep(s) {
-	const roles = { detect: "before the turn", lead: "lead · streams" };
-	const role = roles[s.role] || (s.agent === "sc-judge" ? "layer 2 · reads all three" : "layer 1 · parallel");
+	const roles = { detect: "in parallel with the caption", caption: "streams at once", judge: "after the line is on screen" };
+	const role = roles[s.role] || "after caption + lookup";
 	$("#sc-steps").append(el("li", {},
 		el("div", { class: "step-top" }, el("b", {}, s.agent.replace(/^sc-/, "")), el("span", { class: "r" }, role),
 			el("span", { class: "c" }, s.error ? "failed" : `${s.input_tokens}→${s.output_tokens} tok · ${s.priced ? fmtUSD(s.usd) : "—"}`)),
@@ -189,56 +313,75 @@ async function caption(text) {
 	text = text.trim();
 	if (busy || !svc || !text) return false;
 	live = { spoken: text, en: "", captions: {}, refs: [] };
+	nodeState = {};
 	setBusy(true);
 	fill($("#sc-error"));
 	fill($("#sc-agents"));
 	fill($("#sc-steps"));
 	$("#sc-status").textContent = "";
-	let usd = 0, priced = true, dry = false, ok = false;
-	try {
-		await stream(`${C}/${svc.id}/line`, {
-			body: { text }, headers: headers(),
-			onEvent: (ev, d) => {
-				if (ev === "session") {
-					dry = d.dry_run;
-					$("#sc-status").textContent = d.dry_run ? "Dry run: no model is called." : `Running on ${d.model}.`;
-				}
-				if (ev === "scripture") {
-					live.refs = d;
-					agentCard("detect", "Detector", "before the turn", d.length
-						? el("div", {}, d.map((r) => el("p", {}, el("b", {}, r.label), ` · ${MODE[r.mode] || r.mode}`)))
-						: el("p", { class: "dim" }, "No scripture in this line."));
-				}
-				if (ev === "chunk") live.en += d.text;
-				if (ev === "caption") live.captions[d.lang] = d.text;
-				if (ev === "step") {
-					addStep(d);
-					if (!d.error) { usd += d.usd; priced = priced && d.priced; }
-				}
-				if (ev === "line") {
-					svc.lines = [...(svc.lines || []), d];
-					live = null;
-					const g = Object.entries(d.guard || {});
-					agentCard("guard", "Scripture guard", "hook on each translator", g.length
-						? el("div", {}, g.map(([code, v]) => el("p", {}, el("b", {}, nameOf(code)), v === "flagged" ? ": still off after a retry, flagged." : ": sent back once; the retry quoted the Bible.")))
-						: el("p", { class: "dim" }, (d.refs || []).some((r) => r.mode === "quoted") ? "Every caption quoted the Bible text first time." : "No passage read aloud, nothing to enforce."));
-					if (!d.dry_run) agentCard("judge", "Judge", "layer 2", el("div", {},
-						LANGS.slice(1).map((x) => el("p", {}, el("b", {}, x.name), `: ${d.judge?.[x.code]?.score || "—"}/5`,
-							d.judge?.[x.code]?.note ? el("span", { class: "dim" }, ` · ${d.judge[x.code].note}`) : null))));
-					ok = true;
-				}
-				if (ev === "error") throw new Error(d.message);
-				if (["chunk", "caption", "scripture"].includes(ev)) renderSpeaker();
-			},
-		});
-		$("#sc-cost").textContent = dry ? "dry run" : priced ? fmtUSD(usd) : "cost —";
-	} catch (e) {
+	let usd = 0, priced = true, dry = false, lineN = 0;
+	// The line resolves this promise as soon as it is on screen; the stream
+	// carries on in the background for the judge's scores.
+	let shown;
+	const onScreen = new Promise((r) => (shown = r));
+	const run = stream(`${C}/${svc.id}/line`, {
+		body: lineBody(text), headers: headers(),
+		onEvent: (ev, d) => {
+			if (ev === "session") {
+				dry = d.dry_run;
+				agentModes = Object.fromEntries(Object.entries(d.agents || {}).map(([a, v]) => [a, { mode: v.mode, model: v.model }]));
+				$("#sc-status").textContent = d.dry_run ? "Dry run: no model is called." : mode === "per" ? "Running each agent on its own model." : `Running on ${d.model}.`;
+				drawGraph();
+			}
+			if (ev === "node") { nodeState[d.node] = d.kind; drawGraph(); }
+			if (ev === "scripture") {
+				live && (live.refs = d);
+				agentCard("detect", "Detector", "in parallel with the caption", d.length
+					? el("div", {}, d.map((r) => el("p", {}, el("b", {}, r.label), ` · ${MODE[r.mode] || r.mode}`)))
+					: el("p", { class: "dim" }, "No scripture in this line."));
+			}
+			if (ev === "chunk" && live) live.en += d.text;
+			if (ev === "caption" && live) live.captions[d.lang] = d.text;
+			if (ev === "step") {
+				addStep(d);
+				if (!d.error) { usd += d.usd; priced = priced && d.priced; }
+				$("#sc-cost").textContent = dry ? "dry run" : priced ? fmtUSD(usd) : "cost —";
+			}
+			if (ev === "line") {
+				lineN = d.n;
+				svc.lines = [...(svc.lines || []), d];
+				live = null;
+				const g = Object.entries(d.guard || {});
+				agentCard("guard", "Scripture guard", "hook on each translator", g.length
+					? el("div", {}, g.map(([code, v]) => el("p", {}, el("b", {}, nameOf(code)), v === "flagged" ? ": still off after a retry, flagged." : ": sent back once; the retry quoted the Bible.")))
+					: el("p", { class: "dim" }, (d.refs || []).some((r) => r.mode === "quoted") ? "Every caption quoted the Bible text first time." : "No passage read aloud, nothing to enforce."));
+				if (!d.dry_run) agentCard("judge", "Judge", "after the line is on screen", el("p", { class: "dim" }, "Scoring…"));
+				setBusy(false);
+				shown(true);
+			}
+			if (ev === "judge") {
+				const line = (svc.lines || []).find((l) => l.n === d.n);
+				if (line) line.judge = d.judge;
+				if (!dry) agentCard("judge", "Judge", "after the line is on screen", el("div", {},
+					LANGS.slice(1).map((x) => el("p", {}, el("b", {}, x.name), `: ${d.judge?.[x.code]?.score || "—"}/5`,
+						d.judge?.[x.code]?.note ? el("span", { class: "dim" }, ` · ${d.judge[x.code].note}`) : null))));
+				renderHistory();
+			}
+			if (ev === "error") throw new Error(d.message);
+			if (["chunk", "caption", "scripture"].includes(ev)) renderSpeaker();
+		},
+	});
+	run.catch((e) => {
 		live = null;
 		fill($("#sc-error"), el("div", { class: "notice notice-err" }, e.message));
-	} finally {
-		setBusy(false);
-	}
-	return ok;
+		shown(false);
+	}).finally(() => {
+		agentModes = {};
+		if (busy) setBusy(false);
+		shown(false);
+		if (lineN) drawGraph();
+	});
+	return onScreen;
 }
 
 async function nextSample() {
@@ -297,14 +440,18 @@ async function boot() {
 		fill(modelSelect, ["anthropic", "openai"].map((p) => el("optgroup", { label: p === "anthropic" ? "Anthropic" : "OpenAI" },
 			loom.models.filter((m) => m.provider === p).map((m) =>
 				el("option", { value: `${m.provider}/${m.id}` }, m.input_per_1m ? `${m.label} · $${m.input_per_1m}/$${m.output_per_1m} per 1M` : m.label)))));
+		models = loom.models;
 		try {
 			const saved = sessionStorage.getItem("loom-model");
 			if (saved) modelSelect.value = saved;
 		} catch {}
 	} catch {}
+	restoreKeys();
+	renderAgentModels();
+	setMode(mode);
 	if (cfg?.house) {
 		keyInput.placeholder = "Optional: the demo's key runs your first lines";
-		$("#key-note").textContent = `No key needed: your first ${cfg.house_per_visitor} lines a day run on the demo's key (${cfg.house_model}). Bring your own key for more; it goes with each request, is used for that line only and is never stored. A line is six model calls, plus a retry when the guard sends one back.`;
+		$("#key-note").textContent = `No key needed: your first ${cfg.house_per_visitor} lines a day run on the demo's key (${cfg.house_model}). Bring your own keys for more, on one model or a model per agent; they go with each request, are used for that line only and are never stored. A line is six model calls, plus a retry when the guard sends one back; the caption and the detector run together, and the judge scores after the line is on screen.`;
 	}
 	persist();
 	langTabs($("#sc-langs"), renderSpeaker);
