@@ -325,31 +325,35 @@ let timingTick = 0;
 const secs = (ms) => (ms >= 10000 ? `${Math.round(ms / 1000)}s` : `${(ms / 1000).toFixed(1)}s`);
 const serverNow = () => (timing ? performance.now() - timing.offset : 0);
 
+// Each line has its own timing; the panel shows the newest. A line's judge
+// can still be scoring when the next line starts, and its events update its
+// own line's timing only.
 function timingStart() {
 	timing = { waited: 0, offset: performance.now(), nodes: {}, onScreen: 0, total: 0, guard: {} };
 	clearInterval(timingTick);
 	timingTick = setInterval(renderTiming, 250);
 	renderTiming();
+	return timing;
 }
 
-function timingStop() {
+function timingStop(tm) {
+	if (!tm.total) tm.total = performance.now() - tm.offset;
+	if (tm !== timing) return;
 	clearInterval(timingTick);
 	timingTick = 0;
-	if (timing && !timing.total) timing.total = serverNow();
 	renderTiming();
 }
 
-function timingNode(d) {
-	if (!timing || d.at_ms == null) return;
-	const n = (timing.nodes[d.node] ||= {});
+function timingNode(tm, d) {
+	if (d.at_ms == null) return;
+	const n = (tm.nodes[d.node] ||= {});
 	if (d.kind === "started") n.start = d.at_ms;
 	else { n.end = d.at_ms; n.kind = d.kind; }
-	if (d.node === "line" && d.kind === "done") timing.onScreen = d.at_ms;
+	if (d.node === "line" && d.kind === "done") tm.onScreen = d.at_ms;
 }
 
-function timingStep(s) {
-	if (!timing) return;
-	const n = (timing.nodes[s.role] ||= {});
+function timingStep(tm, s) {
+	const n = (tm.nodes[s.role] ||= {});
 	if (s.start_ms != null && n.start == null) n.start = s.start_ms;
 	if (s.first_token_ms) n.first = s.first_token_ms;
 	n.out = s.output_tokens || 0;
@@ -385,7 +389,7 @@ function renderTiming() {
 		if (id !== "lookup" && n?.start != null && n.end != null && n.end - n.start > slowMs) { slow = id; slowMs = n.end - n.start; }
 	}
 	const rows = [];
-	if (timing.waited > 300) rows.push(el("div", { class: "sc-tl-row" }, el("span", { class: "n", title: "queued behind the previous line's judge" }, "queued"),
+	if (timing.waited > 300) rows.push(el("div", { class: "sc-tl-row" }, el("span", { class: "n", title: "queued behind the previous line" }, "queued"),
 		el("div", { class: "sc-tl-track" }, el("i", { class: "sc-tl-bar wait", style: `left:0;width:${width(0, timing.waited)}` }), mark),
 		el("span", { class: "t" }, secs(timing.waited))));
 	for (const [id, name] of TL_ROWS) {
@@ -416,7 +420,7 @@ function renderTiming() {
 	const parts = [];
 	if (timing.onScreen) parts.push(["Captions reached the screen at ", el("b", {}, secs(timing.onScreen)), "."]);
 	else parts.push(["This line never reached the screen."]);
-	if (timing.waited > 300) parts.push([" It queued ", el("b", {}, secs(timing.waited)), " of that behind the previous line's judge."]);
+	if (timing.waited > 300) parts.push([" It queued ", el("b", {}, secs(timing.waited)), " of that behind the previous line."]);
 	const cap = timing.nodes.caption;
 	if (cap?.end != null && timing.onScreen) {
 		const tr = ["yo", "ig", "pcm"].map((c) => timing.nodes[c]).filter((n) => n?.end != null);
@@ -457,19 +461,20 @@ async function caption(text) {
 	let shown;
 	const ctl = new AbortController();
 	inflight.add(ctl);
-	timingStart();
+	const tm = timingStart();
+	const current = () => tm === timing; // false once a newer line has started
 	const onScreen = new Promise((r) => (shown = r));
 	const run = stream(`${C}/${svc.id}/line`, {
 		body: lineBody(text), headers: headers(), signal: ctl.signal,
 		onEvent: (ev, d) => {
 			if (ev === "session") {
 				dry = d.dry_run;
-				if (timing) { timing.waited = d.waited_ms || 0; timing.offset = performance.now() - (d.at_ms || 0); }
+				tm.waited = d.waited_ms || 0; tm.offset = performance.now() - (d.at_ms || 0);
 				agentModes = Object.fromEntries(Object.entries(d.agents || {}).map(([a, v]) => [a, { mode: v.mode, model: v.model }]));
 				$("#sc-status").textContent = d.dry_run ? "Dry run: no model is called." : mode === "per" ? "Running each agent on its own model." : `Running on ${d.model}.`;
 				drawGraph();
 			}
-			if (ev === "node") { nodeState[d.node] = d.kind; timingNode(d); drawGraph(); }
+			if (ev === "node") { timingNode(tm, d); if (current()) { nodeState[d.node] = d.kind; drawGraph(); } }
 			if (ev === "scripture") {
 				live && (live.refs = d);
 				agentCard("detect", "Detector", "in parallel with the caption", d.length
@@ -479,14 +484,15 @@ async function caption(text) {
 			if (ev === "chunk" && live) live.en += d.text;
 			if (ev === "caption" && live) live.captions[d.lang] = d.text;
 			if (ev === "step") {
-				timingStep(d);
+				timingStep(tm, d);
+				if (!current()) return; // an earlier line's judge
 				addStep(d);
 				if (!d.error) { usd += d.usd; priced = priced && d.priced; }
 				$("#sc-cost").textContent = dry ? "dry run" : priced ? fmtUSD(usd) : "cost —";
 			}
 			if (ev === "line") {
 				lineN = d.n;
-				if (timing) timing.guard = d.guard || {};
+				tm.guard = d.guard || {};
 				svc.lines = [...(svc.lines || []), d];
 				live = null;
 				const g = Object.entries(d.guard || {});
@@ -500,17 +506,19 @@ async function caption(text) {
 			if (ev === "judge") {
 				const line = (svc.lines || []).find((l) => l.n === d.n);
 				if (line) line.judge = d.judge;
-				if (!dry) agentCard("judge", "Judge", "after the line is on screen", el("div", {},
+				if (!dry && current()) agentCard("judge", "Judge", "after the line is on screen", el("div", {},
 					LANGS.slice(1).map((x) => el("p", {}, el("b", {}, x.name), `: ${d.judge?.[x.code]?.score || "—"}/5`,
 						d.judge?.[x.code]?.note ? el("span", { class: "dim" }, ` · ${d.judge[x.code].note}`) : null))));
 				renderHistory();
 			}
-			if (ev === "done" && timing) timing.total = d.total_ms;
+			if (ev === "done") tm.total = d.total_ms;
 			if (ev === "error") throw new Error(d.message);
 			if (["chunk", "caption", "scripture"].includes(ev)) renderSpeaker();
 		},
 	});
 	run.catch((e) => {
+		shown(false);
+		if (!current()) return; // an earlier line's judge; its line is already shown
 		live = null;
 		if (e.name === "AbortError") {
 			$("#sc-status").textContent = lineN ? "Stopped before the judge finished." : "Stopped. That line wasn't captioned.";
@@ -519,10 +527,11 @@ async function caption(text) {
 		shown(false);
 	}).finally(() => {
 		inflight.delete(ctl);
-		timingStop();
+		timingStop(tm);
+		shown(false);
+		if (!current()) return; // a newer line owns the page now
 		agentModes = {};
 		if (busy) setBusy(false);
-		shown(false);
 		drawGraph();
 		renderSpeaker();
 	});
