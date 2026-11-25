@@ -221,6 +221,8 @@ async function enterRoom(code) {
 		step: onStep,
 		step_started: onStepStarted,
 		busy: (d) => setBusy(d.busy),
+		// The suggester finishes after the narration is posted.
+		suggestions: (d) => { if (room.me?.name) showSuggestions(d?.[room.me.name] || []); },
 		error: () => setRoomError("Reconnecting to the table…"),
 		open: () => setRoomError(""),
 	});
