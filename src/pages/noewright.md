@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/Doc.astro
 slug: noewright
-description: "Noewright (formerly loom) is a modality-agnostic Go engine for multi-agent AI applications: versioned agents and prompts, multi-agent turns, shared multiplayer sessions with live event streams, branching and replay, hooks, cost budgets, LLM-as-judge scoring and a YAML-driven test harness."
+description: "Noewright (formerly loom) is a modality-agnostic Go engine for multi-agent AI applications: versioned agents and prompts, multi-agent turns and graphs with branching, Go functions and human waits, portable bundles, shared multiplayer sessions with live event streams, branching and replay, hooks, cost budgets, LLM-as-judge scoring and a YAML-driven test harness."
 ---
 
 Most LLM applications rewrite the same infrastructure: session state, prompt
@@ -222,6 +222,84 @@ session, so a memory-recall hook can inject context the prompt then uses.
 `GeneratorOverride`, `ParamOverride` and `Overrides` allow per-request provider,
 parameter and key/model routing.
 
+## Graphs
+
+`RunGraph` runs a `Graph`: agents, Go functions (`RegisterFunc`) and Evaluator
+decisions joined by edges. Any node can feed one or more nodes, and branches
+join again before a node they all lead to. Edges fire unconditionally, on a
+route value, on an [expr](https://github.com/expr-lang/expr) condition, when a
+decision is uncertain, by default, or on error. Data edges are still inferred
+from `{{.Inputs.X}}`. `RunTurn` runs on the same executor.
+
+```go
+e.RegisterFunc("lookup-account", lookupAccount)
+
+run, err := e.RunGraph(ctx, sess, noewright.GraphRequest{Graph: noewright.Graph{
+    Slug: "support", Entry: "intake",
+    Nodes: []noewright.GraphNode{
+        {ID: "intake", Kind: noewright.NodeAgent, Agent: &noewright.FlowAgent{AgentSlug: "triage", OutputKey: "Ticket"}},
+        {ID: "intent", Kind: noewright.NodeDecide, Decide: &noewright.GraphDecision{
+            Question: noewright.EvalChoice("What does the customer want?", map[string]any{"refund": nil, "bug": nil}),
+            Over:     "Ticket"}},
+        {ID: "account", Kind: noewright.NodeFunc, Func: "lookup-account", OutputKey: "Account"},
+        {ID: "refund", Kind: noewright.NodeAgent, Agent: &noewright.FlowAgent{AgentSlug: "refund-policy"}},
+        {ID: "repro", Kind: noewright.NodeAgent, Agent: &noewright.FlowAgent{AgentSlug: "repro"}},
+        {ID: "clarify", Kind: noewright.NodeAgent, Agent: &noewright.FlowAgent{AgentSlug: "clarify"}},
+    },
+    Edges: []noewright.GraphEdge{
+        {From: "intake", To: []string{"intent", "account"}}, // fan out
+        {From: "intent", Route: "refund", To: []string{"refund"}},
+        {From: "intent", Route: "bug", To: []string{"repro"}},
+        {From: "intent", Uncertain: 0.6, To: []string{"clarify"}}, // not sure: ask
+    },
+}, Action: action})
+```
+
+A failed node ends its own branch unless an `OnError` edge leaves it, it sets
+`Continue`, or it is `Required` (which fails the run). A graph that cannot run
+is refused with `ErrInvalidGraph` before anything runs.
+
+A `NodeWait` pauses the run for a person: the run returns with `run.Waiting`
+and `run.Prompt`, the session keeps a cursor, and the next `RunGraph` call with
+an `Action` resumes there (a fork at that step resumes there too). Loops must
+pass through a wait node. An input the wait doesn't accept returns
+`ErrWaitInput`; a session paused in another graph returns `ErrGraphMismatch`
+until you set `GraphRequest.Restart`.
+
+```go
+{ID: "clarify", Kind: noewright.NodeWait, OutputKey: "Answer", Wait: &noewright.GraphWait{
+    Expect: noewright.ExpectText, Prompt: "Refund or bug report?"}},
+// edges: {From: "intent", Uncertain: 0.6, To: []string{"clarify"}}, {From: "clarify", To: []string{"intent"}}
+```
+
+Graphs can be saved and versioned like flows (`e.Graphs()`, `e.RunGraphBySlug`,
+which resumes on the version a session paused in), and `Graphs().Plan` returns
+the wiring, problems and cost estimates for a visual editor. See
+[`llms.txt`](https://github.com/rhaqim/noewright/blob/main/llms.txt) for the full
+reference.
+
+## Bundles
+
+Export graphs and flows with everything they use into one YAML file, and load
+it into another database. References are `slug@version`, never database ids;
+secrets and code stay behind. Importing the same file twice changes nothing,
+and a record that differs stops the import unless you ask for it to be bumped
+to a new version.
+
+```bash
+noewright export graph:support -o support.yaml
+noewright verify support.yaml                               # no database needed
+noewright import support.yaml --owner tenant-7 --map g=openai-mini --dry-run
+```
+
+In code: `e.Bundles().Export`, `noewright.ParseBundle`, `e.Bundles().Import`
+and `e.Bundles().Verify`. `noewright schema` prints the JSON Schema for editors.
+
+A bundle can also carry tests, scripted runs of its graphs with expectations,
+and the evidence of their last run. `e.Bundles().Test` re-runs them in the
+importing app and reports which outputs changed; `noewright test bundle.yaml`
+runs them offline against the echo generator.
+
 ## Shared sessions
 
 For a session several people share, such as a multiplayer game:
@@ -289,8 +367,13 @@ noewright.New(noewright.Config{ /* ... */
 | `generator/meshy` | `NewModel3DGenerator(key)` | 3D asset, GLB (async, text- or image-to-3D) |
 | `generator/echo` | `New(prefix)` | Text, stub for testing |
 
-The Anthropic adapter maps `Params.Extra["effort"]` to `output_config.effort`,
-can send a response format as native structured outputs
+`Params.Extra["effort"]` sets how hard a model thinks. The Anthropic adapter
+sends it as `output_config.effort`; the OpenAI adapter sends it as
+`reasoning_effort` to reasoning models (gpt-5, o-series), which also get
+`max_completion_tokens` in place of `max_tokens` and no sampling settings, and
+reports their hidden reasoning tokens in `Metadata()["reasoning_tokens"]`.
+
+The Anthropic adapter can also send a response format as native structured outputs
 (`.WithNativeStructuredOutputs()`), defaults `max_tokens` to 16000, and returns
 safety refusals as `*noewright.GenerationError{Kind: GenerationRejected}`.
 
@@ -493,7 +576,8 @@ Also typed: `*noewright.BudgetExceededError`, `*noewright.RetryError` (via `noew
 `noewright.RetryAnnotationFrom`), `noewright.ErrInvalidConfig` from `noewright.New`,
 `noewright.ErrNotParticipant` for an action from a non-member, `noewright.ErrKeyRejected`
 from `VerifyGenerator`, and a `GenerationError` of kind `GenerationRejected` for
-a provider's safety refusal. `noewright.ErrSessionNotPersisted` is the one partial
+a provider's safety refusal. `RunGraph` adds `noewright.ErrInvalidGraph`,
+`noewright.ErrWaitInput` and `noewright.ErrGraphMismatch`. `noewright.ErrSessionNotPersisted` is the one partial
 success: the step committed but the session row is stale, so recover it with
 `Sessions().StateAt`.
 
@@ -502,7 +586,12 @@ success: the step committed but the session row is stale, so recover it with
 ```bash
 noewright migrate         # apply the schema
 noewright seed seed.yaml  # seed agents and prompts
-noewright test plan.yaml  # run a test plan
+noewright test plan.yaml  # run a test plan (or a bundle's tests, offline)
+
+noewright export graph:support -o support.yaml   # bundles
+noewright verify support.yaml
+noewright import support.yaml --dry-run
+noewright schema                                 # the bundle JSON Schema
 ```
 
 Set the DSN via `NOEWRIGHT_DSN` (the older `LOOM_DSN` is still read as a fallback) or `--dsn-file <path>`. `--dsn <string>` works but
@@ -540,7 +629,7 @@ noewright/
 ├── evaluator/          # experimental decision primitive (Noul / Choice / Score)
 ├── gc/                 # background branch GC worker
 ├── harness/            # TestPlan, VariantMatrix, Assertion DSL
-├── cmd/noewright/      # migrate, seed, test
+├── cmd/noewright/      # migrate, seed, test, export, import, verify, schema
 └── examples/           # each has its own go.mod
 ```
 
