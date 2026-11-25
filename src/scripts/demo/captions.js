@@ -21,6 +21,9 @@ let lang = "yo";
 let busy = false;
 let sampleAt = 0;
 let live = null; // the line being captioned: { en, captions, refs }
+// Streams still open: a line's stream outlives its caption while the judge
+// scores it, so the next sample line can overlap the last one's judge.
+const inflight = new Set();
 
 const textOf = (line, code) => (code === "en" ? line.en || line.spoken : line.captions?.[code]) || "";
 
@@ -245,6 +248,7 @@ function renderSpeaker() {
 	$("#sc-next").disabled = busy || sampleAt >= sample.length;
 	$("#sc-play").disabled = !playing && (busy || sampleAt >= sample.length);
 	$("#sc-send").disabled = busy;
+	$("#sc-stop").hidden = !busy && !playing && !inflight.size;
 	const last = live || lines.at(-1);
 	screen($("#sc-screen"), last, !!live);
 	fill($("#sc-verses"), (last?.refs || []).map((r) => verseCard(r, lang)));
@@ -323,9 +327,11 @@ async function caption(text) {
 	// The line resolves this promise as soon as it is on screen; the stream
 	// carries on in the background for the judge's scores.
 	let shown;
+	const ctl = new AbortController();
+	inflight.add(ctl);
 	const onScreen = new Promise((r) => (shown = r));
 	const run = stream(`${C}/${svc.id}/line`, {
-		body: lineBody(text), headers: headers(),
+		body: lineBody(text), headers: headers(), signal: ctl.signal,
 		onEvent: (ev, d) => {
 			if (ev === "session") {
 				dry = d.dry_run;
@@ -373,13 +379,18 @@ async function caption(text) {
 	});
 	run.catch((e) => {
 		live = null;
-		fill($("#sc-error"), el("div", { class: "notice notice-err" }, e.message));
+		if (e.name === "AbortError") {
+			$("#sc-status").textContent = lineN ? "Stopped before the judge finished." : "Stopped. That line wasn't captioned.";
+			nodeState = {};
+		} else fill($("#sc-error"), el("div", { class: "notice notice-err" }, e.message));
 		shown(false);
 	}).finally(() => {
+		inflight.delete(ctl);
 		agentModes = {};
 		if (busy) setBusy(false);
 		shown(false);
-		if (lineN) drawGraph();
+		drawGraph();
+		renderSpeaker();
 	});
 	return onScreen;
 }
@@ -395,17 +406,25 @@ async function nextSample() {
 }
 
 let playing = false;
+// Pause lets the line in flight finish, then stops; Play picks up at the next
+// sample line. Stop cancels the line in flight as well, which cancels its
+// model calls on the server.
 async function playSermon() {
-	if (playing) { playing = false; $("#sc-play").textContent = "Play the sample sermon"; return; }
+	if (playing) { playing = false; $("#sc-play").textContent = "Resume the sermon"; renderSpeaker(); return; }
 	playing = true;
-	$("#sc-play").textContent = "Stop";
+	$("#sc-play").textContent = "Pause after this line";
 	$("#sc-play").disabled = false;
 	while (playing && (await nextSample())) {
 		await new Promise((r) => setTimeout(r, 1200));
 	}
 	playing = false;
-	$("#sc-play").textContent = "Play the sample sermon";
+	$("#sc-play").textContent = sampleAt > 0 && sampleAt < (cfg?.sample || []).length ? "Resume the sermon" : "Play the sample sermon";
 	renderSpeaker();
+}
+
+function stop() {
+	playing = false;
+	for (const c of inflight) c.abort();
 }
 
 function save() { try { localStorage.setItem(STORE, svc.id); } catch {} }
@@ -415,6 +434,7 @@ $("#sc-send").addEventListener("click", async () => { if (await caption($("#sc-t
 $("#sc-text").addEventListener("keydown", (e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) $("#sc-send").click(); });
 $("#sc-next").addEventListener("click", nextSample);
 $("#sc-play").addEventListener("click", playSermon);
+$("#sc-stop").addEventListener("click", stop);
 $("#sc-copy").addEventListener("click", async () => {
 	try { await navigator.clipboard.writeText(followLink()); $("#sc-copy").textContent = "Copied"; } catch { $("#sc-follow").select(); }
 	setTimeout(() => ($("#sc-copy").textContent = "Copy link"), 1500);
