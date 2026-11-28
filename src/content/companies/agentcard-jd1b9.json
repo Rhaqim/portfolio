@@ -18,7 +18,7 @@
     "cloud": { "text": "$" }
   },
   "headline": "I build agents with spending limits built in, and I've shipped lending on mobile money at scale.",
-  "pitch": "At DGRS Labs I architected loom, the agent platform behind CoNexus: six agents in production, a cost on every step, budgets that block, downgrade or notify when a run overspends, and hooks that can stop a step before it runs. At Equity I led the team that took a USSD loan service with mobile money integrations, including M-Pesa, to production on a platform serving 16 million customers. I write code with Claude and Codex every day.",
+  "pitch": "I created loom (now Noewright), the agent engine CoNexus runs on at DGRS Labs: six agents in production, a cost on every step, budgets that block, downgrade or notify when a run overspends, and hooks that can stop a step before it runs. At Equity I led the team that took a USSD loan service with mobile money integrations, including M-Pesa, to production on a platform serving 16 million customers. I write code with Claude and Codex every day.",
   "matches": [
     {
       "requirement": "Enable payments for consumers and businesses",
@@ -28,7 +28,7 @@
     },
     {
       "requirement": "Agents that act on behalf of humans",
-      "evidence": "Architected loom, now Noewright, which runs six specialized agents in production for CoNexus. Agents run asynchronously and connect to external tools through plugins; every step is priced, budgets cap spend per key or session, and hooks can skip or retry a step.",
+      "evidence": "Created loom, now Noewright, my own agent engine; CoNexus runs six specialized agents on it in production. Agents run asynchronously and connect to external tools through plugins; every step is priced, budgets cap spend per key or session, and hooks can skip or retry a step.",
       "refs": ["dgrs-loom", "dgrs-async-agents", "dgrs-plugins"],
       "links": [
         { "label": "Cost and budgets", "href": "/noewright#cost-and-budgets" },
@@ -44,7 +44,7 @@
     },
     {
       "requirement": "Build products from 0 to 1 and own big parts of them",
-      "evidence": "Built loom, buckt and CoNexus's in-house model service on open-source models, which cut operating costs by 30%, while leading a team of three and owning architecture through production delivery.",
+      "evidence": "Created loom and buckt, my own Go libraries, and built CoNexus's in-house model service on open-source models, which cut operating costs by 30%, while leading a team of three and owning architecture through production delivery.",
       "refs": ["dgrs-loom", "dgrs-buckt", "dgrs-models", "dgrs-lead"],
       "links": [{ "label": "buckt docs", "href": "/buckt" }]
     },
@@ -56,7 +56,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building and running production systems in fintech and AI. Architected loom, an agent orchestration platform that runs six specialized agents in production, with per-step costs, budgets and hooks, and builds with Claude and Codex in an AI-assisted generator–reviewer workflow. Previously led delivery of a USSD loan service with mobile money integrations on a financial platform serving 16 million customers in six countries.",
+    "summary": "Lead software engineer with 5+ years building and running production systems in fintech and AI. Created loom (now Noewright), an agent orchestration engine that runs six specialized agents in production, with per-step costs, budgets and hooks, and builds with Claude and Codex in an AI-assisted generator–reviewer workflow. Previously led delivery of a USSD loan service with mobile money integrations on a financial platform serving 16 million customers in six countries.",
     "jobs": [
       {
         "id": "dgrs",
@@ -94,7 +94,7 @@
       { "id": "devops", "items": ["AWS S3", "Cloudflare R2", "Docker", "Kubernetes", "GitHub Actions", "Linux server administration", "Backup & Disaster recovery"] }
     ]
   },
-  "note": "Agents that buy things for people is where my two backgrounds meet. At Equity I led the team that took a USSD loan service to production across six countries, with mobile money, including M-Pesa, on the other end of every loan. At DGRS Labs I built loom, the agent platform behind CoNexus, and gave it a cost on every step, budgets that block or downgrade a run, and hooks that can stop a step before it runs.\n\nI already work the way you describe. Claude and Codex write and review my code under a generator–reviewer workflow, and I write Claude Code skills for work I repeat, including the one that drafted this page from your job post.\n\nWhat would be new: card issuing and card networks, Node.js as a main backend (most of my backend work is in Go and Python), and AWS beyond S3. I'd rather say that plainly. I'm in Lagos and would relocate to San Francisco with your sponsorship.",
+  "note": "Agents that buy things for people is where my two backgrounds meet. At Equity I led the team that took a USSD loan service to production across six countries, with mobile money, including M-Pesa, on the other end of every loan. I built loom, my own agent engine that CoNexus runs on at DGRS Labs, and gave it a cost on every step, budgets that block or downgrade a run, and hooks that can stop a step before it runs.\n\nI already work the way you describe. Claude and Codex write and review my code under a generator–reviewer workflow, and I write Claude Code skills for work I repeat, including the one that drafted this page from your job post.\n\nWhat would be new: card issuing and card networks, Node.js as a main backend (most of my backend work is in Go and Python), and AWS beyond S3. I'd rather say that plainly. I'm in Lagos and would relocate to San Francisco with your sponsorship.",
   "sources": [
     { "label": "Job posting", "href": "https://www.ycombinator.com/companies/agentcard/jobs/haPmQX3-member-of-technical-staff" },
     { "label": "Agentcard homepage (colours)", "href": "https://www.agentcard.com" }

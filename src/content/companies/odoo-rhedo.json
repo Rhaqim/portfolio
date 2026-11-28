@@ -64,7 +64,7 @@
     },
     {
       "requirement": "Autonomous, and eager to build real stuff",
-      "evidence": "Created buckt and architected loom at DGRS Labs, and run the company's entire infrastructure on my own.",
+      "evidence": "Created buckt and loom, my own Go libraries that DGRS Labs uses, and run the company's entire infrastructure on my own.",
       "refs": [
         "dgrs-buckt",
         "dgrs-loom",

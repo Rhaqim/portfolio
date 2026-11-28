@@ -15,6 +15,12 @@ rewriting the runtime.
 > keep the `loom_` prefix. See
 > [MIGRATING.md](https://github.com/rhaqim/noewright/blob/main/MIGRATING.md).
 
+> **An independent project.** Noewright is mine: I wrote it and maintain it. It
+> began as loom, which I created on my own initiative. DGRS Labs runs its CoNexus
+> platform on an earlier, stable loom release that I handed over, and changes made
+> to that copy are their own. Noewright is general-purpose, not a storytelling
+> engine, and it is the engine for my MSc research at the University of Sunderland.
+
 > Building with Noewright using an AI assistant? Point it at
 > [`llms.txt`](https://github.com/rhaqim/noewright/blob/main/llms.txt), a
 > self-contained, task-oriented guide to the API written for LLMs.
@@ -68,7 +74,7 @@ func main() {
 
     e.Prompts().Create(ctx, &noewright.Prompt{
         Slug: "assistant-sys", Version: 1, Kind: noewright.PromptKindSystem,
-        Body: "You are a vivid storyteller. Keep responses to 2-3 paragraphs.",
+        Body: "You are a concise, accurate assistant. Keep answers short.",
     })
     e.Prompts().Create(ctx, &noewright.Prompt{
         Slug: "assistant-user", Version: 1, Kind: noewright.PromptKindUserTemplate,
@@ -484,10 +490,10 @@ import "github.com/rhaqim/noewright/judge"
 rubric := e.Judges().Rubric("quality-judge")
 verdict, _ := rubric.Score(ctx, judge.ScoreRequest{
     Input:      userPrompt,
-    Output:     dmResponse,
-    Dimensions: []string{"immersion", "rules_accuracy", "narrative_coherence"},
+    Output:     response,
+    Dimensions: []string{"accuracy", "helpfulness", "clarity"},
 })
-fmt.Printf("Immersion: %.1f/10\n", verdict.Scores["immersion"])
+fmt.Printf("Accuracy: %.1f/10\n", verdict.Scores["accuracy"])
 
 pair := e.Judges().Pairwise("ab-judge")
 result, _ := pair.Compare(ctx, judge.PairwiseRequest{
@@ -603,7 +609,7 @@ prompts:
     version: 1
     kind: system
     category: chat
-    body: "You are a vivid storyteller."
+    body: "You are a concise, accurate assistant."
 
 agents:
   - slug: assistant

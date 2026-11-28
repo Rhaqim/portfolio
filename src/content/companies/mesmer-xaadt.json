@@ -43,7 +43,7 @@
     },
     {
       "requirement": "Work at the frontier of how software gets built with agents",
-      "evidence": "Architected loom, which coordinates six agents in production, with plugins to external tools and agents that run asynchronously and stream events.",
+      "evidence": "Created loom, my own agent engine, which coordinates six agents in production, with plugins to external tools and agents that run asynchronously and stream events.",
       "refs": [
         "dgrs-loom",
         "dgrs-plugins",
@@ -93,7 +93,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building and running production systems in AI and fintech. Ships with coding agents daily through a Claude and Codex generator–reviewer workflow he introduced, and writes Claude Code skills for repeatable work. Architected loom, an agent orchestration platform running six agents in production, and runs the company's infrastructure and CI/CD. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
+    "summary": "Lead software engineer with 5+ years building and running production systems in AI and fintech. Ships with coding agents daily through a Claude and Codex generator–reviewer workflow he introduced, and writes Claude Code skills for repeatable work. Created loom (now Noewright), an agent orchestration engine running six agents in production, and runs the company's infrastructure and CI/CD. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
     "jobs": [
       {
         "id": "dgrs",

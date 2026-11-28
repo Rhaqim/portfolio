@@ -9,9 +9,11 @@ models run at once: one writes the prose, others read what it wrote and derive
 continuity, imagery and structure from it. The hard part was never the model
 call. It was everything around it.
 
-I built it from the first commit and still lead it. Two of the libraries on this
-site, [buckt](/buckt) and [Noewright](/noewright) (formerly loom), exist because CoNexus needed them
-first.
+I built it from the first commit and lead its engineering. Underneath, it runs
+on two libraries I wrote on my own initiative and maintain myself:
+[buckt](/buckt), my MIT-licensed media library, and loom, my agent engine, at the
+stable release I handed over to DGRS Labs. I develop loom independently as
+[Noewright](/noewright).
 
 ## What it does
 
@@ -39,23 +41,25 @@ The runtime is Go. Postgres holds sessions, steps and state; Redis handles
 transient session data and fan-out; vector search backs narrative continuity.
 Media lands wherever it's cheapest to keep.
 
-## What came out of it
+## The libraries underneath
 
-Three problems turned out to be general enough to extract into their own
-libraries rather than keep as application code.
+CoNexus uses two of my libraries rather than keeping that code in the
+application.
 
-**Media storage.** Uploading, organising and serving generated media across
-providers without pinning the application to one of them became
-[buckt](/buckt): folder hierarchies, metadata, image derivatives, dedup and
-live backend migration.
+**Media storage: [buckt](/buckt).** Uploading, organising and serving generated
+media across providers without pinning the application to one of them: folder
+hierarchies, metadata, image derivatives, dedup and live backend migration.
+DGRS Labs uses buckt under its MIT licence.
 
-**Agent orchestration.** Versioned agents and prompts, session branching, hook
-pipelines, cost budgets, judge scoring and a test harness became
-[Noewright](/noewright), the same runtime, now modality-agnostic and reusable.
+**Agent orchestration: loom.** CoNexus's agents run on loom: versioned agents and
+prompts, session branching, hook pipelines, cost budgets, judge scoring and a test
+harness. DGRS Labs runs CoNexus on the stable loom release I handed over; changes
+made to that copy since then are DGRS Labs' own.
 
-**Evaluation.** Narrative quality is not a unit test. Scoring outputs with a
-model against explicit rubric dimensions, and comparing two variants pairwise,
-became Noewright's judge subsystem.
+**Evaluation.** Narrative quality is not a unit test, so CoNexus scores its output
+with loom's judges: a model rates it against explicit rubric dimensions, or
+compares two variants pairwise.
 
-Extracting them made CoNexus smaller and easier to reason about. It also meant
-the interesting parts survive independently of any one product.
+loom carries on as [Noewright](/noewright): a general-purpose, modality-agnostic
+engine I develop independently, including for my MSc research. Noewright is not
+tied to CoNexus or to storytelling.

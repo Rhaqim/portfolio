@@ -24,7 +24,7 @@
   "matches": [
     {
       "requirement": "Senior/Staff Golang experience in a leading or ownership role",
-      "evidence": "Created buckt, a Go media management service on GORM, and architected loom, the Go agent engine behind CoNexus, while leading a team of three. Earlier I wrote ChainQuery, an Ethereum indexer, in Go.",
+      "evidence": "Created buckt, a Go media management service on GORM, and loom, the Go agent engine CoNexus runs on, while leading a team of three. Earlier I wrote ChainQuery, an Ethereum indexer, in Go.",
       "refs": [
         "dgrs-buckt",
         "dgrs-loom",
@@ -89,7 +89,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building production backends, in Go since Nirvana Labs and across DGRS Labs. Created buckt, a Go media library, and architected loom, a Go engine for multi-agent applications that runs in production. Owns architecture, performance and the full infrastructure as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers, with framework components in Python and Rust.",
+    "summary": "Lead software engineer with 5+ years building production backends, in Go since Nirvana Labs and across DGRS Labs. Created buckt, a Go media library, and loom (now Noewright), a Go engine for multi-agent applications that runs in production. Owns architecture, performance and the full infrastructure as sole DevOps owner. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers, with framework components in Python and Rust.",
     "jobs": [
       {
         "id": "dgrs",

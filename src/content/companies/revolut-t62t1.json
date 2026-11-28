@@ -19,11 +19,11 @@
     }
   },
   "headline": "I built the agent platform behind a live AI product. Yours has to hold up in regulated finance.",
-  "pitch": "At DGRS Labs I architected loom, the orchestration platform that runs six specialized AI agents behind CoNexus, with plugins for external tools and a no-code interface so non-engineers can deploy agents. Before that I built Python backend components for a USSD loan service on a financial platform serving 16 million customers.",
+  "pitch": "I created loom, the orchestration engine that runs CoNexus's six specialized AI agents at DGRS Labs, with plugins for external tools and a no-code interface so non-engineers can deploy agents. Before that I built Python backend components for a USSD loan service on a financial platform serving 16 million customers.",
   "matches": [
     {
       "requirement": "Production experience building LLM agent systems",
-      "evidence": "Architected and built loom, which coordinates six specialized agents in production for CoNexus, and lead the team that runs it. Non-technical staff create and deploy new agents through its admin interface.",
+      "evidence": "Created loom, my own agent engine, which coordinates six specialized agents in production for CoNexus, and lead the team that runs CoNexus. Non-technical staff create and deploy new agents through its admin interface.",
       "refs": [
         "dgrs-loom",
         "dgrs-plugins",
@@ -104,7 +104,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building production backends in Python, Golang and Rust. Architected and built loom, the agent orchestration platform behind an AI storytelling product, coordinating six specialized agents with external tool integrations, and leads the team that runs it. Previously built Python backend components for a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "summary": "Lead software engineer with 5+ years building production backends in Python, Golang and Rust. Created loom (now Noewright), the agent orchestration engine an AI storytelling product runs on, coordinating six specialized agents with external tool integrations, and leads the team that runs it. Previously built Python backend components for a USSD loan service on a financial platform serving 16 million customers in six countries.",
     "jobs": [
       {
         "id": "dgrs",

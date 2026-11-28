@@ -20,11 +20,11 @@
     }
   },
   "headline": "I built a multi-agent engine with async runs, live event streams and shared sessions.",
-  "pitch": "loom, now Noewright, is the Go engine I architected for CoNexus: six specialized agents in production, plugins to external generation tools, and agents that run asynchronously and stream events to the client. I've also built open-source AI agents in Python for Degenerous AI and a TypeScript service for image generation.",
+  "pitch": "loom, now Noewright, is my own Go engine, and CoNexus runs on it: six specialized agents in production, plugins to external generation tools, and agents that run asynchronously and stream events to the client. I've also built open-source AI agents in Python for Degenerous AI and a TypeScript service for image generation.",
   "matches": [
     {
       "requirement": "Experience building LLM-based applications and agentic systems",
-      "evidence": "Architected loom, which coordinates six specialized agents in production for CoNexus, with plugins to tools like Meshy and a no-code admin for non-technical staff. Built an in-house model service on open-source models that cut operating costs by 30%.",
+      "evidence": "Created loom, my own agent engine, which coordinates six specialized agents in production for CoNexus, with plugins to tools like Meshy and a no-code admin for non-technical staff. Built an in-house model service on open-source models that cut operating costs by 30%.",
       "refs": [
         "dgrs-loom",
         "dgrs-plugins",
@@ -105,7 +105,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building production systems in fintech and AI. Architected loom, a multi-agent engine that runs six specialized agents in production with asynchronous runs, event streaming and tool plugins, and built AI agents in Python and services in TypeScript. Single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
+    "summary": "Lead software engineer with 5+ years building production systems in fintech and AI. Created loom (now Noewright), a multi-agent engine that runs six specialized agents in production with asynchronous runs, event streaming and tool plugins, and built AI agents in Python and services in TypeScript. Single-handedly runs the company's infrastructure. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers.",
     "jobs": [
       {
         "id": "dgrs",

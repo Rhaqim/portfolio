@@ -35,7 +35,7 @@ export const systems: Project[] = [
 			"Application-layer media management for Go: folder trees, metadata, derivatives and dedup on top of any object store.",
 		language: "Go",
 		status: "stable",
-		year: "2025",
+		year: "2024",
 		install: "go get github.com/Rhaqim/buckt",
 		stars: 4,
 		repo: "https://github.com/Rhaqim/buckt",

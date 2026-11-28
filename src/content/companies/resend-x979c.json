@@ -20,7 +20,7 @@
     }
   },
   "headline": "I build the queues, workers and retries behind a product, then run them in production.",
-  "pitch": "At DGRS Labs I built queues and asynchronous media pipelines, background workers, and loom, a Go agent platform whose agents run asynchronously and stream events to the client. I also wrote buckt, a Go media library with its own API, and single-handedly run the company's infrastructure, deployments and alerting.",
+  "pitch": "At DGRS Labs I built queues, asynchronous media pipelines and background workers, and our agents run on loom, the Go agent engine I created, where agents run asynchronously and stream events to the client. I also wrote buckt, a Go media library with its own API, and single-handedly run the company's infrastructure, deployments and alerting.",
   "matches": [
     {
       "requirement": "Queues, asynchronous processing, retries, duplicate events and partial failures",
@@ -44,7 +44,7 @@
     },
     {
       "requirement": "Design systems from scratch and think through their rollout",
-      "evidence": "Architected and built loom, the agent platform behind CoNexus, and buckt, its media service. At Equity I owned delivery, testing, deployment and production support through rollouts across six countries.",
+      "evidence": "Created loom, the agent engine CoNexus runs on, and buckt, the media library it uses. At Equity I owned delivery, testing, deployment and production support through rollouts across six countries.",
       "refs": [
         "dgrs-loom",
         "dgrs-buckt",
@@ -123,7 +123,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building and operating production backends in Golang, TypeScript and Python. Architected loom, an agent orchestration platform with asynchronous agents and event streaming, built queues, media pipelines and background workers, and single-handedly runs the company's infrastructure, deployments and alerting. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
+    "summary": "Lead software engineer with 5+ years building and operating production backends in Golang, TypeScript and Python. Created loom (now Noewright), an agent orchestration engine with asynchronous agents and event streaming, built queues, media pipelines and background workers, and single-handedly runs the company's infrastructure, deployments and alerting. Previously led delivery of a USSD loan service on a financial platform serving 16 million customers in six countries.",
     "jobs": [
       {
         "id": "dgrs",

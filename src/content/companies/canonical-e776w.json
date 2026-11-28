@@ -82,7 +82,7 @@
     }
   ],
   "resume": {
-    "summary": "Lead software engineer with 5+ years building and running production systems, writing Go and Python throughout. Created buckt, a Go media library, architected a Go engine for multi-agent applications, and single-handedly runs the company's Linux infrastructure and CI/CD. Previously led delivery of a Python USSD loan service, containerized and deployed via Kubernetes, on a financial platform serving 16 million customers in six countries.",
+    "summary": "Lead software engineer with 5+ years building and running production systems, writing Go and Python throughout. Created buckt, a Go media library, created a Go engine for multi-agent applications, and single-handedly runs the company's Linux infrastructure and CI/CD. Previously led delivery of a Python USSD loan service, containerized and deployed via Kubernetes, on a financial platform serving 16 million customers in six countries.",
     "jobs": [
       {
         "id": "dgrs",

@@ -9,6 +9,10 @@ actual bytes to whatever backend you point it at. MinIO answers *"where should
 the bytes be stored?"* Buckt answers *"how should my application manage
 media?"* You can run both: Buckt happily uses MinIO as a backend.
 
+> **Licence.** buckt is my own library, MIT-licensed, © 2024 Anusiem John-Franklin.
+> Anyone can use it under that licence, including DGRS Labs, which uses it in
+> CoNexus.
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      Your Application                       │
